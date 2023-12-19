@@ -1,6 +1,8 @@
-# fjkt48
+# FJKT48
 
-🎉 Congratulations, your project was successfully generated with [Create Next Stack](https://www.create-next-stack.com/)!
+FJKT48 is a website about [JKT48](https://jkt48.com/) made by fans. Created with NextJS.
+
+This project was generated with [Create Next Stack](https://www.create-next-stack.com/)!
 
 To get started, run:
 
@@ -29,6 +31,7 @@ Each script is run using `npm run <script-name>`. For example: `npm run dev`.
 | `build`         | Generates a production build.                                                  |
 | `start`         | Runs the Next.js production server built using `build` script.                 |
 | `lint`          | Runs [ESLint](https://eslint.org/) to catch linting errors in the source code. |
+| `ngrok`         | Runs `ngrok http 3000` script.                                                 |
 | `format`        | Formats all source code in the project.                                        |
 | `format:check`  | Checks the formatting of all code in the project.                              |
 | `deploy:vercel` | Deploy a preview deployment to Vercel                                          |
@@ -51,3 +54,4 @@ The table below gives an overview of the technologies used in this project, as w
 | npm             | [Website](https://www.npmjs.com/) - [Docs](https://docs.npmjs.com/) - [GitHub](https://github.com/npm/cli)                                                                                                      |
 | GitHub Actions  | [Website](https://github.com/features/actions) - [Docs](https://docs.github.com/en/actions) - [Workflow syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)                |
 | Vercel          | [Website](https://vercel.com/) - [Docs](https://vercel.com/docs) - [CLI Docs](https://vercel.com/docs/cli)                                                                                                      |
+| Ngrok           | [Website](https://ngrok.com/) - [Docs](https://ngrok.com/docs) - [GitHub](https://github.com/ngrok)                                                                                                             |
