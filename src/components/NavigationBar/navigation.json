@@ -1,0 +1,34 @@
+{
+  "navigation": [
+    {
+      "id": 1,
+      "name": "Home",
+      "path": "/"
+    },
+    {
+      "id": 2,
+      "name": "News",
+      "path": "/news"
+    },
+    {
+      "id": 3,
+      "name": "Schedule",
+      "path": "/schedule"
+    },
+    {
+      "id": 4,
+      "name": "Member",
+      "path": "/member"
+    },
+    {
+      "id": 5,
+      "name": "Theater",
+      "path": "/theater"
+    },
+    {
+      "id": 6,
+      "name": "Shop",
+      "path": "/shop"
+    }
+  ]
+}
