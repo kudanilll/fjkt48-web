@@ -20,7 +20,8 @@ export default function NewsPage() {
               title={index.title}
               image={index.image}
               date={index.date}
-              category={index.category}/>
+              category={index.category}
+              path={index.content.replace(".md", "")}/>
           ))}
         </div>
       </div>
