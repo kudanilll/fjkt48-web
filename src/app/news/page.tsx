@@ -3,7 +3,7 @@ import { banner, news } from "./news.json";
 import NewsUpdateBanner from "@/components/NewsUpdateBanner";
 import NewsCard from "@/components/card/NewsCard";
 
-export default function NewsPage() {
+export default function NewsPage(request: NextRequest) {
   return (
     <PageWrapper>
       <div className="mb-6">

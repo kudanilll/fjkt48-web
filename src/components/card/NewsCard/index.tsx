@@ -42,8 +42,8 @@ export default function NewsCard(props: NewsProps) {
     }
   } //switch case
   return (
-    <Link href={path}>
-      <div className="rounded-2xl backdrop-blur p-2 flex flex-row bg-neutral-700 bg-opacity-30 mb-2 sm:m-1.5">
+    <Link href={path} className="mb-2 sm:m-1.5">
+      <div className="rounded-2xl backdrop-blur p-2 flex flex-row bg-neutral-900">
         <div className="p-2 sm:pt-1.5 flex-col items-start">
           <span className={`${background} absolute top-0 left-0 font-poppins px-2 rounded-tl-lg rounded-br-lg mb-2 uppercase`}>{props.category}</span>
           <h4 className="font-poppins font-bold text-large mt-4 sm:mt-6 sm:px-1">{props.title}</h4>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import bg from "@/assets/images/background.jpg";
 import NavigationBar from "@/components/navbar";
 import Footer from "@/components/footer";
 import "@/assets/styles/globals.css";
@@ -13,12 +14,17 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
+  const styling = {
+    backgroundImage: `url(${bg.src})`,
+    width: "100%",
+    height: "100%",
+  };
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex flex-col min-h-screen bg-gray-950 text-white font-poppins">
+        <main className="bg-cover bg-no-repeat bg-center flex flex-col min-h-screen bg-gray-950 text-white font-poppins" style={styling}>
           <NavigationBar/>
-          <div className="bg-cover bg-no-repeat bg-center mt-12 px-5 sm:px-16">
+          <div className="mt-12 px-5 sm:px-16">
             {children}
           </div>
           <Footer/>
