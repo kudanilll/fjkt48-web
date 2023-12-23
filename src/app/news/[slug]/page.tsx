@@ -1,7 +1,8 @@
 import fs from "fs";
 import Markdown from "markdown-to-jsx";
 import matter from "gray-matter";
-import PageWrapper from "../../page-wrapper";
+import marked from "marked";
+import PageWrapper from "@/app/page-wrapper";
 import { Image } from "@nextui-org/react";
 
 function getNewsContent(slug: string) {
@@ -21,7 +22,7 @@ export default function DetailNewsPage(props: any) {
     return (
       <PageWrapper>
         <div className="h-screen flex flex-col items-center justify-center">
-          <h1 className="font-semibold text-center mb-4">404: Halaman Ini Tidak Ada</h1>
+          <h1 className="font-semibold text-center mb-4">404: Berita tidak ditemukan :(</h1>
           <article className="font-regular text-center">Buka beranda untuk menemukan berita terbaru!</article>
         </div>
       </PageWrapper>
@@ -43,7 +44,12 @@ export default function DetailNewsPage(props: any) {
           <div className="font-regular text-base md:text-lg tracking-wide">Diterbitkan pada {content!.data.date}</div>
         </div>
         <div className="mb-8 prose md:prose-xl">
-          <Markdown>{content!.content}</Markdown>
+          {/*<Markdown>{content!.content}</Markdown>*/}
+          <div
+            dangerouslySetInnerHTML={{
+              __html:
+                marked(content!.content)
+            }}/>
         </div>
       </article>
     </PageWrapper>

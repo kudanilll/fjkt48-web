@@ -1,7 +1,7 @@
-import PageWrapper from "../page-wrapper";
+import PageWrapper from "@/app/page-wrapper";
 import { banner, news } from "./news.json";
-import NewsUpdateBanner from "../../components/NewsUpdateBanner";
-import NewsCard from "../../components/NewsCard";
+import NewsUpdateBanner from "@/components/NewsUpdateBanner";
+import NewsCard from "@/components/card/NewsCard";
 
 export default function NewsPage() {
   return (
@@ -10,7 +10,9 @@ export default function NewsPage() {
         <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Terbaru</h1>
         <NewsUpdateBanner
           title={banner.title}
-          image={banner.image}/>
+          image={banner.image}
+          date={banner.date}
+          path={banner.content.replace(".md", "")}/>
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Lainnya</h1>

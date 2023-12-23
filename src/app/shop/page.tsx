@@ -1,4 +1,4 @@
-import PageWrapper from "../page-wrapper";
+import PageWrapper from "@/app/page-wrapper";
 
 export default function ShopPage() {
   return (

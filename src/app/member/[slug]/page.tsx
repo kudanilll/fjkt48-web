@@ -1,9 +1,7 @@
-import PageWrapper from "../../page-wrapper";
+import PageWrapper from "@/app/page-wrapper";
 
-type ProfilePageProps = { params: { slug: string } };
-
-export default function ProfilePage(props: ProfilePageProps) {
+export default function ProfilePage(props: any) {
   return (
-    <PageWrapper>Profile Page</PageWrapper>
+    <PageWrapper>Profile Page {props.params.slug}</PageWrapper>
   );
 }
