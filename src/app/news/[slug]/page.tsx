@@ -1,9 +1,8 @@
 import fs from "fs";
 import Markdown from "markdown-to-jsx";
 import matter from "gray-matter";
-import marked from "marked";
 import PageWrapper from "@/app/page-wrapper";
-import { Image } from "@nextui-org/react";
+import { Image } from "@nextui-org/image";
 
 function getNewsContent(slug: string) {
   const folder = "src/assets/posts/";
@@ -44,12 +43,7 @@ export default function DetailNewsPage(props: any) {
           <div className="font-regular text-base md:text-lg tracking-wide">Diterbitkan pada {content!.data.date}</div>
         </div>
         <div className="mb-8 prose md:prose-xl">
-          {/*<Markdown>{content!.content}</Markdown>*/}
-          <div
-            dangerouslySetInnerHTML={{
-              __html:
-                marked(content!.content)
-            }}/>
+          <Markdown>{content!.content}</Markdown>
         </div>
       </article>
     </PageWrapper>

@@ -1,4 +1,4 @@
-import { Image } from "@nextui-org/react";
+import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
 type BannerProps = {

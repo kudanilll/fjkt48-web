@@ -1,20 +1,10 @@
 import PageWrapper from "@/app/page-wrapper";
 import MemberCard  from "@/components/card/MemberCard";
-
-async function getData(endpoint: string) {
-  const res = await fetch(`http://localhost:3000/api/v1/${endpoint}`, {
-    cache: "no-store",
-    method: "GET"
-  });
-  if(!res.ok) {
-    throw new Error(`Failed to fetch ${endpoint}`);
-  }
-  return res.json();
-}
+import { getDataFromAPI } from "@/utils/get-data";
 
 export default async function MemberPage() {
-  const members  = await getData("member");
-  const trainees = await getData("trainee");
+  const members  = await getDataFromAPI("member");
+  const trainees = await getDataFromAPI("trainee");
   return (
     <PageWrapper>
       <div className="mb-6">

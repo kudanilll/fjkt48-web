@@ -1,18 +1,16 @@
 import PageWrapper from "@/app/page-wrapper";
-import { banner, news } from "./news.json";
-import NewsUpdateBanner from "@/components/NewsUpdateBanner";
 import NewsCard from "@/components/card/NewsCard";
+import NewsBanner from "@/components/banner/NewsBanner";
+import { getDataFromAPI } from "@/utils/get-data";
+import { news } from "./news.json";
 
-export default function NewsPage(request: NextRequest) {
+export default async function NewsPage() {
+  const banner = await getDataFromAPI("banner");
   return (
     <PageWrapper>
       <div className="mb-6">
         <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Terbaru</h1>
-        <NewsUpdateBanner
-          title={banner.title}
-          image={banner.image}
-          date={banner.date}
-          path={banner.content.replace(".md", "")}/>
+        <NewsBanner content={banner.content}/>
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Lainnya</h1>
