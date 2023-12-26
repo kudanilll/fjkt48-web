@@ -42,9 +42,9 @@ export default function DetailNewsPage(props: any) {
           <div className="font-regular text-base md:text-lg tracking-wide">Sumber {content!.data.source}</div>
           <div className="font-regular text-base md:text-lg tracking-wide">Diterbitkan pada {content!.data.date}</div>
         </div>
-        <div className="mb-8 prose md:prose-xl">
+        <article className="mb-8 prose md:prose-xl">
           <Markdown>{content!.content}</Markdown>
-        </div>
+        </article>
       </article>
     </PageWrapper>
   );

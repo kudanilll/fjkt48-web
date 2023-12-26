@@ -11,9 +11,6 @@ import close from "./close.svg";
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
   const [active, setActive] = useState(false);
-  const handleClick = () => {
-    setActive(!active);
-  };
   return (
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5">
       <nav className="w-full backdrop-filter backdrop-blur-lg bg-opacity-30 fixed top-0 left-0 right-0 z-10">
@@ -27,20 +24,20 @@ export default function NavigationBar() {
               <div className="md:hidden">
                 <button
                   className="p-2 text-gray-700"
-                  onClick={handleClick}>
+                  onClick={() => setActive(!active)}>
                   {active ? (
                     <Image
                       src={close}
                       width={30}
                       height={30}
-                      alt="logo"
+                      alt="close"
                       className="active:animate-spin"/>
                   ) : (
                     <Image
                       src={menu}
                       width={30}
                       height={30}
-                      alt="logo"
+                      alt="menu"
                       className="focus:border-none active:border-none active:animate-spin"/>
                   )}
                 </button>
@@ -52,7 +49,7 @@ export default function NavigationBar() {
               <ul className="h-screen md:h-auto items-center justify-center md:flex">
                 {navigation.map((item) => (
                   <li key={item.id} className={` ${ item.path === pathname ? "text-red-700 md:font-bold" : "text-white md:font-light" } md:px-4 px-4 py-2 pb-6 text-xl text-start font-semibold hover:text-red-700 md:hover:font-bold md:hover:text-red-700 md:hover:bg-transparent`}>
-                    <Link key={item.id} href={item.path} onClick={handleClick}>
+                    <Link key={item.id} href={item.path} onClick={() => setActive(!active)}>
                       {item.name}
                     </Link>
                   </li>

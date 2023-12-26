@@ -10,7 +10,7 @@ type MemberCardProps = {
 export default function CardItem(props: MemberCardProps) {
   return (
     <Link href={"/member/" + props.name.replaceAll(" ", "-").toLowerCase()} className="m-1.5">
-      <div className="rounded-2xl backdrop-blur bg-neutral-900 bg-opacity-60">
+      <div className="rounded-2xl backdrop-blur bg-neutral-900">
         <div className="overflow-visible">
           <Image
             className="w-full object-cover rounded-t-2xl"

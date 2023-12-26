@@ -1,6 +1,7 @@
 import PageWrapper from "@/app/page-wrapper";
 import NewsCard from "@/components/card/NewsCard";
 import NewsBanner from "@/components/banner/NewsBanner";
+import Pagination from "@/components/pagination";
 import { getDataFromAPI } from "@/utils/get-data";
 import { news } from "./news.json";
 
@@ -24,6 +25,7 @@ export default async function NewsPage() {
               path={index.content.replace(".md", "")}/>
           ))}
         </div>
+        <Pagination/>
       </div>
     </PageWrapper>
   );

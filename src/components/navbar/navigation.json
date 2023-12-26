@@ -2,17 +2,17 @@
   "navigation": [
     {
       "id": 1,
-      "name": "Home",
+      "name": "Beranda",
       "path": "/"
     },
     {
       "id": 2,
-      "name": "News",
+      "name": "Berita",
       "path": "/news"
     },
     {
       "id": 3,
-      "name": "Schedule",
+      "name": "Jadwal",
       "path": "/schedule"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "id": 6,
-      "name": "Shop",
+      "name": "Toko",
       "path": "/shop"
     }
   ]
