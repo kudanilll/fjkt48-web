@@ -10,7 +10,13 @@ import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
-export default function NewsBanner(props: any) {
+export type BannerProps = {
+  status: number,
+  message: string,
+  content: any
+};
+
+export default function NewsBanner(props: BannerProps) {
   const swiper = useSwiper();
   return (
     <Swiper
