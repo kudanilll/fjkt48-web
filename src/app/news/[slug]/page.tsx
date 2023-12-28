@@ -1,22 +1,20 @@
-import fs from "fs";
-import Markdown from "markdown-to-jsx";
+import md from "markdown-it";
 import matter from "gray-matter";
 import PageWrapper from "@/app/page-wrapper";
 import { Image } from "@nextui-org/image";
+import { getNewsFromStorage } from "@/utils/get-data";
 
-function getNewsContent(slug: string) {
-  const folder = "src/assets/posts/";
-  const file = `${folder}${slug}.md`;
+async function getNews(slug: string) {
   try {
-    const content = fs.readFileSync(file, "utf8");
+    const content = await getNewsFromStorage(slug);
     return matter(content);
   } catch(err) {
     return null;
   }
 }
 
-export default function DetailNewsPage(props: any) {
-  const content = getNewsContent(props.params.slug);
+export default async function DetailNewsPage(props: any) {
+  const content = await getNews(props.params.slug);
   if(content == null) {
     return (
       <PageWrapper>
@@ -34,8 +32,8 @@ export default function DetailNewsPage(props: any) {
         <Image
           className="w-full object-cover rounded-2xl"
           width="100%"
-          alt={content!.data.title}
-          src={content!.data.image}/>
+          alt={content.data.title}
+          src={content.data.image}/>
       </div>
       <article>
         <div className="mb-6 flex-col justify-center text-center">
@@ -43,7 +41,7 @@ export default function DetailNewsPage(props: any) {
           <div className="font-regular text-base md:text-lg tracking-wide">Diterbitkan pada {content!.data.date}</div>
         </div>
         <article className="mb-8 prose md:prose-xl">
-          <Markdown>{content!.content}</Markdown>
+          <div dangerouslySetInnerHTML={{ __html: md().render(content!.content) }}/>
         </article>
       </article>
     </PageWrapper>

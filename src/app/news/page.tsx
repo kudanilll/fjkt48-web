@@ -6,14 +6,12 @@ import NewsCard from "@/components/card/NewsCard";
 import Banner from "@/components/banner";
 import Pagination from "@/components/pagination";
 
-// Test
-import { news } from "./news.json";
-
 export default function NewsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
   const [banner, setBanner] = useState([]);
+  const [news, setNews] = useState([]);
   
   const itemsPerPage = 6;
   const indexOfLastItem  = currentPage * itemsPerPage;
@@ -31,11 +29,22 @@ export default function NewsPage() {
   };
   
   useEffect(() => {
-    fetch("/api/v1/banner", {
-      cache: "no-store",
-      method: "GET"
-    }).then((response) => response.json())
-      .then((data) => setBanner(data.content))
+    const getBannerData = async () => {
+      fetch("/api/v1/banner", {
+        cache: "no-store",
+        method: "GET"
+      }).then((response) => response.json())
+        .then((data) => setBanner(data.content));
+    };
+    const getNewsData = async () => {
+      fetch("/api/v1/news", {
+        cache: "no-store",
+        method: "GET"
+      }).then((response) => response.json())
+        .then((data) => setNews(data.content));
+    };
+    getBannerData();
+    getNewsData();
   }, []);
   
   return (
@@ -47,14 +56,14 @@ export default function NewsPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Lainnya</h1>
         <div className="sm:mb-6 sm:gap-2 grid grid-cols-1 sm:grid-cols-2 content-center">
-          {currentItems.map((item, index) => (
+          {currentItems.map((item) => (
             <NewsCard
-              key={index}
+              key={item.id}
               title={item.title}
               image={item.image}
               date={item.date}
               category={item.category}
-              path={item.content.replace(".md", "")}/>
+              slug={item.slug}/>
           ))}
         </div>
         <Pagination

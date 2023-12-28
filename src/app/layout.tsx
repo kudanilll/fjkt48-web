@@ -22,7 +22,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="bg-cover bg-no-repeat bg-center flex flex-col min-h-screen bg-black text-white font-poppins"> {/*style={styling}*/}
+        <main className="bg-cover bg-no-repeat bg-center flex flex-col min-h-screen bg-slate-100 text-black font-poppins"> {/*style={styling}*/}
           <NavigationBar/>
           <div className="mt-12 px-5 sm:px-16">
             {children}

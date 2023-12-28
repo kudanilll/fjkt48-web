@@ -5,12 +5,12 @@ type NewsProps = {
   title: string;
   image: string;
   date: string;
-  path: string;
+  slug: string;
   category: string;
 };
 
 export default function NewsCard(props: NewsProps) {
-  var path = props.path ? "/news/" + props.path : "";
+  var path = props.slug ? "/news/" + props.slug : "";
   var backgroundCategory: string;
   switch(props.category.toLowerCase()) {
   case "theater":
@@ -36,18 +36,17 @@ export default function NewsCard(props: NewsProps) {
   } //switch case
   return (
     <Link href={path} className="mb-2 sm:m-1.5">
-      <div className="rounded-2xl backdrop-blur p-2 flex flex-row bg-neutral-900">
-        <div className="p-2 sm:pt-1.5 flex-col items-start">
-          <span className={`${backgroundCategory} absolute top-0 left-0 font-poppins px-2 rounded-tl-lg rounded-br-lg mb-2 uppercase`}>{props.category}</span>
-          <h4 className="font-poppins font-bold text-large mt-4 sm:mt-6 sm:px-1">{props.title}</h4>
-          <small className="absolute bottom-0 py-2 sm:px-1 sm:mb-4 text-default-500">{props.date}</small>
+      <div className="rounded-2xl backdrop-blur p-2 flex bg-gray-300">
+        <div className="p-2 sm:pt-1.5 flex-col">
+          <span className={`${backgroundCategory} absolute top-0 left-0 font-poppins text-white px-2 rounded-tl-lg rounded-br-lg mb-2 uppercase`}>{props.category}</span>
+          <h4 className="font-poppins font-bold text-large text-left mt-4 mr-2 sm:mt-6">{props.title}</h4>
+          <small className="py-2 mt-2 sm:px-1 sm:mb-4 text-default-500">{props.date}</small>
         </div>
         <Image
+          className="ml-auto object-cover rounded-xl"
           alt={props.title}
-          className="object-cover rounded-xl sm:ml-5"
-          radius="lg"
           src={props.image}
-          width={156}/>
+          height="100%"/>
       </div>
     </Link>
   );

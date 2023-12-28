@@ -1,9 +1,9 @@
-import {
-  collection, doc, getDoc, getDocs, getFirestore
-} from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import app from "./init";
 
 const firestore = getFirestore(app);
+const storage = getStorage(app);
 
 export async function retrieveData(name: string) {
   const snapshot = await getDocs(collection(firestore, name));
@@ -17,4 +17,16 @@ export async function retrieveData(name: string) {
 export async function retrieveDataById(name: string, id: string) {
   const snapshot = await getDoc(doc(firestore, name, id));
   return snapshot.data();
+}
+
+export async function getDataFromStorage(filePath: string) {
+  const fileRef = ref(storage, filePath);
+  try {
+    const downloadURL = await getDownloadURL(fileRef);
+    const res = await fetch(downloadURL);
+    const content = await res.text();
+    return content;
+  } catch(error) {
+    return null;
+  }
 }

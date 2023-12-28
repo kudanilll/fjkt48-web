@@ -27,7 +27,7 @@ export default function Banner(props: BannerProps) {
       }}
       autoplay={{
         delay: 5000,
-        disableOnInteraction: true
+        disableOnInteraction: false
       }}
       modules={[Autoplay, EffectFade, Pagination]}
       className="mySwiper">
@@ -39,7 +39,7 @@ export default function Banner(props: BannerProps) {
               width="100%"
               alt={banner.image}
               src={banner.image}/>
-            <div className="backdrop-blur-lg bg-red-700 bottom-0 py-5 rounded-b-2xl">
+            <div className="backdrop-blur-lg bg-red-600 bottom-0 py-5 rounded-b-2xl">
               {/* Not Working :(
               <button
                 className="absolute bottom-0 font-poppins text-sm bg-red-700 px-2.5 py-1 m-2 rounded-full"
