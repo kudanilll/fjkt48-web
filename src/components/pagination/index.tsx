@@ -1,7 +1,7 @@
 type PaginationProps = {
-  total: number,
-  current: number,
-  onPageChange: any
+  total: number;
+  current: number;
+  onPageChange: any;
 };
 
 export default function Pagination(props: PaginationProps) {
@@ -20,7 +20,7 @@ export default function Pagination(props: PaginationProps) {
         onClick={prev}>
         {"<"}
       </button>
-      <p className="text-center">{`${props.current}/${props.total}`}</p>
+      <h5 className="text-center">{`${props.current}/${props.total}`}</h5>
       <button
         className="absolute top-0 bottom-0 right-0 font-poppins text-sm bg-red-700 px-4 py-1 rounded-r-2xl"
         onClick={next}>

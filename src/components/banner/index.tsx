@@ -1,6 +1,6 @@
 "use client";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -10,7 +10,14 @@ import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
-export default function HomeBanner(props: any) {
+type BannerProps = {
+  status: number;
+  message: string;
+  content: any;
+};
+
+export default function Banner(props: BannerProps) {
+  const swiper = useSwiper();
   return (
     <Swiper
       loop={true}
@@ -20,7 +27,7 @@ export default function HomeBanner(props: any) {
       }}
       autoplay={{
         delay: 5000,
-        disableOnInteraction: false
+        disableOnInteraction: true
       }}
       modules={[Autoplay, EffectFade, Pagination]}
       className="mySwiper">
@@ -32,7 +39,20 @@ export default function HomeBanner(props: any) {
               width="100%"
               alt={banner.image}
               src={banner.image}/>
-            <div className="backdrop-blur-lg bg-neutral-500 bottom-0 py-4 rounded-b-2xl"/>
+            <div className="backdrop-blur-lg bg-red-700 bottom-0 py-5 rounded-b-2xl">
+              {/* Not Working :(
+              <button
+                className="absolute bottom-0 font-poppins text-sm bg-red-700 px-2.5 py-1 m-2 rounded-full"
+                onClick={() => swiper.slidePrev()}>
+                {"<"}
+              </button>
+              <button
+                className="absolute bottom-0 right-0 font-poppins text-sm bg-red-700 px-2.5 py-1 m-2 rounded-full"
+                onClick={() => swiper.slideNext()}>
+                {">"}
+              </button>
+              */}
+            </div>
           </Link>
         </SwiperSlide>
       ))}

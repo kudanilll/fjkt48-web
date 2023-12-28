@@ -2,9 +2,9 @@ import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
 type MemberCardProps = {
-  name: string,
-  gen: string,
-  image: string
+  name: string;
+  gen: string;
+  image: string;
 };
 
 export default function CardItem(props: MemberCardProps) {

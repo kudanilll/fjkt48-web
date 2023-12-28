@@ -1,15 +1,18 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PageWrapper from "@/app/page-wrapper";
 import NewsCard from "@/components/card/NewsCard";
-import NewsBanner from "@/components/banner/NewsBanner";
+import Banner from "@/components/banner";
 import Pagination from "@/components/pagination";
+
+// Test
 import { news } from "./news.json";
 
 export default function NewsPage() {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
   const [banner, setBanner] = useState([]);
   
   const itemsPerPage = 6;
@@ -18,7 +21,7 @@ export default function NewsPage() {
   const currentItems = news.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(news.length / itemsPerPage);
   
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
     router.push(`/news?page=${page}`);
     window.scrollTo({
@@ -31,8 +34,7 @@ export default function NewsPage() {
     fetch("/api/v1/banner", {
       cache: "no-store",
       method: "GET"
-    })
-      .then((response) => response.json())
+    }).then((response) => response.json())
       .then((data) => setBanner(data.content))
   }, []);
   
@@ -40,13 +42,14 @@ export default function NewsPage() {
     <PageWrapper>
       <div className="mb-6">
         <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Terbaru</h1>
-        <NewsBanner content={banner}/>
+        <Banner content={banner}/>
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Lainnya</h1>
-        <div className="sm:gap-2 grid grid-cols-1 sm:grid-cols-2 content-center">
-          {currentItems.map((item) => (
+        <div className="sm:mb-6 sm:gap-2 grid grid-cols-1 sm:grid-cols-2 content-center">
+          {currentItems.map((item, index) => (
             <NewsCard
+              key={index}
               title={item.title}
               image={item.image}
               date={item.date}

@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import bg from "@/assets/images/background.jpg";
+//import bg from "@/assets/images/background.jpg";
 import NavigationBar from "@/components/navbar";
 import Footer from "@/components/footer";
 import "@/assets/styles/globals.css";
 
-const inter = Inter({subsets: ['latin']});
+const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-  title: 'FJKT48',
-  description: 'JKT48 adalah grup idola asal Indonesia dan grup saudari AKB48 yang pertama di luar Jepang.'
+  title: "FJKT48",
+  description: "JKT48 Fans Web"
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
-  const styling = {
+  /*const styling = {
     backgroundImage: `url(${bg.src})`,
     width: "100%",
     height: "100%",
-  };
+  };*/
   return (
     <html lang="en">
       <body className={inter.className}>

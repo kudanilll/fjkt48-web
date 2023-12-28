@@ -1,11 +1,11 @@
-export interface NewsMetadata {
+export type NewsMetadata = {
   title: string;
   image: string;
   date: string;
   slug: string;
   category: string;
   source: string;
-}
+};
 
 export default const getNewsMetadata = (): NewsMetadata[] => {
   const folder = "src/assets/posts/";

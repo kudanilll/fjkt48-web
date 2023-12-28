@@ -2,11 +2,11 @@ import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
 type NewsProps = {
-  title: string,
-  image: string,
-  date: string,
-  path: string,
-  category: string
+  title: string;
+  image: string;
+  date: string;
+  path: string;
+  category: string;
 };
 
 export default function NewsCard(props: NewsProps) {
