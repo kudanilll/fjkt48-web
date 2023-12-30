@@ -37,7 +37,12 @@ export default async function DetailNewsPage(props: any) {
       </div>
       <article>
         <div className="mb-6 flex-col justify-center text-center">
-          <div className="font-regular text-base md:text-lg tracking-wide">Sumber {content!.data.source}</div>
+          <div className="font-regular text-base md:text-lg tracking-wide">
+            <span>
+              Sumber
+              <a href={`https://${content!.data.source}`} target="_blank" className="hover:underline"> {content!.data.source}</a>
+            </span>
+          </div>
           <div className="font-regular text-base md:text-lg tracking-wide">Diterbitkan pada {content!.data.date}</div>
         </div>
         <article className="mb-8 prose md:prose-xl">

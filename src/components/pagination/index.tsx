@@ -7,11 +7,11 @@ type PaginationProps = {
 export default function Pagination(props: PaginationProps) {
   const prev = () => {
     if(props.current > 1)
-      props.onPageChange(props.current - 1)
+      props.onPageChange(props.current - 1);
   };
   const next = () => {
     if(props.current < props.total)
-      props.onPageChange(props.current + 1)
+      props.onPageChange(props.current + 1);
   };
   return (
     <div className="backdrop-blur-lg bg-gray-300 py-2 rounded-2xl items-center">

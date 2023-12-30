@@ -19,6 +19,33 @@ export async function retrieveDataById(name: string, id: string) {
   return snapshot.data();
 }
 
+export async function retrieveCollectionDataById(name: string, id: string) {
+  const snapshot = await getDocs(collection(firestore, `${name}/${id.replaceAll("-","/")}`));
+  
+  const data = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+  return data;
+}
+
+export async function getScheduleData(year: string, month: string, day: string) {
+  /*const snapshot = collection(`schedule/${year}/${month}/${day}`);
+  snapshot.add({}).then((reference) => {
+    const document = snapshot.doc(reference.id);
+    document.get().then((doc) => {
+      if(doc.exists) {
+        const data = doc.data();
+        console.log(data)
+        return data;
+      }
+    });
+  }).catch((error) => {
+    console.log(`Error: ${error}`);
+  });
+  return null;*/
+}
+
 export async function getDataFromStorage(filePath: string) {
   const fileRef = ref(storage, filePath);
   try {

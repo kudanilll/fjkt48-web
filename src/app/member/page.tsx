@@ -13,7 +13,7 @@ export default async function MemberPage() {
           {members.content.map((member, index) => (
             <MemberCard
               key={index}
-              name={member.name}
+              name={member.id.replaceAll("-", " ")}
               gen={member.gen}
               image={member.image}/>
           ))}
@@ -25,7 +25,7 @@ export default async function MemberPage() {
           {trainees.content.map((trainee, index) => (
             <MemberCard
               key={index}
-              name={trainee.name}
+              name={trainee.id.replaceAll("-", " ")}
               image={trainee.image}/>
           ))}
         </div>
