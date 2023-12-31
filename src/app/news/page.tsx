@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PageWrapper from "@/app/page-wrapper";
 import NewsCard from "@/components/card/NewsCard";
-import Banner from "@/components/banner";
+import Banner, { BannerContent } from "@/components/banner";
 import Pagination from "@/components/pagination";
 
 export default function NewsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
-  const [banner, setBanner] = useState([]);
+  const [banner, setBanner] = useState<BannerContent>([]);
   const [news, setNews] = useState([]);
   
   const itemsPerPage = 6;
@@ -29,21 +29,29 @@ export default function NewsPage() {
   };
   
   useEffect(() => {
-    const getBannerData = async () => {
-      fetch("/api/v1/banner", {
-        cache: "no-store",
-        method: "GET"
-      }).then((response) => response.json())
-        .then((data) => setBanner(data.content));
-    };
     const getNewsData = async () => {
       fetch("/api/v1/news", {
         cache: "no-store",
         method: "GET"
       }).then((response) => response.json())
-        .then((data) => setNews(data.content));
+        .then((data) => {
+          setNews(data.content);
+          console.log(data.content);
+          const bannerContent: BannerContent = [];
+          data.content.map((content) => {
+            let obj = {
+              id: content.id,
+              image: content.image,
+              url: `/news/${content.slug}`
+            };
+            bannerContent.push(obj);
+          });
+          if(bannerContent.length > 4)
+            setBanner(bannerContent.slice(0, 4));
+          else
+            setBanner(bannerContent);
+        });
     };
-    getBannerData();
     getNewsData();
   }, []);
   

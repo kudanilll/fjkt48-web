@@ -10,10 +10,16 @@ import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { Image } from "@nextui-org/image";
 import Link from "next/link";
 
+export type BannerContent = {
+  id: string;
+  image: string;
+  url: string;
+};
+
 type BannerProps = {
   status: number;
   message: string;
-  content: any;
+  content: BannerContent[];
 };
 
 export default function Banner(props: BannerProps) {
@@ -31,7 +37,7 @@ export default function Banner(props: BannerProps) {
       }}
       modules={[Autoplay, EffectFade, Pagination]}
       className="mySwiper">
-      {props.content.map((banner, index) => (
+      {props.content.map((banner) => (
         <SwiperSlide key={banner.id}>
           <Link target="_blank" href={banner.url}>
             <Image
