@@ -15,7 +15,3 @@ export async function getNewsFromStorage(filename: string) {
   const content = await getDataFromStorage(`news/${filename}.md`);
   return content;
 }
-
-export async function getSchedule(month: string, year: string) {
-  return retrieveCollectionDataById("schedule", `${year}/${month}`);
-}
