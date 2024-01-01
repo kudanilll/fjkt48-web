@@ -1,4 +1,4 @@
-import { getDataFromStorage, getScheduleData } from "@/lib/firebase/service";
+import { getDataFromStorage, retrieveCollectionDataById } from "@/lib/firebase/service";
 
 export async function getDataFromAPI(endpoint: string) {
   const res = await fetch(`${process.env.BASE_URL}${endpoint}`, {
@@ -17,12 +17,5 @@ export async function getNewsFromStorage(filename: string) {
 }
 
 export async function getSchedule(month: string, year: string) {
-  var result = [];
-  for(let day = 1; day < 31; day++) {
-    const data = getScheduleData(month, year, day);
-    if(data == null)
-      continue;
-    result.push(data);
-  }
-  return result;
+  return retrieveCollectionDataById("schedule", `${year}/${month}`);
 }

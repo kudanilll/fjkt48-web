@@ -29,30 +29,23 @@ export default function NewsPage() {
   };
   
   useEffect(() => {
-    const getNewsData = async () => {
-      fetch("/api/v1/news", {
-        cache: "no-store",
-        method: "GET"
-      }).then((response) => response.json())
-        .then((data) => {
-          setNews(data.content);
-          console.log(data.content);
-          const bannerContent: BannerContent = [];
-          data.content.map((content) => {
-            let obj = {
-              id: content.id,
-              image: content.image,
-              url: `/news/${content.slug}`
-            };
-            bannerContent.push(obj);
-          });
-          if(bannerContent.length > 4)
-            setBanner(bannerContent.slice(0, 4));
-          else
-            setBanner(bannerContent);
+    fetch("/api/v1/news", {
+      cache: "no-store",
+      method: "GET"
+    }).then((response) => response.json())
+      .then((data) => {
+        setNews(data.content);
+        const bannerContent: BannerContent = [];
+        data.content.map((content) => {
+          let obj = {
+            id: content.id,
+            image: content.image,
+            url: `/news/${content.slug}`
+          };
+          bannerContent.push(obj);
         });
-    };
-    getNewsData();
+        setBanner(bannerContent.slice(0, 4));
+      });
   }, []);
   
   return (

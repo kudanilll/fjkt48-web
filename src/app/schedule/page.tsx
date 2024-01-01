@@ -1,36 +1,26 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PageWrapper from "@/app/page-wrapper";
 import Calendar from "@/components/calendar";
-//import { getSchedule } from "@/utils/get-data";
-import { bubbleshort } from "@/utils/bubbleshort";
 import { monthStringArray, getCurrentMonth, getCurrentYear } from "@/utils/get-time";
 
 export default function SchedulePage() {
   const router = useRouter();
   const [month, setMonth] = useState(getCurrentMonth());
   const [year, setYear] = useState(getCurrentYear());
-  const [scheduleData, setScheduleData] = useState([]);
-  const [distance, setDistance] = useState([]);
+  const [path, setPath] = useState(`?date=${year}-${month.toLowerCase()}`);
   
   const handleDateChange = (month: number, year: number) => {
     setMonth(monthStringArray[month]);
     setYear(year);
-    router.push(`/schedule?date=${month+1}-${year}`);
+    setPath(`?date=${year}-${monthStringArray[month].toLowerCase()}`);
+    router.push(`/schedule?date=${year}-${monthStringArray[month].toLowerCase()}`);
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
   };
-  
-  useEffect(() => {
-    fetch("/api/v1/schedule", {
-      cache: "no-store",
-      method: "GET"
-    }).then((response) => response.json())
-      .then((data) => setDistance(bubbleshort(data)));
-  }, []);
   
   return (
     <PageWrapper>
@@ -39,6 +29,7 @@ export default function SchedulePage() {
       </div>
       <div className="mb-8">
         <Calendar
+          apiEndPoint={path}
           currentMonth={month}
           currentYear={year}
           onDateChange={handleDateChange}/>

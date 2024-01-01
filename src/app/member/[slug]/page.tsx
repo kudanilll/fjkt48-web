@@ -5,6 +5,6 @@ function getProfile() {
 
 export default function ProfilePage(props: any) {
   return (
-    <PageWrapper>Profile of {props.params.slug}</PageWrapper>
+    <PageWrapper>Profile of {props.params.slug.replaceAll("-", " ")}</PageWrapper>
   );
 }

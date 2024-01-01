@@ -1,11 +1,11 @@
-import Table, { TableProps } from "@/components/table";
+import Table from "@/components/table";
 import { monthStringArray } from "@/utils/get-time";
 
 type CalendarProps = {
+  apiEndPoint: string;
   currentYear: string;
   currentMonth: string;
   onDateChange: any;
-  data: TableProps[];
 };
 
 export default function Calendar(props: CalendarProps) {
@@ -15,7 +15,8 @@ export default function Calendar(props: CalendarProps) {
     if(month > 0)
       props.onDateChange(month - 1, year);
     else
-      props.onDateChange(monthStringArray.length - 1, year - 1);
+      if(year > new Date().getFullYear())
+        props.onDateChange(monthStringArray.length - 1, year - 1);
   };
   const next = () => {
     var month = Number(monthStringArray.indexOf(props.currentMonth));
@@ -42,11 +43,7 @@ export default function Calendar(props: CalendarProps) {
       </div>
       <div className="mt-2">
         <div className="backdrop-blur-lg bg-gray-300 rounded">
-          {(props.data == null) ? (
-            <h3 className="text-sm text-center p-4">Tidak ada jadwal pada bulan ini.</h3>
-          ) : (
-            <Table/>
-          )}
+          <Table apiEndPoint={props.apiEndPoint}/>
         </div>
       </div>
     </div>

@@ -21,7 +21,6 @@ export async function retrieveDataById(name: string, id: string) {
 
 export async function retrieveCollectionDataById(name: string, id: string) {
   const snapshot = await getDocs(collection(firestore, `${name}/${id.replaceAll("-","/")}`));
-  
   const data = snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data()
@@ -29,9 +28,10 @@ export async function retrieveCollectionDataById(name: string, id: string) {
   return data;
 }
 
-export async function getScheduleData(year: string, month: string, day: string) {
-  /*const snapshot = collection(`schedule/${year}/${month}/${day}`);
-  snapshot.add({}).then((reference) => {
+export async function getScheduleData(year: string, month: string) {
+  return retrieveDataById(`schedule/${year}/${month}`, "5");
+  /*const snapshot = collection(firestore, `schedule/${year}/${month}`);
+  snapshot.docs.map((reference) => {
     const document = snapshot.doc(reference.id);
     document.get().then((doc) => {
       if(doc.exists) {
@@ -40,8 +40,6 @@ export async function getScheduleData(year: string, month: string, day: string) 
         return data;
       }
     });
-  }).catch((error) => {
-    console.log(`Error: ${error}`);
   });
   return null;*/
 }

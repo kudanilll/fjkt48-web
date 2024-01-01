@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { retrieveData, retrieveDataById, retrieveCollectionDataById } from "@/lib/firebase/service";
+import { retrieveData, retrieveCollectionDataById } from "@/lib/firebase/service";
 
 export async function GET(request: NextRequest) {
   const date = request.nextUrl.searchParams.get("date");
