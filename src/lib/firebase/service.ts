@@ -28,22 +28,6 @@ export async function retrieveCollectionDataById(name: string, id: string) {
   return data;
 }
 
-export async function getScheduleData(year: string, month: string) {
-  return retrieveDataById(`schedule/${year}/${month}`, "5");
-  /*const snapshot = collection(firestore, `schedule/${year}/${month}`);
-  snapshot.docs.map((reference) => {
-    const document = snapshot.doc(reference.id);
-    document.get().then((doc) => {
-      if(doc.exists) {
-        const data = doc.data();
-        console.log(data)
-        return data;
-      }
-    });
-  });
-  return null;*/
-}
-
 export async function getDataFromStorage(filePath: string) {
   const fileRef = ref(storage, filePath);
   try {
