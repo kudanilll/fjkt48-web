@@ -15,6 +15,17 @@ function sort(arr: TableProps[]) {
   return arr;
 }
 
+function TextDivider(props: { text: string }) {
+  const parts = props.text.split(", ");
+  return (
+    <td className="whitespace-nowrap p-3 md:py-4">
+      {parts.map((part, index) => (
+        <h5 key={index} className="text-center text-sm">{part}</h5>
+      ))}
+    </td>
+  );
+}
+
 export default function Table(props: {apiEndPoint: string}) {
   
   const [columnTable, setColumnTable] = useState([]);
@@ -37,7 +48,7 @@ export default function Table(props: {apiEndPoint: string}) {
               <thead className="border-neutral-900">
                 <tr className="divide-x divide-gray-200">
                   {header.map((row, index) => (
-                    <th key={index} className="p-4">{row.title}</th>
+                    <th key={index} className={ `${(index === 3) ? "px-20 py-4" : "p-4" }`}>{row.title}</th>
                   ))}
                 </tr>
               </thead>
@@ -45,10 +56,10 @@ export default function Table(props: {apiEndPoint: string}) {
               <tbody className="divide-y divide-gray-200">
                 {columnTable.map((row, index) => (
                   <tr key={row.id} className="divide-x divide-gray-200">
-                    <td className="whitespace-nowrap p-3 md:py-4 text-center text-sm">{index+1}</td>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-center text-sm">{`${row.day}, ${row.date}`}</td>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-center text-sm text-wrap">{row.time.replaceAll("_", ",\n")}</td>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-center text-sm text-wrap">{row.event.replaceAll("_", ",\n")}</td>
+                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{index+1}</td>
+                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-start">{`${row.day}, ${row.date}`}</td>
+                    <TextDivider text={row.time}/>
+                    <TextDivider text={row.event}/>
                   </tr>
                 ))}
               </tbody>

@@ -55,3 +55,7 @@ The table below gives an overview of the technologies used in this project, as w
 | GitHub Actions  | [Website](https://github.com/features/actions) - [Docs](https://docs.github.com/en/actions) - [Workflow syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)                |
 | Vercel          | [Website](https://vercel.com/) - [Docs](https://vercel.com/docs) - [CLI Docs](https://vercel.com/docs/cli)                                                                                                      |
 | Ngrok           | [Website](https://ngrok.com/) - [Docs](https://ngrok.com/docs) - [GitHub](https://github.com/ngrok)                                                                                                             |
+
+## Support
+
+If you like my work, you can [buy me a coffee](https://www.buymeacoffee.com/kudanil) and share your thoughts 🎉 ☕
