@@ -55,6 +55,8 @@ The table below gives an overview of the technologies used in this project, as w
 | GitHub Actions  | [Website](https://github.com/features/actions) - [Docs](https://docs.github.com/en/actions) - [Workflow syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)                |
 | Vercel          | [Website](https://vercel.com/) - [Docs](https://vercel.com/docs) - [CLI Docs](https://vercel.com/docs/cli)                                                                                                      |
 | Ngrok           | [Website](https://ngrok.com/) - [Docs](https://ngrok.com/docs) - [GitHub](https://github.com/ngrok)                                                                                                             |
+| Swiper          | [Website](https://swiperjs.com/) - [Docs](https://swiperjs.com/get-started) - [GitHub](https://github.com/nolimits4web/swiper)                                                                                  |
+| NextUI          | [Website](https://nextui.org/) - [Docs](https://nextui.org/docs/guide/introduction) - [GitHub](https://github.com/nextui-org/nextui)                                                                            |
 
 ## Support
 

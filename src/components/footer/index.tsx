@@ -8,7 +8,8 @@ export default function Footer() {
         </span>
         <ul className="flex flex-row items-center mt-2 text-sm font-medium text-neutral-300 sm:mt-0">
           <li>
-            <a href={process.env.AUTHOR_GITHUB_URL} target="_blank" className="hover:underline">GitHub</a>
+            <a href={process.env.AUTHOR_GITHUB_URL} target="_blank" className="hover:underline px-2">GitHub</a>
+            <a href={process.env.AUTHOR_SUPPORT_URL} target="_blank" className="hover:underline px-2">Support</a>
           </li>
         </ul>
       </div>
