@@ -1,10 +1,15 @@
 "use client";
+import { Metadata } from "next";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PageWrapper from "@/app/page-wrapper";
 import NewsCard from "@/components/card/NewsCard";
 import Banner, { BannerContent } from "@/components/banner";
 import Pagination from "@/components/pagination";
+
+export const metadata: Metadata = {
+  title: "FJKT48 | Berita",
+};
 
 export default function NewsPage() {
   const searchParams = useSearchParams();
@@ -37,12 +42,11 @@ export default function NewsPage() {
         setNews(data.content);
         const bannerContent: BannerContent = [];
         data.content.map((content) => {
-          let obj = {
+          bannerContent.push({
             id: content.id,
             image: content.image,
             url: `/news/${content.slug}`
-          };
-          bannerContent.push(obj);
+          });
         });
         setBanner(bannerContent.slice(0, 4));
       });

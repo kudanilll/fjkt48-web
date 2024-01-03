@@ -1,9 +1,14 @@
 "use client";
+import { Metadata } from "next";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PageWrapper from "@/app/page-wrapper";
 import Calendar from "@/components/calendar";
 import { monthStringArray, getCurrentDay, getCurrentMonth, getCurrentYear } from "@/utils/get-time";
+
+export const metadata: Metadata = {
+  title: "FJKT48 | Jadwal",
+};
 
 export default function SchedulePage() {
   const router = useRouter();

@@ -1,34 +1,32 @@
 {
   "navigation": [
     {
-      "id": 1,
       "name": "Beranda",
       "path": "/"
     },
     {
-      "id": 2,
       "name": "Berita",
       "path": "/news"
     },
     {
-      "id": 3,
       "name": "Jadwal",
       "path": "/schedule"
     },
     {
-      "id": 4,
       "name": "Member",
       "path": "/member"
     },
     {
-      "id": 5,
       "name": "Theater",
       "path": "/theater"
     },
     {
-      "id": 6,
       "name": "Toko",
       "path": "/shop"
+    },
+    {
+      "name": "Live/Replay",
+      "path": "/live"
     }
   ]
 }

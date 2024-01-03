@@ -19,7 +19,7 @@ export default function CardItem(props: MemberCardProps) {
             src={props.image}/>
         </div>
         <div className="text-small py-3 px-4 flex-col items-start">
-          <h4 className="font-poppins font-semibold text-xl sm:mb-8">{props.name}</h4>
+          <h4 className="font-poppins font-semibold text-xl sm:mb-8 h-16">{props.name}</h4>
           <p className="sm:absolute sm:bottom-0 sm:mb-3 sm:mt-2 py-1 font-poppins text-sm">{props.gen}</p>
         </div>
       </div>
