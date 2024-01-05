@@ -1,4 +1,4 @@
-import { Image } from "@nextui-org/image";
+import Image from "next/image";
 import Link from "next/link";
 
 type NewsProps = {
@@ -37,16 +37,15 @@ export default function NewsCard(props: NewsProps) {
   return (
     <Link href={path} className="mb-2 sm:m-1.5">
       <div className="rounded-2xl backdrop-blur p-2 flex bg-gray-300">
-        <div className="p-2 sm:pt-1.5 flex-col mr-2">
-          <span className={`${backgroundCategory} absolute top-0 left-0 font-poppins text-white px-2 rounded-tl-lg rounded-br-lg mb-2 uppercase`}>{props.category}</span>
-          <h4 className="font-poppins font-bold text-large text-left mt-4 mr-2 sm:mt-6">{props.title}</h4>
-          <small className="py-2 mt-2 sm:px-1 sm:mb-4 text-default-500">{props.date}</small>
-        </div>
         <Image
-          className="ml-auto object-cover rounded-xl"
+          className="w-full object-cover rounded-xl"
           alt={props.title}
           src={props.image}
-          height="100%"/>
+          width={156}
+          height={124}/>
+        <span className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-4 rounded-tr-xl rounded-bl-xl uppercase`}>{props.category}</span>
+        <h4 className="font-poppins font-semibold text-medium text-left px-2 py-6">{props.title}</h4>
+        <small className="absolute bottom-0 right-0 p-2 text-default-500">{props.date}</small>
       </div>
     </Link>
   );

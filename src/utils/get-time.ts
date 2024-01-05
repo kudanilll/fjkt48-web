@@ -34,3 +34,12 @@ export function getCurrentMonth() {
 export function getCurrentYear() {
   return new Date().getFullYear();
 }
+
+export function sortArrayByDate(array) {
+  array.sort(function(a, b) {
+    var dateA = new Date(a.date);
+    var dateB = new Date(b.date);
+    return dateB - dateA;
+  });
+  return array;
+}

@@ -1,19 +1,20 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link  from "next/link";
 import Image from "next/image";
 
 import { navigation } from "./navigation.json";
-import menu  from "./menu.svg";
-import close from "./close.svg";
+import menu  from "@/assets/images/menu.svg";
+import close from "@/assets/images/close.svg";
 
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
   const [active, setActive] = useState(false);
   return (
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5">
-      <nav className="w-full backdrop-filter backdrop-blur-lg bg-opacity-30 fixed top-0 left-0 right-0 z-10">
+      {/*<nav className="w-full backdrop-filter backdrop-blur-lg bg-opacity-30 fixed top-0 left-0 right-0 z-10">*/}
+      <nav className="w-full bg-slate-100 fixed top-0 left-0 right-0 z-10 border">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -30,15 +31,14 @@ export default function NavigationBar() {
                       src={close}
                       width={30}
                       height={30}
-                      alt="close"
-                      className="active:animate-spin"/>
+                      alt="close"/>
                   ) : (
                     <Image
                       src={menu}
                       width={30}
                       height={30}
                       alt="menu"
-                      className="focus:border-none active:border-none active:animate-spin"/>
+                      className="focus:border-none active:border-none"/>
                   )}
                 </button>
               </div>
@@ -46,7 +46,7 @@ export default function NavigationBar() {
           </div>
           <div>
             <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${ active ? "p-12 md:p-0 block" : "hidden" }`}>
-              <ul className="h-screen md:h-auto items-center justify-center md:flex">
+              <ul className="h-screen md:h-auto items-center justify-center md:flex bg-slate-100">
                 {navigation.map((item, index) => (
                   <li key={index} className={` ${ item.path === pathname ? "drop-shadow text-red-600 md:font-bold" : "text-black md:text-black md:font-light" } md:px-4 px-4 py-2 pb-6 text-xl text-start font-semibold hover:text-red-700 md:hover:font-bold md:hover:text-red-700 md:hover:bg-transparent`}>
                     <Link key={index} href={item.path} onClick={() => setActive(!active)}>

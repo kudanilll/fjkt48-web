@@ -20,7 +20,7 @@ function TextDivider(props: { text: string }) {
   return (
     <td className="whitespace-nowrap p-3 md:py-4">
       {parts.map((part, index) => (
-        <h5 key={index} className="text-center text-sm">{part}</h5>
+        <h5 key={index} className="text-center text-sm font-inconsolata">{part}</h5>
       ))}
     </td>
   );
@@ -56,8 +56,8 @@ export default function Table(props: {apiEndPoint: string}) {
               <tbody className="divide-y divide-gray-200">
                 {columnTable.map((row, index) => (
                   <tr key={row.id} className="divide-x divide-gray-200">
-                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{index+1}</td>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-start">{`${row.day}, ${row.date}`}</td>
+                    <td className="whitespace-nowrap p-3 md:py-4 text-sm font-inconsolata text-center">{index+1}</td>
+                    <td className="whitespace-nowrap p-3 md:py-4 text-sm font-inconsolata text-center">{`${row.day}, ${row.date}`}</td>
                     <TextDivider text={row.time}/>
                     <TextDivider text={row.event}/>
                   </tr>

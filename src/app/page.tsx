@@ -2,13 +2,14 @@ import PageWrapper from "./page-wrapper";
 import Banner from "@/components/banner";
 import NewsCard from "@/components/card/NewsCard";
 import { getDataFromAPI } from "@/utils/get-data";
-import { Image } from "@nextui-org/image";
+import { sortArrayByDate } from "@/utils/get-time";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function HomePage() {
   const banner = await getDataFromAPI("banner");
   const news = await getDataFromAPI("news");
-  const newsItems = news.content.slice(0, 4);
+  const newsItems = sortArrayByDate(news.content).slice(0, 4);
   return (
     <PageWrapper>
       <div className="mb-8">
@@ -34,11 +35,12 @@ export default async function HomePage() {
         </Link>
       </div>
       <div className="mb-8">
-        <Image
+        {/*<Image
           className="w-full object-cover"
-          width="100%"
+          height={500}
+          width={500}
           alt="JKT48 Theater Logo"
-          src="/jkt48-theater-logo.png"/>
+          src="/jkt48-theater-logo.png"/>*/}
       </div>
     </PageWrapper>
   );

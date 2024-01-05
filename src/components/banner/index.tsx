@@ -7,10 +7,10 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 // Import required modules
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
-import { Image } from "@nextui-org/image";
-import Link from "next/link";
+import Image from "next/image";
+import Link  from "next/link";
 
-export type BannerContent = {
+type BannerContent = {
   id: string;
   image: string;
   url: string;
@@ -23,7 +23,7 @@ type BannerProps = {
 };
 
 export default function Banner(props: BannerProps) {
-  const swiper = useSwiper();
+  //const swiper = useSwiper();
   return (
     <Swiper
       loop={true}
@@ -42,9 +42,11 @@ export default function Banner(props: BannerProps) {
           <Link target="_blank" href={banner.url}>
             <Image
               className="w-full object-cover rounded-t-2xl"
-              width="100%"
+              width={500}
+              height={500}
               alt={banner.image}
-              src={banner.image}/>
+              src={banner.image}
+              priority={true}/>
             <div className="backdrop-blur-lg bg-red-600 bottom-0 py-5 rounded-b-2xl">
               {/* Not Working :(
               <button

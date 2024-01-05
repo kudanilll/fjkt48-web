@@ -25,8 +25,8 @@
       "path": "/shop"
     },
     {
-      "name": "Live/Replay",
-      "path": "/live"
+      "name": "Tentang",
+      "path": "/about"
     }
   ]
 }

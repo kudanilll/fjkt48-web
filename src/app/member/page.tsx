@@ -24,7 +24,7 @@ export default async function MemberPage() {
           ))}
         </div>
       </div>
-      <div className="mb-6">
+      <div className="mb-8">
         <h1 className="text-2xl font-poppins font-semibold">Trainee JKT48</h1>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 content-center">
           {trainees.content.map((trainee, index) => (
@@ -33,11 +33,6 @@ export default async function MemberPage() {
               name={trainee.id.replaceAll("-", " ")}
               image={trainee.image}/>
           ))}
-        </div>
-      </div>
-      <div className="mb-8">
-        <h1 className="text-2xl font-poppins font-semibold">Ex Member JKT48</h1>
-        <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 content-center">
         </div>
       </div>
     </PageWrapper>

@@ -1,4 +1,4 @@
-import { Image } from "@nextui-org/image";
+import Image from "next/image";
 import Link from "next/link";
 
 type MemberCardProps = {
@@ -14,9 +14,11 @@ export default function CardItem(props: MemberCardProps) {
         <div className="overflow-visible">
           <Image
             className="w-full object-cover rounded-t-2xl"
-            width="100%"
+            width={500}
+            height={500}
             alt={props.name}
-            src={props.image}/>
+            src={props.image}
+            priority={true}/>
         </div>
         <div className="text-small py-3 px-4 flex-col items-start">
           <h4 className="font-poppins font-semibold text-xl sm:mb-8 h-16">{props.name}</h4>

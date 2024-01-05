@@ -10,6 +10,7 @@ const config = {
       fontFamily: {
         fugaz: ['Fugaz One', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
+        inconsolata: ['Inconsolata', 'monospace'],
       },
     },
   },
