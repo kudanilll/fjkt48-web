@@ -1,7 +1,7 @@
 import Image from "next/image";
 import md from "markdown-it";
 import matter from "gray-matter";
-import PageWrapper from "@/app/page-wrapper";
+import PageWrapper from "@/components/wrapper/PageWrapper";
 import { getNewsFromStorage } from "@/utils/get-data";
 
 async function getNews(slug: string) {
@@ -28,9 +28,9 @@ export default async function DetailNewsPage(props: any) {
   return (
     <PageWrapper>
       <div className="mb-6">
-        <h1 className="text-2xl font-poppins font-semibold mb-2">{content!.data.title}</h1>
+        {/*<h1 className="text-2xl font-poppins font-semibold mb-2">{content!.data.title}</h1>*/}
         <Image
-          className="w-full object-cover rounded-2xl"
+          className="w-full object-cover rounded-xl"
           width={500}
           height={500}
           alt={content.data.title}
@@ -39,13 +39,13 @@ export default async function DetailNewsPage(props: any) {
       </div>
       <article>
         <div className="mb-6 flex-col justify-center text-center">
-          <div className="font-regular text-small md:text-lg tracking-wide">
+          <div className="font-regular text-sm md:text-lg tracking-wide">
             <span>
               Sumber
               <a href={`https://${content!.data.source}`} target="_blank" className="hover:underline"> {content!.data.source}</a>
             </span>
           </div>
-          <div className="font-regular text-small md:text-lg tracking-wide">Diterbitkan pada {content!.data.date}</div>
+          <div className="font-regular text-sm md:text-lg tracking-wide">Diterbitkan pada {content!.data.date}</div>
         </div>
         <article className="mb-8 prose md:prose-xl">
           <div dangerouslySetInnerHTML={{ __html: md().render(content!.content) }}/>

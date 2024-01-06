@@ -5,12 +5,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
 import Image from "next/image";
 import Link  from "next/link";
-import PageWrapper from "@/app/page-wrapper";
+import PageWrapper from "@/components/wrapper/PageWrapper";
 import NewsCard from "@/components/card/NewsCard";
 import Pagination from "@/components/pagination";
 
 export const metadata: Metadata = {
   title: "FJKT48 | Berita",
+  description: "Berita Seputar JKT48"
 };
 
 export default function NewsPage() {
@@ -54,7 +55,7 @@ export default function NewsPage() {
   return (
     <PageWrapper>
       <div className="mb-6">
-        <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Terbaru</h1>
+        <h1 className="text-2xl font-semibold mb-2">Berita Terbaru</h1>
         <Link href={banner.url}>
           <Image
             className="w-full object-cover rounded-xl"
@@ -66,7 +67,7 @@ export default function NewsPage() {
         </Link>
       </div>
       <div className="mb-8">
-        <h1 className="text-2xl font-poppins font-semibold mb-2">Berita Lainnya</h1>
+        <h1 className="text-2xl font-semibold mb-2">Berita Lainnya</h1>
         <div className="sm:mb-6 sm:gap-2 grid grid-cols-1 sm:grid-cols-2 content-center">
           {currentItems.map((item) => (
             <NewsCard

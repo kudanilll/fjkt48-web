@@ -2,12 +2,13 @@
 import { Metadata } from "next";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import PageWrapper from "@/app/page-wrapper";
+import PageWrapper from "@/components/wrapper/PageWrapper";
 import Calendar from "@/components/calendar";
 import { monthStringArray, getCurrentDay, getCurrentMonth, getCurrentYear } from "@/utils/get-time";
 
 export const metadata: Metadata = {
   title: "FJKT48 | Jadwal",
+  description: "Daftar Jadwal Acara & Pertunjukan JKT48"
 };
 
 export default function SchedulePage() {
@@ -30,8 +31,8 @@ export default function SchedulePage() {
   return (
     <PageWrapper>
       <div className="mb-4">
-        <h1 className="text-2xl font-poppins font-semibold">Jadwal Acara JKT48</h1>
-        <h4 className="text-medium font-poppins font-regular">{`${getCurrentDay()}, ${new Date().getDate()} ${getCurrentMonth()} ${getCurrentYear()}`}</h4>
+        <h1 className="text-2xl font-semibold">Jadwal Acara JKT48</h1>
+        <h4 className="text-medium font-regular">{`${getCurrentDay()}, ${new Date().getDate()} ${getCurrentMonth()} ${getCurrentYear()}`}</h4>
       </div>
       <div className="mb-8">
         <Calendar

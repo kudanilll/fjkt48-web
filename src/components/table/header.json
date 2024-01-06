@@ -1,16 +1,8 @@
 {
   "header": [
-    {
-      "title": "No"
-    },
-    {
-      "title": "Tanggal"
-    },
-    {
-      "title": "Jam"
-    },
-    {
-      "title": "Acara"
-    }
+    { "title": "No" },
+    { "title": "Tanggal" },
+    { "title": "Jam" },
+    { "title": "Acara" }
   ]
 }

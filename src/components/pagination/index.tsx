@@ -20,7 +20,7 @@ export default function Pagination(props: PaginationProps) {
   return (
     <div className="backdrop-blur-lg bg-gray-300 py-2 rounded-2xl items-center">
       <button
-        className="absolute top-0 bottom-0 font-poppins text-sm bg-red-600 px-4 py-1 rounded-l-2xl text-white"
+        className="absolute top-0 bottom-0 text-sm bg-red-600 px-4 py-1 rounded-l-2xl text-white"
         onClick={prev}>
         <Image
           src={left}
@@ -30,7 +30,7 @@ export default function Pagination(props: PaginationProps) {
       </button>
       <h5 className="text-center">{`${props.current}/${props.total}`}</h5>
       <button
-        className="absolute top-0 bottom-0 right-0 font-poppins text-sm bg-red-600 px-4 py-1 rounded-r-2xl text-white"
+        className="absolute top-0 bottom-0 right-0 text-sm bg-red-600 px-4 py-1 rounded-r-2xl text-white"
         onClick={next}>
         <Image
           src={right}

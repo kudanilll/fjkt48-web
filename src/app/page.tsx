@@ -1,10 +1,16 @@
-import PageWrapper from "./page-wrapper";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import PageWrapper from "@/components/wrapper/PageWrapper";
 import Banner from "@/components/banner";
 import NewsCard from "@/components/card/NewsCard";
 import { getDataFromAPI } from "@/utils/get-data";
 import { sortArrayByDate } from "@/utils/get-time";
-import Image from "next/image";
-import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "FJKT48 | Home",
+  description: "Home Dashboard FJKT48"
+};
 
 export default async function HomePage() {
   const banner = await getDataFromAPI("banner");
@@ -16,7 +22,7 @@ export default async function HomePage() {
         <Banner content={banner.content}/>
       </div>
       <div className="mb-8">
-        <h1 className="text-2xl font-poppins font-semibold mb-2">Berita tentang JKT48</h1>
+        <h1 className="text-2xl font-semibold mb-2">Berita tentang JKT48</h1>
         <div className="sm:mb-6 sm:gap-2 grid grid-cols-1 sm:grid-cols-2 content-center">
           {newsItems.map((item) => (
             <NewsCard

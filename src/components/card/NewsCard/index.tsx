@@ -44,7 +44,7 @@ export default function NewsCard(props: NewsProps) {
           width={156}
           height={124}/>
         <span className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-4 rounded-tr-xl rounded-bl-xl uppercase`}>{props.category}</span>
-        <h4 className="font-poppins font-semibold text-medium text-left px-2 py-6">{props.title}</h4>
+        <h4 className="font-semibold text-left px-2 py-6">{props.title}</h4>
         <small className="absolute bottom-0 right-0 p-2 text-default-500">{props.date}</small>
       </div>
     </Link>

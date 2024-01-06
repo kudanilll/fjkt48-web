@@ -1,4 +1,10 @@
-import PageWrapper from "@/app/page-wrapper";
+import { Metadata } from "next";
+import PageWrapper from "@/components/wrapper/PageWrapper";
+
+export const metadata: Metadata = {
+  title: "FJKT48 | Profile",
+  description: ""
+};
 
 function getProfile() {
 }

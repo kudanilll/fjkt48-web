@@ -45,10 +45,10 @@ export default function NavigationBar() {
             </div>
           </div>
           <div>
-            <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${ active ? "p-12 md:p-0 block" : "hidden" }`}>
+            <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-2 ${ active ? "p-12 md:p-0 block" : "hidden" }`}>
               <ul className="h-screen md:h-auto items-center justify-center md:flex bg-slate-100">
                 {navigation.map((item, index) => (
-                  <li key={index} className={` ${ item.path === pathname ? "drop-shadow text-red-600 md:font-bold" : "text-black md:text-black md:font-light" } md:px-4 px-4 py-2 pb-6 text-xl text-start font-semibold hover:text-red-700 md:hover:font-bold md:hover:text-red-700 md:hover:bg-transparent`}>
+                  <li key={index} className={` ${ item.path === pathname ? "drop-shadow text-red-600 md:font-bold" : "text-black md:text-black md:font-light" } md:px-4 px-4 py-2 pb-6 text-xl text-start font-semibold hover:text-red-700 md:hover:font-bold md:hover:text-red-700 md:hover:bg-transparent font-poppins`}>
                     <Link key={index} href={item.path} onClick={() => setActive(!active)}>
                       {item.name}
                     </Link>
