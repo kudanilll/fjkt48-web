@@ -23,12 +23,14 @@ function sort(arr: TableProps[]) {
   return arr;
 }
 
-function TextDivider(props: { text: string }) {
+function TextDivider(props: { text: string, link?: string }) {
   const parts = props.text.split(", ");
   return (
     <td className="whitespace-nowrap p-3 md:py-4">
       {parts.map((part, index) => (
-        <h5 key={index} className="text-center text-sm">{part}</h5>
+        <h5 key={index} className="text-center text-sm">
+          <a href={props.link ? props.link : ""}>{part}</a>
+        </h5>
       ))}
     </td>
   );
@@ -66,7 +68,7 @@ export default function Table(props: {apiEndPoint: string}) {
                     <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{index+1}</td>
                     <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{`${row.day}, ${row.date}`}</td>
                     <TextDivider text={row.time}/>
-                    <TextDivider text={row.event}/>
+                    <TextDivider text={row.event} link=""/>
                   </tr>
                 ))}
               </tbody>
