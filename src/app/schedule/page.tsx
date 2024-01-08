@@ -17,7 +17,7 @@ export default function SchedulePage() {
   const [year, setYear] = useState(getCurrentYear());
   const [path, setPath] = useState(`?date=${year}-${month.toLowerCase()}`);
   
-  const handleDateChange = (month: number, year: number) => {
+  function handleDateChange(month: number, year: number) {
     setMonth(monthStringArray[month]);
     setYear(year);
     setPath(`?date=${year}-${monthStringArray[month].toLowerCase()}`);
@@ -26,7 +26,7 @@ export default function SchedulePage() {
       top: 0,
       behavior: "smooth"
     });
-  };
+  }
   
   return (
     <PageWrapper>

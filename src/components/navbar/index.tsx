@@ -5,15 +5,14 @@ import Link  from "next/link";
 import Image from "next/image";
 
 import { navigation } from "./navigation.json";
-import menu  from "@/assets/images/menu.svg";
-import close from "@/assets/images/close.svg";
+import menuIcon  from "@/assets/icons/menu.svg";
+import closeIcon from "@/assets/icons/close.svg";
 
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
   const [active, setActive] = useState(false);
   return (
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5">
-      {/*<nav className="w-full backdrop-filter backdrop-blur-lg bg-opacity-30 fixed top-0 left-0 right-0 z-10">*/}
       <nav className="w-full bg-slate-100 fixed top-0 left-0 right-0 z-10 border">
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
           <div>
@@ -23,22 +22,10 @@ export default function NavigationBar() {
                 <h1 className="text-red-700 text-2xl font-fugaz">48</h1>
               </div>
               <div className="md:hidden">
-                <button
-                  className="p-2"
-                  onClick={() => setActive(!active)}>
+                <button className="p-2" onClick={() => setActive(!active)}>
                   {active ? (
-                    <Image
-                      src={close}
-                      width={30}
-                      height={30}
-                      alt="close"/>
-                  ) : (
-                    <Image
-                      src={menu}
-                      width={30}
-                      height={30}
-                      alt="menu"
-                      className="focus:border-none active:border-none"/>
+                    <Image src={closeIcon} width={30} height={30} alt="close"/> ) : (
+                    <Image src={menuIcon}  width={30} height={30} alt="menu" className="focus:border-none active:border-none"/>
                   )}
                 </button>
               </div>

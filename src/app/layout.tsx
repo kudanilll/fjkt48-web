@@ -13,13 +13,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth" style={{scrollBehavior:"smooth"}}>
       <body className={sora.className}>
         <main className="flex flex-col min-h-screen bg-slate-100 text-black">
           <NavigationBar/>
-          <div className="mt-12 px-5 sm:px-16">
-            {children}
-          </div>
+          {children}
           <Footer/>
         </main>
       </body>

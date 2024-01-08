@@ -27,14 +27,14 @@ export default function NewsPage() {
   const currentItems = news.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(news.length / itemsPerPage);
   
-  const handlePageChange = (page: number) => {
+  function handlePageChange(page: number) {
     setCurrentPage(page);
     router.push(`/news?page=${page}`);
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
-  };
+  }
   
   useEffect(() => {
     fetch("/api/v1/news", {
@@ -68,7 +68,7 @@ export default function NewsPage() {
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold mb-2">Berita Lainnya</h1>
-        <div className="sm:mb-6 sm:gap-2 grid grid-cols-1 sm:grid-cols-2 content-center">
+        <div className="sm:mb-6 sm:gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
           {currentItems.map((item) => (
             <NewsCard
               key={item.id}

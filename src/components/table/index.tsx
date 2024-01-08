@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { header } from "./header.json";
-import { TableProps } from "@/models/schedule-table";
+
+type TableProps = {
+  id: string;
+  event: string;
+  date: string;
+  time: string;
+  category: string;
+  day: string;
+};
 
 function sort(arr: TableProps[]) {
   for(var i = 0; i < arr.length; i++) {
@@ -27,7 +35,6 @@ function TextDivider(props: { text: string }) {
 }
 
 export default function Table(props: {apiEndPoint: string}) {
-  
   const [columnTable, setColumnTable] = useState([]);
   
   useEffect(() => {

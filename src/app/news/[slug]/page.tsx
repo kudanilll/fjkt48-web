@@ -28,7 +28,6 @@ export default async function DetailNewsPage(props: any) {
   return (
     <PageWrapper>
       <div className="mb-6">
-        {/*<h1 className="text-2xl font-poppins font-semibold mb-2">{content!.data.title}</h1>*/}
         <Image
           className="w-full object-cover rounded-xl"
           width={500}

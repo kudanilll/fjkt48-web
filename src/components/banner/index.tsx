@@ -1,6 +1,6 @@
 "use client";
 // Import Swiper React components
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -23,7 +23,6 @@ type BannerProps = {
 };
 
 export default function Banner(props: BannerProps) {
-  //const swiper = useSwiper();
   return (
     <Swiper
       loop={true}
@@ -47,20 +46,7 @@ export default function Banner(props: BannerProps) {
               alt={banner.image}
               src={banner.image}
               priority={true}/>
-            <div className="backdrop-blur-lg bg-red-600 bottom-0 py-5 rounded-b-2xl">
-              {/* Not Working :(
-              <button
-                className="absolute bottom-0 font-poppins text-sm bg-red-700 px-2.5 py-1 m-2 rounded-full"
-                onClick={() => swiper.slidePrev()}>
-                {"<"}
-              </button>
-              <button
-                className="absolute bottom-0 right-0 font-poppins text-sm bg-red-700 px-2.5 py-1 m-2 rounded-full"
-                onClick={() => swiper.slideNext()}>
-                {">"}
-              </button>
-              */}
-            </div>
+            <div className="bg-red-600 bottom-0 py-5 rounded-b-2xl"/>
           </Link>
         </SwiperSlide>
       ))}
