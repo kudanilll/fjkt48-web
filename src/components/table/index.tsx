@@ -6,10 +6,12 @@ type TableProps = {
   event: string;
   date: string;
   time: string;
+  slug: string;
   category: string;
   day: string;
 };
 
+// Function for sort data from newest -> oldest
 function sort(arr: TableProps[]) {
   for(var i = 0; i < arr.length; i++) {
     for(var j = 0; j < (arr.length - i - 1); j++) {
@@ -23,6 +25,7 @@ function sort(arr: TableProps[]) {
   return arr;
 }
 
+// Function for create a new line if the text of the data has a comma (,)
 function TextDivider(props: { text: string, link?: string }) {
   const parts = props.text.split(", ");
   return (
@@ -68,7 +71,7 @@ export default function Table(props: {apiEndPoint: string}) {
                     <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{index+1}</td>
                     <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{`${row.day}, ${row.date}`}</td>
                     <TextDivider text={row.time}/>
-                    <TextDivider text={row.event} link=""/>
+                    <TextDivider text={row.event} link={row.slug}/>
                   </tr>
                 ))}
               </tbody>
