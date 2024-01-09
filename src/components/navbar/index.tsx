@@ -1,12 +1,10 @@
 "use client";
+import { navigation  } from "./navigation.json";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { Cross as Hamburger } from "hamburger-react";
 import Link  from "next/link";
 import Image from "next/image";
-
-import { navigation } from "./navigation.json";
-import menuIcon  from "@/assets/icons/menu.svg";
-import closeIcon from "@/assets/icons/close.svg";
 
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
@@ -22,12 +20,12 @@ export default function NavigationBar() {
                 <h1 className="text-red-700 text-2xl font-fugaz">48</h1>
               </div>
               <div className="md:hidden">
-                <button className="p-2" onClick={() => setActive(!active)}>
-                  {active ? (
-                    <Image src={closeIcon} width={30} height={30} alt="close"/> ) : (
-                    <Image src={menuIcon}  width={30} height={30} alt="menu" className="focus:border-none active:border-none"/>
-                  )}
-                </button>
+                <Hamburger
+                  toggled={active}
+                  toggle={setActive}
+                  color="#000000"
+                  size={24}
+                  rounded/>
               </div>
             </div>
           </div>
