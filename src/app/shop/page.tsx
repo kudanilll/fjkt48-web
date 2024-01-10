@@ -1,42 +1,49 @@
-import { Metadata } from "next";
-import { getDataFromAPI } from "@/utils/get-data";
-import PageWrapper from "@/components/wrapper/PageWrapper";
+"use client";
+import { sections } from "./section-item.json";
+import { useState, useEffect } from "react";
 import Carousel from "@/components/carousel";
 import Image from "next/image";
 import Link from "next/link";
 import chevronRightIcon from "@/assets/icons/chevron-right-dark.svg";
-import { sections } from "./section-item.json";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Toko",
-  description: ""
-};
+// Shimmer Effect
+import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
+import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
-async function getBannerImage() {
-  const banner = await getDataFromAPI("shop?banner=1");
-  return banner.content.image;
-}
-
-export default async function ShopPage() {
-  const bannerImage = await getBannerImage();
+export default function ShopPage() {
+  const [bannerImage, setBannerImage] = useState("");
+  const [successFetchBanner, setSuccessFetchBanner] = useState(false);
+  
+  useEffect(() => {
+    fetch("/api/v1/shop?banner=1", {
+      cache: "no-store",
+      method: "GET"
+    }).then((response) => response.json())
+      .then((data) => {
+        setBannerImage(data.content.image);
+        setSuccessFetchBanner(true);
+      });
+  }, []);
+  
   return (
-    <PageWrapper>
+    <div>
       <div className="mb-6">
-        <Link href="#section-jacket">
-          <Image
-            className="w-full object-cover rounded-xl"
-            width={500}
-            height={500}
-            src={bannerImage}
-            alt="banner"
-            priority={true}/>
-        </Link>
+        {successFetchBanner ? (
+        <Image
+          className="w-full object-cover rounded-xl"
+          width={500}
+          height={500}
+          src={bannerImage}
+          alt={bannerImage}
+          priority={true}/>) : (
+        <ShimmerBanner/>
+        )}
       </div>
       {sections.map((section, index) => (
         <div className="mb-6" id={section.id} key={index}>
           <Link className="flex flex-row" href="">
             <h1 className="text-3xl font-semibold mb-1.5">{section.title}</h1>
-            <Image width={40} height={40} src={chevronRightIcon} alt="see all" className="mb-1.5"/>
+            <Image width={40} height={40} src={chevronRightIcon} alt={chevronRightIcon} className="mb-1.5"/>
           </Link>
           <Carousel/>
         </div>
@@ -52,6 +59,6 @@ export default async function ShopPage() {
           </Link>
         </div>
       </div>
-    </PageWrapper>
+    </div>
   );
 }

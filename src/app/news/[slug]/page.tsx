@@ -1,8 +1,7 @@
+import { getNewsFromStorage } from "@/utils/get-data";
 import Image from "next/image";
 import md from "markdown-it";
 import matter from "gray-matter";
-import PageWrapper from "@/components/wrapper/PageWrapper";
-import { getNewsFromStorage } from "@/utils/get-data";
 
 async function getNews(slug: string) {
   try {
@@ -17,16 +16,14 @@ export default async function DetailNewsPage(props: any) {
   const content = await getNews(props.params.slug);
   if(content == null) {
     return (
-      <PageWrapper>
-        <div className="h-screen flex flex-col items-center justify-center">
-          <h1 className="font-semibold text-center mb-4">404: Berita tidak ditemukan :(</h1>
-          <article className="font-regular text-center">Buka beranda untuk menemukan berita terbaru!</article>
-        </div>
-      </PageWrapper>
+      <div className="h-screen flex flex-col items-center justify-center">
+        <h1 className="font-semibold text-center mb-4">404: Berita tidak ditemukan :(</h1>
+        <article className="font-regular text-center">Buka beranda untuk menemukan berita terbaru!</article>
+      </div>
     );
   }
   return (
-    <PageWrapper>
+    <div>
       <div className="mb-6">
         <Image
           className="w-full object-cover rounded-xl"
@@ -50,6 +47,6 @@ export default async function DetailNewsPage(props: any) {
           <div dangerouslySetInnerHTML={{ __html: md().render(content!.content) }}/>
         </article>
       </article>
-    </PageWrapper>
+    </div>
   );
 }

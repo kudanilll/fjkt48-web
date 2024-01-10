@@ -1,15 +1,10 @@
 "use client";
-import { Metadata } from "next";
 import { useState, useEffect } from "react";
-import { ShimmerThumbnail, ShimmerTitle } from "react-shimmer-effects";
-import PageWrapper from "@/components/wrapper/PageWrapper";
-import MemberCard  from "@/components/card/MemberCard";
+import MemberCard from "@/components/card/MemberCard";
 import SearchBar from "@/components/searchbar";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Member",
-  description: "Daftar Member & Trainee JKT48"
-};
+// Shimmer Effect
+import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function MemberPage() {
   const [memberList,  setMemberList]  = useState([]);
@@ -48,7 +43,7 @@ export default function MemberPage() {
   }, []);
   
   return (
-    <PageWrapper>
+    <div>
       <SearchBar
         label="Sedang Mencari Oshi-mu?"
         placeholder="Cari disini"
@@ -69,10 +64,7 @@ export default function MemberPage() {
               gen={member.gen}
               image={member.image}/>
           ))) : ([...Array(6)].map((_, index) => (
-            <div key={index} className="rounded-2xl bg-white m-1.5">
-              <ShimmerThumbnail height={250} rounded/>
-              <ShimmerTitle line={2} gap={10} variant="primary" className="py-3 px-4"/>
-            </div>
+            <ShimmerCard key={index} style="member-card"/>
           )))
         }
         </div>
@@ -92,14 +84,11 @@ export default function MemberPage() {
               name={trainee.id.replaceAll("-", " ")}
               image={trainee.image}/>
           ))) : ([...Array(6)].map((_, index) => (
-            <div key={index} className="rounded-2xl bg-white m-1.5">
-              <ShimmerThumbnail height={250} rounded/>
-              <ShimmerTitle line={2} gap={10} variant="primary" className="py-3 px-4"/>
-            </div>
+            <ShimmerCard key={index} style="member-card"/>
           )))
         }
         </div>
       </div>
-    </PageWrapper>
+    </div>
   );
 }

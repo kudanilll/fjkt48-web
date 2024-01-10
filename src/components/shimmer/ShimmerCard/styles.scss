@@ -1,0 +1,28 @@
+.shimmer {
+  &-member-card-image {
+    min-width: 80px;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 2px;
+    display: inline-block;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  &-news-card-image {
+    min-height: 100px;
+    width: 50%;
+    height: 100%;
+    margin-bottom: 2px;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+  &-product-card-image {
+    min-width: 80px;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 2px;
+    display: inline-block;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+}

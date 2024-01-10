@@ -1,24 +1,24 @@
 "use client";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
 import Image from "next/image";
 import Link  from "next/link";
-import PageWrapper from "@/components/wrapper/PageWrapper";
 import NewsCard from "@/components/card/NewsCard";
 import Pagination from "@/components/pagination";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Berita",
-  description: "Berita Seputar JKT48"
-};
+// Shimmer Effect
+import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
+import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function NewsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
   const [banner, setBanner] = useState({image: "", title: "", url: ""});
+  const [successFetchBanner, setSuccessFetchBanner] = useState(false);
+  const [successFetchNews, setSuccessFetchNews] = useState(false);
   const [news, setNews] = useState([]);
   
   const itemsPerPage = 6;
@@ -49,13 +49,16 @@ export default function NewsPage() {
           title: first.title,
           url: `/news/${first.slug}`
         });
+        setSuccessFetchBanner(true);
+        setSuccessFetchNews(true);
       });
   }, []);
   
   return (
-    <PageWrapper>
+    <div>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold mb-2">Berita Terbaru</h1>
+        {successFetchBanner ? (
         <Link href={banner.url}>
           <Image
             className="w-full object-cover rounded-xl"
@@ -64,12 +67,12 @@ export default function NewsPage() {
             src={banner.image}
             alt={banner.title}
             priority={true}/>
-        </Link>
+        </Link>) : (<ShimmerBanner/>)}
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold mb-2">Berita Lainnya</h1>
         <div className="sm:mb-6 sm:gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
-          {currentItems.map((item) => (
+          {successFetchNews ? currentItems.map((item) => (
             <NewsCard
               key={item.id}
               title={item.title}
@@ -77,6 +80,8 @@ export default function NewsPage() {
               date={item.date}
               category={item.category}
               slug={item.slug}/>
+          )) : [...Array(6)].map((_, index) => (
+            <ShimmerCard key={index} style="news-card"/>
           ))}
         </div>
         <Pagination
@@ -84,6 +89,6 @@ export default function NewsPage() {
           current={currentPage}
           onPageChange={handlePageChange}/>
       </div>
-    </PageWrapper>
+    </div>
   );
 }
