@@ -7,7 +7,7 @@ import "@/assets/styles/globals.css";
 const sora = Sora({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-  title: "FJKT48 | Home",
+  title: "FJKT48",
   description: "JKT48 Fans Web"
 };
 

@@ -4,7 +4,6 @@ import { getDataFromAPI } from "@/utils/get-data";
 import { sortArrayByDate } from "@/utils/get-time";
 import Image from "next/image";
 import Link from "next/link";
-import PageWrapper from "@/components/wrapper/PageWrapper";
 import Banner from "@/components/banner";
 import NewsCard from "@/components/card/NewsCard";
 
@@ -46,7 +45,7 @@ export default function HomePage() {
   }, []);
   
   return (
-    <PageWrapper>
+    <div>
       <div className="mb-8">
         {successFetchBanner ? (<Banner content={banner}/>) : (<ShimmerBanner/>)}
       </div>
@@ -80,6 +79,6 @@ export default function HomePage() {
           alt="JKT48 Theater Logo"
           src="/jkt48-theater-logo.png"/>*/}
       </div>
-    </PageWrapper>
+    </div>
   );
 }
