@@ -16,13 +16,7 @@ type BannerContent = {
   url: string;
 };
 
-type BannerProps = {
-  status: number;
-  message: string;
-  content: BannerContent[];
-};
-
-export default function Banner(props: BannerProps) {
+export default function Banner(props: {content: BannerContent[]}) {
   return (
     <Swiper
       loop={true}
