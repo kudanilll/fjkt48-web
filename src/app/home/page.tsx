@@ -46,10 +46,10 @@ export default function HomePage() {
   
   return (
     <div>
-      <div className="mb-8">
+      <div className="mb-6">
         {successFetchBanner ? (<Banner content={banner}/>) : (<ShimmerBanner/>)}
       </div>
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-2xl font-semibold mb-2">Berita tentang JKT48</h1>
         <div className="sm:mb-6 sm:gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
           {successFetchNews ? (
@@ -71,7 +71,7 @@ export default function HomePage() {
           </div>
         </Link>
       </div>
-      <div className="mb-8">
+      <div className="mb-6">
         {/*<Image
           className="w-full object-cover"
           height={500}
