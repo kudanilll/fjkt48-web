@@ -10,7 +10,7 @@ export default function SearchBar(props: SearchProps) {
       {props.label && (
         <h2 className="text-xl text-neutral-500 font-semibold mb-2">{props.label}</h2>
       )}
-      <div clasName="flex flex-col mb-2">
+      <div className="flex flex-col mb-2">
         <input
           className="w-full appearance-none rounded-xl pl-3 py-3 text-gray-500 focus:outline-none"
           type="text"
