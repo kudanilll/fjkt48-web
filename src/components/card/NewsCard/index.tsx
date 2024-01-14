@@ -36,14 +36,14 @@ export default function NewsCard(props: NewsProps) {
   } //switch case
   return (
     <Link href={path} className="mb-2 sm:m-1.5">
-      <div className="rounded-xl backdrop-blur-sm flex bg-gray-300">
+      <div className="rounded-xl flex bg-gray-300">
         <Image
           className="w-full max-w-[1/3] object-fill rounded-s-xl"
           alt={props.title}
           src={props.image}
-          width={172}
+          width={174}
           height={124}/>
-        <div className="p-2">
+        <div className="p-2 backdrop-blur-sm">
           <span className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-4 rounded-tr-xl rounded-bl-xl uppercase`}>{props.category}</span>
           <h4 className="font-semibold text-left py-6">{props.title}</h4>
           <small className="absolute bottom-0 right-0 p-2 text-default-500">{props.date}</small>
