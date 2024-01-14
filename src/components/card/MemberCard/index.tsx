@@ -7,7 +7,7 @@ type MemberCardProps = {
   image: string;
 };
 
-export default function CardItem(props: MemberCardProps) {
+export default function MemberCard(props: MemberCardProps) {
   return (
     <Link href={"/member/" + props.name.replaceAll(" ", "-").toLowerCase()} className="m-1.5">
       <div className="rounded-2xl bg-gray-300">
