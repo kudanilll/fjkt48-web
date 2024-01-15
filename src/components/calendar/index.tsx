@@ -1,6 +1,6 @@
 import Image from "next/image";
-import leftIcon  from "@/assets/icons/chevron-left.svg";
-import rightIcon from "@/assets/icons/chevron-right.svg";
+import leftIcon  from "@/assets/icons/arrow-left.svg";
+import rightIcon from "@/assets/icons/arrow-right.svg";
 import Table from "@/components/table";
 import { monthStringArray } from "@/utils/get-time";
 
@@ -34,20 +34,16 @@ export default function Calendar(props: CalendarProps) {
   
   return (
     <div>
-      <div className="backdrop-blur-sm bg-gray-300 py-2 rounded-2xl items-center">
-        <button
-          className="absolute top-0 bottom-0 bg-red-600 px-4 py-1 rounded-l-2xl"
-          onClick={prev}>
-          <Image src={leftIcon} alt="prev" width={24} height={24}/>
-        </button>
-        <h5 className="text-center">{`${props.currentMonth} - ${props.currentYear}`}</h5>
-        <button
-          className="absolute top-0 bottom-0 right-0 bg-red-600 px-4 py-1 rounded-r-2xl"
-          onClick={next}>
-          <Image src={rightIcon} alt="next" width={24} height={24}/>
-        </button>
+      <div className="lg:w-3/5 w-full flex items-center justify-between mb-4">
+        <div className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          <Image onClick={prev} src={leftIcon} alt="prev" width={24} height={24}/>
+        </div>
+        <h5 className="text-center text-sm font-medium pt-3 px-1">{`${props.currentMonth} - ${props.currentYear}`}</h5>
+        <div className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          <Image onClick={next} src={rightIcon} alt="next" width={24} height={24}/>
+        </div>
       </div>
-      <div className="mt-2">
+      <div>
         <div className="bg-gray-300 rounded">
           <Table apiEndPoint={props.apiEndPoint}/>
         </div>
