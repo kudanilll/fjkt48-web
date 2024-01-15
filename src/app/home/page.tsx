@@ -61,7 +61,7 @@ export default function HomePage() {
               date={item.date}
               category={item.category}
               slug={item.slug}/>
-            ))) : ([...Array(6)].map((_, index) => (
+            ))) : ([...Array(4)].map((_, index) => (
               <ShimmerCard key={index} style="news-card"/>
           )))}
         </div>
