@@ -9,8 +9,8 @@ import ShimmerCard from "@/components/shimmer/ShimmerCard";
 export default function MemberPage() {
   const [memberList,  setMemberList]  = useState([]);
   const [traineeList, setTraineeList] = useState([]);
-  const [successFetchMember,  setSuccessFetchMember]  = useState(false);
-  const [successFetchTrainee, setSuccessFetchTrainee] = useState(false);
+  const [successFetchMember,  setSuccessFetchMember]  = useState<boolean>(false);
+  const [successFetchTrainee, setSuccessFetchTrainee] = useState<boolean>(false);
   const [query, setQuery] = useState("");
   
   useEffect(() => {

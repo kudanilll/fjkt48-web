@@ -12,7 +12,7 @@ import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function ShopPage() {
   const [bannerImage, setBannerImage] = useState("");
-  const [successFetchBanner, setSuccessFetchBanner] = useState(false);
+  const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
   
   useEffect(() => {
     fetch("/api/v1/shop?banner=1", {

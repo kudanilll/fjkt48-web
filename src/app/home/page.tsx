@@ -14,8 +14,8 @@ import ShimmerCard from "@/components/shimmer/ShimmerCard";
 export default function HomePage() {
   const [banner, setBanner] = useState([]);
   const [news, setNews] = useState([]);
-  const [successFetchBanner, setSuccessFetchBanner] = useState(false);
-  const [successFetchNews, setSuccessFetchNews] = useState(false);
+  const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
+  const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
   
   useEffect(() => {
     function fetchBanner() {

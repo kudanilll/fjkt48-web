@@ -16,8 +16,8 @@ export default function NewsPage() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
   const [banner, setBanner] = useState({image: "", title: "", url: ""});
-  const [successFetchBanner, setSuccessFetchBanner] = useState(false);
-  const [successFetchNews, setSuccessFetchNews] = useState(false);
+  const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
+  const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
   const [news, setNews] = useState([]);
   
   const itemsPerPage = 6;

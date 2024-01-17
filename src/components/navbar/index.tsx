@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<boolean>(false);
   return (
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5">
       <nav className="w-full bg-slate-100 fixed top-0 left-0 right-0 z-10 border">
