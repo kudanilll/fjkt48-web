@@ -12,7 +12,7 @@ export default function SearchBar(props: SearchProps) {
       )}
       <div className="flex flex-col mb-2">
         <input
-          className="w-full appearance-none rounded-xl pl-3 py-3 text-gray-500 focus:outline-none"
+          className="w-full appearance-none rounded-full pl-4 py-3 text-gray-500 focus:outline-none"
           type="text"
           placeholder={props.placeholder ?? ""}
           onChange={props.onChange}/>
