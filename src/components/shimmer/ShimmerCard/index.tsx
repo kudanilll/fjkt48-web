@@ -33,11 +33,16 @@ function ShimmerProductCard() {
   );
 }
 
+function ShimmerScheduleCard() {
+  return <div className="shimmer rounded-xl flex bg-white w-full mb-2" style={{height: "72px"}}/>
+}
+
 export default function ShimmerCard(props: {style: string}) {
   const styles = [
     "member-card",
     "news-card",
-    "product-card"
+    "product-card",
+    "schedule-card",
   ];
   if(styles.includes(props.style)) {
     switch(props.style) {
@@ -47,6 +52,8 @@ export default function ShimmerCard(props: {style: string}) {
       return <ShimmerNewsCard/>
     case styles[2]:
       return <ShimmerProductCard/>
+    case styles[3]:
+      return <ShimmerScheduleCard/>
     }
   }
   return <div className="rounded-2xl bg-white m-1.5" style={{height: "300px"}}/>
