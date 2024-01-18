@@ -39,16 +39,16 @@ function TextDivider(props: { text: string, link?: string }) {
   );
 }
 
-export default function Table(props: {apiEndPoint: string}) {
+export default function Table(props: {endpoint: string}) {
   const [columnTable, setColumnTable] = useState([]);
   
   useEffect(() => {
-    fetch(`/api/v1/schedule${props.apiEndPoint}`, {
+    fetch(`/api/v1/schedule${props.endpoint}`, {
       cache: "no-store",
       method: "GET"
     }).then((response) => response.json())
       .then((data) => setColumnTable(sort(data.content)));
-  }, [props.apiEndPoint]);
+  }, [props.endpoint]);
   
   return (
     <div className="flex flex-col">
