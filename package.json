@@ -49,6 +49,6 @@
     "prettier": "^2.8.8",
     "sass": "^1.69.7",
     "tailwindcss": "^3.3.7",
-    "vercel": "^30.2.3"
+    "vercel": "^33.2.0"
   }
 }
