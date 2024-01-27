@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 // Import required modules
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import Image from "next/image";
-import Link  from "next/link";
+import Link from "next/link";
 
 type BannerContent = {
   id: string;
@@ -16,17 +16,17 @@ type BannerContent = {
   url: string;
 };
 
-export default function Banner(props: {content: BannerContent[]}) {
+export default function Banner(props: { content: BannerContent[] }) {
   return (
     <Swiper
       loop={true}
       effect={"fade"}
       pagination={{
-        clickable: true
+        clickable: true,
       }}
       autoplay={{
         delay: 5000,
-        disableOnInteraction: false
+        disableOnInteraction: false,
       }}
       modules={[Autoplay, EffectFade, Pagination]}
       className="mySwiper">
@@ -39,8 +39,9 @@ export default function Banner(props: {content: BannerContent[]}) {
               height={500}
               alt={banner.image}
               src={banner.image}
-              priority={true}/>
-            <div className="bg-red-600 bottom-0 py-5 rounded-b-2xl"/>
+              priority={true}
+            />
+            <div className="bg-red-600 bottom-0 py-5 rounded-b-2xl" />
           </Link>
         </SwiperSlide>
       ))}

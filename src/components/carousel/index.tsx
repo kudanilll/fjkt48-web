@@ -4,8 +4,7 @@ import ProductCard from "@/components/card/ProductCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-type CarouselProps = {
-};
+type CarouselProps = {};
 
 export default function Carousel(props: CarouselProps) {
   return (
@@ -14,12 +13,24 @@ export default function Carousel(props: CarouselProps) {
       spaceBetween={10}
       freeMode={true}
       className="mySwiper">
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
-        <SwiperSlide><ProductCard/></SwiperSlide>
+      <SwiperSlide>
+        <ProductCard />
+      </SwiperSlide>
+      <SwiperSlide>
+        <ProductCard />
+      </SwiperSlide>
+      <SwiperSlide>
+        <ProductCard />
+      </SwiperSlide>
+      <SwiperSlide>
+        <ProductCard />
+      </SwiperSlide>
+      <SwiperSlide>
+        <ProductCard />
+      </SwiperSlide>
+      <SwiperSlide>
+        <ProductCard />
+      </SwiperSlide>
     </Swiper>
   );
 }

@@ -5,9 +5,13 @@ const ThemeContext = createContext();
 
 export const Theme = ThemeContext;
 
-export default function ThemeContextProvider({children}: {children: React.ReactNode}) {
+export default function ThemeContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <ThemeContext.Provider value={{themeMode, setThemeMode}}>
+    <ThemeContext.Provider value={{ themeMode, setThemeMode }}>
       {children}
     </ThemeContext.Provider>
   );

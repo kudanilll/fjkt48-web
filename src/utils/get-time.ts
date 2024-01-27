@@ -10,7 +10,7 @@ export const monthStringArray = [
   "September",
   "Oktober",
   "November",
-  "Desember"
+  "Desember",
 ];
 
 export const dayStringArray = [
@@ -20,7 +20,7 @@ export const dayStringArray = [
   "Rabu",
   "Kamis",
   "Jumat",
-  "Sabtu"
+  "Sabtu",
 ];
 
 export function getCurrentDay() {
@@ -36,7 +36,7 @@ export function getCurrentYear() {
 }
 
 export function sortArrayByDate(array) {
-  array.sort(function(a, b) {
+  array.sort(function (a, b) {
     var dateA = new Date(a.date);
     var dateB = new Date(b.date);
     return dateB - dateA;

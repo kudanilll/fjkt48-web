@@ -9,7 +9,9 @@ type MemberCardProps = {
 
 export default function MemberCard(props: MemberCardProps) {
   return (
-    <Link href={"/member/" + props.name.replaceAll(" ", "-").toLowerCase()} className="m-1.5">
+    <Link
+      href={"/member/" + props.name.replaceAll(" ", "-").toLowerCase()}
+      className="m-1.5">
       <div className="rounded-2xl bg-gray-300">
         <div className="overflow-visible">
           <Image
@@ -18,11 +20,16 @@ export default function MemberCard(props: MemberCardProps) {
             height={500}
             alt={props.name}
             src={props.image}
-            priority={true}/>
+            priority={true}
+          />
         </div>
         <div className="text-small py-3 px-4 flex-col items-start">
-          <h4 className="font-poppins font-semibold text-xl sm:mb-8 h-16">{props.name}</h4>
-          <p className="sm:bottom-0 sm:mb-3 sm:mt-2 py-1 text-sm">{props.gen}</p>
+          <h4 className="font-poppins font-semibold text-xl sm:mb-8 h-16">
+            {props.name}
+          </h4>
+          <p className="sm:bottom-0 sm:mb-3 sm:mt-2 py-1 text-sm">
+            {props.gen}
+          </p>
         </div>
       </div>
     </Link>

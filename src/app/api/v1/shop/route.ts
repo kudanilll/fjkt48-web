@@ -3,24 +3,24 @@ import { retrieveData, retrieveDataById } from "@/lib/firebase/service";
 
 export async function GET(request: NextRequest) {
   const banner = request.nextUrl.searchParams.get("banner");
-  if(banner) {
+  if (banner) {
     const data = await retrieveDataById("shop", "banner");
-    if(data) {
+    if (data) {
       return NextResponse.json({
         status: 200,
         message: "Success",
-        content: data
+        content: data,
       });
     }
     return NextResponse.json({
       status: 404,
       message: "Not Found",
-      content: {}
+      content: {},
     });
   }
   return NextResponse.json({
     status: 200,
     message: "Success",
-    content: await retrieveData("shop")
+    content: await retrieveData("shop"),
   });
 }

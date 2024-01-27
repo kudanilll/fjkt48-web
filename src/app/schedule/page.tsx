@@ -1,5 +1,10 @@
 "use client";
-import { monthStringArray, getCurrentDay, getCurrentMonth, getCurrentYear } from "@/utils/get-time";
+import {
+  monthStringArray,
+  getCurrentDay,
+  getCurrentMonth,
+  getCurrentYear,
+} from "@/utils/get-time";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Calendar from "@/components/calendar";
@@ -9,18 +14,20 @@ export default function SchedulePage() {
   const [month, setMonth] = useState(getCurrentMonth());
   const [year, setYear] = useState(getCurrentYear());
   const [path, setPath] = useState(`?date=${year}-${month.toLowerCase()}`);
-  
+
   function handleDateChange(month: number, year: number) {
     setMonth(monthStringArray[month]);
     setYear(year);
     setPath(`?date=${year}-${monthStringArray[month].toLowerCase()}`);
-    router.push(`/schedule?date=${year}-${monthStringArray[month].toLowerCase()}`);
+    router.push(
+      `/schedule?date=${year}-${monthStringArray[month].toLowerCase()}`
+    );
     window.scrollTo({
       top: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   }
-  
+
   return (
     <div>
       <div className="mb-4">
@@ -32,7 +39,8 @@ export default function SchedulePage() {
           apiEndPoint={path}
           currentMonth={month}
           currentYear={year}
-          onDateChange={handleDateChange}/>
+          onDateChange={handleDateChange}
+        />
       </div>
     </div>
   );

@@ -19,7 +19,8 @@ export default function ProductCard(props: ProductCardProps) {
           src="/product-image.jpg"
           alt="product image"
           width={200}
-          height={200}/>
+          height={200}
+        />
         <div className="p-2">
           <h5 className="text-md font-regular text-zinc-900">Sepatu</h5>
           <p>
