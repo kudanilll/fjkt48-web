@@ -1,10 +1,9 @@
 "use client";
 import { navigation } from "./navigation.json";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
