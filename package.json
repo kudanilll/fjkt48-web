@@ -20,13 +20,13 @@
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
     "eslint": "8.56.0",
-    "eslint-config-next": "14.0.4",
+    "eslint-config-next": "14.1.0",
     "firebase": "^10.7.1",
     "framer-motion": "^9.1.7",
     "gray-matter": "^4.0.3",
     "hamburger-react": "^2.5.0",
     "markdown-it": "^14.0.0",
-    "next": "14.0.4",
+    "next": "14.1.0",
     "nextjs-toploader": "^1.6.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -48,6 +48,6 @@
     "prettier": "^2.8.8",
     "sass": "^1.69.7",
     "tailwindcss": "^3.3.7",
-    "vercel": "^33.2.0"
+    "vercel": "^32.3.0"
   }
 }
