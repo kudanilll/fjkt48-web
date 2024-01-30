@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { header } from "./header.json";
+import header from "./header";
 
 type TableProps = {
   id: string;

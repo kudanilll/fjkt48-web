@@ -11,7 +11,7 @@ import ScheduleCard from "@/components/card/ScheduleCard";
 import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
-import { specialLinks } from "./special-links.json";
+import specialLinks from "./special-links";
 
 export default function HomePage() {
   const [banner, setBanner] = useState([]);

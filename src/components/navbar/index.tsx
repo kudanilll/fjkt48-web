@@ -1,8 +1,8 @@
 "use client";
-import { navigation } from "./navigation.json";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
+import navigation from "./route";
 import Link from "next/link";
 
 export default function NavigationBar() {
@@ -11,7 +11,7 @@ export default function NavigationBar() {
   return (
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5">
       <nav className="w-full bg-slate-100 fixed top-0 left-0 right-0 z-10 border">
-        <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+        <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-16">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
               <div className="flex flex-wrap">

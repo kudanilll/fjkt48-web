@@ -1,6 +1,6 @@
 "use client";
-import { sections } from "./section-item.json";
 import { useState, useEffect } from "react";
+import sections from "./section-item";
 import Carousel from "@/components/carousel";
 import Image from "next/image";
 import Link from "next/link";

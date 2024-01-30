@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,11 +12,8 @@ import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function NewsPage() {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(
-    Number(searchParams.get("page")) || 1
-  );
+  const [currentPage, setCurrentPage] = useState(1);
   const [banner, setBanner] = useState({ image: "", title: "", url: "" });
   const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
