@@ -14,7 +14,7 @@ export default function NavigationBar() {
         <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-16">
           <div>
             <div className="flex items-center justify-between py-3 md:py-5 md:block">
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap cursor-pointer">
                 <h1 className="text-black text-2xl font-fugaz">FJKT</h1>
                 <h1 className="text-red-700 text-2xl font-fugaz">48</h1>
               </div>
@@ -42,7 +42,7 @@ export default function NavigationBar() {
                       pathname.includes(item.path)
                         ? "drop-shadow text-red-600 md:font-bold"
                         : "text-black md:text-black md:font-light"
-                    } md:px-4 px-4 py-2 pb-6 text-xl text-start font-semibold hover:text-red-700 md:hover:font-bold md:hover:text-red-700 md:hover:bg-transparent font-poppins`}>
+                    } md:px-2 px-4 py-2 pb-6 text-xl text-start font-semibold hover:text-red-700 md:hover:font-bold md:hover:text-red-700 md:hover:bg-transparent`}>
                     <Link
                       key={index}
                       href={item.path}

@@ -30,7 +30,7 @@ export default function Calendar(props: CalendarProps) {
 
   return (
     <div>
-      <div className="lg:w-3/5 w-full flex items-center justify-between mb-4">
+      <div className="lg:w-3/5 w-full flex items-center justify-between mb-4 m-auto">
         <div className="flex items-center pt-3 text-gray-800 cursor-pointer">
           <Image
             onClick={prev}
@@ -52,7 +52,7 @@ export default function Calendar(props: CalendarProps) {
         </div>
       </div>
       <div>
-        <div className="bg-gray-300 rounded">
+        <div className="bg-gray-300 rounded md:mt-4">
           <Table endpoint={props.apiEndPoint} />
         </div>
       </div>

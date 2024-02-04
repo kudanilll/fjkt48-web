@@ -78,7 +78,13 @@ export default function HomePage() {
   return (
     <div>
       <div className="mb-8">
-        {successFetchBanner ? <Banner content={banner} /> : <ShimmerBanner />}
+        {successFetchBanner ? (
+          <div className="md:px-24">
+            <Banner content={banner} />
+          </div>
+        ) : (
+          <ShimmerBanner />
+        )}
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold mb-2">Berita tentang JKT48</h1>
