@@ -88,7 +88,7 @@ export default function HomePage() {
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold mb-2">Berita tentang JKT48</h1>
-        <div className="sm:mb-6 sm:gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
+        <div className="sm:mb-6 gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
           {successFetchNews
             ? news.map((item) => (
                 <NewsCard
