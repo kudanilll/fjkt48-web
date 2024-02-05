@@ -31,11 +31,12 @@ export default function ShopPage() {
       <div className="mb-6">
         {successFetchBanner ? (
           <Image
-            className="w-full object-cover rounded-xl"
+            className="w-full object-cover rounded-xl md:px-24"
             width={500}
             height={500}
             src={bannerImage}
             alt={bannerImage}
+            quality={100}
             priority={true}
           />
         ) : (

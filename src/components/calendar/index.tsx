@@ -52,7 +52,7 @@ export default function Calendar(props: CalendarProps) {
         </div>
       </div>
       <div>
-        <div className="bg-gray-300 rounded md:mt-4">
+        <div className="bg-gray-300 rounded mt-2 md:mt-4">
           <Table endpoint={props.apiEndPoint} />
         </div>
       </div>
