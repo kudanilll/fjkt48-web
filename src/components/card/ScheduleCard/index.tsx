@@ -3,7 +3,7 @@ import Link from "next/link";
 type ScheduleProps = {
   title: string;
   date: string;
-  slug: string;
+  slug?: string;
 };
 
 export default function ScheduleCard(props: ScheduleProps) {

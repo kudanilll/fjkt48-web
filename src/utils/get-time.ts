@@ -1,3 +1,5 @@
+import { basename } from "path";
+
 export const monthStringArray = [
   "Januari",
   "Februari",
@@ -35,11 +37,9 @@ export function getCurrentYear() {
   return new Date().getFullYear();
 }
 
-export function sortArrayByDate(array) {
+export function sortArrayByDate(array: any[]) {
   array.sort(function (a, b) {
-    var dateA = new Date(a.date);
-    var dateB = new Date(b.date);
-    return dateB - dateA;
+    return Number(new Date(b.date)) - Number(new Date(a.date));
   });
   return array;
 }

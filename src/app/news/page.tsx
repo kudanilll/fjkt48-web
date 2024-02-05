@@ -17,7 +17,7 @@ export default function NewsPage() {
   const [banner, setBanner] = useState({ image: "", title: "", url: "" });
   const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState<any[]>([]);
 
   const itemsPerPage = 6;
   const indexOfLastItem = currentPage * itemsPerPage;

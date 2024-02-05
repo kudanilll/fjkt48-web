@@ -1,7 +1,4 @@
-import {
-  getDataFromStorage,
-  retrieveCollectionDataById,
-} from "@/lib/firebase/service";
+import { getDataFromStorage } from "@/lib/firebase/service";
 
 export async function getDataFromAPI(endpoint: string) {
   const res = await fetch(`${process.env.BASE_URL}${endpoint}`, {

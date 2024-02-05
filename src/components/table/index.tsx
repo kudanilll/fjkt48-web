@@ -40,7 +40,7 @@ function TextDivider(props: { text: string; link?: string }) {
 }
 
 export default function Table(props: { endpoint: string }) {
-  const [columnTable, setColumnTable] = useState([]);
+  const [columnTable, setColumnTable] = useState<any[]>([]);
 
   useEffect(() => {
     fetch(`/api/v1/schedule${props.endpoint}`, {
@@ -54,9 +54,9 @@ export default function Table(props: { endpoint: string }) {
   return (
     <div className="flex flex-col">
       <div className="align-middle inline-block min-w-full">
-        <div className="overflow-scroll">
+        <div className="overflow-scroll md:overflow-hidden">
           {columnTable.length > 0 ? (
-            <table className="table-auto overflow-scroll w-full divide-y divide-gray-200">
+            <table className="table-auto overflow-scroll md:overflow-hidden w-full divide-y divide-gray-200">
               {/* Table Header */}
               <thead className="border-neutral-900">
                 <tr className="divide-x divide-gray-200">

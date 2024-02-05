@@ -2,7 +2,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   // Set the font
-  "editor.fontFamily": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+  "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', Consolas, 'Courier New', monospace",
   // Set the font size
   "editor.fontSize": 14,
   "editor.lineHeight": 1.5,
@@ -10,5 +10,5 @@
   "editor.fontLigatures": true,
   // Enable smooth scrolling in the editor
   "editor.smoothScrolling": true,
-  "terminal.integrated.fontFamily": "'JetBrains Mono'"
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font Mono'"
 }

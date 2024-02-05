@@ -1,8 +1,8 @@
 import "@/assets/styles/shimmer.scss";
 import "./styles.scss";
 
-export default function ShimmerTitle(props: { line: number; width: number }) {
-  const style = {};
+export default function ShimmerTitle(props: { line?: number; width?: number }) {
+  const style: any = {};
   style.width = props.width ? `${props.width}%` : "100%";
   return (
     <div className="shimmer-title grid grid-gap-10" style={style}>

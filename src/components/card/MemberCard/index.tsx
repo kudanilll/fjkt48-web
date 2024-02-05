@@ -3,7 +3,7 @@ import Link from "next/link";
 
 type MemberCardProps = {
   name: string;
-  gen: string;
+  gen?: string;
   image: string;
 };
 

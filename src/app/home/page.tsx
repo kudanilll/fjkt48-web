@@ -14,17 +14,17 @@ import ShimmerCard from "@/components/shimmer/ShimmerCard";
 import specialLinks from "./special-links";
 
 export default function HomePage() {
-  const [banner, setBanner] = useState([]);
-  const [news, setNews] = useState([]);
-  const [eventSchedule, setEventSchedule] = useState([]);
+  const [banner, setBanner] = useState<any[]>([]);
+  const [news, setNews] = useState<any[]>([]);
+  const [eventSchedule, setEventSchedule] = useState<any[]>([]);
 
   const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
   const [successFetchEvent, setSuccessFetchEvent] = useState<boolean>(false);
 
   useEffect(() => {
-    function filterEventSchedule(data) {
-      const result = [];
+    function filterEventSchedule(data: any[]) {
+      const result: any[] = [];
       data.map((item) => {
         if (item.id > new Date().getDate()) result.push(item);
       });

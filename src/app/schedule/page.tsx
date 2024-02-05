@@ -12,12 +12,12 @@ import Calendar from "@/components/calendar";
 export default function SchedulePage() {
   const router = useRouter();
   const [month, setMonth] = useState(getCurrentMonth());
-  const [year, setYear] = useState(getCurrentYear());
+  const [year, setYear] = useState(String(getCurrentYear()));
   const [path, setPath] = useState(`?date=${year}-${month.toLowerCase()}`);
 
   function handleDateChange(month: number, year: number) {
     setMonth(monthStringArray[month]);
-    setYear(year);
+    setYear(String(year));
     setPath(`?date=${year}-${monthStringArray[month].toLowerCase()}`);
     router.push(
       `/schedule?date=${year}-${monthStringArray[month].toLowerCase()}`

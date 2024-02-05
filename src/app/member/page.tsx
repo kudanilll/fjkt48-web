@@ -7,8 +7,8 @@ import SearchBar from "@/components/searchbar";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function MemberPage() {
-  const [memberList, setMemberList] = useState([]);
-  const [traineeList, setTraineeList] = useState([]);
+  const [memberList, setMemberList] = useState<any[]>([]);
+  const [traineeList, setTraineeList] = useState<any[]>([]);
   const [successFetchMember, setSuccessFetchMember] = useState<boolean>(false);
   const [successFetchTrainee, setSuccessFetchTrainee] =
     useState<boolean>(false);
