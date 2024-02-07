@@ -5,9 +5,9 @@ import Image from "next/image";
 type SearchProps = {
   label?: string;
   placeholder?: string;
-  value: string;
-  onInput: (event: any) => void;
-  onBlur: () => void;
+  inputValue: string;
+  handleInputChange: (event: any) => void;
+  handleOnBlur: () => void;
   onCloseIcon: () => void;
   icon: "search" | "close";
 };
@@ -24,10 +24,10 @@ export default function SearchBar(props: SearchProps) {
         <input
           className="w-full appearance-none rounded-full pl-6 py-3 text-gray-500 focus:outline-none"
           type="text"
-          value={props.value}
+          value={props.inputValue}
           placeholder={props.placeholder ?? ""}
-          onChange={props.onInput}
-          onBlur={props.onBlur}
+          onChange={props.handleInputChange}
+          onBlur={props.handleOnBlur}
         />
         <Image
           src={props.icon === "search" ? searchIcon : closeIcon}

@@ -51,7 +51,7 @@ export default function MemberPage() {
       <SearchBar
         label="Sedang Mencari Oshi-mu?"
         placeholder="Cari disini"
-        onInput={(event) => {
+        handleInputChange={(event) => {
           const value = event.target.value;
           if (value.length <= 10) setQuery(value);
           setIsInput(true);
@@ -62,10 +62,11 @@ export default function MemberPage() {
             setIsInput(false);
           }
         }}
-        value={query}
-        onBlur={() => {
-          setQuery("");
-          setIsInput(false);
+        inputValue={query}
+        handleOnBlur={() => {
+          /* bug while inputting, then click on one of the cards */
+          // setQuery("");
+          // setIsInput(false);
         }}
         icon={isInput ? "close" : "search"}
       />
@@ -84,17 +85,17 @@ export default function MemberPage() {
                     )
                       return data;
                   })
-                  .map((member, index) => (
+                  .map((member) => (
                     <MemberCard
-                      key={index}
+                      key={member.id}
                       name={member.id.replaceAll("-", " ")}
                       gen={member.gen}
                       image={member.image}
                     />
                   ))
-              : memberList.map((member, index) => (
+              : memberList.map((member) => (
                   <MemberCard
-                    key={index}
+                    key={member.id}
                     name={member.id.replaceAll("-", " ")}
                     gen={member.gen}
                     image={member.image}
@@ -120,16 +121,16 @@ export default function MemberPage() {
                     )
                       return data;
                   })
-                  .map((trainee, index) => (
+                  .map((trainee) => (
                     <MemberCard
-                      key={index}
+                      key={trainee.id}
                       name={trainee.id.replaceAll("-", " ")}
                       image={trainee.image}
                     />
                   ))
-              : traineeList.map((trainee, index) => (
+              : traineeList.map((trainee) => (
                   <MemberCard
-                    key={index}
+                    key={trainee.id}
                     name={trainee.id.replaceAll("-", " ")}
                     image={trainee.image}
                   />
