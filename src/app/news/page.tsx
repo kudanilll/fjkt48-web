@@ -60,7 +60,7 @@ export default function NewsPage() {
         {successFetchBanner ? (
           <Link href={banner.url}>
             <Image
-              className="w-full object-cover rounded-xl"
+              className="w-full object-cover rounded-xl md:px-24"
               width={500}
               height={500}
               src={banner.image}
@@ -74,7 +74,7 @@ export default function NewsPage() {
       </div>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold mb-2">Berita Lainnya</h1>
-        <div className="sm:mb-6 sm:gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
+        <div className=" md:px-10 sm:mb-6 sm:gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
           {successFetchNews
             ? currentItems.map((item) => (
                 <NewsCard

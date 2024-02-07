@@ -37,22 +37,25 @@ export default function NewsCard(props: NewsProps) {
   return (
     <Link href={path} className="mb-2 sm:m-1.5">
       <div className="rounded-xl flex bg-gray-300">
-        <Image
-          className="w-full max-w-[1/3] object-fill rounded-s-xl"
-          alt={props.title}
-          src={props.image}
-          width={174}
-          height={124}
-        />
+        <div className="flex items-center">
+          <Image
+            className="w-full object-contain rounded-s-xl"
+            alt={props.title}
+            src={props.image}
+            width={174}
+            height={124}
+            quality={100}
+          />
+          <h4 className="font-semibold text-left text-xs md:text-base py-2 md:py-0 mx-2">
+            {props.title}
+          </h4>
+        </div>
         <div className="p-2 backdrop-blur-none">
           <span
             className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-4 rounded-tr-xl rounded-bl-xl uppercase`}>
             {props.category}
           </span>
-          <h4 className="font-poppins font-semibold text-left py-6">
-            {props.title}
-          </h4>
-          <small className="absolute bottom-0 right-0 p-2 text-default-500">
+          <small className="absolute bottom-0 right-0 p-2 text-default-500 text-ellipsis whitespace-nowrap">
             {props.date}
           </small>
         </div>

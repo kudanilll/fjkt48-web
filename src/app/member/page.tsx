@@ -12,7 +12,8 @@ export default function MemberPage() {
   const [successFetchMember, setSuccessFetchMember] = useState<boolean>(false);
   const [successFetchTrainee, setSuccessFetchTrainee] =
     useState<boolean>(false);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
+  const [isInput, setIsInput] = useState<boolean>(false);
 
   useEffect(() => {
     // fetch member data
@@ -50,21 +51,48 @@ export default function MemberPage() {
       <SearchBar
         label="Sedang Mencari Oshi-mu?"
         placeholder="Cari disini"
-        onChange={(event) => setQuery(event.target.value)}
+        onInput={(event) => {
+          const value = event.target.value;
+          if (value.length <= 10) setQuery(value);
+          setIsInput(true);
+        }}
+        onCloseIcon={() => {
+          if (isInput) {
+            setQuery("");
+            setIsInput(false);
+          }
+        }}
+        value={query}
+        onBlur={() => {
+          setQuery("");
+          setIsInput(false);
+        }}
+        icon={isInput ? "close" : "search"}
       />
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold">Member JKT48</h1>
-        <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 content-center">
+        <h1 className="text-2xl md:text-3xl mb-1 font-semibold">
+          {!isInput ? "Member JKT48" : ""}
+        </h1>
+        <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 md:px-12 content-center">
           {successFetchMember
-            ? memberList
-                .filter((data) => {
-                  if (query === "") return data;
-                  else if (
-                    data.name.toLowerCase().includes(query.toLowerCase())
-                  )
-                    return data;
-                })
-                .map((member, index) => (
+            ? isInput
+              ? memberList
+                  .filter((data) => {
+                    if (query === "") return data;
+                    else if (
+                      data.name.toLowerCase().includes(query.toLowerCase())
+                    )
+                      return data;
+                  })
+                  .map((member, index) => (
+                    <MemberCard
+                      key={index}
+                      name={member.id.replaceAll("-", " ")}
+                      gen={member.gen}
+                      image={member.image}
+                    />
+                  ))
+              : memberList.map((member, index) => (
                   <MemberCard
                     key={index}
                     name={member.id.replaceAll("-", " ")}
@@ -78,18 +106,28 @@ export default function MemberPage() {
         </div>
       </div>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold">Trainee JKT48</h1>
-        <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 content-center">
+        <h1 className="text-2xl md:text-3xl mb-1 font-semibold">
+          {!isInput ? "Trainee JKT48" : ""}
+        </h1>
+        <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 md:px-12 content-center">
           {successFetchTrainee
-            ? traineeList
-                .filter((data) => {
-                  if (query === "") return data;
-                  else if (
-                    data.name.toLowerCase().includes(query.toLowerCase())
-                  )
-                    return data;
-                })
-                .map((trainee, index) => (
+            ? isInput
+              ? traineeList
+                  .filter((data) => {
+                    if (query === "") return data;
+                    else if (
+                      data.name.toLowerCase().includes(query.toLowerCase())
+                    )
+                      return data;
+                  })
+                  .map((trainee, index) => (
+                    <MemberCard
+                      key={index}
+                      name={trainee.id.replaceAll("-", " ")}
+                      image={trainee.image}
+                    />
+                  ))
+              : traineeList.map((trainee, index) => (
                   <MemberCard
                     key={index}
                     name={trainee.id.replaceAll("-", " ")}
