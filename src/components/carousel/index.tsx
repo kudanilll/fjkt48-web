@@ -11,8 +11,6 @@ type CarouselProps = {};
 export default function Carousel(props: CarouselProps) {
   return (
     <Swiper
-      // slidesPerView={5}
-      // spaceBetween={10}
       spaceBetween={10}
       slidesPerView="auto"
       breakpoints={{
