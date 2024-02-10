@@ -47,8 +47,8 @@ export default function Carousel(props: CarouselProps) {
             image="/product-image.jpg"
             title="Sepatu"
             price={5000}
-            status={"available"}
-            slug={""}
+            status="available"
+            slug="https://www.tokopedia.com/officialjkt48/jkt48-2024-calendar-flowerful?extParam=src%3Dshop%26whid%3D4003898"
           />
         </SwiperSlide>
       ))}

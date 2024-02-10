@@ -24,7 +24,7 @@ export default function ProductCard(props: ProductCardProps) {
           <h5 className="text-md font-regular text-zinc-900">{props.title}</h5>
           <span className="text-2xl font-semibold text-zinc-900">{`Rp${props.price}`}</span>
           <button className="mt-2 flex mx-auto items-center justify-center rounded-md bg-zinc-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-zinc-700 focus:outline-none">
-            Cek Selengkapnya
+            <a href={props.slug}>Cek Selengkapnya</a>
           </button>
         </div>
       </div>
