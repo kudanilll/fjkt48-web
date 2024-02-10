@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 // Import required modules
-import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import { Mousewheel, Autoplay, EffectFade, Pagination } from "swiper/modules";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,6 +21,7 @@ export default function Banner(props: { content: BannerContent[] }) {
     <Swiper
       loop={true}
       effect={"fade"}
+      mousewheel={true}
       pagination={{
         clickable: true,
       }}
@@ -28,7 +29,7 @@ export default function Banner(props: { content: BannerContent[] }) {
         delay: 5000,
         disableOnInteraction: false,
       }}
-      modules={[Autoplay, EffectFade, Pagination]}
+      modules={[Mousewheel, Autoplay, EffectFade, Pagination]}
       className="mySwiper">
       {props.content.map((banner) => (
         <SwiperSlide key={banner.id}>
