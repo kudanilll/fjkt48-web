@@ -1,5 +1,3 @@
-import { basename } from "path";
-
 export const monthStringArray = [
   "Januari",
   "Februari",

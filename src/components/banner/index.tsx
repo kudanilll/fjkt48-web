@@ -40,6 +40,7 @@ export default function Banner(props: { content: BannerContent[] }) {
               alt={banner.image}
               src={banner.image}
               priority={true}
+              quality={100}
             />
             <div className="bg-red-600 bottom-0 py-5 rounded-b-2xl" />
           </Link>

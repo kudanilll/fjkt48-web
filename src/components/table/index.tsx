@@ -72,7 +72,9 @@ export default function Table(props: { endpoint: string }) {
               {/* Table Body */}
               <tbody className="divide-y divide-gray-200">
                 {columnTable.map((row, index) => (
-                  <tr key={row.id} className="divide-x divide-gray-200">
+                  <tr
+                    key={row.id}
+                    className={`divide-x divide-gray-200 ${row.id == new Date().getDate() ? "text-red-700" : "text-black"}`}>
                     <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
                       {index + 1}
                     </td>
