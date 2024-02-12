@@ -1,38 +1,38 @@
 const sections = [
   {
-    id: "section-tshirt",
+    id: "tshirt",
     title: "T-Shirt",
   },
   {
-    id: "section-accessories",
+    id: "accessories",
     title: "Accessories",
   },
   {
-    id: "section-photopack",
+    id: "photopack",
     title: "Photopack",
   },
   {
-    id: "section-poster",
+    id: "poster",
     title: "Poster & Calendar",
   },
   {
-    id: "section-book",
+    id: "book",
     title: "Book & Stationary",
   },
   {
-    id: "section-birthday-tshirt",
+    id: "birthday-tshirt",
     title: "Birthday T-Shirt",
   },
   {
-    id: "section-cd-dvd",
+    id: "cd-dvd",
     title: "CD & DVD",
   },
   {
-    id: "section-drinking-bottles",
+    id: "drinking-bottles",
     title: "Botol Minum",
   },
   {
-    id: "section-jacket",
+    id: "jacket",
     title: "Jacket",
   },
 ];
