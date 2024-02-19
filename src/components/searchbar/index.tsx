@@ -1,6 +1,4 @@
-import searchIcon from "@/assets/icons/search.svg";
-import closeIcon from "@/assets/icons/close.svg";
-import Image from "next/image";
+import { MdClear, MdSearch } from "react-icons/md";
 
 type SearchProps = {
   label?: string;
@@ -29,12 +27,13 @@ export default function SearchBar(props: SearchProps) {
           onChange={props.handleInputChange}
           onBlur={props.handleOnBlur}
         />
-        <Image
-          src={props.icon === "search" ? searchIcon : closeIcon}
-          alt="search"
-          className="absolute mr-6 end-0 m-3 cursor-pointer"
-          onClick={props.onCloseIcon}
-        />
+        <div className="absolute mr-6 end-0 m-3 cursor-pointer">
+          {props.icon === "search" ? (
+            <MdSearch size={24} />
+          ) : (
+            <MdClear size={24} />
+          )}
+        </div>
       </div>
     </div>
   );

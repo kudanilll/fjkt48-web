@@ -1,10 +1,10 @@
 "use client";
+import { MdChevronRight } from "react-icons/md";
 import { useState, useEffect } from "react";
 import sections from "./section-item";
 import Carousel from "@/components/carousel";
 import Image from "next/image";
 import Link from "next/link";
-import chevronRightIcon from "@/assets/icons/chevron-right-dark.svg";
 
 // Shimmer Effect
 import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
@@ -45,15 +45,9 @@ export default function ShopPage() {
       </div>
       {sections.map((section, index) => (
         <div className="mb-6" id={section.id} key={index}>
-          <Link className="flex flex-row" href="">
+          <Link className="flex flex-row items-center" href="">
             <h1 className="text-3xl font-semibold mb-1.5">{section.title}</h1>
-            <Image
-              width={40}
-              height={40}
-              src={chevronRightIcon}
-              alt={chevronRightIcon}
-              className="mb-1.5"
-            />
+            <MdChevronRight size={40} className="mb-1.5" />
           </Link>
           <Carousel />
         </div>

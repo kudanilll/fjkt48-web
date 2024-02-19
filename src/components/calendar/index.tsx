@@ -1,8 +1,6 @@
-import Image from "next/image";
-import leftIcon from "@/assets/icons/arrow-left.svg";
-import rightIcon from "@/assets/icons/arrow-right.svg";
-import Table from "@/components/table";
+import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import { monthStringArray } from "@/utils/get-time";
+import Table from "@/components/table";
 
 type CalendarProps = {
   apiEndPoint: string;
@@ -31,24 +29,16 @@ export default function Calendar(props: CalendarProps) {
   return (
     <div>
       <div className="lg:w-3/5 w-full flex items-center justify-between mb-4 m-auto">
-        <div className="flex items-center pt-3 text-gray-800 cursor-pointer">
-          <Image
-            onClick={prev}
-            src={leftIcon}
-            alt="prev"
-            width={24}
-            height={24}
-          />
+        <div
+          onClick={prev}
+          className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          <MdArrowBack size={24} />
         </div>
         <h5 className="text-center text-sm font-medium pt-3 px-1">{`${props.currentMonth} - ${props.currentYear}`}</h5>
-        <div className="flex items-center pt-3 text-gray-800 cursor-pointer">
-          <Image
-            onClick={next}
-            src={rightIcon}
-            alt="next"
-            width={24}
-            height={24}
-          />
+        <div
+          onClick={next}
+          className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          <MdArrowForward size={24} />
         </div>
       </div>
       <div>
