@@ -132,12 +132,13 @@ export default function HomePage() {
         <div className="flex items-center py-4 lg:px-0 sm:px-6 px-4">
           <div className="lg:w-3/5 w-full flex items-center content-center justify-between space-x-4 mx-auto">
             {specialLinks.map((link) => (
-              <Link href={link.url} key={link.alt}>
+              <Link href={link.url} key={link.alt} className="hover:shadow-xl">
                 <Image
                   height={500}
                   width={500}
                   alt={link.alt}
                   src={link.image}
+                  className="hover:shadow-xl"
                 />
               </Link>
             ))}
