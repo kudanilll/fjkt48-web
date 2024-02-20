@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "FJKT48 | Not Found",
+  description: "Halaman Tidak Ditemukan",
+};
 
 export default function NotFound() {
   return (
