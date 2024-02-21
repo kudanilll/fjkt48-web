@@ -91,6 +91,7 @@ export default function MemberPage() {
                       name={member.id.replaceAll("-", " ")}
                       gen={member.gen}
                       image={member.image}
+                      jikoshoukai={member.jikoshoukai}
                     />
                   ))
               : memberList.map((member) => (
@@ -99,6 +100,7 @@ export default function MemberPage() {
                     name={member.id.replaceAll("-", " ")}
                     gen={member.gen}
                     image={member.image}
+                    jikoshoukai={member.jikoshoukai}
                   />
                 ))
             : [...Array(6)].map((_, index) => (
@@ -126,6 +128,7 @@ export default function MemberPage() {
                       key={trainee.id}
                       name={trainee.id.replaceAll("-", " ")}
                       image={trainee.image}
+                      jikoshoukai={trainee.jikoshoukai}
                     />
                   ))
               : traineeList.map((trainee) => (
@@ -133,6 +136,7 @@ export default function MemberPage() {
                     key={trainee.id}
                     name={trainee.id.replaceAll("-", " ")}
                     image={trainee.image}
+                    jikoshoukai={trainee.jikoshoukai}
                   />
                 ))
             : [...Array(6)].map((_, index) => (

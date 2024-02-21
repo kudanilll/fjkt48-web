@@ -20,7 +20,7 @@ export default function SearchBar(props: SearchProps) {
       )}
       <div className="flex justify-end items-center relative flex-col mb-2">
         <input
-          className="w-full appearance-none rounded-full pl-6 py-3 text-gray-500 focus:outline-none"
+          className="w-full appearance-none rounded-full pl-6 py-3 text-gray-500 focus:outline-none bg-white"
           type="text"
           value={props.inputValue}
           placeholder={props.placeholder ?? ""}
