@@ -5,7 +5,7 @@ type SearchProps = {
   placeholder?: string;
   inputValue: string;
   handleInputChange: (event: any) => void;
-  handleOnBlur: () => void;
+  handleOnClear: () => void;
   onCloseIcon: () => void;
   icon: "search" | "close";
 };
@@ -25,15 +25,19 @@ export default function SearchBar(props: SearchProps) {
           value={props.inputValue}
           placeholder={props.placeholder ?? ""}
           onChange={props.handleInputChange}
-          onBlur={props.handleOnBlur}
         />
-        <div className="absolute mr-6 end-0 m-3 cursor-pointer">
-          {props.icon === "search" ? (
-            <MdSearch size={24} />
-          ) : (
-            <MdClear size={24} />
-          )}
-        </div>
+        {props.icon === "search" ? (
+          <MdSearch
+            size={24}
+            className="absolute mr-6 end-0 m-3 cursor-pointer"
+          />
+        ) : (
+          <MdClear
+            size={24}
+            className="absolute mr-6 end-0 m-3 cursor-pointer"
+            onClick={props.handleOnClear}
+          />
+        )}
       </div>
     </div>
   );

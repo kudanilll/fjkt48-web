@@ -63,10 +63,10 @@ export default function MemberPage() {
           }
         }}
         inputValue={query}
-        handleOnBlur={() => {
+        handleOnClear={() => {
           /* bug while inputting, then click on one of the cards */
-          // setQuery("");
-          // setIsInput(false);
+          setQuery("");
+          setIsInput(false);
         }}
         icon={isInput ? "close" : "search"}
       />
