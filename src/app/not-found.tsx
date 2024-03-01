@@ -10,7 +10,6 @@ export default function NotFound() {
   return (
     <div>
       <div className="py-36 px-4 text-center justify-center items-center space-y-4">
-        {/* <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"> */}
         <h1 className="text-2xl font-semibold">
           404 - Halaman Tidak Ditemukan :(
         </h1>
