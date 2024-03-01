@@ -23,6 +23,11 @@ export const dayStringArray = [
   "Sabtu",
 ];
 
+export function getCurrentDate() {
+  // return `${getCurrentDay()}, ${new Date().getDate()} ${getCurrentMonth()} ${getCurrentYear()}`;
+  return `${new Date().getDate()} ${getCurrentMonth()} ${getCurrentYear()}`;
+}
+
 export function getCurrentDay() {
   return dayStringArray[new Date().getDay()];
 }
