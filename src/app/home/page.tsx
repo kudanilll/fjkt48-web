@@ -6,19 +6,13 @@ import Link from "next/link";
 import BannerSlider from "@/components/banner/slider";
 import NewsCard from "@/components/card/NewsCard";
 import ScheduleCard from "@/components/card/ScheduleCard";
-
-// Shimmer Effect
-import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
-
 import specialLinks from "./special-links";
 
 export default function HomePage() {
-  const [banner, setBanner] = useState<any[]>([]);
   const [news, setNews] = useState<any[]>([]);
   const [eventSchedule, setEventSchedule] = useState<any[]>([]);
 
-  const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
   const [successFetchEvent, setSuccessFetchEvent] = useState<boolean>(false);
 
@@ -29,18 +23,6 @@ export default function HomePage() {
         if (item.id > new Date().getDate()) result.push(item);
       });
       return result.slice(0, 4);
-    }
-
-    function fetchBanner() {
-      fetch("/api/v1/banner", {
-        cache: "no-store",
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setBanner(data.content);
-          setSuccessFetchBanner(true);
-        });
     }
 
     function fetchNews() {
@@ -70,20 +52,13 @@ export default function HomePage() {
         });
     }
 
-    fetchBanner();
     fetchNews();
     fetchSchedule();
   }, []);
 
   return (
     <div>
-      <div className="my-8">
-        {successFetchBanner ? (
-          <BannerSlider content={banner} />
-        ) : (
-          <ShimmerBanner />
-        )}
-      </div>
+      <BannerSlider endpoint="/api/v1/banner" />
       <div className="mb-8">
         <h1 className="text-2xl font-semibold mb-2">Berita tentang JKT48</h1>
         <div className="sm:mb-6 gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
