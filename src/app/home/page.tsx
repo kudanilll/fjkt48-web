@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getCurrentMonth, sortArrayByDate } from "@/utils/get-time";
 import Image from "next/image";
 import Link from "next/link";
-import Banner from "@/components/banner";
+import BannerSlider from "@/components/banner/slider";
 import NewsCard from "@/components/card/NewsCard";
 import ScheduleCard from "@/components/card/ScheduleCard";
 
@@ -77,11 +77,9 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="mb-8">
+      <div className="my-8">
         {successFetchBanner ? (
-          <div className="md:px-24">
-            <Banner content={banner} />
-          </div>
+          <BannerSlider content={banner} />
         ) : (
           <ShimmerBanner />
         )}
