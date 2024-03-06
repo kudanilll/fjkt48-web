@@ -14,7 +14,7 @@ export default function SearchBar(props: SearchProps) {
   return (
     <div className="mb-8">
       {props.label && (
-        <h2 className="text-xl text-neutral-500 font-semibold mb-2">
+        <h2 className="text-xl md:text-3xl text-black font-semibold mb-2">
           {props.label}
         </h2>
       )}
