@@ -74,7 +74,7 @@ export default function MemberPage() {
         <h1 className="text-2xl md:text-3xl mb-1 font-semibold">
           {!isInput ? "Member JKT48" : ""}
         </h1>
-        <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 md:px-12 content-center">
+        <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
           {successFetchMember
             ? isInput
               ? memberList
@@ -112,7 +112,7 @@ export default function MemberPage() {
         <h1 className="text-2xl md:text-3xl mb-1 font-semibold">
           {!isInput ? "Trainee JKT48" : ""}
         </h1>
-        <div className="gap-1 grid grid-cols-2 sm:grid-cols-3 md:px-12 content-center">
+        <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
           {successFetchTrainee
             ? isInput
               ? traineeList
