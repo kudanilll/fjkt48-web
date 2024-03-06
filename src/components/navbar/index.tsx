@@ -10,7 +10,6 @@ import Link from "next/link";
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
   const [active, setActive] = useState<boolean>(false);
-
   return (
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5 md:py-2">
       <nav className="w-full bg-slate-100 fixed top-0 left-0 right-0 z-10 border">
@@ -25,16 +24,18 @@ export default function NavigationBar() {
                   48
                 </h1>
               </div>
-              <div className="md:hidden sm:flex">
-                <Hamburger
-                  toggled={active}
-                  toggle={setActive}
-                  color="#000000"
-                  size={24}
-                  rounded
-                />
-                <a href="/profile" className="ml-4">
-                  <Avatar size={48} icon={<LuUser2 />} />
+              <div className="flex items-center">
+                <div className="md:hidden">
+                  <Hamburger
+                    toggled={active}
+                    toggle={setActive}
+                    color="#000000"
+                    size={24}
+                    rounded
+                  />
+                </div>
+                <a href="/profile" className="md:hidden ml-2">
+                  <Avatar size={32} icon={<LuUser2 />} />
                 </a>
               </div>
             </div>
@@ -62,8 +63,8 @@ export default function NavigationBar() {
                   </li>
                 ))}
               </ul>
-              <a href="/profile" className="sm:hidden md:flex md:ml-4">
-                <Avatar size={48} icon={<LuUser2 />} />
+              <a href="/profile" className="sm:hidden md:flex md:ml-4 md:pt-1">
+                <Avatar size={40} icon={<LuUser2 />} />
               </a>
             </div>
           </div>
