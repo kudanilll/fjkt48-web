@@ -1,4 +1,4 @@
-import "@/assets/styles/shimmer.scss";
+import "@/styles/shimmer.scss";
 import "./styles.scss";
 
 export default function ShimmerTitle(props: { line?: number; width?: number }) {

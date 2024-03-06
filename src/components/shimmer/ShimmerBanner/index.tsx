@@ -1,4 +1,4 @@
-import "@/assets/styles/shimmer.scss";
+import "@/styles/shimmer.scss";
 import "./styles.scss";
 
 export default function ShimmerBanner(props: {

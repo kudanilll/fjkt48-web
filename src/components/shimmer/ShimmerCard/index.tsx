@@ -1,5 +1,5 @@
 import ShimmerTitle from "@/components/shimmer/ShimmerTitle";
-import "@/assets/styles/shimmer.scss";
+import "@/styles/shimmer.scss";
 import "./styles.scss";
 
 function ShimmerMemberCard() {

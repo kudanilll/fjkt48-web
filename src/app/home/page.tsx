@@ -60,7 +60,7 @@ export default function HomePage() {
     <div>
       <BannerSlider endpoint="/api/v1/banner" />
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold mb-2">Berita tentang JKT48</h1>
+        <h1 className="text-3xl font-semibold mb-2">Berita tentang JKT48</h1>
         <div className="sm:mb-6 gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
           {successFetchNews
             ? news.map((item) => (
@@ -84,7 +84,7 @@ export default function HomePage() {
         </Link>
       </div>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold mb-2">Event yang akan datang</h1>
+        <h1 className="text-3xl font-semibold mb-2">Event yang akan datang</h1>
         {successFetchEvent
           ? eventSchedule.map((item, index) => (
               <ScheduleCard key={index} title={item.event} date={item.date} />
@@ -99,7 +99,7 @@ export default function HomePage() {
         </Link>
       </div>
       <div className="mb-8">
-        <h1 className="text-2xl text-center font-semibold mb-2">
+        <h1 className="text-3xl text-center font-semibold mb-2">
           Special Links
         </h1>
         <div className="flex items-center py-4 lg:px-0 sm:px-6 px-4">

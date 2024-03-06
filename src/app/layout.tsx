@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { App } from "antd";
 import { Noto_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import NavigationBar from "@/components/navbar";
 import Footer from "@/components/footer";
-import "@/assets/styles/globals.css";
+import "@/styles/globals.css";
 
 const noto = Noto_Sans({ subsets: ["latin"] });
 
@@ -23,12 +24,14 @@ export default function RootLayout({
       className="scroll-smooth"
       style={{ scrollBehavior: "smooth" }}>
       <body className={noto.className}>
-        <NextTopLoader color="#E53935" showSpinner={false} />
-        <main className="flex flex-col min-h-screen bg-slate-100 text-black">
-          <NavigationBar />
-          {children}
-          <Footer />
-        </main>
+        <App>
+          <NextTopLoader color="#E53935" showSpinner={false} />
+          <main className="flex flex-col min-h-screen bg-slate-100 text-black">
+            <NavigationBar />
+            {children}
+            <Footer />
+          </main>
+        </App>
       </body>
     </html>
   );
