@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-zinc-900 mt-auto p-2">
+    <div className="bg-zinc-900 mt-auto p-2">
       <div className="w-full mx-auto max-w-screen-xl p-4 md:p-2 flex flex-col items-center justify-between">
         <span className="text-neutral-300 text-center md:text-sm">
           &copy;{new Date().getFullYear()} Achmad Daniel Syahputra
@@ -22,6 +22,6 @@ export default function Footer() {
           </li>
         </ul>
       </div>
-    </footer>
+    </div>
   );
 }

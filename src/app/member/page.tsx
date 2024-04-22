@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { member } from "@/common/typedata/member";
 import MemberCard from "@/components/card/MemberCard";
 import SearchBar from "@/components/searchbar";
 
@@ -7,8 +8,8 @@ import SearchBar from "@/components/searchbar";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function MemberPage() {
-  const [memberList, setMemberList] = useState<any[]>([]);
-  const [traineeList, setTraineeList] = useState<any[]>([]);
+  const [memberList, setMemberList] = useState<member[]>([]);
+  const [traineeList, setTraineeList] = useState<member[]>([]);
   const [successFetchMember, setSuccessFetchMember] = useState<boolean>(false);
   const [successFetchTrainee, setSuccessFetchTrainee] =
     useState<boolean>(false);
@@ -87,20 +88,28 @@ export default function MemberPage() {
                   })
                   .map((member) => (
                     <MemberCard
+                      id={member.id}
                       key={member.id}
                       name={member.id.replaceAll("-", " ")}
                       gen={member.gen}
                       image={member.image}
                       jikoshoukai={member.jikoshoukai}
+                      instagram={member.instagram}
+                      x={member.x}
+                      tiktok={member.tiktok}
                     />
                   ))
               : memberList.map((member) => (
                   <MemberCard
+                    id={member.id}
                     key={member.id}
                     name={member.id.replaceAll("-", " ")}
                     gen={member.gen}
                     image={member.image}
                     jikoshoukai={member.jikoshoukai}
+                    instagram={member.instagram}
+                    x={member.x}
+                    tiktok={member.tiktok}
                   />
                 ))
             : [...Array(6)].map((_, index) => (
@@ -125,18 +134,26 @@ export default function MemberPage() {
                   })
                   .map((trainee) => (
                     <MemberCard
+                      id={trainee.id}
                       key={trainee.id}
                       name={trainee.id.replaceAll("-", " ")}
                       image={trainee.image}
-                      jikoshoukai={trainee.jikoshoukai}
+                      // jikoshoukai={trainee.jikoshoukai}
+                      instagram={trainee.instagram}
+                      x={trainee.x}
+                      tiktok={trainee.tiktok}
                     />
                   ))
               : traineeList.map((trainee) => (
                   <MemberCard
+                    id={trainee.id}
                     key={trainee.id}
                     name={trainee.id.replaceAll("-", " ")}
                     image={trainee.image}
-                    jikoshoukai={trainee.jikoshoukai}
+                    // jikoshoukai={trainee.jikoshoukai}
+                    instagram={trainee.instagram}
+                    x={trainee.x}
+                    tiktok={trainee.tiktok}
                   />
                 ))
             : [...Array(6)].map((_, index) => (

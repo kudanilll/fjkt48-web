@@ -25,6 +25,7 @@ export default function SearchBar(props: SearchProps) {
           value={props.inputValue}
           placeholder={props.placeholder ?? ""}
           onChange={props.handleInputChange}
+          id="input_name"
         />
         {props.icon === "search" ? (
           <MdSearch
