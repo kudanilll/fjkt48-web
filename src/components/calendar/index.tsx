@@ -31,13 +31,13 @@ export default function Calendar(props: CalendarProps) {
       <div className="lg:w-3/5 w-full flex items-center justify-between mb-4 m-auto">
         <div
           onClick={prev}
-          className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          className="flex items-center pt-3 text-red-600 cursor-pointer">
           <MdArrowBack size={24} />
         </div>
-        <h5 className="text-center text-sm font-medium pt-3 px-1">{`${props.currentMonth} - ${props.currentYear}`}</h5>
+        <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600">{`${props.currentMonth} - ${props.currentYear}`}</h5>
         <div
           onClick={next}
-          className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          className="flex items-center pt-3 text-red-600 cursor-pointer">
           <MdArrowForward size={24} />
         </div>
       </div>

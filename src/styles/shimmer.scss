@@ -1,5 +1,5 @@
 .shimmer {
-  background: linear-gradient(to right, #d1d5db 8%, #9ca3af 18%, #d1d5db 33%);
+  background: linear-gradient(to right, #fecaca 8%, #fca5a5 18%, #fecaca 33%);
   background-size: 1000px 100%;
   animation: shimmer 2.2s linear infinite forwards;
 }
@@ -222,7 +222,7 @@ Grid Styles
 
 .shimmer {
   &-hr {
-    border-color: #d1d5db;
+    border-color: #fecaca;
   }
   &-row {
     display: flex;

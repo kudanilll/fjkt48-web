@@ -36,7 +36,7 @@ export default function NewsCard(props: NewsProps) {
   } //switch case
   return (
     <Link href={path} className="mb-2 sm:m-1.5">
-      <div className="rounded-xl flex bg-gray-300">
+      <div className="rounded-xl flex bg-red-200">
         <div className="flex items-center">
           <Image
             className="w-full object-contain rounded-s-xl"

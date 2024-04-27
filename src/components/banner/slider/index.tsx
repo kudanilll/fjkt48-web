@@ -1,9 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Carousel } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+import "./pagination.css";
 
 type BannerSliderProps = {
   id: string;
@@ -28,24 +36,48 @@ export default function BannerSlider(props: { endpoint: string }) {
   }, [props.endpoint]);
 
   return (
-    <div className="my-8">
+    <div className="mt-2">
       {successFetch ? (
-        <Carousel dotPosition="bottom" autoplay infinite>
+        <Swiper
+          slidesPerView={2}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+            431: {
+              slidesPerView: 2,
+            },
+          }}
+          spaceBetween={0}
+          centeredSlides={true}
+          grabCursor={true}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay, Pagination]}
+          className="mySwiper rounded-xl">
           {banner.map((item) => (
-            <Link target="_blank" href={item.url} key={item.id}>
-              <Image
-                className="w-full md:h-96 object-cover rounded-t-2xl"
-                width={500}
-                height={500}
-                alt={item.image}
-                src={item.image}
-                quality={100}
-                priority
-              />
-              <div className="bg-red-600 bottom-0 pb-4 rounded-b-2xl" />
-            </Link>
+            <SwiperSlide key={item.id}>
+              <Link target="_blank" href={item.url}>
+                <Image
+                  className="w-full object-cover md:h-96"
+                  width={500}
+                  height={500}
+                  alt={item.image}
+                  src={item.image}
+                  quality={100}
+                  priority
+                />
+              </Link>
+            </SwiperSlide>
           ))}
-        </Carousel>
+          <div className="swiper-pagination" />
+        </Swiper>
       ) : (
         <ShimmerBanner />
       )}

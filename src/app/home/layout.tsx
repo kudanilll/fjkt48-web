@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PageWrapper from "@/components/wrapper/PageWrapper";
+import BannerSlider from "@/components/banner/slider";
 
 export const metadata: Metadata = {
   title: "FJKT48 | Home",
@@ -11,5 +11,12 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <PageWrapper>{children}</PageWrapper>;
+  return (
+    <div>
+      <div className="bg-red-100 pt-10 px-5 md:pt-16 md:px-16 pb-2 md:pb-8">
+        <BannerSlider endpoint="/api/v1/banner" />
+      </div>
+      {children}
+    </div>
+  );
 }

@@ -1,0 +1,10 @@
+.swiper {
+  padding-bottom: 35px !important;
+  background-color: #ef4444;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #fff;
+}

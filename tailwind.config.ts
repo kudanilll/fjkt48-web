@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        fugaz: ["Fugaz One", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
       },
     },
   },
   plugins: [require("@tailwindcss/typography")],
 };
+
 export default config;

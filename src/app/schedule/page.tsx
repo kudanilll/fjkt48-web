@@ -31,8 +31,10 @@ export default function SchedulePage() {
   return (
     <div>
       <div className="mb-4">
-        <h1 className="text-2xl font-semibold">Jadwal Acara JKT48</h1>
-        <h4 className="text-medium font-regular">{`${getCurrentDay()}, ${new Date().getDate()} ${getCurrentMonth()} ${getCurrentYear()}`}</h4>
+        <h1 className="text-2xl font-semibold text-red-600 font-poppins">
+          Jadwal Acara JKT48
+        </h1>
+        <h4 className="text-medium font-regular text-red-600 font-poppins">{`${getCurrentDay()}, ${new Date().getDate()} ${getCurrentMonth()} ${getCurrentYear()}`}</h4>
       </div>
       <div className="mb-8">
         <Calendar
