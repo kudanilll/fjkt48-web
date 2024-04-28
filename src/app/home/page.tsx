@@ -8,6 +8,7 @@ import ScheduleCard from "@/components/card/ScheduleCard";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 import PageWrapper from "@/components/wrapper/PageWrapper";
 import specialLinks from "./special-links";
+import ReleaseSlider from "@/components/release-slider";
 
 export default function HomePage() {
   const [news, setNews] = useState<any[]>([]);
@@ -150,7 +151,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </PageWrapper>
+        {/* </PageWrapper>
       <div className="bg-white mb-4 row md:flex">
         <Image
           height={640}
@@ -178,7 +179,10 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-      <PageWrapper marginTop={0}>
+      <PageWrapper marginTop={0}> */}
+        <div className="mb-8">
+          <ReleaseSlider />
+        </div>
         <div className="mb-8">
           <h1 className="text-xl md:hidden font-poppins text-center text-red-600 mb-2">
             Tautan Spesial
