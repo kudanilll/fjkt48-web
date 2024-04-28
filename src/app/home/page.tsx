@@ -133,17 +133,19 @@ export default function HomePage() {
             <h1 className="font-poppins text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
               Apa itu JKT48 Theater ?
             </h1>
-            <p className="text-md font-poppins text-default-500 mb-6 md:mb-2">
-              Theater JKT48 adalah sebuah teater eksklusif untuk pertunjukan
-              grup idola Indonesia JKT48 dan grup-grup saudarinya dari AKB48
-              Group. Theater ini berada di lantai 4 fX Sudirman, Jakarta Pusat,
-              Indonesia.
-            </p>
-            <p className="text-md font-poppins text-default-500 hidden md:block mb-6">
-              Theater JKT48 berkapasitas sekitar 400 orang, 260 kursi untuk
-              penonton duduk, dan 140 penonton berdiri, meskipun kadang-kadang
-              penonton berdiri bisa melebihi jumlah itu.
-            </p>
+            <div className="p-4 md:p-0">
+              <p className="text-md font-poppins text-default-500 mb-6 md:mb-2">
+                Theater JKT48 adalah sebuah teater eksklusif untuk pertunjukan
+                grup idola Indonesia JKT48 dan grup-grup saudarinya dari AKB48
+                Group. Theater ini berada di lantai 4 fX Sudirman, Jakarta
+                Pusat, Indonesia.
+              </p>
+              <p className="text-md font-poppins text-default-500 hidden md:block mb-6">
+                Theater JKT48 berkapasitas sekitar 400 orang, 260 kursi untuk
+                penonton duduk, dan 140 penonton berdiri, meskipun kadang-kadang
+                penonton berdiri bisa melebihi jumlah itu.
+              </p>
+            </div>
             <Link href="/theater">
               <div className="bg-red-500 py-2 rounded-lg items-center">
                 <p className="text-center text-white">Lihat selengkapnya</p>
