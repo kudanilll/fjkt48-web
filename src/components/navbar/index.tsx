@@ -15,7 +15,7 @@ export default function NavigationBar() {
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5 md:py-2">
       <div className="w-full bg-red-100 fixed top-0 left-0 right-0 z-10 md:px-12">
         <div
-          className={`${active ? "flex-1" : "flex"} justify-between px-4 md:max-w-7xl md:items-center`}>
+          className={`${active ? "flex-1 md:flex" : "flex"} justify-between px-4 md:max-w-7xl md:items-center`}>
           <div>
             <div className="flex justify-between py-3 md:block">
               <a className="hidden md:flex cursor-pointer" href="/">
@@ -39,7 +39,7 @@ export default function NavigationBar() {
           </div>
           <div>
             <div
-              className={`flex-1 justify-start md:justify-self-center md:flex md:pb-0 md:mt-2 ${
+              className={`flex-1 md:justify-self-center md:flex md:pb-0 md:mt-2 ${
                 active ? "p-12 md:p-0 block" : "hidden"
               }`}>
               <ul className="h-screen md:h-auto md:flex">
@@ -64,7 +64,7 @@ export default function NavigationBar() {
           </div>
           <a
             href="/profile"
-            className={`items-center md:ml-4 ${active ? "hidden" : "flex"}`}>
+            className={`items-center md:ml-4 ${active ? "hidden md:flex" : "flex"}`}>
             <Avatar size={32} icon={<LuUser2 />} />
           </a>
         </div>
