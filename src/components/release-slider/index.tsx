@@ -4,10 +4,9 @@ import Link from "next/link";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import "./slider.css";
@@ -16,11 +15,10 @@ export default function ReleaseSlider() {
   return (
     <div className="mb-4">
       <Swiper
-        // navigation={true}
         pagination={{
           clickable: true,
         }}
-        modules={[Navigation, Pagination]}
+        modules={[Pagination]}
         className="mySwiper rounded-xl">
         <SwiperSlide>
           <div className="bg-white row md:flex">
