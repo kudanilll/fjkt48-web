@@ -9,6 +9,7 @@ import ShimmerCard from "@/components/shimmer/ShimmerCard";
 import PageWrapper from "@/components/wrapper/PageWrapper";
 import specialLinks from "./special-links";
 import ReleaseSlider from "@/components/release-slider";
+import LongButton from "@/components/button/long";
 
 export default function HomePage() {
   const [news, setNews] = useState<any[]>([]);
@@ -80,11 +81,7 @@ export default function HomePage() {
                   <ShimmerCard key={index} style="news-card" />
                 ))}
           </div>
-          <Link href="/news">
-            <div className="bg-red-500 py-2 rounded-lg items-center">
-              <p className="text-center text-white">Berita selengkapnya</p>
-            </div>
-          </Link>
+          <LongButton href="/news">Berita selengkapnya</LongButton>
         </div>
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
@@ -97,11 +94,7 @@ export default function HomePage() {
             : [...Array(3)].map((_, index) => (
                 <ShimmerCard key={index} style="schedule-card" />
               ))}
-          <Link href="/schedule">
-            <div className="bg-red-500 py-2 rounded-lg items-center">
-              <p className="text-center text-white">Jadwal selengkapnya</p>
-            </div>
-          </Link>
+          <LongButton href="/schedule">Jadwal selengkapnya</LongButton>
         </div>
         <div className="mb-12 row md:flex">
           <div className="grid grid-cols-2 grid-rows-1 gap-4">
@@ -146,11 +139,7 @@ export default function HomePage() {
                 penonton berdiri bisa melebihi jumlah itu.
               </p>
             </div>
-            <Link href="/theater">
-              <div className="bg-red-500 py-2 rounded-lg items-center">
-                <p className="text-center text-white">Lihat selengkapnya</p>
-              </div>
-            </Link>
+            <LongButton href="/theater">Lihat selengkapnya</LongButton>
           </div>
         </div>
       </PageWrapper>

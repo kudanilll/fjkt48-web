@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import BasicButton from "@/components/button/basic";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -54,14 +55,11 @@ export default function ReleaseSlider() {
                   KIII Shani Indira Natio.
                 </p>
               </div>
-              <Link
-                href="https://www.youtube.com/watch?v=9GiWftsHdBs"
-                target="_blank"
-                className="hidden md:block">
-                <div className="bg-red-500 py-2 rounded-lg items-center">
-                  <p className="text-center text-white">Tonton sekarang</p>
-                </div>
-              </Link>
+              <div className="hidden md:block">
+                <BasicButton href="https://www.youtube.com/watch?v=9GiWftsHdBs">
+                  Tonton sekarang
+                </BasicButton>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -92,14 +90,11 @@ export default function ReleaseSlider() {
                   Single ke-20 JKT48.
                 </p>
               </div>
-              <Link
-                href="https://youtu.be/GIl0Y1W4n70"
-                target="_blank"
-                className="hidden md:block">
-                <div className="bg-red-500 py-2 rounded-lg items-center">
-                  <p className="text-center text-white">Tonton sekarang</p>
-                </div>
-              </Link>
+              <div className="hidden md:block">
+                <BasicButton href="https://youtu.be/GIl0Y1W4n70">
+                  Tonton sekarang
+                </BasicButton>
+              </div>
             </div>
             <Image
               height={640}
