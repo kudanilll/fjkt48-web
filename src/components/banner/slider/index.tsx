@@ -60,7 +60,7 @@ export default function BannerSlider(props: { endpoint: string }) {
             clickable: true,
           }}
           modules={[Autoplay, Pagination]}
-          className="mySwiper rounded-xl">
+          className="mySwiper">
           {banner.map((item) => (
             <SwiperSlide key={item.id}>
               <Link target="_blank" href={item.url}>

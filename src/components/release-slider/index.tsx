@@ -9,8 +9,6 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import "./slider.css";
-
 export default function ReleaseSlider() {
   return (
     <div className="mb-4">
@@ -19,7 +17,7 @@ export default function ReleaseSlider() {
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper rounded-xl">
+        className="mySwiper">
         <SwiperSlide>
           <div className="bg-white row md:flex">
             <Link
