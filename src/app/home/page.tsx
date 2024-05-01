@@ -7,9 +7,9 @@ import NewsCard from "@/components/card/NewsCard";
 import ScheduleCard from "@/components/card/ScheduleCard";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 import PageWrapper from "@/components/wrapper/PageWrapper";
-import specialLinks from "./special-links";
 import ReleaseSlider from "@/components/release-slider";
 import LongButton from "@/components/button/long";
+import specialLinks from "./special-links";
 
 export default function HomePage() {
   const [news, setNews] = useState<any[]>([]);
