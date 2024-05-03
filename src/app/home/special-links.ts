@@ -2,17 +2,17 @@ const specialLinks = [
   {
     url: "https://jkt48.com/theater/mvp?lang=id",
     alt: "mvp",
-    image: "/mvp.png",
+    image: "/assets/mvp.png",
   },
   {
     url: "https://jkt48.com/about/fanletter?lang=id",
     alt: "fanletter",
-    image: "/fanletter.jpg",
+    image: "/assets/fanletter.jpg",
   },
   {
     url: "https://jkt48.com/about/handshake?lang=id",
     alt: "handshake",
-    image: "/handshake.png",
+    image: "/assets/handshake.png",
   },
 ];
 

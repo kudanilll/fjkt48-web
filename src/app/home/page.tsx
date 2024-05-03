@@ -123,10 +123,13 @@ export default function HomePage() {
             </div>
           </div>
           <div className="md:p-14">
-            <h1 className="font-poppins text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
+            <h1 className="hidden md:block font-poppins text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
               Apa itu JKT48 Theater ?
             </h1>
             <div className="p-4 md:p-0">
+              <h1 className="md:hidden font-poppins text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
+                Apa itu JKT48 Theater ?
+              </h1>
               <p className="text-md font-poppins text-default-500 mb-6 md:mb-2">
                 Theater JKT48 adalah sebuah teater eksklusif untuk pertunjukan
                 grup idola Indonesia JKT48 dan grup-grup saudarinya dari AKB48

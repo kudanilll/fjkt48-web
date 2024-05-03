@@ -1,0 +1,7 @@
+User-Agent: *
+
+Allow: /
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://fjkt48.vercel.app/sitemap.xml

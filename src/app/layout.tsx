@@ -20,6 +20,13 @@ export const metadata: Metadata = {
     locale: "id_ID",
     type: "website",
   },
+  authors: [
+    {
+      name: "Achmad Daniel Syahputra",
+      url: "https://github.com/achmaddaniel24",
+    },
+  ],
+  keywords: ["jkt48", "idol", "jkt"],
 };
 
 export default function RootLayout({

@@ -22,7 +22,7 @@ export default function NavigationBar() {
                 <Image
                   width={32}
                   height={32}
-                  src="/jkt48.svg"
+                  src="/assets/jkt48.svg"
                   alt="jkt48 logo"
                 />
               </a>
@@ -48,8 +48,8 @@ export default function NavigationBar() {
                     key={index}
                     className={`${
                       pathname.includes(item.path)
-                        ? "drop-shadow text-red-600 font-bold"
-                        : "text-red-600 font-regular"
+                        ? "drop-shadow text-red-600 font-extrabold"
+                        : "text-red-600 font-semibold"
                     } md:px-3 py-2 pb-6 text-xl md:text-xs text-start font-poppins hover:text-red-700 hover:underline`}>
                     <Link
                       key={index}

@@ -30,6 +30,7 @@ export default function ReleaseSlider() {
                 width={640}
                 alt="Rapsodi Album Cover"
                 src="/assets/release/rapsodi.jpg"
+                className="w-full"
               />
             </Link>
             <Image
@@ -71,7 +72,7 @@ export default function ReleaseSlider() {
                 width={640}
                 alt="Rapsodi Album Cover"
                 src="/assets/release/hightension.jpg"
-                className="md:hidden"
+                className="md:hidden w-full"
               />
             </Link>
             <div className="md:p-16">

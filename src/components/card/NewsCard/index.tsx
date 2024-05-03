@@ -45,6 +45,7 @@ export default function NewsCard(props: NewsProps) {
             width={174}
             height={124}
             quality={100}
+            loading="lazy"
           />
           <h4 className="font-semibold text-left text-xs md:text-base py-2 md:py-0 mx-2">
             {props.title}

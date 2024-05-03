@@ -6,10 +6,11 @@ import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Pagination, EffectCoverflow } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 
 import "./pagination.css";
 
@@ -39,14 +40,22 @@ export default function BannerSlider(props: { endpoint: string }) {
     <div className="mt-2">
       {successFetch ? (
         <Swiper
+          effect={"coverflow"}
           slidesPerView={2}
           breakpoints={{
             0: {
               slidesPerView: 1,
             },
-            431: {
+            481: {
               slidesPerView: 2,
             },
+          }}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 150,
+            modifier: 2.5,
+            slideShadows: true,
           }}
           spaceBetween={0}
           centeredSlides={true}
@@ -59,13 +68,13 @@ export default function BannerSlider(props: { endpoint: string }) {
           pagination={{
             clickable: true,
           }}
-          modules={[Autoplay, Pagination]}
+          modules={[EffectCoverflow, Autoplay, Pagination]}
           className="mySwiper">
           {banner.map((item) => (
             <SwiperSlide key={item.id}>
               <Link target="_blank" href={item.url}>
                 <Image
-                  className="w-full object-cover md:h-96"
+                  className="w-full object-cover md:h-96 rounded-lg"
                   width={500}
                   height={500}
                   alt={item.image}
