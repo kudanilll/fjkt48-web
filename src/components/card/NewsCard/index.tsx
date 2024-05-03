@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Card } from "antd";
+
+const { Meta } = Card;
 
 type NewsProps = {
   title: string;
@@ -35,31 +38,50 @@ export default function NewsCard(props: NewsProps) {
       backgroundCategory = "bg-transparent";
   } //switch case
   return (
-    <Link href={path} className="mb-2 sm:m-1.5">
-      <div className="rounded-xl flex bg-red-200">
-        <div className="flex items-center">
-          <Image
-            className="w-full object-contain rounded-s-xl"
-            alt={props.title}
-            src={props.image}
-            width={174}
-            height={124}
-            quality={100}
-            loading="lazy"
-          />
-          <h4 className="font-semibold text-left text-xs md:text-base py-2 md:py-0 mx-2">
-            {props.title}
-          </h4>
-        </div>
-        <div className="p-2 backdrop-blur-none">
-          <span
-            className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-4 rounded-tr-xl rounded-bl-xl uppercase`}>
-            {props.category}
-          </span>
-          <small className="absolute bottom-0 right-0 p-2 text-default-500 text-ellipsis whitespace-nowrap">
-            {props.date}
-          </small>
-        </div>
+    <Link href={path}>
+      <div className="m-1.5 md:hidden">
+        <Card
+          hoverable
+          cover={
+            <div>
+              <span
+                className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-5 py-1 rounded-tr-md rounded-bl-md uppercase`}>
+                {props.category}
+              </span>
+              <Image
+                alt={props.title}
+                src={props.image}
+                width={500}
+                height={500}
+                loading="lazy"
+              />
+            </div>
+          }>
+          <Meta title={props.title} description={props.date} />
+        </Card>
+      </div>
+      <div className="md:mb-2 hidden md:block">
+        <Card
+          hoverable
+          style={{ width: 390 }}
+          cover={
+            <div>
+              <span
+                className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-5 py-1 rounded-tr-md rounded-bl-md uppercase`}>
+                {props.category}
+              </span>
+              <Image
+                style={{ width: "100", height: "auto" }}
+                alt={props.title}
+                src={props.image}
+                width={390}
+                height={390}
+                loading="lazy"
+              />
+            </div>
+          }>
+          <Meta title={props.title} description={props.date} />
+        </Card>
       </div>
     </Link>
   );

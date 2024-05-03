@@ -34,7 +34,7 @@ export default function HomePage() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setNews(sortArrayByDate(data.content).slice(0, 4));
+          setNews(sortArrayByDate(data.content).slice(0, 6));
           setSuccessFetchNews(true);
         });
     }
@@ -65,7 +65,7 @@ export default function HomePage() {
           <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
             Berita tentang JKT48
           </h1>
-          <div className="sm:mb-6 gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
+          <div className="sm:mb-6 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
             {successFetchNews
               ? news.map((item) => (
                   <NewsCard
@@ -77,7 +77,7 @@ export default function HomePage() {
                     slug={item.slug}
                   />
                 ))
-              : [...Array(4)].map((_, index) => (
+              : [...Array(6)].map((_, index) => (
                   <ShimmerCard key={index} style="news-card" />
                 ))}
           </div>
@@ -99,6 +99,7 @@ export default function HomePage() {
         <div className="mb-12 row md:flex">
           <div className="grid grid-cols-2 grid-rows-1 gap-4">
             <Image
+              style={{ width: "100", height: "auto" }}
               height={650}
               width={650}
               alt="Theater JKT48"
@@ -106,6 +107,7 @@ export default function HomePage() {
               className="hover:shadow-xl rounded-lg"
             />
             <Image
+              style={{ width: "100", height: "auto" }}
               height={650}
               width={650}
               alt="Theater JKT48"
@@ -114,6 +116,7 @@ export default function HomePage() {
             />
             <div className="col-span-2 row-start-2">
               <Image
+                style={{ width: "100", height: "auto" }}
                 height={650}
                 width={650}
                 alt="Theater JKT48"

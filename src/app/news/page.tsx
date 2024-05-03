@@ -2,20 +2,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
-import Image from "next/image";
-import Link from "next/link";
 import NewsCard from "@/components/card/NewsCard";
 import Pagination from "@/components/pagination";
-
-// Shimmer Effect
-import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function NewsPage() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-  const [banner, setBanner] = useState({ image: "", title: "", url: "" });
-  const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
   const [news, setNews] = useState<any[]>([]);
 
@@ -43,38 +36,17 @@ export default function NewsPage() {
       .then((data) => {
         setNews(sortArrayByDate(data.content));
         const first = sortArrayByDate(data.content)[0];
-        setBanner({
-          image: first.image,
-          title: first.title,
-          url: `/news/${first.slug}`,
-        });
-        setSuccessFetchBanner(true);
         setSuccessFetchNews(true);
       });
   }, []);
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold mb-2">Berita Terbaru</h1>
-        {successFetchBanner ? (
-          <Link href={banner.url}>
-            <Image
-              className="w-full object-cover rounded-xl md:px-24"
-              width={500}
-              height={500}
-              src={banner.image}
-              alt={banner.title}
-              priority={true}
-            />
-          </Link>
-        ) : (
-          <ShimmerBanner />
-        )}
-      </div>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold mb-2">Berita Lainnya</h1>
-        <div className=" md:px-10 sm:mb-6 sm:gap-1 grid grid-cols-1 sm:grid-cols-2 content-center">
+        <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
+          Berita Terbaru
+        </h1>
+        <div className="sm:mb-6 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
           {successFetchNews
             ? currentItems.map((item) => (
                 <NewsCard

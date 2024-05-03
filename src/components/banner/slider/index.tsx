@@ -74,13 +74,13 @@ export default function BannerSlider(props: { endpoint: string }) {
             <SwiperSlide key={item.id}>
               <Link target="_blank" href={item.url}>
                 <Image
-                  className="w-full object-cover md:h-96 rounded-lg"
-                  width={500}
-                  height={500}
+                  className="object-cover md:h-96 rounded-lg"
+                  style={{ width: "100", height: "auto" }}
+                  width={700}
+                  height={700}
                   alt={item.image}
                   src={item.image}
-                  quality={100}
-                  priority
+                  loading="eager"
                 />
               </Link>
             </SwiperSlide>

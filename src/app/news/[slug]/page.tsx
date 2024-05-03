@@ -1,7 +1,7 @@
 import { getNewsFromStorage } from "@/utils/get-data";
-import Image from "next/image";
 import md from "markdown-it";
 import matter from "gray-matter";
+import Image from "next/image";
 
 async function getNews(slug: string) {
   try {
@@ -12,34 +12,39 @@ async function getNews(slug: string) {
   }
 }
 
+function NotFound() {
+  return (
+    <div className="text-center flex flex-col justify-center items-center content-center space-y-4">
+      <Image
+        alt="not found :("
+        src="/assets/not-found.png"
+        width={200}
+        height={200}
+        className="mt-20 mb-4"
+      />
+      <h1 className="font-semibold text-center mb-4">
+        404: Berita tidak ditemukan :(
+      </h1>
+      <article className="font-regular text-center">
+        Buka beranda untuk menemukan berita terbaru!
+      </article>
+    </div>
+  );
+}
+
 export default async function DetailNewsPage(props: any) {
   const content = await getNews(props.params.slug);
   if (content == null) {
-    return (
-      <div className="h-screen flex flex-col items-center justify-center">
-        <h1 className="font-semibold text-center mb-4">
-          404: Berita tidak ditemukan :(
-        </h1>
-        <article className="font-regular text-center">
-          Buka beranda untuk menemukan berita terbaru!
-        </article>
-      </div>
-    );
+    return <NotFound />;
   }
   return (
     <div>
-      <div className="mb-6">
-        <Image
-          className="w-full object-cover rounded-xl md:px-24"
-          width={500}
-          height={500}
-          alt={content.data.title}
-          src={content.data.image}
-          priority={true}
-          quality={100}
-        />
-      </div>
       <article>
+        <article className="py-8 prose md:prose-lg md:ml-auto md:mr-auto">
+          <div
+            dangerouslySetInnerHTML={{ __html: md().render(content!.content) }}
+          />
+        </article>
         <div className="mb-6 flex-col justify-center text-center">
           <div className="font-regular text-sm tracking-wide">
             <span>
@@ -47,7 +52,7 @@ export default async function DetailNewsPage(props: any) {
               <a
                 href={`https://${content!.data.source}`}
                 target="_blank"
-                className="hover:underline">
+                className="text-blue-600 hover:underline">
                 {" "}
                 {content!.data.source}
               </a>
@@ -57,11 +62,6 @@ export default async function DetailNewsPage(props: any) {
             Diterbitkan pada {content!.data.date}
           </div>
         </div>
-        <article className="mb-8 prose md:prose-sm md:ml-auto md:mr-auto">
-          <div
-            dangerouslySetInnerHTML={{ __html: md().render(content!.content) }}
-          />
-        </article>
       </article>
     </div>
   );

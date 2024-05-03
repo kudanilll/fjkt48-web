@@ -20,19 +20,21 @@ export default function Pagination(props: PaginationProps) {
       <div className="lg:w-3/5 w-full flex items-center justify-between">
         <div
           onClick={prev}
-          className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          className="flex items-center pt-3 md:px-4 md:py-2 text-gray-800 cursor-pointer md:hover:bg-red-400 md:hover:rounded-full md:hover:text-white">
           <MdArrowBack size={24} />
           <p className="text-sm ml-2 font-medium leading-none">Sebelumnya</p>
         </div>
         <div className="sm:flex hidden">
-          <p className="text-sm font-light pt-3 px-1">Halaman </p>
-          <p className="text-sm font-medium pt-3 px-1">{props.current}</p>
-          <p className="text-sm font-light pt-3 px-1"> dari </p>
-          <p className="text-sm font-medium pt-3 px-1">{props.total}</p>
+          <p className="text-sm font-light pt-3 px-1 md:py-2">Halaman </p>
+          <p className="text-sm font-medium pt-3 px-1 md:py-2">
+            {props.current}
+          </p>
+          <p className="text-sm font-light pt-3 px-1 md:py-2"> dari </p>
+          <p className="text-sm font-medium pt-3 px-1 md:py-2">{props.total}</p>
         </div>
         <div
           onClick={next}
-          className="flex items-center pt-3 text-gray-800 cursor-pointer">
+          className="flex items-center pt-3 md:px-4 md:py-2 text-gray-800 cursor-pointer md:hover:bg-red-400 md:hover:rounded-full md:hover:text-white">
           <p className="text-sm font-medium text-center whitespace-nowrap mr-2">
             Selanjutnya
           </p>
