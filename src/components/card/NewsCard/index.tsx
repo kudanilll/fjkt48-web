@@ -1,6 +1,6 @@
-import Image from "next/image";
+import ShimmerImage from "@/components/shimmer/ShimmerImage";
 import Link from "next/link";
-import { Card } from "antd";
+import { Image, Card } from "antd";
 
 const { Meta } = Card;
 
@@ -44,17 +44,18 @@ export default function NewsCard(props: NewsProps) {
           hoverable
           cover={
             <div>
-              <span
-                className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-5 py-1 rounded-tr-md rounded-bl-md uppercase`}>
-                {props.category}
-              </span>
               <Image
+                preview={false}
                 alt={props.title}
                 src={props.image}
                 width={500}
                 height={500}
-                loading="lazy"
+                placeholder={<ShimmerImage />}
               />
+              <span
+                className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-5 py-1 rounded-tr-md rounded-bl-md uppercase`}>
+                {props.category}
+              </span>
             </div>
           }>
           <Meta title={props.title} description={props.date} />
@@ -66,18 +67,17 @@ export default function NewsCard(props: NewsProps) {
           style={{ width: 390 }}
           cover={
             <div>
+              <Image
+                preview={false}
+                alt={props.title}
+                src={props.image}
+                width={390}
+                placeholder={<ShimmerImage />}
+              />
               <span
                 className={`${backgroundCategory} absolute top-0 right-0 font-poppins text-white px-5 py-1 rounded-tr-md rounded-bl-md uppercase`}>
                 {props.category}
               </span>
-              <Image
-                style={{ width: "100", height: "auto" }}
-                alt={props.title}
-                src={props.image}
-                width={390}
-                height={390}
-                loading="lazy"
-              />
             </div>
           }>
           <Meta title={props.title} description={props.date} />

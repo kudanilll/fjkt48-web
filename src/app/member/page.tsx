@@ -72,7 +72,7 @@ export default function MemberPage() {
         icon={isInput ? "close" : "search"}
       />
       <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl mb-1 font-semibold">
+        <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
           {!isInput ? "Member JKT48" : ""}
         </h1>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
@@ -118,7 +118,7 @@ export default function MemberPage() {
         </div>
       </div>
       <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl mb-1 font-semibold">
+        <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
           {!isInput ? "Trainee JKT48" : ""}
         </h1>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">

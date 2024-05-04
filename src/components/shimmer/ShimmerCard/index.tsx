@@ -15,11 +15,10 @@ function ShimmerMemberCard() {
 
 function ShimmerNewsCard() {
   return (
-    <div
-      className="rounded-2xl bg-white mb-1.5 md:m-1.5"
-      style={{ height: "150px" }}>
-      <div className="shimmer shimmer-news-card-image" />
-    </div>
+    // <div className="rounded-2xl bg-white mb-1.5 md:m-1.5 flex flex-col">
+    //   <div className="shimmer shimmer-news-card-image" />
+    // </div>
+    <ShimmerMemberCard />
   );
 }
 
