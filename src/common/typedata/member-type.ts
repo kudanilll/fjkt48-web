@@ -1,20 +1,19 @@
-export type member = {
-  id: string;
+export type MemberType = {
+  id?: string;
   name: string;
   nickname?: string;
   birthday?: string;
-  height?: string;
+  height?: number;
   horoscope?: string;
   blood_group?: string;
-  gen?: string;
+  gen?: number;
   idn?: string;
   image: string;
-  instagram?: string;
+  instagram: string;
   jikoshoukai?: string;
   showroom?: string;
-  x?: string;
-  tiktok?: string;
-  active?: boolean;
+  twitter: string;
+  tiktok: string;
 };
 
-export default member;
+export default MemberType;

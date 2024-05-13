@@ -1,15 +1,41 @@
 "use client";
 import { useState, useEffect } from "react";
-import { member } from "@/common/typedata/member";
+import MemberType from "@/common/typedata/member-type";
 import MemberCard from "@/components/card/MemberCard";
 import SearchBar from "@/components/searchbar";
 
 // Shimmer Effect
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
+function doSearch(members: any, query: string): string[] {
+  const filteredData = Object.keys(members).filter((key) => {
+    const data = members[key];
+    if (query === "") return members;
+    else if (data.name.toLowerCase().includes(query.toLowerCase())) return data;
+  });
+  return filteredData;
+}
+
+function sort(data: MemberType[]): MemberType[] {
+  const sortedData = data.slice().sort((a, b) => a.name.localeCompare(b.name));
+  const result: MemberType[] = [];
+  for (const member of sortedData) {
+    const firstLetter = member.name[0].toLowerCase();
+    if (
+      result.length === 0 ||
+      result[result.length - 1].name[0].toLowerCase() !== firstLetter
+    ) {
+      result.push(member);
+    } else {
+      result.push(member);
+    }
+  }
+  return result;
+}
+
 export default function MemberPage() {
-  const [memberList, setMemberList] = useState<member[]>([]);
-  const [traineeList, setTraineeList] = useState<member[]>([]);
+  const [memberList, setMemberList] = useState<any>(null);
+  const [traineeList, setTraineeList] = useState<any>(null);
   const [successFetchMember, setSuccessFetchMember] = useState<boolean>(false);
   const [successFetchTrainee, setSuccessFetchTrainee] =
     useState<boolean>(false);
@@ -25,7 +51,12 @@ export default function MemberPage() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setMemberList(data.content);
+          const memberData: MemberType[] = [];
+          for (const i in data.content) {
+            const item = data.content[i];
+            memberData.push(item);
+          }
+          setMemberList(memberData);
           setSuccessFetchMember(true);
         });
     }
@@ -38,7 +69,12 @@ export default function MemberPage() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setTraineeList(data.content);
+          const traineeData: MemberType[] = [];
+          for (const i in data.content) {
+            const item = data.content[i];
+            traineeData.push(item);
+          }
+          setTraineeList(traineeData);
           setSuccessFetchTrainee(true);
         });
     }
@@ -76,40 +112,26 @@ export default function MemberPage() {
           {!isInput ? "Member JKT48" : ""}
         </h1>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
-          {successFetchMember
-            ? isInput
-              ? memberList
-                  .filter((data) => {
-                    if (query === "") return data;
-                    else if (
-                      data.name.toLowerCase().includes(query.toLowerCase())
-                    )
-                      return data;
-                  })
-                  .map((member) => (
-                    <MemberCard
-                      id={member.id}
-                      key={member.id}
-                      name={member.id.replaceAll("-", " ")}
-                      gen={member.gen}
-                      image={member.image}
-                      jikoshoukai={member.jikoshoukai}
-                      instagram={member.instagram}
-                      x={member.x}
-                      tiktok={member.tiktok}
-                    />
-                  ))
-              : memberList.map((member) => (
+          {successFetchMember // when success fetch MemberData
+            ? isInput // when user input in SearchBar
+              ? doSearch(memberList, query).map((item) => (
                   <MemberCard
-                    id={member.id}
-                    key={member.id}
-                    name={member.id.replaceAll("-", " ")}
-                    gen={member.gen}
-                    image={member.image}
-                    jikoshoukai={member.jikoshoukai}
-                    instagram={member.instagram}
-                    x={member.x}
-                    tiktok={member.tiktok}
+                    key={item}
+                    name={memberList[item].name}
+                    image={memberList[item].image}
+                    instagram={memberList[item].instagram}
+                    twitter={memberList[item].twitter}
+                    tiktok={memberList[item].tiktok}
+                  />
+                ))
+              : sort(memberList).map((item, index) => (
+                  <MemberCard
+                    key={index}
+                    name={item.name}
+                    image={item.image}
+                    instagram={item.instagram}
+                    twitter={item.twitter}
+                    tiktok={item.tiktok}
                   />
                 ))
             : [...Array(6)].map((_, index) => (
@@ -122,38 +144,26 @@ export default function MemberPage() {
           {!isInput ? "Trainee JKT48" : ""}
         </h1>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
-          {successFetchTrainee
-            ? isInput
-              ? traineeList
-                  .filter((data) => {
-                    if (query === "") return data;
-                    else if (
-                      data.name.toLowerCase().includes(query.toLowerCase())
-                    )
-                      return data;
-                  })
-                  .map((trainee) => (
-                    <MemberCard
-                      id={trainee.id}
-                      key={trainee.id}
-                      name={trainee.id.replaceAll("-", " ")}
-                      image={trainee.image}
-                      // jikoshoukai={trainee.jikoshoukai}
-                      instagram={trainee.instagram}
-                      x={trainee.x}
-                      tiktok={trainee.tiktok}
-                    />
-                  ))
-              : traineeList.map((trainee) => (
+          {successFetchTrainee // when success fetch TraineeData
+            ? isInput // when user input in SearchBar
+              ? doSearch(traineeList, query).map((item) => (
                   <MemberCard
-                    id={trainee.id}
-                    key={trainee.id}
-                    name={trainee.id.replaceAll("-", " ")}
-                    image={trainee.image}
-                    // jikoshoukai={trainee.jikoshoukai}
-                    instagram={trainee.instagram}
-                    x={trainee.x}
-                    tiktok={trainee.tiktok}
+                    key={item}
+                    name={traineeList[item].name}
+                    image={traineeList[item].image}
+                    instagram={traineeList[item].instagram}
+                    twitter={traineeList[item].twitter}
+                    tiktok={traineeList[item].tiktok}
+                  />
+                ))
+              : sort(traineeList).map((item, index) => (
+                  <MemberCard
+                    key={index}
+                    name={item.name}
+                    image={item.image}
+                    instagram={item.instagram}
+                    twitter={item.twitter}
+                    tiktok={item.tiktok}
                   />
                 ))
             : [...Array(6)].map((_, index) => (

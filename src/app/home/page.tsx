@@ -7,6 +7,7 @@ import NewsCard from "@/components/card/NewsCard";
 import ScheduleCard from "@/components/card/ScheduleCard";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
 import PageWrapper from "@/components/wrapper/PageWrapper";
+import NormalPageWrapper from "@/components/wrapper/NormalPageWrapper";
 import ReleaseSlider from "@/components/release-slider";
 import LongButton from "@/components/button/long";
 import specialLinks from "./special-links";
@@ -71,7 +72,7 @@ export default function HomePage() {
                   <NewsCard
                     key={item.id}
                     title={item.title}
-                    image={item.image}
+                    thumbnail={item.thumbnail}
                     date={item.date}
                     category={item.category}
                     slug={item.slug}
@@ -81,7 +82,9 @@ export default function HomePage() {
                   <ShimmerCard key={index} style="news-card" />
                 ))}
           </div>
-          <LongButton href="/news">Berita selengkapnya</LongButton>
+          <LongButton href="/news" className="mt-2 md:mt-0">
+            Berita selengkapnya
+          </LongButton>
         </div>
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
@@ -94,7 +97,9 @@ export default function HomePage() {
             : [...Array(3)].map((_, index) => (
                 <ShimmerCard key={index} style="schedule-card" />
               ))}
-          <LongButton href="/schedule">Jadwal selengkapnya</LongButton>
+          <LongButton href="/schedule" className="mt-2 md:mt-0">
+            Jadwal selengkapnya
+          </LongButton>
         </div>
         <div className="mb-12 row md:flex">
           <div className="grid grid-cols-2 grid-rows-1 gap-4">
@@ -150,7 +155,7 @@ export default function HomePage() {
         </div>
       </PageWrapper>
       <ReleaseSlider />
-      <PageWrapper marginTop={0}>
+      <NormalPageWrapper marginTop={1}>
         <div className="mb-8">
           <h1 className="text-xl md:hidden font-poppins text-center text-red-600 mb-2">
             Tautan Spesial
@@ -177,7 +182,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </PageWrapper>
+      </NormalPageWrapper>
     </div>
   );
 }

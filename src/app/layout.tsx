@@ -25,6 +25,7 @@ export const metadata: Metadata = {
       name: "Achmad Daniel Syahputra",
       url: "https://github.com/achmaddaniel24",
     },
+    { name: "Muhammad Ikhsan Fauzi", url: "https://dribbble.com/ipauscream" },
   ],
   keywords: ["jkt48", "idol", "jkt"],
 };

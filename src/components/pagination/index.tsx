@@ -20,7 +20,7 @@ export default function Pagination(props: PaginationProps) {
       <div className="lg:w-3/5 w-full flex items-center justify-between">
         <div
           onClick={prev}
-          className="flex items-center pt-3 md:px-4 md:py-2 text-gray-800 cursor-pointer md:hover:bg-red-400 md:hover:rounded-full md:hover:text-white">
+          className="flex items-center pt-3 md:px-4 md:py-2 text-gray-800 cursor-pointer md:hover:bg-red-400 md:hover:rounded-full md:hover:text-white duration-300">
           <MdArrowBack size={24} />
           <p className="text-sm ml-2 font-medium leading-none">Sebelumnya</p>
         </div>
@@ -34,7 +34,7 @@ export default function Pagination(props: PaginationProps) {
         </div>
         <div
           onClick={next}
-          className="flex items-center pt-3 md:px-4 md:py-2 text-gray-800 cursor-pointer md:hover:bg-red-400 md:hover:rounded-full md:hover:text-white">
+          className="flex items-center pt-3 md:px-4 md:py-2 text-gray-800 cursor-pointer md:hover:bg-red-400 md:hover:rounded-full md:hover:text-white duration-300">
           <p className="text-sm font-medium text-center whitespace-nowrap mr-2">
             Selanjutnya
           </p>

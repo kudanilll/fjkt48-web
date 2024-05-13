@@ -15,12 +15,20 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       status: 404,
       message: "Not Found",
-      content: {},
+      error: "Not Found",
+    });
+  }
+  const data = await retrieveData("news");
+  if (!data) {
+    return NextResponse.json({
+      status: 404,
+      message: "Not Found",
+      error: "Not Found",
     });
   }
   return NextResponse.json({
     status: 200,
     message: "Success",
-    content: await retrieveData("news"),
+    content: data,
   });
 }

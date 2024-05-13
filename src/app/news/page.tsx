@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
+import NewsType from "@/common/typedata/news-type";
 import NewsCard from "@/components/card/NewsCard";
 import Pagination from "@/components/pagination";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
@@ -10,7 +11,7 @@ export default function NewsPage() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
-  const [news, setNews] = useState<any[]>([]);
+  const [news, setNews] = useState<NewsType[]>([]);
 
   const itemsPerPage = 6;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -35,7 +36,6 @@ export default function NewsPage() {
       .then((response) => response.json())
       .then((data) => {
         setNews(sortArrayByDate(data.content));
-        const first = sortArrayByDate(data.content)[0];
         setSuccessFetchNews(true);
       });
   }, []);
@@ -52,7 +52,7 @@ export default function NewsPage() {
                 <NewsCard
                   key={item.id}
                   title={item.title}
-                  image={item.image}
+                  thumbnail={item.thumbnail}
                   date={item.date}
                   category={item.category}
                   slug={item.slug}
