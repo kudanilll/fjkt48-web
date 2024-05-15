@@ -8,6 +8,7 @@ async function getNews(slug: string) {
     const content: string | null = await getNewsFromStorage(slug);
     if (content !== null) return matter(content);
   } catch (err) {
+    console.error(err);
     return null;
   }
 }

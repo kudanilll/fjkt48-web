@@ -12,6 +12,6 @@ export async function getDataFromAPI(endpoint: string) {
 }
 
 export async function getNewsFromStorage(filename: string) {
-  const content = await getDataFromStorage(`news/${filename}.md`);
+  const content = await getDataFromStorage(`news/content/${filename}.md`);
   return content;
 }

@@ -8,6 +8,7 @@ export type MemberType = {
   blood_group?: string;
   gen?: number;
   idn?: string;
+  img_path: string;
   image: string;
   instagram: string;
   jikoshoukai?: string;

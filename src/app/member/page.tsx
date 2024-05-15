@@ -118,6 +118,7 @@ export default function MemberPage() {
                   <MemberCard
                     key={item}
                     name={memberList[item].name}
+                    img_path={memberList[item].img_path}
                     image={memberList[item].image}
                     instagram={memberList[item].instagram}
                     twitter={memberList[item].twitter}
@@ -128,6 +129,7 @@ export default function MemberPage() {
                   <MemberCard
                     key={index}
                     name={item.name}
+                    img_path={item.img_path}
                     image={item.image}
                     instagram={item.instagram}
                     twitter={item.twitter}
@@ -150,6 +152,7 @@ export default function MemberPage() {
                   <MemberCard
                     key={item}
                     name={traineeList[item].name}
+                    img_path={traineeList[item].img_path}
                     image={traineeList[item].image}
                     instagram={traineeList[item].instagram}
                     twitter={traineeList[item].twitter}
@@ -160,6 +163,7 @@ export default function MemberPage() {
                   <MemberCard
                     key={index}
                     name={item.name}
+                    img_path={item.img_path}
                     image={item.image}
                     instagram={item.instagram}
                     twitter={item.twitter}
