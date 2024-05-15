@@ -45,8 +45,9 @@ export default function Table(props: { endpoint: string }) {
 
   useEffect(() => {
     fetch(`/api/v1/schedule${props.endpoint}`, {
-      cache: "no-store",
       method: "GET",
+      cache: "force-cache",
+      next: { tags: ["schedule"] },
     })
       .then((response) => response.json())
       .then((data) => setColumnTable(sort(data.content)));

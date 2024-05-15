@@ -46,8 +46,9 @@ export default function MemberPage() {
     // fetch member data
     function fetchMember() {
       fetch("/api/v1/member", {
-        cache: "no-store",
         method: "GET",
+        cache: "force-cache",
+        next: { tags: ["member"] },
       })
         .then((response) => response.json())
         .then((data) => {
@@ -64,8 +65,9 @@ export default function MemberPage() {
     // fetch trainee data
     function fetchTrainee() {
       fetch("/api/v1/trainee", {
-        cache: "no-store",
         method: "GET",
+        cache: "force-cache",
+        next: { tags: ["trainee"] },
       })
         .then((response) => response.json())
         .then((data) => {

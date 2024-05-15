@@ -26,8 +26,9 @@ export default function BannerSlider() {
 
   useEffect(() => {
     fetch("/api/v1/banner/home", {
-      cache: "no-store",
       method: "GET",
+      cache: "force-cache",
+      next: { tags: ["banner-home"] },
     })
       .then((response) => response.json())
       .then((data) => {

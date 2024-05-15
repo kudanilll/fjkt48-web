@@ -30,8 +30,9 @@ export default function HomePage() {
 
     function fetchNews() {
       fetch("/api/v1/news", {
-        cache: "no-store",
         method: "GET",
+        cache: "force-cache",
+        next: { tags: ["news"] },
       })
         .then((response) => response.json())
         .then((data) => {
@@ -44,8 +45,9 @@ export default function HomePage() {
       fetch(
         `/api/v1/schedule?date=${new Date().getFullYear()}-${getCurrentMonth().toLowerCase()}`,
         {
-          cache: "no-store",
           method: "GET",
+          cache: "force-cache",
+          next: { tags: ["schedule"] },
         }
       )
         .then((response) => response.json())
