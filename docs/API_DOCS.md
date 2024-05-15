@@ -14,4 +14,8 @@
 
 ## News
 
+`http://localhost:3000/api/v1/news`
+
 ## Schedule
+
+`http://localhost:3000/api/v1/schedule`
