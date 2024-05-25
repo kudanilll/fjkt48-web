@@ -18,14 +18,14 @@ export default function NavigationBar() {
           className={`${active ? "flex-1 md:flex" : "flex"} justify-between px-4 md:max-w-7xl md:items-center`}>
           <div>
             <div className="flex justify-between py-3 md:block">
-              <a className="hidden md:flex cursor-pointer" href="/">
+              <Link className="hidden md:flex cursor-pointer" href="/">
                 <Image
                   width={32}
                   height={32}
                   src="/assets/jkt48.svg"
                   alt="jkt48 logo"
                 />
-              </a>
+              </Link>
               <div className="md:hidden">
                 <Hamburger
                   label="menu"
@@ -63,12 +63,12 @@ export default function NavigationBar() {
               </ul>
             </div>
           </div>
-          <a
+          <Link
             aria-label="profile"
             href="/profile"
             className={`items-center md:ml-4 ${active ? "hidden md:flex" : "flex"}`}>
             <Avatar size={32} icon={<LuUser2 />} />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
