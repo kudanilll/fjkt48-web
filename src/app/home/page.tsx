@@ -31,7 +31,6 @@ export default function HomePage() {
     function fetchNews() {
       fetch("/api/v1/news", {
         method: "GET",
-        cache: "force-cache",
         next: { tags: ["news"] },
       })
         .then((response) => response.json())
@@ -46,7 +45,6 @@ export default function HomePage() {
         `/api/v1/schedule?date=${new Date().getFullYear()}-${getCurrentMonth().toLowerCase()}`,
         {
           method: "GET",
-          cache: "force-cache",
           next: { tags: ["schedule"] },
         }
       )

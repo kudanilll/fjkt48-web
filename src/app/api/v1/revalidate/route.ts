@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     status: 200,
     message: "Revalidate success",
-    revalidate: true,
     date: Date.now(),
   });
 }

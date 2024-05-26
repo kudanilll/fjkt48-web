@@ -17,7 +17,7 @@ export default function ShopPage() {
   useEffect(() => {
     fetch("/api/v1/shop?banner=1", {
       cache: "no-store",
-      method: "GET",
+      next: { tags: ["banner-shop"] },
     })
       .then((response) => response.json())
       .then((data) => {

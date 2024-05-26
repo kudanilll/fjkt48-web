@@ -31,7 +31,6 @@ export default function NewsPage() {
   useEffect(() => {
     fetch("/api/v1/news", {
       method: "GET",
-      cache: "force-cache",
       next: { tags: ["news"] },
     })
       .then((response) => response.json())

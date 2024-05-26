@@ -45,20 +45,20 @@ export default function NavigationBar() {
               }`}>
               <ul className="h-screen md:h-auto md:flex">
                 {navigation.map((item, index) => (
-                  <li
+                  <Link
                     key={index}
-                    className={`${
-                      pathname.includes(item.path)
-                        ? "drop-shadow text-red-600 font-extrabold"
-                        : "text-red-600 font-semibold"
-                    } md:px-3 py-2 pb-6 text-xl md:text-xs text-start font-poppins hover:text-red-700 hover:underline duration-300`}>
-                    <Link
-                      key={index}
-                      href={item.path}
-                      onClick={() => setActive(!active)}>
+                    href={item.path}
+                    aria-label={item.name}
+                    onClick={() => setActive(!active)}>
+                    <li
+                      className={`${
+                        pathname.includes(item.path)
+                          ? "drop-shadow text-red-600 font-extrabold"
+                          : "text-red-600 font-semibold"
+                      } md:px-3 py-2 pb-6 text-xl md:text-xs text-start font-poppins hover:text-red-700 hover:underline duration-300`}>
                       {item.name}
-                    </Link>
-                  </li>
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>
