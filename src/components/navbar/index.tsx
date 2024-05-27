@@ -49,13 +49,14 @@ export default function NavigationBar() {
                     key={index}
                     href={item.path}
                     aria-label={item.name}
-                    onClick={() => setActive(!active)}>
+                    onClick={() => setActive(!active)}
+                    className="md:m-1.5 md:hover:bg-red-200 md:hover:rounded-lg duration-150">
                     <li
                       className={`${
                         pathname.includes(item.path)
                           ? "drop-shadow text-red-600 font-extrabold"
                           : "text-red-600 font-semibold"
-                      } md:px-3 py-2 pb-6 text-xl md:text-xs text-start font-poppins hover:text-red-700 hover:underline duration-300`}>
+                      } md:px-3 py-2 pb-6 text-xl text-start md:text-base font-poppins md:pb-2 md:hover:text-red-600 duration-100`}>
                       {item.name}
                     </li>
                   </Link>
