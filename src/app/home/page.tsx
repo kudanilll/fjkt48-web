@@ -103,31 +103,37 @@ export default function HomePage() {
         </div>
         <div className="mb-12 row md:flex">
           <div className="grid grid-cols-2 grid-rows-1 gap-4">
-            <Image
-              style={{ width: "100", height: "auto" }}
-              height={650}
-              width={650}
-              alt="Theater JKT48"
-              src="/assets/theater/1.jpg"
-              className="hover:shadow-xl rounded-lg"
-            />
-            <Image
-              style={{ width: "100", height: "auto" }}
-              height={650}
-              width={650}
-              alt="Theater JKT48"
-              src="/assets/theater/2.jpg"
-              className="hover:shadow-xl rounded-lg"
-            />
-            <div className="col-span-2 row-start-2">
+            <div className="overflow-hidden rounded-lg">
               <Image
                 style={{ width: "100", height: "auto" }}
                 height={650}
                 width={650}
                 alt="Theater JKT48"
-                src="/assets/theater/3.jpg"
-                className="hover:shadow-xl rounded-lg"
+                src="/assets/theater/1.jpg"
+                className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
               />
+            </div>
+            <div className="overflow-hidden rounded-lg">
+              <Image
+                style={{ width: "100", height: "auto" }}
+                height={650}
+                width={650}
+                alt="Theater JKT48"
+                src="/assets/theater/2.jpg"
+                className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
+              />
+            </div>
+            <div className="col-span-2 row-start-2">
+              <div className="overflow-hidden rounded-lg">
+                <Image
+                  style={{ width: "100", height: "auto" }}
+                  height={650}
+                  width={650}
+                  alt="Theater JKT48"
+                  src="/assets/theater/3.jpg"
+                  className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
+                />
+              </div>
             </div>
           </div>
           <div className="md:p-14">
