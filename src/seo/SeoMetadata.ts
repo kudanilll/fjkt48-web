@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 export const SeoMetadata: Metadata = {
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_DOMAIN}`),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000"
+  ),
   title: "FJKT48",
   description: "JKT48 Fans Web",
   openGraph: {
