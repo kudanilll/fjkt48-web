@@ -54,8 +54,8 @@ export default function NavigationBar() {
                     <li
                       className={`${
                         pathname.includes(item.path)
-                          ? "drop-shadow text-red-600 font-extrabold"
-                          : "text-red-600 font-semibold"
+                          ? "text-red-600 font-extrabold"
+                          : "text-red-500 font-semibold"
                       } md:px-3 py-2 pb-6 text-xl text-start md:text-base font-poppins md:pb-2 md:hover:text-red-600 duration-100`}>
                       {item.name}
                     </li>
