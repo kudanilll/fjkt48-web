@@ -5,6 +5,7 @@ export const SeoMetadata: Metadata = {
     process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000"
   ),
   title: "FJKT48",
+  icons: { icon: "/favicon.ico" },
   description: "JKT48 Fans Web",
   openGraph: {
     title: "FJKT48",
