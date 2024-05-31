@@ -9,7 +9,8 @@ import ShimmerCard from "@/components/shimmer/ShimmerCard";
 
 export default function NewsPage() {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
   const [news, setNews] = useState<NewsType[]>([]);
 
@@ -17,7 +18,6 @@ export default function NewsPage() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = news.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(news.length / itemsPerPage);
 
   function handlePageChange(page: number) {
     setCurrentPage(page);
@@ -29,7 +29,7 @@ export default function NewsPage() {
   }
 
   useEffect(() => {
-    fetch("/api/v1/news", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/news`, {
       method: "GET",
       next: { tags: ["news"] },
     })
@@ -37,6 +37,7 @@ export default function NewsPage() {
       .then((data) => {
         setNews(sortArrayByDate(data.content));
         setSuccessFetchNews(true);
+        setTotalPages(Math.ceil(data.content.length / itemsPerPage));
       });
   }, []);
 
@@ -63,7 +64,7 @@ export default function NewsPage() {
               ))}
         </div>
         <Pagination
-          total={totalPages == 0 ? 1 : totalPages}
+          total={totalPages}
           current={currentPage}
           onPageChange={handlePageChange}
         />

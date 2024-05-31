@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useFetch } from "@/hooks/use-fetch";
+import ShimmerImage from "@/components/shimmer/ShimmerImage";
 import Image from "next/image";
 import Link from "next/link";
-import ShimmerImage from "@/components/shimmer/ShimmerImage";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,26 +20,26 @@ type BannerType = {
   url: string;
 };
 
-export default function BannerSlider() {
-  const [banner, setBanner] = useState<any>(null);
-  const [successFetch, setSuccessFetch] = useState<boolean>(false);
+function normalize(data: any) {
+  const banner: BannerType[] = [];
+  for (const key in data.content) {
+    const { image, url } = data.content[key];
+    banner.push({ key, image, url });
+  }
+  return banner;
+}
 
-  useEffect(() => {
-    fetch("/api/v1/banner/home", {
-      method: "GET",
-      next: { tags: ["banner-home"] },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const bannerData: BannerType[] = [];
-        for (const key in data.content) {
-          const { image, url } = data.content[key];
-          bannerData.push({ key, image, url });
-        }
-        setBanner(bannerData);
-        setSuccessFetch(true);
-      });
-  }, []);
+export default function BannerSlider() {
+  const [banner, successFetchBanner] = useFetch<any>(
+    "/banner/home",
+    (url: string) =>
+      fetch(url, {
+        method: "GET",
+        next: { tags: ["banner-home"] },
+      })
+        .then((res) => res.json())
+        .then((data) => normalize(data))
+  );
 
   return (
     <div className="mt-2">
@@ -74,7 +74,7 @@ export default function BannerSlider() {
         }}
         modules={[EffectCoverflow, Autoplay, Pagination]}
         className="mySwiper">
-        {successFetch ? (
+        {successFetchBanner ? (
           <div>
             {Object.keys(banner).map((item) => (
               <SwiperSlide key={item}>

@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useFetch } from "@/hooks/use-fetch";
 import MemberType from "@/common/typedata/member-type";
 import MemberCard from "@/components/card/MemberCard";
 import SearchBar from "@/components/searchbar";
@@ -33,57 +34,40 @@ function sort(data: MemberType[]): MemberType[] {
   return result;
 }
 
+function normalize(data: any) {
+  const list: MemberType[] = [];
+  for (const i in data.content) {
+    const item = data.content[i];
+    list.push(item);
+  }
+  return list;
+}
+
 export default function MemberPage() {
-  const [memberList, setMemberList] = useState<any>(null);
-  const [traineeList, setTraineeList] = useState<any>(null);
-  const [successFetchMember, setSuccessFetchMember] = useState<boolean>(false);
-  const [successFetchTrainee, setSuccessFetchTrainee] =
-    useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
   const [isInput, setIsInput] = useState<boolean>(false);
 
-  useEffect(() => {
-    // fetch member data
-    function fetchMember() {
-      fetch("/api/v1/member", {
+  const [memberList, successFetchMember] = useFetch<any>(
+    "/member",
+    (url: string) =>
+      fetch(url, {
         method: "GET",
-        cache: "force-cache",
         next: { tags: ["member"] },
       })
-        .then((response) => response.json())
-        .then((data) => {
-          const memberData: MemberType[] = [];
-          for (const i in data.content) {
-            const item = data.content[i];
-            memberData.push(item);
-          }
-          setMemberList(memberData);
-          setSuccessFetchMember(true);
-        });
-    }
+        .then((res) => res.json())
+        .then((data) => normalize(data))
+  );
 
-    // fetch trainee data
-    function fetchTrainee() {
-      fetch("/api/v1/trainee", {
+  const [traineeList, successFetchTrainee] = useFetch<any>(
+    "/trainee",
+    (url: string) =>
+      fetch(url, {
         method: "GET",
-        cache: "force-cache",
         next: { tags: ["trainee"] },
       })
-        .then((response) => response.json())
-        .then((data) => {
-          const traineeData: MemberType[] = [];
-          for (const i in data.content) {
-            const item = data.content[i];
-            traineeData.push(item);
-          }
-          setTraineeList(traineeData);
-          setSuccessFetchTrainee(true);
-        });
-    }
-
-    fetchMember();
-    fetchTrainee();
-  }, []);
+        .then((res) => res.json())
+        .then((data) => normalize(data))
+  );
 
   return (
     <div>

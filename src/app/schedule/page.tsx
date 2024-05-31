@@ -11,13 +11,19 @@ import Calendar from "@/components/calendar";
 
 export default function SchedulePage() {
   const router = useRouter();
-  const [month, setMonth] = useState(getCurrentMonth());
-  const [year, setYear] = useState(String(getCurrentYear()));
-  const [path, setPath] = useState(`?date=${year}-${month.toLowerCase()}`);
+  const [date, setDate] = useState({
+    month: getCurrentMonth(),
+    year: String(getCurrentYear),
+  });
+  const [path, setPath] = useState(
+    `?date=${date.year}-${date.month.toLowerCase()}`
+  );
 
   function handleDateChange(month: number, year: number) {
-    setMonth(monthStringArray[month]);
-    setYear(String(year));
+    setDate({
+      month: monthStringArray[month],
+      year: String(year),
+    });
     setPath(`?date=${year}-${monthStringArray[month].toLowerCase()}`);
     router.push(
       `/schedule?date=${year}-${monthStringArray[month].toLowerCase()}`
@@ -39,8 +45,7 @@ export default function SchedulePage() {
       <div className="mb-8">
         <Calendar
           apiEndPoint={path}
-          currentMonth={month}
-          currentYear={year}
+          currentDate={date}
           onDateChange={handleDateChange}
         />
       </div>

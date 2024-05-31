@@ -4,23 +4,22 @@ import Table from "@/components/table";
 
 type CalendarProps = {
   apiEndPoint: string;
-  currentYear: string;
-  currentMonth: string;
+  currentDate: { month: string; year: string };
   onDateChange: any;
 };
 
 export default function Calendar(props: CalendarProps) {
   function prev() {
-    var month = Number(monthStringArray.indexOf(props.currentMonth));
-    var year = Number(props.currentYear);
+    var month = Number(monthStringArray.indexOf(props.currentDate.month));
+    var year = Number(props.currentDate.year);
     if (month > 0) props.onDateChange(month - 1, year);
     else if (year > new Date().getFullYear())
       props.onDateChange(monthStringArray.length - 1, year - 1);
   }
 
   function next() {
-    var month = Number(monthStringArray.indexOf(props.currentMonth));
-    var year = Number(props.currentYear);
+    var month = Number(monthStringArray.indexOf(props.currentDate.month));
+    var year = Number(props.currentDate.year);
     if (month < monthStringArray.length - 1)
       props.onDateChange(month + 1, year);
     else props.onDateChange(0, year + 1);
@@ -34,7 +33,7 @@ export default function Calendar(props: CalendarProps) {
           className="flex items-center pt-3 text-red-600 cursor-pointer">
           <MdArrowBack size={24} />
         </div>
-        <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600">{`${props.currentMonth} - ${props.currentYear}`}</h5>
+        <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600">{`${props.currentDate.month} - ${props.currentDate.year}`}</h5>
         <div
           onClick={next}
           className="flex items-center pt-3 text-red-600 cursor-pointer">

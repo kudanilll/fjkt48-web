@@ -1,8 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useFetch } from "@/hooks/use-fetch";
 import { getCurrentMonth, sortArrayByDate } from "@/utils/get-time";
-import Image from "next/image";
-import Link from "next/link";
 import NewsCard from "@/components/card/NewsCard";
 import ScheduleCard from "@/components/card/ScheduleCard";
 import ShimmerCard from "@/components/shimmer/ShimmerCard";
@@ -10,54 +8,37 @@ import PageWrapper from "@/components/wrapper/PageWrapper";
 import NormalPageWrapper from "@/components/wrapper/NormalPageWrapper";
 import ReleaseSlider from "@/components/release-slider";
 import LongButton from "@/components/button/long";
+import Image from "next/image";
+import Link from "next/link";
 import specialLinks from "./special-links";
 
+function filterEventSchedule(data: any[]) {
+  const result: any[] = [];
+  data.map((item) => {
+    if (item.id > new Date().getDate()) result.push(item);
+  });
+  return result.slice(0, 4);
+}
+
 export default function HomePage() {
-  const [news, setNews] = useState<any[]>([]);
-  const [eventSchedule, setEventSchedule] = useState<any[]>([]);
-
-  const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
-  const [successFetchEvent, setSuccessFetchEvent] = useState<boolean>(false);
-
-  useEffect(() => {
-    function filterEventSchedule(data: any[]) {
-      const result: any[] = [];
-      data.map((item) => {
-        if (item.id > new Date().getDate()) result.push(item);
-      });
-      return result.slice(0, 4);
-    }
-
-    function fetchNews() {
-      fetch("/api/v1/news", {
+  const [news, successFetchNews] = useFetch<any[]>("/news", (url: string) =>
+    fetch(url, {
+      method: "GET",
+      next: { tags: ["news"] },
+    })
+      .then((res) => res.json())
+      .then((data) => sortArrayByDate(data.content).slice(0, 6))
+  );
+  const [eventSchedule, successFetchEvent] = useFetch<any[]>(
+    `/schedule?date=${new Date().getFullYear()}-${getCurrentMonth().toLowerCase()}`,
+    (url: string) =>
+      fetch(url, {
         method: "GET",
-        next: { tags: ["news"] },
+        next: { tags: ["schedule"] },
       })
-        .then((response) => response.json())
-        .then((data) => {
-          setNews(sortArrayByDate(data.content).slice(0, 6));
-          setSuccessFetchNews(true);
-        });
-    }
-
-    function fetchSchedule() {
-      fetch(
-        `/api/v1/schedule?date=${new Date().getFullYear()}-${getCurrentMonth().toLowerCase()}`,
-        {
-          method: "GET",
-          next: { tags: ["schedule"] },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setEventSchedule(filterEventSchedule(data.content));
-          setSuccessFetchEvent(true);
-        });
-    }
-
-    fetchNews();
-    fetchSchedule();
-  }, []);
+        .then((res) => res.json())
+        .then((data) => filterEventSchedule(data.content))
+  );
 
   return (
     <div>
