@@ -44,7 +44,7 @@ export default function Table(props: { endpoint: string }) {
   const [columnTable, setColumnTable] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(`/api/v1/schedule${props.endpoint}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedule${props.endpoint}`, {
       method: "GET",
       next: { tags: ["schedule"] },
     })
