@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import NormalPageWrapper from "@/components/wrapper/NormalPageWrapper";
+import NormalPageWrapper from "@/components/wrapper/normal-page-wrapper";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -1,25 +1,29 @@
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import { monthStringArray } from "@/utils/get-time";
-import Table from "@/components/table";
+import Table from "@/components/ui/table";
 
-type CalendarProps = {
+type ScheduleCalendarProps = {
   apiEndPoint: string;
   currentDate: { month: string; year: string };
   onDateChange: any;
 };
 
-export default function Calendar(props: CalendarProps) {
+export default function ScheduleCalendar(props: ScheduleCalendarProps) {
   function prev() {
-    var month = Number(monthStringArray.indexOf(props.currentDate.month));
-    var year = Number(props.currentDate.year);
+    const month: number = Number(
+      monthStringArray.indexOf(props.currentDate.month)
+    );
+    const year: number = Number(props.currentDate.year);
     if (month > 0) props.onDateChange(month - 1, year);
     else if (year > new Date().getFullYear())
       props.onDateChange(monthStringArray.length - 1, year - 1);
   }
 
   function next() {
-    var month = Number(monthStringArray.indexOf(props.currentDate.month));
-    var year = Number(props.currentDate.year);
+    const month: number = Number(
+      monthStringArray.indexOf(props.currentDate.month)
+    );
+    const year: number = Number(props.currentDate.year);
     if (month < monthStringArray.length - 1)
       props.onDateChange(month + 1, year);
     else props.onDateChange(0, year + 1);

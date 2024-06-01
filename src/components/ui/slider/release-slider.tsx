@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import BasicButton from "@/components/button/basic";
+import NormalButton from "@/components/ui/button/normal-button";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +9,8 @@ import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+
+import "./pagination.css";
 
 export default function ReleaseSlider() {
   return (
@@ -57,9 +59,9 @@ export default function ReleaseSlider() {
                 </p>
               </div>
               <div className="hidden md:block">
-                <BasicButton href="https://www.youtube.com/watch?v=9GiWftsHdBs">
+                <NormalButton href="https://www.youtube.com/watch?v=9GiWftsHdBs">
                   Tonton sekarang
-                </BasicButton>
+                </NormalButton>
               </div>
             </div>
           </div>
@@ -92,9 +94,9 @@ export default function ReleaseSlider() {
                 </p>
               </div>
               <div className="hidden md:block">
-                <BasicButton href="https://youtu.be/GIl0Y1W4n70">
+                <NormalButton href="https://youtu.be/GIl0Y1W4n70">
                   Tonton sekarang
-                </BasicButton>
+                </NormalButton>
               </div>
             </div>
             <Image

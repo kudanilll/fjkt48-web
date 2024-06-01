@@ -1,11 +1,6 @@
-import React from "react";
+import ButtonProps from "./button-props";
 
-interface ButtonProps extends React.ComponentProps<"button"> {
-  children?: React.ReactNode;
-  href?: string;
-}
-
-export default function BasicButton(props: ButtonProps) {
+export default function NormalButton(props: ButtonProps) {
   const { children, href, ...rest } = props;
   return (
     <a href={href ?? href}>

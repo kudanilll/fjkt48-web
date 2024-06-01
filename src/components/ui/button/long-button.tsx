@@ -1,9 +1,4 @@
-import React from "react";
-
-interface ButtonProps extends React.ComponentProps<"button"> {
-  children?: React.ReactNode;
-  href?: string;
-}
+import ButtonProps from "./button-props";
 
 export default function LongButton(props: ButtonProps) {
   const { children, href, ...rest } = props;

@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import { getImageFromStorage } from "@/lib/firebase/service";
 import MemberType from "@/common/typedata/member-type";
-import ShimmerImage from "@/components/shimmer/ShimmerImage";
+import ShimmerImage from "@/components/ui/shimmer/image";
 import Link from "next/link";
 import "./toolbar-wrapper.css";
 

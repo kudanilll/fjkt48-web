@@ -1,4 +1,4 @@
-import ShimmerTitle from "@/components/shimmer/ShimmerTitle";
+import ShimmerTitle from "@/components/ui/shimmer/title";
 import "@/styles/shimmer.scss";
 import "./styles.scss";
 

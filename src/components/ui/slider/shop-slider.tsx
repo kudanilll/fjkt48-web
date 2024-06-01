@@ -1,14 +1,14 @@
 "use client";
-import ProductCard from "@/components/card/ProductCard";
+import ProductCard from "@/components/ui/card/product";
 // Import Swiper React components & styles
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 
-type CarouselProps = {};
+type ShopSliderProps = {};
 
-export default function Carousel(props: CarouselProps) {
+export default function ShopSlider(props: ShopSliderProps) {
   return (
     <Swiper
       spaceBetween={10}

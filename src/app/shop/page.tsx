@@ -2,16 +2,15 @@
 import { MdChevronRight } from "react-icons/md";
 import { useState, useEffect } from "react";
 import sections from "./section-item";
-import Carousel from "@/components/carousel";
+import ShopSlider from "@/components/ui/slider/shop-slider";
 import Image from "next/image";
 import Link from "next/link";
 
 // Shimmer Effect
-import ShimmerBanner from "@/components/shimmer/ShimmerBanner";
-import ShimmerCard from "@/components/shimmer/ShimmerCard";
+import ShimmerBanner from "@/components/ui/shimmer/banner";
 
 export default function ShopPage() {
-  const [bannerImage, setBannerImage] = useState("");
+  const [bannerImage, setBannerImage] = useState<string>("");
   const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ export default function ShopPage() {
             <h1 className="text-3xl font-semibold mb-1.5">{section.title}</h1>
             <MdChevronRight size={40} className="mb-1.5" />
           </Link>
-          <Carousel />
+          <ShopSlider />
         </div>
       ))}
       <div className="mb-8 items-center justify-center">

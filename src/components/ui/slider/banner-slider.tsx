@@ -1,6 +1,6 @@
 "use client";
 import { useFetch } from "@/hooks/use-fetch";
-import ShimmerImage from "@/components/shimmer/ShimmerImage";
+import ShimmerImage from "@/components/ui/shimmer/image";
 import Image from "next/image";
 import Link from "next/link";
 

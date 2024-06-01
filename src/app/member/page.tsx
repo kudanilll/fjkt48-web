@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { useFetch } from "@/hooks/use-fetch";
 import MemberType from "@/common/typedata/member-type";
-import MemberCard from "@/components/card/MemberCard";
-import SearchBar from "@/components/searchbar";
+import MemberCard from "@/components/ui/card/member";
+import SearchBar from "@/components/ui/search-bar";
 
 // Shimmer Effect
-import ShimmerCard from "@/components/shimmer/ShimmerCard";
+import ShimmerCard from "@/components/ui/shimmer/card";
 
 function doSearch(members: any, query: string): string[] {
   const filteredData = Object.keys(members).filter((key) => {

@@ -1,5 +1,5 @@
 import NewsType from "@/common/typedata/news-type";
-import ShimmerImage from "@/components/shimmer/ShimmerImage";
+import ShimmerImage from "@/components/ui/shimmer/image";
 import Link from "next/link";
 import { Image, Card } from "antd";
 

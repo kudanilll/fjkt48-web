@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
 import NewsType from "@/common/typedata/news-type";
-import NewsCard from "@/components/card/NewsCard";
-import Pagination from "@/components/pagination";
-import ShimmerCard from "@/components/shimmer/ShimmerCard";
+import NewsCard from "@/components/ui/card/news";
+import Pagination from "@/components/ui/pagination";
+import ShimmerCard from "@/components/ui/shimmer/card";
 
 export default function NewsPage() {
   const router = useRouter();

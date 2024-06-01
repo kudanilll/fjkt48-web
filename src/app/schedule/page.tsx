@@ -7,13 +7,13 @@ import {
 } from "@/utils/get-time";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Calendar from "@/components/calendar";
+import ScheduleCalendar from "@/components/ui/schedule-calendar";
 
 export default function SchedulePage() {
   const router = useRouter();
   const [date, setDate] = useState({
     month: getCurrentMonth(),
-    year: String(getCurrentYear),
+    year: String(getCurrentYear()),
   });
   const [path, setPath] = useState(
     `?date=${date.year}-${date.month.toLowerCase()}`
@@ -43,7 +43,7 @@ export default function SchedulePage() {
         <h4 className="text-medium font-regular text-red-600 font-poppins">{`${getCurrentDay()}, ${new Date().getDate()} ${getCurrentMonth()} ${getCurrentYear()}`}</h4>
       </div>
       <div className="mb-8">
-        <Calendar
+        <ScheduleCalendar
           apiEndPoint={path}
           currentDate={date}
           onDateChange={handleDateChange}
