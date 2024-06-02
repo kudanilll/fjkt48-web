@@ -36,7 +36,7 @@ export default function SchedulePage() {
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-4 select-none">
         <h1 className="text-2xl font-semibold text-red-600 font-poppins">
           Jadwal Acara JKT48
         </h1>

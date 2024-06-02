@@ -88,7 +88,7 @@ export default function Table(props: { endpoint: string }) {
             </table>
           ) : (
             <table className="table-auto overflow-scroll md:overflow-hidden w-full divide-y divide-white bg-red-200">
-              <h3 className="p-5 text-center text-sm text-red-600 font-poppins font-semibold">
+              <h3 className="p-5 text-center text-sm text-red-600 font-poppins font-semibold select-none">
                 Tidak ada jadwal di bulan ini.
               </h3>
             </table>

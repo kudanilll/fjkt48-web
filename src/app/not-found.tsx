@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <NormalPageWrapper>
-      <div className="text-center flex flex-col justify-center items-center content-center space-y-4">
+      <div className="text-center flex flex-col justify-center items-center content-center space-y-4 select-none">
         <Image
           alt="not found :("
           src="/assets/not-found.png"

@@ -44,7 +44,7 @@ export default function HomePage() {
     <div>
       <PageWrapper marginTop={8}>
         <div className="mt-8 mb-8">
-          <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
+          <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2 select-none">
             Berita tentang JKT48
           </h1>
           <div className="sm:mb-6 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
@@ -68,7 +68,7 @@ export default function HomePage() {
           </LongButton>
         </div>
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
+          <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2 select-none">
             Acara mendatang
           </h1>
           {successFetchEvent
@@ -117,7 +117,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="md:p-14">
+          <div className="md:p-14 select-none">
             <h1 className="hidden md:block font-poppins text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
               Apa itu JKT48 Theater ?
             </h1>
@@ -143,7 +143,7 @@ export default function HomePage() {
       </PageWrapper>
       <ReleaseSlider />
       <NormalPageWrapper marginTop={1}>
-        <div className="mb-8">
+        <div className="mb-8 select-none">
           <h1 className="text-xl md:hidden font-poppins text-center text-red-600 mb-2">
             Tautan Spesial
           </h1>

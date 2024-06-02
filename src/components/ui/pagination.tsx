@@ -17,7 +17,7 @@ export default function Pagination(props: PaginationProps) {
 
   return (
     <div className="flex items-center justify-center py-4 lg:px-0 sm:px-6 px-4">
-      <div className="lg:w-3/5 w-full flex items-center justify-between">
+      <div className="lg:w-3/5 w-full flex items-center justify-between select-none">
         <div
           onClick={prev}
           className="flex items-center pt-3 md:px-4 md:py-2 text-gray-800 cursor-pointer md:hover:bg-red-400 md:hover:rounded-full md:hover:text-white duration-300">

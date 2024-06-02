@@ -37,7 +37,7 @@ export default function ScheduleCalendar(props: ScheduleCalendarProps) {
           className="flex items-center pt-3 text-red-600 cursor-pointer">
           <MdArrowBack size={24} />
         </div>
-        <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600">{`${props.currentDate.month} - ${props.currentDate.year}`}</h5>
+        <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600 select-none">{`${props.currentDate.month} - ${props.currentDate.year}`}</h5>
         <div
           onClick={next}
           className="flex items-center pt-3 text-red-600 cursor-pointer">
