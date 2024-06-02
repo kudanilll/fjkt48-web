@@ -1,34 +1,34 @@
 "use client";
 import { MdChevronRight } from "react-icons/md";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import sections from "./section-item";
 import ShopSlider from "@/components/ui/slider/shop-slider";
 import Image from "next/image";
 import Link from "next/link";
 
 // Shimmer Effect
-import ShimmerBanner from "@/components/ui/shimmer/banner";
+// import ShimmerBanner from "@/components/ui/shimmer/banner";
 
 export default function ShopPage() {
-  const [bannerImage, setBannerImage] = useState<string>("");
-  const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
+  // const [bannerImage, setBannerImage] = useState<string>("");
+  // const [successFetchBanner, setSuccessFetchBanner] = useState<boolean>(false);
 
-  useEffect(() => {
-    fetch("/api/v1/shop?banner=1", {
-      cache: "no-store",
-      next: { tags: ["banner-shop"] },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setBannerImage(data.content.image);
-        setSuccessFetchBanner(true);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api/v1/shop?banner=1", {
+  //     method: "GET",
+  //     next: { tags: ["banner-shop"] },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setBannerImage(data.content.image);
+  //       setSuccessFetchBanner(true);
+  //     });
+  // }, []);
 
   return (
     <div>
       <div className="mb-6">
-        {successFetchBanner ? (
+        {/* {successFetchBanner ? (
           <Image
             className="w-full object-cover rounded-xl md:px-24"
             width={500}
@@ -40,7 +40,16 @@ export default function ShopPage() {
           />
         ) : (
           <ShimmerBanner />
-        )}
+        )} */}
+        <Image
+          className="w-full object-cover rounded-xl md:px-24"
+          width={500}
+          height={500}
+          src="/test/marsha-birthday-tshirt.jpg"
+          alt="shop banner"
+          quality={100}
+          priority={true}
+        />
       </div>
       {sections.map((section, index) => (
         <div className="mb-6" id={section.id} key={index}>
