@@ -33,10 +33,13 @@ yarn-error.log*
 
 # env files
 .env
-.env.local
+.env.dev
+(deprecated).env.local
+.env.prod
 
 # vercel
 .vercel
+vercel.json
 
 # typescript
 *.tsbuildinfo
@@ -45,4 +48,3 @@ next-env.d.ts
 # other
 /backup
 /.vscode
-(deprecated).env.local
