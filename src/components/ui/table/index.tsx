@@ -64,7 +64,7 @@ export default function Table(props: { endpoint: string }) {
                   {header.map((row, index) => (
                     <th
                       key={index}
-                      className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600 font-poppins`}>
+                      className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600 font-poppins select-none`}>
                       {row.title}
                     </th>
                   ))}
@@ -75,7 +75,7 @@ export default function Table(props: { endpoint: string }) {
                 {columnTable.map((row, index) => (
                   <tr
                     key={row.id}
-                    className={`divide-x divide-white ${row.date === getCurrentDate() ? "text-red-700" : "text-black"}`}>
+                    className={`select-none divide-x divide-white ${row.date === getCurrentDate() ? "text-red-700" : "text-black"}`}>
                     <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center font-poppins">
                       {index + 1}
                     </td>

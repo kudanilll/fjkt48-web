@@ -32,22 +32,20 @@ export default function ScheduleCalendar(props: ScheduleCalendarProps) {
   return (
     <div>
       <div className="lg:w-3/5 w-full flex items-center justify-between mb-4 m-auto">
-        <div
-          onClick={prev}
-          className="flex items-center pt-3 text-red-600 cursor-pointer">
-          <MdArrowBack size={24} />
+        <div onClick={prev} className="flex items-center pt-3">
+          <div className="p-2 text-red-600 cursor-pointer hover:bg-red-600 hover:rounded-full hover:text-white duration-300">
+            <MdArrowBack size={24} />
+          </div>
         </div>
         <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600 select-none">{`${props.currentDate.month} - ${props.currentDate.year}`}</h5>
-        <div
-          onClick={next}
-          className="flex items-center pt-3 text-red-600 cursor-pointer">
-          <MdArrowForward size={24} />
+        <div onClick={next} className="flex items-center pt-3">
+          <div className="p-2 text-red-600 cursor-pointer hover:bg-red-600 hover:rounded-full hover:text-white duration-300">
+            <MdArrowForward size={24} />
+          </div>
         </div>
       </div>
-      <div>
-        <div className="bg-gray-300 rounded mt-2 md:mt-4">
-          <Table endpoint={props.apiEndPoint} />
-        </div>
+      <div className="bg-gray-300 rounded mt-2 md:mt-4">
+        <Table endpoint={props.apiEndPoint} />
       </div>
     </div>
   );
