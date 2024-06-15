@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
 import NewsType from "@/common/typedata/news-type";
-import NewsCard from "@/components/card/NewsCard";
-import Pagination from "@/components/pagination";
-import ShimmerCard from "@/components/shimmer/ShimmerCard";
+import NewsCard from "@/components/ui/card/news";
+import Pagination from "@/components/ui/pagination";
+import ShimmerCard from "@/components/ui/shimmer/card";
+import Heading from "@/components/typography/heading";
 
 export default function NewsPage() {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
   const [successFetchNews, setSuccessFetchNews] = useState<boolean>(false);
   const [news, setNews] = useState<NewsType[]>([]);
 
@@ -17,7 +19,6 @@ export default function NewsPage() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = news.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(news.length / itemsPerPage);
 
   function handlePageChange(page: number) {
     setCurrentPage(page);
@@ -29,7 +30,7 @@ export default function NewsPage() {
   }
 
   useEffect(() => {
-    fetch("/api/v1/news", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/news`, {
       method: "GET",
       next: { tags: ["news"] },
     })
@@ -37,15 +38,14 @@ export default function NewsPage() {
       .then((data) => {
         setNews(sortArrayByDate(data.content));
         setSuccessFetchNews(true);
+        setTotalPages(Math.ceil(data.content.length / itemsPerPage));
       });
   }, []);
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
-          Berita Terbaru
-        </h1>
+      <div className="my-8">
+        <Heading>Berita Terbaru</Heading>
         <div className="sm:mb-6 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
           {successFetchNews
             ? currentItems.map((item) => (
@@ -63,7 +63,7 @@ export default function NewsPage() {
               ))}
         </div>
         <Pagination
-          total={totalPages == 0 ? 1 : totalPages}
+          total={totalPages}
           current={currentPage}
           onPageChange={handlePageChange}
         />

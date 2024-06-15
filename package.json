@@ -2,11 +2,24 @@
   "name": "fjkt48",
   "version": "1.0.0",
   "private": true,
-  "author": "achmaddaniel24",
+  "authors": [
+    {
+      "name": "Achmad Daniel Syahputra",
+      "email": "achmad24daniel@gmail.com",
+      "url": "https://portfolio-achmad-daniel.vercel.app"
+    },
+    {
+      "name": "Muhammad Ikhsan Fauzi",
+      "email": "fauzi.dah100@gmail.com",
+      "url": "https://dribbble.com/ipauscream"
+    }
+  ],
   "scripts": {
-    "dev": "next dev --turbo",
-    "build": "next build",
-    "start": "next start",
+    "dev": "env-cmd -f .env.dev next dev --turbo",
+    "start:dev": "env-cmd -f .env.dev next start",
+    "start:prod": "env-cmd -f .env.prod next start",
+    "build:dev": "env-cmd -f .env.dev next build",
+    "build:prod": "env-cmd -f .env.prod next build",
     "lint": "next lint",
     "ngrok": "ngrok http 3000",
     "test": "jest",
@@ -18,6 +31,7 @@
     "@ant-design/icons": "^5.3.1",
     "@tailwindcss/typography": "^0.5.10",
     "antd": "^5.15.0",
+    "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^9.1.0",
     "firebase": "^10.6.0",
     "framer-motion": "^11.0.3",
@@ -33,7 +47,8 @@
     "react-icons": "^5.0.1",
     "sass": "^1.70.0",
     "sharp": "^0.33.2",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",

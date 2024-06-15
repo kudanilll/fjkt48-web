@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BannerSlider from "@/components/banner/slider";
+import BannerSlider from "@/components/ui/slider/banner-slider";
 
 export const metadata: Metadata = {
   title: "FJKT48 | Home",

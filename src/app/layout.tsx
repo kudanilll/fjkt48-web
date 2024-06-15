@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { SeoMetadata } from "@/seo/SeoMetadata";
+import { SeoMetadata } from "@/seo/seo-metadata";
 import { Noto_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import NavigationBar from "@/components/navbar";
-import Footer from "@/components/footer";
+import NavigationBar from "@/components/ui/navbar";
+import Footer from "@/components/ui/footer";
 import Providers from "./providers";
 import "@/styles/globals.css";
 
