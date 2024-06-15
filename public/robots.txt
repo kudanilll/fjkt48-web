@@ -3,5 +3,6 @@ User-Agent: *
 Allow: /
 Disallow: /login
 Disallow: /register
+Disallow: /profile
 
 Sitemap: https://fjkt48.vercel.app/sitemap.xml

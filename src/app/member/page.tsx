@@ -4,9 +4,8 @@ import { useFetch } from "@/hooks/use-fetch";
 import MemberType from "@/common/typedata/member-type";
 import MemberCard from "@/components/ui/card/member";
 import SearchBar from "@/components/ui/search-bar";
-
-// Shimmer Effect
 import ShimmerCard from "@/components/ui/shimmer/card";
+import Heading from "@/components/typography/heading";
 
 function doSearch(members: any, query: string): string[] {
   const filteredData = Object.keys(members).filter((key) => {
@@ -70,7 +69,7 @@ export default function MemberPage() {
   );
 
   return (
-    <div>
+    <div className="mt-8">
       <SearchBar
         label="Sedang Mencari Oshi-mu?"
         placeholder="Cari disini"
@@ -87,16 +86,13 @@ export default function MemberPage() {
         }}
         inputValue={query}
         handleOnClear={() => {
-          /* bug while inputting, then click on one of the cards */
           setQuery("");
           setIsInput(false);
         }}
         icon={isInput ? "close" : "search"}
       />
       <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2 select-none">
-          {!isInput ? "Member JKT48" : ""}
-        </h1>
+        <Heading>{!isInput ? "Member JKT48" : ""}</Heading>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
           {successFetchMember // when success fetch MemberData
             ? isInput // when user input in SearchBar
@@ -128,9 +124,7 @@ export default function MemberPage() {
         </div>
       </div>
       <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2 select-none">
-          {!isInput ? "Trainee JKT48" : ""}
-        </h1>
+        <Heading>{!isInput ? "Trainee JKT48" : ""}</Heading>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
           {successFetchTrainee // when success fetch TraineeData
             ? isInput // when user input in SearchBar

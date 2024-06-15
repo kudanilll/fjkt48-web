@@ -6,6 +6,7 @@ import NewsType from "@/common/typedata/news-type";
 import NewsCard from "@/components/ui/card/news";
 import Pagination from "@/components/ui/pagination";
 import ShimmerCard from "@/components/ui/shimmer/card";
+import Heading from "@/components/typography/heading";
 
 export default function NewsPage() {
   const router = useRouter();
@@ -43,10 +44,8 @@ export default function NewsPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-2xl md:text-3xl font-poppins text-red-600 mb-2">
-          Berita Terbaru
-        </h1>
+      <div className="my-8">
+        <Heading>Berita Terbaru</Heading>
         <div className="sm:mb-6 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
           {successFetchNews
             ? currentItems.map((item) => (

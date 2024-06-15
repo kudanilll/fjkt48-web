@@ -2,6 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import NormalButton from "@/components/ui/button/normal-button";
+import Heading from "@/components/typography/heading";
+import Paragraph from "@/components/typography/paragraph";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -47,16 +49,14 @@ export default function ReleaseSlider() {
                 <h1 className="text-xl font-poppins text-red-600 mb-5 md:mb-6">
                   Release
                 </h1>
-                <h1 className="text-3xl font-semibold font-poppins text-red-600 mb-2">
-                  JKT48 - RAPSODI
-                </h1>
-                <p className="text-md font-poppins text-default-500 mb-6">
+                <Heading fontFamily="font-semibold">JKT48 - RAPSODI</Heading>
+                <Paragraph marginBottom="mb-6">
                   Rapsodi adalah single ke-21 dari grup idola JKT48 dan juga
                   menjadi single original pertama dari JKT48. Single ini
                   merupakan hasil dari Pemilihan Member Single Original JKT48
                   yang diumumkan pada 30 November 2019 dengan center dari Team
                   KIII Shani Indira Natio.
-                </p>
+                </Paragraph>
               </div>
               <div className="hidden md:block">
                 <NormalButton href="https://www.youtube.com/watch?v=9GiWftsHdBs">
@@ -82,16 +82,16 @@ export default function ReleaseSlider() {
                 <h1 className="text-xl font-poppins text-red-600 mb-6">
                   Release
                 </h1>
-                <h1 className="text-2xl md:text-3xl font-semibold font-poppins text-red-600 mb-2">
+                <Heading fontFamily="font-semibold">
                   JKT48 - HIGH TENSION
-                </h1>
-                <p className="text-md font-poppins text-default-500 mb-6">
+                </Heading>
+                <Paragraph marginBottom="mb-6">
                   High Tension adalah single ke-20 dari Grup Idola JKT48 yang
                   dirilis di Indonesia pada tahun 2019, di bawah lisensi
                   Indonesia Musik Nusantara sejak 2022. Semua anggota Senbatsu
                   dan Under Girls (32 anggota) terpilih melalui Pemilihan Member
                   Single ke-20 JKT48.
-                </p>
+                </Paragraph>
               </div>
               <div className="hidden md:block">
                 <NormalButton href="https://youtu.be/GIl0Y1W4n70">
