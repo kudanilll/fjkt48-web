@@ -79,7 +79,7 @@ export default function ReleaseSlider() {
             </Link>
             <div className="md:p-16">
               <div className="p-10 md:p-0">
-                <h1 className="text-xl font-poppins text-red-600 mb-6">
+                <h1 className="text-xl font-poppins text-red-600 mb-5 md:mb-6">
                   Release
                 </h1>
                 <Heading fontFamily="font-semibold">
