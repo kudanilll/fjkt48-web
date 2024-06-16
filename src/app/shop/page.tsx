@@ -68,7 +68,7 @@ export default function ShopPage() {
               className="w-full object-cover px-2 pt-2"
               width={72}
               height={72}
-              src="/tokopedia.png"
+              src="/assets/shop/tokopedia.png"
               alt="tokopedia"
             />
           </Link>
@@ -77,7 +77,7 @@ export default function ShopPage() {
               className="w-full object-cover px-2"
               width={70}
               height={70}
-              src="/shopee.png"
+              src="/assets/shop/shopee.png"
               alt="shopee"
             />
           </Link>
