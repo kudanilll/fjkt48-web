@@ -42,7 +42,7 @@ export default function ShopSlider(props: ShopSliderProps) {
       {[...Array(10)].map((_, index) => (
         <SwiperSlide key={index}>
           <ProductCard
-            image="/product-image.jpg"
+            image="/test/product-image.jpg"
             title="Sepatu"
             price={5000}
             status="available"
