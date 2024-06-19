@@ -3,12 +3,17 @@ import {
   doc,
   getDoc,
   getDocs,
-  getFirestore,
+  // getFirestore,
+  initializeFirestore,
 } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import app from "./init";
 
-const firestore = getFirestore(app);
+// const firestore = getFirestore(app);
+const firestore = initializeFirestore(app, {
+  experimentalForceLongPolling: true, // this line
+  // useFetchStreams: false, // and this line
+});
 const storage = getStorage(app);
 
 export async function retrieveData(name: string) {
