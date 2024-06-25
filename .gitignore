@@ -7,7 +7,6 @@
 
 # testing
 /coverage
-jest.config.ts
 /src/app/__tests__
 /src/components/__tests__
 /src/lib/__tests__
