@@ -7,11 +7,6 @@
 
 # testing
 /coverage
-jest.config.ts
-/src/app/__tests__
-/src/components/__tests__
-/src/lib/__tests__
-/src/utils/__tests__
 
 # next.js
 /.next/
@@ -34,7 +29,6 @@ yarn-error.log*
 # env files
 .env
 .env.dev
-(deprecated).env.local
 .env.prod
 
 # vercel
@@ -48,3 +42,4 @@ next-env.d.ts
 # other
 /backup
 /.vscode
+package-lock.json
