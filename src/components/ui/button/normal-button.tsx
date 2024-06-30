@@ -1,9 +1,10 @@
+import Link from "next/link";
 import ButtonProps from "./button-props";
 
 export default function NormalButton(props: ButtonProps) {
   const { children, href, ...rest } = props;
   return (
-    <a href={href ?? href}>
+    <Link href={href!}>
       <button
         {...rest}
         className="btn relative inline-flex items-center justify-start overflow-hidden transition-all bg-red-500 rounded-lg hover:bg-transparent border border-red-500 group">
@@ -12,6 +13,6 @@ export default function NormalButton(props: ButtonProps) {
           {props.children ?? props.children}
         </span>
       </button>
-    </a>
+    </Link>
   );
 }

@@ -8,7 +8,7 @@ import {
   ZoomInOutlined,
   ZoomOutOutlined,
 } from "@ant-design/icons";
-import { getImageFromStorage } from "@/lib/firebase/service";
+import { download } from "@/lib/supabase/service";
 import MemberType from "@/common/typedata/member-type";
 import ShimmerImage from "@/components/ui/shimmer/image";
 import Link from "next/link";
@@ -17,7 +17,7 @@ import "./toolbar-wrapper.css";
 export default function MemberCard(props: MemberType) {
   async function onDownload() {
     console.log(`downloading image: ${props.image}`);
-    await getImageFromStorage(props.img_path, props.name);
+    await download("", "");
   }
   return (
     <Card
@@ -72,7 +72,7 @@ export default function MemberCard(props: MemberType) {
       hoverable>
       <Link href={"/member/" + props.name.toLowerCase().replaceAll(" ", "-")}>
         <div className="flex-col items-start">
-          <h3 className="font-poppins font-semibold text-xl h-16 text-black hover:text-red-600 duration-300">
+          <h3 className="font-semibold text-xl h-16 text-black hover:text-red-600 duration-300">
             {props.name}
           </h3>
         </div>

@@ -1,9 +1,10 @@
+import Link from "next/link";
 import ButtonProps from "./button-props";
 
 export default function LongButton(props: ButtonProps) {
   const { children, href, ...rest } = props;
   return (
-    <a href={href ?? href}>
+    <Link href={href!}>
       <button
         {...rest}
         className="btn items-center w-full py-2 transition-all bg-red-500 rounded-lg hover:bg-transparent border border-red-500 group">
@@ -12,6 +13,6 @@ export default function LongButton(props: ButtonProps) {
           {props.children ?? props.children}
         </span>
       </button>
-    </a>
+    </Link>
   );
 }

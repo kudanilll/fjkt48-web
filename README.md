@@ -26,10 +26,10 @@ This is a list of several features that will be developed.
 
 | task                  | status |
 | --------------------- | ------ |
-| Login Page            | ❌     |
+| Login Page            | ✅     |
 | Register Page         | ❌     |
-| FirebaseAuth          | ❌     |
-| Auth Button In Navbar | ❌     |
+| Authentication        | ⌛️     |
+| Auth Button In Navbar | ✅     |
 
 ### Pages
 

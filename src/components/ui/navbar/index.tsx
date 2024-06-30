@@ -1,16 +1,22 @@
 "use client";
+import { useSession, signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
+import { Avatar, Button } from "@radix-ui/themes";
 import { LuUser2 } from "react-icons/lu";
-import { Avatar } from "antd";
 import navigation from "./route";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function NavigationBar() {
   const pathname = usePathname() || "/";
+  const noNavbarRoutes = ["/login", "/register"];
+  const { data: session } = useSession();
   const [active, setActive] = useState<boolean>(false);
+  if (noNavbarRoutes.includes(pathname)) {
+    return <></>;
+  }
   return (
     <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5 md:py-2">
       <div className="w-full bg-red-100 fixed top-0 left-0 right-0 z-10 md:px-12">
@@ -40,7 +46,7 @@ export default function NavigationBar() {
           </div>
           <div>
             <div
-              className={`flex-1 md:justify-self-center md:flex md:pb-0 md:mt-2 ${
+              className={`flex-1 md:flex md:pb-0 ${
                 active ? "p-12 md:p-0 block" : "hidden"
               }`}>
               <ul className="h-screen md:h-auto md:flex">
@@ -56,7 +62,7 @@ export default function NavigationBar() {
                         pathname.includes(item.path)
                           ? "text-red-600 font-extrabold"
                           : "text-red-500 font-semibold"
-                      } md:px-3 py-2 pb-6 text-xl text-start md:text-base font-poppins md:pb-2 md:hover:text-red-600 duration-100`}>
+                      } md:px-3 py-2 pb-6 text-xl text-start md:text-base md:pb-2 md:hover:text-red-600 duration-100`}>
                       {item.name}
                     </li>
                   </Link>
@@ -64,12 +70,21 @@ export default function NavigationBar() {
               </ul>
             </div>
           </div>
-          <Link
-            aria-label="profile"
-            href="/profile"
-            className={`items-center md:ml-4 ${active ? "hidden md:flex" : "flex"}`}>
-            <Avatar size={32} icon={<LuUser2 />} />
-          </Link>
+          {session ? (
+            <Link
+              aria-label="profile"
+              href="/profile"
+              className={`items-center md:ml-4 ${active ? "hidden md:flex" : "flex"}`}>
+              <Avatar
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxWYoWA4snMrRUnQ4LAy8xWmUtwjvNRFskkuohZdQA6zTRxU-s0RLBYCZ6A&s"
+                fallback={<LuUser2 />}
+              />
+            </Link>
+          ) : (
+            <Button aria-label="login" onClick={() => signIn()}>
+              Login
+            </Button>
+          )}
         </div>
       </div>
     </div>

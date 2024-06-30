@@ -27,13 +27,11 @@ export default function NotFound() {
           <h1 className="text-2xl font-semibold">Halaman Tidak Ditemukan :(</h1>
         </div>
         <p>Halaman yang anda cari tidak ada</p>
-        <div className="px-4 py-2 cursor-pointer bg-red-400 md:bg-transparent md:hover:bg-red-400 rounded-full md:hover:text-white duration-300">
-          <Link
-            className="text-white md:text-gray-800 md:hover:text-white duration-300"
-            href="/">
+        <Link href="/">
+          <div className="font-semibold text-white md:text-gray-800 px-4 py-2 cursor-pointer bg-red-400 md:bg-transparent md:hover:bg-red-400 rounded-full md:hover:text-white duration-300">
             Kembali ke beranda
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
     </NormalPageWrapper>
   );

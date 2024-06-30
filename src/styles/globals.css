@@ -3,3 +3,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.radix-themes {
+  --default-font-family: "Poppins", Helvetica, Arial, sans-serif;
+  --heading-font-family: "Poppins", Helvetica, Arial, sans-serif;
+}

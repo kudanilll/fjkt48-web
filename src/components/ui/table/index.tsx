@@ -30,7 +30,7 @@ function sort(arr: TableProps[]) {
 function TextDivider(props: { text: string; link?: string }) {
   const parts = props.text.split(", ");
   return (
-    <td className="whitespace-nowrap p-3 md:py-4 font-poppins">
+    <td className="whitespace-nowrap p-3 md:py-4">
       {parts.map((part, index) => (
         <h5 key={index} className="text-center text-sm">
           <a href={props.link ? props.link : ""}>{part}</a>
@@ -64,7 +64,7 @@ export default function Table(props: { endpoint: string }) {
                   {header.map((row, index) => (
                     <th
                       key={index}
-                      className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600 font-poppins select-none`}>
+                      className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600 select-none`}>
                       {row.title}
                     </th>
                   ))}
@@ -76,10 +76,10 @@ export default function Table(props: { endpoint: string }) {
                   <tr
                     key={row.id}
                     className={`select-none divide-x divide-white ${row.date === getCurrentDate() ? "text-red-700" : "text-black"}`}>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center font-poppins">
+                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
                       {index + 1}
                     </td>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center font-poppins">{`${row.day}, ${row.date}`}</td>
+                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{`${row.day}, ${row.date}`}</td>
                     <TextDivider text={row.time} />
                     <TextDivider text={row.event} link={row.slug} />
                   </tr>
@@ -88,7 +88,7 @@ export default function Table(props: { endpoint: string }) {
             </table>
           ) : (
             <table className="table-auto overflow-scroll md:overflow-hidden w-full divide-y divide-white bg-red-200">
-              <h3 className="p-5 text-center text-sm text-red-600 font-poppins font-semibold select-none">
+              <h3 className="p-5 text-center text-sm text-red-600 font-semibold select-none">
                 Tidak ada jadwal di bulan ini.
               </h3>
             </table>

@@ -1,5 +1,3 @@
-import { getDataFromStorage } from "@/lib/firebase/service";
-
 export async function getDataFromAPI(endpoint: string) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
     cache: "no-store",
@@ -12,6 +10,6 @@ export async function getDataFromAPI(endpoint: string) {
 }
 
 export async function getNewsFromStorage(filename: string) {
-  const content = await getDataFromStorage(`news/content/${filename}.md`);
-  return content;
+  // const content = await getDataFromStorage(`news/content/${filename}.md`);
+  // return content;
 }

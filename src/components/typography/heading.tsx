@@ -12,7 +12,7 @@ type ParagraphProps = {
 export default function Heading(props: ParagraphProps) {
   return (
     <h1
-      className={`text-2xl md:text-3xl font-poppins text-red-600 mb-2 select-none ${props.fontFamily ? props.fontFamily : "font-normal"}`}>
+      className={`text-2xl md:text-3xl text-red-600 mb-2 select-none ${props.fontFamily ? props.fontFamily : "font-normal"}`}>
       {props.children}
     </h1>
   );

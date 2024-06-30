@@ -43,34 +43,34 @@ function normalize(data: any) {
 }
 
 export default function MemberPage() {
-  const [query, setQuery] = useState<string>("");
-  const [isInput, setIsInput] = useState<boolean>(false);
+  // const [query, setQuery] = useState<string>("");
+  // const [isInput, setIsInput] = useState<boolean>(false);
 
-  const [memberList, successFetchMember] = useFetch<any>(
-    "/member",
-    (url: string) =>
-      fetch(url, {
-        method: "GET",
-        next: { tags: ["member"] },
-      })
-        .then((res) => res.json())
-        .then((data) => normalize(data))
-  );
+  // const [memberList, successFetchMember] = useFetch<any>(
+  //   "/member",
+  //   (url: string) =>
+  //     fetch(url, {
+  //       method: "GET",
+  //       next: { tags: ["member"] },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => normalize(data))
+  // );
 
-  const [traineeList, successFetchTrainee] = useFetch<any>(
-    "/trainee",
-    (url: string) =>
-      fetch(url, {
-        method: "GET",
-        next: { tags: ["trainee"] },
-      })
-        .then((res) => res.json())
-        .then((data) => normalize(data))
-  );
+  // const [traineeList, successFetchTrainee] = useFetch<any>(
+  //   "/trainee",
+  //   (url: string) =>
+  //     fetch(url, {
+  //       method: "GET",
+  //       next: { tags: ["trainee"] },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => normalize(data))
+  // );
 
   return (
     <div className="mt-8">
-      <SearchBar
+      {/* <SearchBar
         label="Sedang Mencari Oshi-mu?"
         placeholder="Cari disini"
         handleInputChange={(event) => {
@@ -154,7 +154,7 @@ export default function MemberPage() {
                 <ShimmerCard key={index} style="member-card" />
               ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

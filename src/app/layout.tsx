@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { SeoMetadata } from "@/seo/seo-metadata";
-import { Noto_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import NavigationBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import Providers from "./providers";
+import "@radix-ui/themes/styles.css";
 import "@/styles/globals.css";
-
-const noto = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = SeoMetadata;
 
@@ -21,7 +19,7 @@ export default function RootLayout({
       lang="id"
       className="scroll-smooth"
       style={{ scrollBehavior: "smooth" }}>
-      <body className={noto.className}>
+      <body>
         <Providers>
           <nav>
             <NextTopLoader color="#E53935" showSpinner={false} />

@@ -23,32 +23,31 @@ function filterEventSchedule(data: any[]) {
 }
 
 export default function HomePage() {
-  const [news, successFetchNews] = useFetch<any[]>("/news", (url: string) =>
-    fetch(url, {
-      method: "GET",
-      next: { tags: ["news"] },
-    })
-      .then((res) => res.json())
-      .then((data) => sortArrayByDate(data.content).slice(0, 6))
-  );
-  const [eventSchedule, successFetchEvent] = useFetch<any[]>(
-    `/schedule?date=${new Date().getFullYear()}-${getCurrentMonth().toLowerCase()}`,
-    (url: string) =>
-      fetch(url, {
-        method: "GET",
-        next: { tags: ["schedule"] },
-      })
-        .then((res) => res.json())
-        .then((data) => filterEventSchedule(data.content))
-  );
-
+  // const [news, successFetchNews] = useFetch<any[]>("/news", (url: string) =>
+  //   fetch(url, {
+  //     method: "GET",
+  //     next: { tags: ["news"] },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => sortArrayByDate(data.content).slice(0, 6))
+  // );
+  // const [eventSchedule, successFetchEvent] = useFetch<any[]>(
+  //   `/schedule?date=${new Date().getFullYear()}-${getCurrentMonth().toLowerCase()}`,
+  //   (url: string) =>
+  //     fetch(url, {
+  //       method: "GET",
+  //       next: { tags: ["schedule"] },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => filterEventSchedule(data.content))
+  // );
   return (
     <div>
       <PageWrapper marginTop={8}>
         <div className="my-8">
           <Heading>Berita tentang JKT48</Heading>
           <div className="mb-4 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
-            {successFetchNews
+            {/* {successFetchNews
               ? news.map((item) => (
                   <NewsCard
                     key={item.id}
@@ -61,14 +60,14 @@ export default function HomePage() {
                 ))
               : [...Array(6)].map((_, index) => (
                   <ShimmerCard key={index} style="news-card" />
-                ))}
+                ))} */}
           </div>
           <LongButton href="/news">Berita selengkapnya</LongButton>
         </div>
         <div className="mb-8">
           <Heading>Acara mendatang</Heading>
           <div className="mb-4">
-            {successFetchEvent
+            {/* {successFetchEvent
               ? eventSchedule.map((item, index) => (
                   <ScheduleCard
                     key={index}
@@ -78,7 +77,7 @@ export default function HomePage() {
                 ))
               : [...Array(3)].map((_, index) => (
                   <ShimmerCard key={index} style="schedule-card" />
-                ))}
+                ))} */}
           </div>
           <LongButton href="/schedule">Jadwal selengkapnya</LongButton>
         </div>
@@ -118,11 +117,11 @@ export default function HomePage() {
             </div>
           </div>
           <div className="md:p-14 select-none">
-            <h1 className="hidden md:block font-poppins text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
+            <h1 className="hidden md:block text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
               Apa itu JKT48 Theater ?
             </h1>
             <div className="p-4 md:p-0">
-              <h1 className="md:hidden font-poppins text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
+              <h1 className="md:hidden text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
                 Apa itu JKT48 Theater ?
               </h1>
               <Paragraph>
@@ -144,11 +143,11 @@ export default function HomePage() {
       <ReleaseSlider />
       <NormalPageWrapper marginTop={1}>
         <div className="mb-8 select-none">
-          <h1 className="text-xl md:hidden font-poppins text-center text-red-600 mb-2">
+          <h1 className="text-xl md:hidden text-center text-red-600 mb-2">
             Tautan Spesial
           </h1>
           <div className="lg:w-3/5 w-full flex items-center content-center mx-auto py-4 lg:px-0 sm:px-6 px-4 justify-between">
-            <h1 className="hidden md:block text-3xl text-center font-poppins text-red-600 whitespace-nowrap mr-4">
+            <h1 className="hidden md:block text-3xl text-center text-red-600 whitespace-nowrap mr-4">
               Tautan Spesial
             </h1>
             <div className="flex items-center space-x-4 ml-4">

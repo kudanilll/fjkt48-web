@@ -5,14 +5,18 @@ import matter from "gray-matter";
 import Image from "next/image";
 import Link from "next/link";
 
-async function getNews(slug: string) {
-  try {
-    const content: string | null = await getNewsFromStorage(slug);
-    if (content !== null) return matter(content);
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+// async function getNews(slug: string) {
+// try {
+//   const content: string | null = await getNewsFromStorage(slug);
+//   if (content !== null) return matter(content);
+// } catch (err) {
+//   console.error(err);
+//   return null;
+// }
+// }
+
+function getNews(slug: string) {
+  return "";
 }
 
 function NotFound() {
@@ -46,7 +50,8 @@ function NotFound() {
 }
 
 export default async function DetailNewsPage(props: any) {
-  const content = await getNews(props.params.slug);
+  // const content = await getNews(props.params.slug);
+  const content = getNews(props.params.slug);
   if (content == null) {
     return <NotFound />;
   }
@@ -54,25 +59,25 @@ export default async function DetailNewsPage(props: any) {
     <div>
       <article>
         <article className="py-8 prose md:prose-lg md:ml-auto md:mr-auto">
-          <div
+          {/* <div
             dangerouslySetInnerHTML={{ __html: md().render(content!.content) }}
-          />
+          /> */}
         </article>
         <div className="mb-6 flex-col justify-center text-center">
           <div className="font-regular text-sm tracking-wide">
             <span>
               Sumber
-              <a
+              {/* <a
                 href={`https://${content!.data.source}`}
                 target="_blank"
                 className="text-blue-600 hover:underline">
                 {" "}
                 {content!.data.source}
-              </a>
+              </a> */}
             </span>
           </div>
           <div className="font-regular text-sm tracking-wide">
-            Diterbitkan pada {content!.data.date}
+            {/* Diterbitkan pada {content!.data.date} */}
           </div>
         </div>
       </article>

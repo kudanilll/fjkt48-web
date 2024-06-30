@@ -7,10 +7,6 @@
 
 # testing
 /coverage
-/src/app/__tests__
-/src/components/__tests__
-/src/lib/__tests__
-/src/utils/__tests__
 
 # next.js
 /.next/
@@ -47,3 +43,5 @@ next-env.d.ts
 # other
 /backup
 /.vscode
+/public/test
+package-lock.json

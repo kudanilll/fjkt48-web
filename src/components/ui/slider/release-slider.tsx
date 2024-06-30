@@ -46,9 +46,7 @@ export default function ReleaseSlider() {
             />
             <div className="md:p-16">
               <div className="p-10 md:p-0">
-                <h1 className="text-xl font-poppins text-red-600 mb-5 md:mb-6">
-                  Release
-                </h1>
+                <h1 className="text-xl text-red-600 mb-5 md:mb-6">Release</h1>
                 <Heading fontFamily="font-semibold">JKT48 - RAPSODI</Heading>
                 <Paragraph marginBottom="mb-6">
                   Rapsodi adalah single ke-21 dari grup idola JKT48 dan juga
@@ -79,9 +77,7 @@ export default function ReleaseSlider() {
             </Link>
             <div className="md:p-16">
               <div className="p-10 md:p-0">
-                <h1 className="text-xl font-poppins text-red-600 mb-6">
-                  Release
-                </h1>
+                <h1 className="text-xl text-red-600 mb-6">Release</h1>
                 <Heading fontFamily="font-semibold">
                   JKT48 - HIGH TENSION
                 </Heading>

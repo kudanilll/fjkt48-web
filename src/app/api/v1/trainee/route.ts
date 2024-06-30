@@ -1,10 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { retrieveDataById } from "@/lib/firebase/service";
-
-export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const data = await retrieveDataById("profile", "trainee");
+  const data = null;
   if (!data) {
     return NextResponse.json({
       status: 404,
