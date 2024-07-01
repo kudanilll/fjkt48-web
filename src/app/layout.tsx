@@ -28,9 +28,7 @@ export default function RootLayout({
           <main className="flex flex-col min-h-screen bg-red-50 text-black">
             {children}
           </main>
-          <footer>
-            <Footer />
-          </footer>
+          <Footer />
         </Providers>
       </body>
     </html>
