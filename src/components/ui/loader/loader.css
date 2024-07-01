@@ -1,0 +1,23 @@
+@layer utilities {
+  .loader {
+    @apply w-[35px] aspect-square bg-no-repeat bg-radial bg-cover;
+    background-image: radial-gradient(farthest-side, #000 94%, transparent);
+    background-position:
+      0 0,
+      100% 0,
+      100% 100%,
+      0 100%;
+    background-size: 40% 40%;
+    animation: l38 0.5s infinite;
+  }
+}
+
+@keyframes l38 {
+  100% {
+    background-position:
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 0;
+  }
+}

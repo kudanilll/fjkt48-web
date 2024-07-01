@@ -1,9 +1,6 @@
 import NewsType from "@/common/typedata/news-type";
 import ShimmerImage from "@/components/ui/shimmer/image";
 import Link from "next/link";
-import { Image, Card } from "antd";
-
-const { Meta } = Card;
 
 export default function NewsCard(props: NewsType) {
   var path = props.slug ? "/news/" + props.slug : "";
@@ -33,7 +30,7 @@ export default function NewsCard(props: NewsType) {
   return (
     <Link href={path}>
       <div className="m-1.5 md:hidden">
-        <Card
+        {/* <Card
           hoverable
           cover={
             <div>
@@ -53,10 +50,10 @@ export default function NewsCard(props: NewsType) {
             </div>
           }>
           <Meta title={props.title} description={props.date} />
-        </Card>
+        </Card> */}
       </div>
       <div className="md:mb-2 hidden md:block">
-        <Card
+        {/* <Card
           hoverable
           style={{ width: 390 }}
           cover={
@@ -75,7 +72,7 @@ export default function NewsCard(props: NewsType) {
             </div>
           }>
           <Meta title={props.title} description={props.date} />
-        </Card>
+        </Card> */}
       </div>
     </Link>
   );
