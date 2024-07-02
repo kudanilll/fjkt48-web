@@ -11,27 +11,25 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <NormalPageWrapper>
-      <div className="text-center flex flex-col justify-center items-center content-center space-y-4 select-none">
-        <Image
-          alt="not found :("
-          src="/assets/not-found.png"
-          width={200}
-          height={200}
-          className="mt-20"
-        />
-        <h1 className="hidden md:block text-2xl font-semibold">
-          404 - Halaman Tidak Ditemukan :(
-        </h1>
-        <div className="md:hidden">
-          <h1 className="text-3xl font-semibold">404</h1>
-          <h1 className="text-2xl font-semibold">Halaman Tidak Ditemukan :(</h1>
-        </div>
-        <p>Halaman yang anda cari tidak ada</p>
-        <Link href="/">
-          <div className="font-semibold text-white md:text-gray-800 px-4 py-2 cursor-pointer bg-red-400 md:bg-transparent md:hover:bg-red-400 rounded-full md:hover:text-white duration-300">
+      <div className="grid h-screen place-content-center px-4">
+        <div className="text-center">
+          <Image
+            alt="not found"
+            src="/assets/not-found.png"
+            width={200}
+            height={200}
+            className="mx-auto"
+          />
+          <p className="mt-4 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            404 - Halaman Tidak Ditemukan
+          </p>
+          <p className="mt-3 text-gray-500">Halaman yang anda cari tidak ada</p>
+          <Link
+            href="/home"
+            className="mt-3 inline-block rounded-lg bg-red-600 px-5 py-3 text-sm font-medium text-white hover:bg-red-700 focus:outline-none">
             Kembali ke beranda
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
     </NormalPageWrapper>
   );

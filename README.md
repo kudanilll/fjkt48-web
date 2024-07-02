@@ -4,6 +4,17 @@ Welcome to Development Branch.
 
 ## Getting Started
 
+First step, clone this repo:
+
+`$ git clone -b development https://github.com/achmaddaniel24/fjkt48-web.git fjkt48`
+`$ cd fjkt48`
+
+Install all packages:
+
+| npm           | pnpm           | yarn           | bun           |
+| ------------- | -------------- | -------------- | ------------- |
+| `npm install` | `pnpm install` | `yarn install` | `bun install` |
+
 To get started, run:
 
 | npm           | pnpm           | yarn       | bun       |
@@ -41,6 +52,7 @@ This is a list of several features that will be developed.
 | Shopping Page            | ❌     |
 | Live Page (Showroom/idn) | ❌     |
 | About Author Page        | ❌     |
+| Agreements Page          | ✅     |
 
 ### Others
 

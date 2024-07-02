@@ -50,7 +50,9 @@ export default function Footer() {
             Support
           </Link>
           <span>&nbsp;&middot;&nbsp;</span>
-          <Link className="transition hover:text-red-800/75" href="">
+          <Link
+            className="transition hover:text-red-800/75"
+            href="/terms-conditions">
             Terms & Conditions
           </Link>
           <span>&nbsp;&middot;&nbsp;</span>
