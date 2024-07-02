@@ -24,8 +24,8 @@ const navigation = [
     path: "/shop",
   },
   {
-    name: "Tentang",
-    path: "/about",
+    name: "Live",
+    path: "/live",
   },
 ];
 

@@ -1,92 +1,133 @@
 "use client";
 import { useSession, signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
-import { Avatar, Button } from "@radix-ui/themes";
+import { Avatar, Button, Flex, Text } from "@radix-ui/themes";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { LuUser2 } from "react-icons/lu";
+import { Session } from "next-auth";
 import navigation from "./route";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function NavigationBar() {
-  const pathname = usePathname() || "/";
-  const noNavbarRoutes = ["/login", "/register"];
-  const { data: session } = useSession();
-  const [active, setActive] = useState<boolean>(false);
-  if (noNavbarRoutes.includes(pathname)) {
-    return <></>;
-  }
+function Navbar({
+  active,
+  setActive,
+}: {
+  active: boolean;
+  setActive: Dispatch<SetStateAction<boolean>>;
+}) {
   return (
-    <div className="sticky top-0 z-10 max-w-5xl w-full flex flex-wrap py-4 px-5 md:py-2">
-      <div className="w-full bg-red-100 fixed top-0 left-0 right-0 z-10 md:px-12">
-        <div
-          className={`${active ? "flex-1 md:flex" : "flex"} justify-between px-4 md:max-w-7xl md:items-center`}>
-          <div>
-            <div className="flex justify-between py-3 md:block">
-              <Link className="hidden md:flex cursor-pointer" href="/">
-                <Image
-                  width={32}
-                  height={32}
-                  src="/assets/jkt48.svg"
-                  alt="jkt48 logo"
-                />
-              </Link>
-              <div className="md:hidden">
-                <Hamburger
-                  label="menu"
-                  toggled={active}
-                  toggle={setActive}
-                  color="#000000"
-                  size={24}
-                  rounded
-                />
-              </div>
-            </div>
-          </div>
-          <div>
-            <div
-              className={`flex-1 md:flex md:pb-0 ${
-                active ? "p-12 md:p-0 block" : "hidden"
-              }`}>
-              <ul className="h-screen md:h-auto md:flex">
-                {navigation.map((item, index) => (
-                  <Link
-                    key={index}
-                    href={item.path}
-                    aria-label={item.name}
-                    onClick={() => setActive(!active)}
-                    className="md:m-1.5 md:hover:bg-red-200 md:hover:rounded-lg duration-150">
-                    <li
-                      className={`${
-                        pathname.includes(item.path)
-                          ? "text-red-600 font-extrabold"
-                          : "text-red-500 font-semibold"
-                      } md:px-3 py-2 pb-6 text-xl text-start md:text-base md:pb-2 md:hover:text-red-600 duration-100`}>
-                      {item.name}
-                    </li>
-                  </Link>
-                ))}
-              </ul>
-            </div>
-          </div>
-          {session ? (
-            <Link
-              aria-label="profile"
-              href="/profile"
-              className={`items-center md:ml-4 ${active ? "hidden md:flex" : "flex"}`}>
-              <Avatar
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxWYoWA4snMrRUnQ4LAy8xWmUtwjvNRFskkuohZdQA6zTRxU-s0RLBYCZ6A&s"
-                fallback={<LuUser2 />}
-              />
-            </Link>
-          ) : (
-            <Button aria-label="login" onClick={() => signIn()}>
-              Login
-            </Button>
-          )}
-        </div>
+    <div>
+      <div className={`${active ? "flex-1 md:flex" : "flex"}`}>
+        <Link href="/" className="hidden md:flex md:cursor-pointer">
+          <Image
+            width={32}
+            height={32}
+            src="/assets/jkt48.svg"
+            alt="jkt48 logo"
+          />
+        </Link>
+      </div>
+      <div className="md:hidden">
+        <Hamburger
+          label="menu"
+          toggled={active}
+          toggle={setActive}
+          color="#000000"
+          size={24}
+          rounded
+        />
       </div>
     </div>
+  );
+}
+
+function Menu({
+  active,
+  pathname,
+  setActive,
+}: {
+  active: boolean;
+  pathname: string;
+  setActive: Dispatch<SetStateAction<boolean>>;
+}) {
+  return (
+    <div
+      className={`${
+        active ? "block" : "hidden"
+      } md:block absolute top-16 left-0 w-full bg-red-100 md:relative md:top-auto md:left-auto md:w-auto md:bg-transparent`}>
+      <div className={`md:flex md:pb-0 ${active ? "p-4 md:p-0" : ""}`}>
+        <ul className="flex flex-col md:flex-row h-screen md:h-auto md:flex md:items-center">
+          {navigation.map((item, index) => (
+            <li key={index} className="mx-4 my-1.5 md:mx-0 md:my-0">
+              <Link
+                href={item.path}
+                aria-label={item.name}
+                onClick={() => setActive(false)}
+                className="block md:inline-block md:hover:bg-red-200 md:hover:rounded-lg duration-150">
+                <span
+                  className={`block md:inline-block ${
+                    pathname.includes(item.path)
+                      ? "text-red-600 font-extrabold"
+                      : "text-red-500 font-semibold"
+                  } md:px-3 py-2 text-xl md:text-base md:pb-2 md:hover:text-red-600 duration-100`}>
+                  {item.name}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function Profile({ session }: { session: Session | null }) {
+  return session ? (
+    <Flex direction="row" className="gap-2">
+      <Avatar fallback={<MdDarkMode />} />
+      <Link aria-label="profile" href="/profile" className="items-center flex">
+        <Avatar
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqxWYoWA4snMrRUnQ4LAy8xWmUtwjvNRFskkuohZdQA6zTRxU-s0RLBYCZ6A&s"
+          fallback={<LuUser2 />}
+        />
+      </Link>
+    </Flex>
+  ) : (
+    <Flex direction="row" className="content-center items-center gap-4">
+      <Text
+        aria-label="login"
+        color="red"
+        className="hover:underline select-none"
+        onClick={() => signIn()}>
+        Masuk
+      </Text>
+      <Button aria-label="register" variant="solid">
+        Daftar
+      </Button>
+    </Flex>
+  );
+}
+
+export default function NavigationBar() {
+  const { data: session } = useSession();
+  const pathname = usePathname() || "/";
+  const [active, setActive] = useState<boolean>(false);
+
+  const noNavbarRoutes = ["/login", "/register"];
+  if (noNavbarRoutes.includes(pathname)) return <></>;
+
+  return (
+    <nav className="sticky top-0 z-10 w-full bg-red-100 md:bg-transparent">
+      <div className="fixed top-0 left-0 right-0 z-10 mx-auto w-full px-4 py-2 bg-red-100">
+        <Flex justify="between" className="items-center">
+          <Navbar active={active} setActive={setActive} />
+          <Menu active={active} pathname={pathname} setActive={setActive} />
+          <Profile session={session} />
+        </Flex>
+      </div>
+    </nav>
   );
 }

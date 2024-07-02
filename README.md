@@ -33,13 +33,14 @@ This is a list of several features that will be developed.
 
 ### Pages
 
-| task                  | status |
-| --------------------- | ------ |
-| User Profile Page     | ❌     |
-| Detail Member/Trainee | ❌     |
-| Detail Schedule Page  | ❌     |
-| Shopping Page         | ❌     |
-| About Author Page     | ❌     |
+| task                     | status |
+| ------------------------ | ------ |
+| User Profile Page        | ❌     |
+| Detail Member/Trainee    | ❌     |
+| Detail Schedule Page     | ❌     |
+| Shopping Page            | ❌     |
+| Live Page (Showroom/idn) | ❌     |
+| About Author Page        | ❌     |
 
 ### Others
 

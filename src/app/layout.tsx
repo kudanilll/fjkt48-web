@@ -21,10 +21,10 @@ export default function RootLayout({
       style={{ scrollBehavior: "smooth" }}>
       <body>
         <Providers>
-          <nav>
+          <header className="bg-red-100">
             <NextTopLoader color="#E53935" showSpinner={false} />
             <NavigationBar />
-          </nav>
+          </header>
           <main className="flex flex-col min-h-screen bg-red-50 text-black">
             {children}
           </main>

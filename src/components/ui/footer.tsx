@@ -34,6 +34,10 @@ export default function Footer() {
           .
         </p>
         <p className="mx-auto mt-6 max-w-md text-center md:text-sm">
+          <Link className="transition hover:text-red-800/75" href="/about">
+            About Us
+          </Link>
+          <span>&nbsp;&middot;&nbsp;</span>
           <Link
             className="transition hover:text-red-800/75"
             href="mailto:fansjkt4809@gmail.com">
