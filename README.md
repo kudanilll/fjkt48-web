@@ -6,8 +6,10 @@ Welcome to Development Branch.
 
 First step, clone this repo:
 
-`$ git clone -b development https://github.com/achmaddaniel24/fjkt48-web.git fjkt48`
-`$ cd fjkt48`
+```bash
+$ git clone -b development https://github.com/achmaddaniel24/fjkt48-web.git fjkt48
+$ cd fjkt48
+```
 
 Install all packages:
 
