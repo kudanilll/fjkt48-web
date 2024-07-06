@@ -40,7 +40,7 @@ This is a list of several features that will be developed.
 | task                  | status |
 | --------------------- | ------ |
 | Login Page            | ✅     |
-| Register Page         | ❌     |
+| Register Page         | ✅     |
 | Authentication        | ⌛️     |
 | Auth Button In Navbar | ✅     |
 
