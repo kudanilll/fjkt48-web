@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "FJKT48 | Terms & Conditions",
+  description: "Terms & Conditions of JKT48",
+};
+
 export default function TermsAndConditionsPage() {
   return (
-    <article className="px-6 md:px-0 pt-16 md:pt-24 pb-8 prose md:prose-lg md:ml-auto md:mr-auto">
+    <article className="px-6 md:px-0 pt-24 pb-8 prose md:prose-lg md:ml-auto md:mr-auto">
       <h1>Terms & Conditions</h1>
       <p>Last updated: July 02, 2024</p>
       <p>

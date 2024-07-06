@@ -104,9 +104,11 @@ function Profile({ session }: { session: Session | null }) {
         onClick={() => signIn()}>
         Masuk
       </Text>
-      <Button aria-label="register" variant="solid">
-        Daftar
-      </Button>
+      <Link href="/register" aria-label="register">
+        <Button aria-label="register" variant="solid">
+          Daftar
+        </Button>
+      </Link>
     </Flex>
   );
 }

@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: var(--font-poppins);
+}
+
 .radix-themes {
   --default-font-family: "Poppins", Helvetica, Arial, sans-serif;
   --heading-font-family: "Poppins", Helvetica, Arial, sans-serif;

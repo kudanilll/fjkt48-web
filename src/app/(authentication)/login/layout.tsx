@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "FJKT48 | Privacy Policy",
-  description: "Privacy Policy of JKT48",
+  title: "FJKT48 | Login",
+  description:
+    "Login to your FJKT48 account to access exclusive content and features.",
 };
 
-export default function PrivacyPolicyLayout({
+export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;

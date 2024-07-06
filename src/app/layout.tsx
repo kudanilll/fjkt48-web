@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
 import { SeoMetadata } from "@/seo/seo-metadata";
+import { Poppins } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import NavigationBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import Providers from "./providers";
 import "@radix-ui/themes/styles.css";
 import "@/styles/globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = SeoMetadata;
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+  weight: ["300", "400", "600", "700"],
+});
 
 export default function RootLayout({
   children,
@@ -17,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className="scroll-smooth"
+      className={`${poppins.variable} antialiased scroll-smooth`}
       style={{ scrollBehavior: "smooth" }}>
       <body>
         <Providers>
@@ -29,6 +38,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Toaster position="bottom-center" />
         </Providers>
       </body>
     </html>

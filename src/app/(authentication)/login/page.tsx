@@ -10,9 +10,13 @@ import {
   Text,
   TextField,
 } from "@radix-ui/themes";
+import { login } from "@/services/auth/service";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { BiHide, BiShow } from "react-icons/bi";
-import { useState } from "react";
+import isEmail from "validator/lib/isEmail";
+import toast from "react-hot-toast";
 import Image from "next/image";
 
 export default function LoginPage() {
@@ -20,9 +24,48 @@ export default function LoginPage() {
   const [inputPassword, setInputPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hidePassword, setHidePassword] = useState<boolean>(true);
-  function handleLogin() {
-    setIsLoading(!isLoading);
+  const [queryParams, setQueryParams] = useState<any>([]);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl: string = `${queryParams.callbackUrl}` || "/";
+
+  useEffect(() => {
+    const params = Object.fromEntries(searchParams.entries());
+    setQueryParams(params);
+  }, [searchParams]);
+
+  async function handleLogin() {
+    if (!isEmail(inputEmail)) {
+      toast.error("Email tidak valid");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await login(
+        { email: inputEmail, password: inputPassword },
+        callbackUrl
+      );
+      setIsLoading(false);
+      if (response.res) {
+        if (response.error) {
+          toast.error(response.message);
+        } else {
+          // reset
+          setInputEmail("");
+          setInputPassword("");
+          router.push(callbackUrl);
+          toast.success(response.message);
+        }
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(`Error: ${error}`);
+    }
   }
+
   return (
     <Flex className="min-h-screen" direction="row">
       <Flex className="w-full md:w-1/2 p-6 items-center" justify="center">
@@ -45,6 +88,7 @@ export default function LoginPage() {
                     size="3"
                     placeholder="Masukan Email Anda"
                     type="email"
+                    onChange={(e) => setInputEmail(e.target.value)}
                     required>
                     <TextField.Slot />
                   </TextField.Root>
@@ -55,6 +99,7 @@ export default function LoginPage() {
                     size="3"
                     placeholder="Masukan Password Anda"
                     type={hidePassword ? "password" : "text"}
+                    onChange={(e) => setInputPassword(e.target.value)}
                     required>
                     <TextField.Slot />
                     <TextField.Slot>
@@ -96,7 +141,7 @@ export default function LoginPage() {
       </Flex>
       <div className="hidden md:block md:w-1/2">
         <Image
-          src="/test/auth-bg.png"
+          src="/assets/auth-bg.png"
           alt="Login Image"
           width={500}
           height={500}
