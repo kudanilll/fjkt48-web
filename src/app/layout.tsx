@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { SeoMetadata } from "@/seo/seo-metadata";
 import { Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import NextTopLoader from "nextjs-toploader";
 import NavigationBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import Providers from "./providers";
 import "@radix-ui/themes/styles.css";
 import "@/styles/globals.css";
-import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = SeoMetadata;
 

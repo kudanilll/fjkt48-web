@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
-import NewsType from "@/common/typedata/news-type";
+import { NewsType } from "@/types/news.type";
 import NewsCard from "@/components/ui/card/news";
 import Pagination from "@/components/ui/pagination";
 import ShimmerCard from "@/components/ui/shimmer/card";
@@ -48,9 +48,10 @@ export default function NewsPage() {
         <Heading>Berita Terbaru</Heading>
         <div className="sm:mb-6 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
           {successFetchNews
-            ? currentItems.map((item) => (
+            ? currentItems.map((item, index) => (
                 <NewsCard
-                  key={item.id}
+                  key={index}
+                  _id={item._id}
                   title={item.title}
                   thumbnail={item.thumbnail}
                   date={item.date}

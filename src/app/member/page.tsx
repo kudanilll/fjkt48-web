@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useFetch } from "@/hooks/use-fetch";
-import MemberType from "@/common/typedata/member-type";
+import { MemberType } from "@/types/member.type";
 import MemberCard from "@/components/ui/card/member";
 import SearchBar from "@/components/ui/search-bar";
 import ShimmerCard from "@/components/ui/shimmer/card";
@@ -17,13 +17,15 @@ function doSearch(members: any, query: string): string[] {
 }
 
 function sort(data: MemberType[]): MemberType[] {
-  const sortedData = data.slice().sort((a, b) => a.name.localeCompare(b.name));
+  const sortedData = data
+    .slice()
+    .sort((a, b) => a.biodata.name.localeCompare(b.biodata.name));
   const result: MemberType[] = [];
   for (const member of sortedData) {
-    const firstLetter = member.name[0].toLowerCase();
+    const firstLetter = member.biodata.name[0].toLowerCase();
     if (
       result.length === 0 ||
-      result[result.length - 1].name[0].toLowerCase() !== firstLetter
+      result[result.length - 1].biodata.name[0].toLowerCase() !== firstLetter
     ) {
       result.push(member);
     } else {

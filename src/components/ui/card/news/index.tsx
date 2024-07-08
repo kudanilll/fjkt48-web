@@ -1,32 +1,20 @@
-import NewsType from "@/common/typedata/news-type";
+import { NewsType } from "@/types/news.type";
 import ShimmerImage from "@/components/ui/shimmer/image";
 import Link from "next/link";
 
+const color: any = {
+  theater: "bg-violet-600",
+  birthday: "bg-lime-500",
+  release: "bg-orange-600",
+  goods: "bg-green-600",
+  event: "bg-blue-600",
+  other: "bg-zinc-700",
+};
+
 export default function NewsCard(props: NewsType) {
-  var path = props.slug ? "/news/" + props.slug : "";
-  var backgroundCategory: string;
-  switch (props.category.toLowerCase()) {
-    case "theater":
-      backgroundCategory = "bg-violet-600";
-      break;
-    case "birthday":
-      backgroundCategory = "bg-lime-500";
-      break;
-    case "release":
-      backgroundCategory = "bg-orange-600";
-      break;
-    case "goods":
-      backgroundCategory = "bg-green-600";
-      break;
-    case "event":
-      backgroundCategory = "bg-blue-600";
-      break;
-    case "other":
-      backgroundCategory = "bg-zinc-700";
-      break;
-    default:
-      backgroundCategory = "bg-transparent";
-  } //switch case
+  let path = props.slug ? "/news/" + props.slug : "";
+  const backgroundCategory =
+    color[props.category.toLowerCase()] || "bg-transparent";
   return (
     <Link href={path}>
       <div className="m-1.5 md:hidden">
