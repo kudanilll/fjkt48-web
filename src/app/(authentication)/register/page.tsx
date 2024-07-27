@@ -34,7 +34,7 @@ export default function RegisterPage() {
     }
     setIsLoading(true);
     if (equals(inputPassword, inputConfirmPass)) {
-      if (!(inputPassword.length > 8)) {
+      if (!(inputPassword.length >= 8)) {
         toast.error("Panjang password harus lebih dari 8 karakter");
         setIsLoading(false);
         return;

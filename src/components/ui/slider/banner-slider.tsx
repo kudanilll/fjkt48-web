@@ -1,4 +1,5 @@
 "use client";
+import { BannerType } from "@/types/banner.type";
 import { useFetch } from "@/hooks/use-fetch";
 import ShimmerImage from "@/components/ui/shimmer/image";
 import Image from "next/image";
@@ -14,17 +15,11 @@ import "swiper/css/effect-coverflow";
 
 import "./pagination.css";
 
-type BannerType = {
-  key: string;
-  image: string;
-  url: string;
-};
-
 function normalize(data: any) {
   const banner: BannerType[] = [];
-  for (const key in data.content) {
-    const { image, url } = data.content[key];
-    banner.push({ key, image, url });
+  for (const _id in data.content) {
+    const { image, url } = data.content[_id];
+    banner.push({ _id, image, url });
   }
   return banner;
 }
