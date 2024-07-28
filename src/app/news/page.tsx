@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { sortArrayByDate } from "@/utils/get-time";
-import { NewsType } from "@/types/news.type";
+import { NewsType } from "@/models/types/news.type";
 import NewsCard from "@/components/ui/card/news";
 import Pagination from "@/components/ui/pagination";
 import ShimmerCard from "@/components/ui/shimmer/card";

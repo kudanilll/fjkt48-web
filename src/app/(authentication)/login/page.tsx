@@ -1,30 +1,28 @@
 "use client";
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Heading,
-  IconButton,
-  Link,
-  Text,
-  TextField,
-} from "@radix-ui/themes";
+import { Box, Button, Card, Flex, Heading, Link, Text } from "@radix-ui/themes";
 import { login } from "@/services/auth/service";
+import { LoginFormData, LoginSchema } from "@/models/schema/form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { BiHide, BiShow } from "react-icons/bi";
+import FormField from "@/components/ui/form/field";
+import FormFieldPassword from "@/components/ui/form/field-password";
 import isEmail from "validator/lib/isEmail";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
 export default function LoginPage() {
-  const [inputEmail, setInputEmail] = useState<string>("");
-  const [inputPassword, setInputPassword] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hidePassword, setHidePassword] = useState<boolean>(true);
-  const [queryParams, setQueryParams] = useState<any>([]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(LoginSchema),
+  });
+
+  const [queryParams, setQueryParams] = useState<Record<string, string>>({});
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -35,25 +33,17 @@ export default function LoginPage() {
     setQueryParams(params);
   }, [searchParams]);
 
-  async function handleLogin() {
-    if (!isEmail(inputEmail)) {
+  async function onSubmit(data: LoginFormData) {
+    if (!isEmail(data.email)) {
       toast.error("Email tidak valid");
       return;
     }
-    setIsLoading(true);
     try {
-      const response = await login(
-        { email: inputEmail, password: inputPassword },
-        callbackUrl
-      );
-      setIsLoading(false);
+      const response = await login(data, callbackUrl);
       if (response.res) {
         if (response.error) {
           toast.error(response.message);
         } else {
-          // reset
-          setInputEmail("");
-          setInputPassword("");
           router.push(callbackUrl);
           toast.success(response.message);
         }
@@ -61,14 +51,19 @@ export default function LoginPage() {
         toast.error(response.message);
       }
     } catch (error) {
-      setIsLoading(false);
       toast.error(`Error: ${error}`);
     }
   }
 
   return (
-    <Flex className="min-h-screen" direction="row">
-      <Flex className="w-full md:w-1/2 p-6 items-center" justify="center">
+    <Flex className="h-full" direction="row">
+      <Flex
+        className="w-full md:w-1/2 p-6 items-center"
+        justify="center"
+        style={{
+          minHeight: "100vh",
+          alignItems: "center",
+        }}>
         <Box className="w-full max-w-md">
           <Card>
             <Flex direction="column" px="4" py="6">
@@ -81,60 +76,52 @@ export default function LoginPage() {
               <Heading className="mb-4 md:hidden">
                 Selamat datang kembali!
               </Heading>
-              <Flex direction="column" gap="3">
-                <Box>
-                  <Text size="2">Email</Text>
-                  <TextField.Root
-                    size="3"
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Flex direction="column" gap="3">
+                  <FormField
+                    label="Email"
                     placeholder="Masukan Email Anda"
                     type="email"
-                    onChange={(e) => setInputEmail(e.target.value)}
-                    required>
-                    <TextField.Slot />
-                  </TextField.Root>
-                </Box>
-                <Box>
-                  <Text size="2">Password</Text>
-                  <TextField.Root
-                    size="3"
+                    register={register}
+                    options={{ required: true }}
+                  />
+                  <FormFieldPassword
+                    label="Password"
                     placeholder="Masukan Password Anda"
-                    type={hidePassword ? "password" : "text"}
-                    onChange={(e) => setInputPassword(e.target.value)}
-                    required>
-                    <TextField.Slot />
-                    <TextField.Slot>
-                      <IconButton
-                        size="2"
-                        variant="ghost"
-                        onClick={() => setHidePassword(!hidePassword)}>
-                        {hidePassword ? <BiHide /> : <BiShow />}
-                      </IconButton>
-                    </TextField.Slot>
-                  </TextField.Root>
-                </Box>
-                <Flex justify="end">
-                  <Link href="/" color="gray" size="1">
-                    Lupa password?
-                  </Link>
+                    register={register}
+                    options={{ required: true, minLength: 8 }}
+                  />
+                  <Flex justify="end">
+                    <Link href="/" color="gray" size="1">
+                      Lupa password?
+                    </Link>
+                  </Flex>
+                  <Button
+                    size="3"
+                    loading={isSubmitting}
+                    disabled={isSubmitting}
+                    type="submit">
+                    Masuk
+                  </Button>
+                  <Flex
+                    direction="row"
+                    justify="center"
+                    className="items-center">
+                    <div className="border-b border-inherit flex-1" />
+                    <small className="px-2">Atau masuk dengan</small>
+                    <div className="border-b border-inherit flex-1" />
+                  </Flex>
+                  <Button size="3" color="blue" variant="soft">
+                    <FcGoogle /> Masuk dengan Google
+                  </Button>
+                  <Flex justify="center">
+                    <small>
+                      Tidak punya akun?{" "}
+                      <Link href="/register">Daftar disini</Link>
+                    </small>
+                  </Flex>
                 </Flex>
-                <Button size="3" loading={isLoading} onClick={handleLogin}>
-                  Masuk
-                </Button>
-                <Flex direction="row" justify="center" className="items-center">
-                  <div className="border-b border-inherit flex-1" />
-                  <small className="px-2">Atau masuk dengan</small>
-                  <div className="border-b border-inherit flex-1" />
-                </Flex>
-                <Button size="3" color="blue" variant="soft">
-                  <FcGoogle /> Masuk dengan Google
-                </Button>
-                <Flex justify="center">
-                  <small>
-                    Tidak punya akun?{" "}
-                    <Link href="/register">Daftar disini</Link>
-                  </small>
-                </Flex>
-              </Flex>
+              </form>
             </Flex>
           </Card>
         </Box>
@@ -146,6 +133,7 @@ export default function LoginPage() {
           width={500}
           height={500}
           className="object-contain h-full w-full"
+          priority
         />
       </div>
     </Flex>

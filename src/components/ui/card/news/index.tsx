@@ -1,4 +1,4 @@
-import { NewsType } from "@/types/news.type";
+import { NewsType } from "@/models/types/news.type";
 import ShimmerImage from "@/components/ui/shimmer/image";
 import Link from "next/link";
 

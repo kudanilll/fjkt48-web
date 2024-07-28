@@ -11,7 +11,7 @@ export async function GET() {
       return NextResponse.json({
         status: 404,
         message: "Not Found",
-        error: "Not Found",
+        content: [],
       });
     }
     return NextResponse.json({
@@ -20,7 +20,6 @@ export async function GET() {
       content: data,
     });
   } catch (error) {
-    console.error("Failed to fetch banners:", error);
-    return NextResponse.json({ error: "Internal Server Error", status: 500 });
+    return NextResponse.json({ message: "Internal Server Error", status: 500 });
   }
 }

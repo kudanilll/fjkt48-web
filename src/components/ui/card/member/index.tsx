@@ -1,5 +1,5 @@
 import { FaInstagram, FaTiktok, FaXTwitter } from "react-icons/fa6";
-import { MemberType } from "@/types/member.type";
+import { MemberType } from "@/models/types/member.type";
 import { download } from "@/lib/supabase/service";
 import ShimmerImage from "@/components/ui/shimmer/image";
 import Link from "next/link";

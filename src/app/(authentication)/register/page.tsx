@@ -1,60 +1,46 @@
 "use client";
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Heading,
-  IconButton,
-  Link,
-  Text,
-  TextField,
-} from "@radix-ui/themes";
+import { Box, Button, Card, Flex, Heading, Link, Text } from "@radix-ui/themes";
 import { register } from "@/services/auth/service";
-import { useState } from "react";
+import { RegisterFormData, RegisterSchema } from "@/models/schema/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { BiHide, BiShow } from "react-icons/bi";
 import { equals, isEmail } from "validator";
+import FormField from "@/components/ui/form/field";
+import FormFieldPassword from "@/components/ui/form/field-password";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
 export default function RegisterPage() {
-  const router = useRouter();
-  const [inputName, setInputName] = useState<string>("");
-  const [inputEmail, setInputEmail] = useState<string>("");
-  const [inputPassword, setInputPassword] = useState<string>("");
-  const [inputConfirmPass, setInputConfirmPass] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hidePassword, setHidePassword] = useState<boolean>(true);
+  const {
+    register: reg,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(RegisterSchema),
+  });
 
-  async function handleSubmit() {
-    if (!isEmail(inputEmail)) {
+  const router = useRouter();
+
+  async function onSubmit(data: RegisterFormData) {
+    if (!isEmail(data.email)) {
       toast.error("Email tidak valid");
       return;
     }
-    setIsLoading(true);
-    if (equals(inputPassword, inputConfirmPass)) {
-      if (!(inputPassword.length >= 8)) {
+    if (equals(data.password, data.confirmPassword)) {
+      if (!(data.password.length >= 8)) {
         toast.error("Panjang password harus lebih dari 8 karakter");
-        setIsLoading(false);
         return;
       }
       const response = await register({
-        name: inputName,
-        email: inputEmail,
-        password: inputPassword,
+        name: data.name,
+        email: data.email,
+        password: data.password,
       });
-      setIsLoading(false);
       if (response.res) {
         if (response.error) {
           toast.error(response.message);
         } else {
-          // reset
-          setInputName("");
-          setInputEmail("");
-          setInputPassword("");
-          setInputConfirmPass("");
-
           toast.success(response.message);
           router.push("/login");
         }
@@ -62,23 +48,29 @@ export default function RegisterPage() {
         toast.success(response.message);
       }
     } else {
-      setIsLoading(false);
       toast.error("Password dan konfirmasi password tidak sama.");
     }
   }
 
   return (
-    <Flex className="min-h-screen" direction="row">
+    <Flex className="h-full" direction="row">
       <div className="hidden md:block md:w-1/2">
         <Image
           src="/assets/auth-bg.png"
-          alt="Login Image"
+          alt="Register Image"
           width={500}
           height={500}
           className="object-contain h-full w-full"
+          priority
         />
       </div>
-      <Flex className="w-full md:w-1/2 p-6 items-center" justify="center">
+      <Flex
+        className="w-full md:w-1/2 p-6 items-center"
+        justify="center"
+        style={{
+          minHeight: "100vh",
+          alignItems: "center",
+        }}>
         <Box className="w-full max-w-md">
           <Card>
             <Flex direction="column" px="4" py="6">
@@ -91,86 +83,66 @@ export default function RegisterPage() {
                 </Flex>
               </div>
               <Heading className="mb-4 md:hidden">Registrasi</Heading>
-              <Flex direction="column" gap="3">
-                <Box>
-                  <Text size="2">Nama</Text>
-                  <TextField.Root
-                    size="3"
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Flex direction="column" gap="3">
+                  <FormField
+                    label="Nama"
+                    regLabel="name"
                     placeholder="Masukan Nama Anda"
                     type="text"
-                    onChange={(e) => setInputName(e.target.value)}
-                    required>
-                    <TextField.Slot />
-                  </TextField.Root>
-                </Box>
-                <Box>
-                  <Text size="2">Email</Text>
-                  <TextField.Root
-                    size="3"
+                    register={reg}
+                    options={{ required: true }}
+                  />
+                  <FormField
+                    label="Email"
                     placeholder="Masukan Email Anda"
                     type="email"
-                    onChange={(e) => setInputEmail(e.target.value)}
-                    required>
-                    <TextField.Slot />
-                  </TextField.Root>
-                </Box>
-                <Box>
-                  <Text size="2">Password</Text>
-                  <TextField.Root
+                    register={reg}
+                    options={{ required: true }}
+                  />
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <FormFieldPassword
+                      label="Password"
+                      placeholder="Password"
+                      register={reg}
+                      options={{ required: true, minLength: 8 }}
+                    />
+                    <FormFieldPassword
+                      label="Konfirmasi Password"
+                      regLabel="confirmPassword"
+                      placeholder="Konfirmasi"
+                      register={reg}
+                      options={{ required: true, minLength: 8 }}
+                    />
+                  </div>
+                  <Flex
+                    direction="row"
+                    justify="center"
+                    className="text-center">
+                    <small>
+                      Dengan membuat akun, Anda menyetujui{" "}
+                      <Link href="/terms-conditions">
+                        syarat dan ketentuan{" "}
+                      </Link>
+                      serta{" "}
+                      <Link href="/privacy-policy">kebijakan privasi</Link> kami
+                    </small>
+                  </Flex>
+                  <Button
                     size="3"
-                    placeholder="Masukan Password Anda"
-                    type={hidePassword ? "password" : "text"}
-                    onChange={(e) => setInputPassword(e.target.value)}
-                    required>
-                    <TextField.Slot />
-                    <TextField.Slot>
-                      <IconButton
-                        size="2"
-                        variant="ghost"
-                        onClick={() => setHidePassword(!hidePassword)}>
-                        {hidePassword ? <BiHide /> : <BiShow />}
-                      </IconButton>
-                    </TextField.Slot>
-                  </TextField.Root>
-                </Box>
-                <Box>
-                  <Text size="2">Konfirmasi Password</Text>
-                  <TextField.Root
-                    size="3"
-                    placeholder="Konfirmasi Password Anda"
-                    type={hidePassword ? "password" : "text"}
-                    onChange={(e) => setInputConfirmPass(e.target.value)}
-                    required>
-                    <TextField.Slot />
-                    <TextField.Slot>
-                      <IconButton
-                        size="2"
-                        variant="ghost"
-                        onClick={() => setHidePassword(!hidePassword)}>
-                        {hidePassword ? <BiHide /> : <BiShow />}
-                      </IconButton>
-                    </TextField.Slot>
-                  </TextField.Root>
-                </Box>
-                <Flex direction="row" justify="center" className="text-center">
-                  <small>
-                    Dengan membuat akun, Anda menyetujui{" "}
-                    <Link href="/terms-conditions">syarat dan ketentuan </Link>
-                    serta <Link href="/privacy-policy">
-                      kebijakan privasi
-                    </Link>{" "}
-                    kami
-                  </small>
+                    loading={isSubmitting}
+                    disabled={isSubmitting}
+                    type="submit">
+                    Buat Akun
+                  </Button>
+                  <Flex justify="center">
+                    <small>
+                      Sudah memiliki akun?{" "}
+                      <Link href="/login">Masuk disini</Link>
+                    </small>
+                  </Flex>
                 </Flex>
-                <Button size="3" loading={isLoading} onClick={handleSubmit}>
-                  Buat Akun
-                </Button>
-                <Flex justify="center">
-                  <small>
-                    Sudah memiliki akun? <Link href="/login">Masuk disini</Link>
-                  </small>
-                </Flex>
-              </Flex>
+              </form>
             </Flex>
           </Card>
         </Box>

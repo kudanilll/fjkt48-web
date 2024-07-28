@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useFetch } from "@/hooks/use-fetch";
-import { MemberType } from "@/types/member.type";
+import { MemberType } from "@/models/types/member.type";
 import MemberCard from "@/components/ui/card/member";
 import SearchBar from "@/components/ui/search-bar";
 import ShimmerCard from "@/components/ui/shimmer/card";

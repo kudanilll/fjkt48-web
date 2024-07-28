@@ -1,5 +1,5 @@
 "use client";
-import { BannerType } from "@/types/banner.type";
+import { BannerType } from "@/models/types/banner.type";
 import { useFetch } from "@/hooks/use-fetch";
 import ShimmerImage from "@/components/ui/shimmer/image";
 import Image from "next/image";
