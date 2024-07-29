@@ -7,10 +7,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "sonner";
 import FormField from "@/components/ui/form/field";
 import FormFieldPassword from "@/components/ui/form/field-password";
 import isEmail from "validator/lib/isEmail";
-import toast from "react-hot-toast";
 import Image from "next/image";
 
 export default function LoginPage() {
@@ -51,7 +51,7 @@ export default function LoginPage() {
         toast.error(response.message);
       }
     } catch (error) {
-      toast.error(`Error: ${error}`);
+      toast.error("Login gagal", { description: `${error}` });
     }
   }
 
@@ -82,12 +82,14 @@ export default function LoginPage() {
                     label="Email"
                     placeholder="Masukan Email Anda"
                     type="email"
+                    errors={errors}
                     register={register}
                     options={{ required: true }}
                   />
                   <FormFieldPassword
                     label="Password"
                     placeholder="Masukan Password Anda"
+                    errors={errors}
                     register={register}
                     options={{ required: true, minLength: 8 }}
                   />

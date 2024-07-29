@@ -115,7 +115,7 @@ export default function NavigationBar() {
   const pathname = usePathname() || "/";
   const [active, setActive] = useState<boolean>(false);
 
-  const noNavbarRoutes = ["/login", "/register"];
+  const noNavbarRoutes = ["/login", "/register", "/otp-verification"];
   if (noNavbarRoutes.includes(pathname)) return <></>;
 
   return (

@@ -4,8 +4,8 @@ import clientPromise from "@/lib/mongodb/client";
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db();
-    const collection = db.collection("banner-home");
+    const db = client.db("banner");
+    const collection = db.collection("home");
     const data = await collection.find({}).toArray();
     if (!data || data.length === 0) {
       return NextResponse.json({

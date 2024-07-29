@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SeoMetadata } from "@/seo/seo-metadata";
 import { Poppins } from "next/font/google";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
 import NavigationBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
@@ -38,7 +38,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
-          <Toaster position="bottom-center" />
+          <Toaster theme="system" position="bottom-center" richColors />
         </Providers>
       </body>
     </html>

@@ -112,6 +112,7 @@ export default function HomePage() {
                   alt="Theater JKT48"
                   src="/assets/theater/3.jpg"
                   className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
+                  priority
                 />
               </div>
             </div>

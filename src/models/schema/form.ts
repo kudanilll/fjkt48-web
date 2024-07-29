@@ -14,7 +14,7 @@ export type RegisterFormData = {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 };
 
 export const RegisterSchema: ZodType<RegisterFormData> = z
@@ -25,6 +25,6 @@ export const RegisterSchema: ZodType<RegisterFormData> = z
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
+    message: "Passwords tidak sama",
     path: ["confirmPassword"],
   });

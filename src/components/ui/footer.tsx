@@ -5,10 +5,8 @@ import Link from "next/link";
 
 export default function Footer() {
   const pathname = usePathname() || "/";
-  const noNavbarRoutes = ["/login", "/register"];
-  if (noNavbarRoutes.includes(pathname)) {
-    return <></>;
-  }
+  const noNavbarRoutes = ["/login", "/register", "/otp-verification"];
+  if (noNavbarRoutes.includes(pathname)) return <></>;
   return (
     <footer className="bg-red-200 text-red-800">
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8 select-none">

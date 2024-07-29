@@ -1,9 +1,9 @@
 import NextAuth, { NextAuthConfig, User } from "next-auth";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { compare } from "bcrypt";
+import clientPromise from "@/lib/mongodb/client";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import clientPromise from "@/lib/mongodb/client";
 
 const options: NextAuthConfig = {
   adapter: MongoDBAdapter(clientPromise),

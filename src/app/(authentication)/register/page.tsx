@@ -1,14 +1,13 @@
 "use client";
 import { Box, Button, Card, Flex, Heading, Link, Text } from "@radix-ui/themes";
-import { register } from "@/services/auth/service";
 import { RegisterFormData, RegisterSchema } from "@/models/schema/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { equals, isEmail } from "validator";
+import { toast } from "sonner";
 import FormField from "@/components/ui/form/field";
 import FormFieldPassword from "@/components/ui/form/field-password";
-import toast from "react-hot-toast";
 import Image from "next/image";
 
 export default function RegisterPage() {
@@ -27,29 +26,40 @@ export default function RegisterPage() {
       toast.error("Email tidak valid");
       return;
     }
-    if (equals(data.password, data.confirmPassword)) {
+    if (equals(data.password, data.confirmPassword!)) {
       if (!(data.password.length >= 8)) {
         toast.error("Panjang password harus lebih dari 8 karakter");
         return;
       }
-      const response = await register({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      });
-      if (response.res) {
-        if (response.error) {
-          toast.error(response.message);
-        } else {
-          toast.success(response.message);
-          router.push("/login");
-        }
-      } else {
-        toast.success(response.message);
-      }
-    } else {
-      toast.error("Password dan konfirmasi password tidak sama.");
     }
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/auth/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      }
+    );
+    if (response.ok) {
+      if (response.status === 200) {
+        toast.success("Registrasi Berhasil", {
+          description: "Tolong cek email anda",
+        });
+        router.push(
+          "/otp-verification?email=" +
+            data.email +
+            "&expires=" +
+            Date.now() +
+            10 * 60 * 1000
+        );
+      } else toast.error("Registratsi Gagal");
+    } else toast.error("Registrasi Gagal");
   }
 
   return (
@@ -90,6 +100,7 @@ export default function RegisterPage() {
                     regLabel="name"
                     placeholder="Masukan Nama Anda"
                     type="text"
+                    errors={errors}
                     register={reg}
                     options={{ required: true }}
                   />
@@ -97,6 +108,7 @@ export default function RegisterPage() {
                     label="Email"
                     placeholder="Masukan Email Anda"
                     type="email"
+                    errors={errors}
                     register={reg}
                     options={{ required: true }}
                   />
@@ -104,6 +116,7 @@ export default function RegisterPage() {
                     <FormFieldPassword
                       label="Password"
                       placeholder="Password"
+                      errors={errors}
                       register={reg}
                       options={{ required: true, minLength: 8 }}
                     />
@@ -111,6 +124,7 @@ export default function RegisterPage() {
                       label="Konfirmasi Password"
                       regLabel="confirmPassword"
                       placeholder="Konfirmasi"
+                      errors={errors}
                       register={reg}
                       options={{ required: true, minLength: 8 }}
                     />
