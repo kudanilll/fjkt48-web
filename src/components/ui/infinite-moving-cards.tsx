@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function InfiniteMovingCards({
@@ -14,58 +14,38 @@ export default function InfiniteMovingCards({
   pauseOnHover?: boolean;
   className?: string;
 }) {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const scrollerRef = React.useRef<HTMLUListElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLUListElement>(null);
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
-    addAnimation();
-  }, []);
+    const container = containerRef.current;
+    const scroller = scrollerRef.current;
 
-  const [start, setStart] = useState(false);
-  function addAnimation() {
-    if (containerRef.current && scrollerRef.current) {
-      const scrollerContent = Array.from(scrollerRef.current.children);
-
+    if (container && scroller) {
+      // duplicate items
+      const scrollerContent = Array.from(scroller.children);
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem);
+        if (scroller) {
+          scroller.appendChild(duplicatedItem);
         }
       });
 
-      getDirection();
-      getSpeed();
+      // apply styles
+      if (container) {
+        container.style.setProperty(
+          "--animation-direction",
+          direction === "left" ? "forwards" : "reverse"
+        );
+        container.style.setProperty(
+          "--animation-duration",
+          speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s"
+        );
+      }
       setStart(true);
     }
-  }
-
-  function getDirection() {
-    if (containerRef.current) {
-      if (direction === "left") {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "forwards"
-        );
-      } else {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "reverse"
-        );
-      }
-    }
-  }
-
-  function getSpeed() {
-    if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s");
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
-      }
-    }
-  }
+  }, [direction, speed]);
 
   return (
     <div className="mb-12">
@@ -92,58 +72,28 @@ export default function InfiniteMovingCards({
         <ul
           ref={scrollerRef}
           className={cn(
-            " flex min-w-full shrink-0 gap-4 py-4 flex-nowrap",
-            start && "animate-scroll ",
+            "flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
+            start && "animate-scroll",
             pauseOnHover && "hover:[animation-play-state:paused]"
           )}>
-          <li className="rounded-xl">
-            <Image
-              height={400}
-              width={400}
-              alt="Marsha Lenathea"
-              src="https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/marsha_lenathea.jpg"
-            />
-          </li>
-          <li className="rounded-xl">
-            <Image
-              height={400}
-              width={400}
-              alt="Gabriela Abigail"
-              src="https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/gabriela_abigail.jpg"
-            />
-          </li>
-          <li className="rounded-xl">
-            <Image
-              height={400}
-              width={400}
-              alt="Mutiara Azzahra"
-              src="https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/mutiara_azzahra.jpg"
-            />
-          </li>
-          <li className="rounded-xl">
-            <Image
-              height={400}
-              width={400}
-              alt="Shania Gracia"
-              src="https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/shania_gracia.jpg"
-            />
-          </li>
-          <li className="rounded-xl">
-            <Image
-              height={400}
-              width={400}
-              alt="Angelina Christy"
-              src="https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/angelina_christy.jpg"
-            />
-          </li>
-          <li className="rounded-xl">
-            <Image
-              height={400}
-              width={400}
-              alt="Grace Octaviani"
-              src="https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/grace_octaviani.jpg"
-            />
-          </li>
+          {[
+            "marsha_lenathea",
+            "gabriela_abigail",
+            "mutiara_azzahra",
+            "shania_gracia",
+            "angelina_christy",
+            "grace_octaviani",
+          ].map((name) => (
+            <li key={name} className="max-w-full relative flex-shrink-0">
+              <Image
+                height={400}
+                width={400}
+                alt={name.replace("_", " ")}
+                src={`https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/${name}.jpg`}
+                className="rounded-xl w-full h-full object-cover"
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </div>
