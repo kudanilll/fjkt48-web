@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getCurrentDate } from "@/utils/get-time";
+import { getCurrentDate } from "@/lib/utils";
 import header from "./header";
 
 type TableProps = {

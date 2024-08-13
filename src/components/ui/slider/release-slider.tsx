@@ -1,4 +1,5 @@
 "use client";
+import { FaYoutube } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import NormalButton from "@/components/ui/button/normal-button";
@@ -57,7 +58,10 @@ export default function ReleaseSlider() {
                 </Paragraph>
               </div>
               <div className="hidden md:block">
-                <NormalButton href="https://www.youtube.com/watch?v=9GiWftsHdBs">
+                <NormalButton
+                  label="watch"
+                  href="https://www.youtube.com/watch?v=9GiWftsHdBs"
+                  icon={<FaYoutube size={18} />}>
                   Tonton sekarang
                 </NormalButton>
               </div>
@@ -90,7 +94,10 @@ export default function ReleaseSlider() {
                 </Paragraph>
               </div>
               <div className="hidden md:block">
-                <NormalButton href="https://youtu.be/GIl0Y1W4n70">
+                <NormalButton
+                  label="watch"
+                  href="https://youtu.be/GIl0Y1W4n70"
+                  icon={<FaYoutube size={18} />}>
                   Tonton sekarang
                 </NormalButton>
               </div>

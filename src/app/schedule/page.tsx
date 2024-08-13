@@ -1,12 +1,12 @@
 "use client";
-import {
-  monthStringArray,
-  getCurrentDay,
-  getCurrentMonth,
-  getCurrentYear,
-} from "@/utils/get-time";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  getCurrentMonth,
+  getCurrentYear,
+  monthStringArray,
+  getCurrentDay,
+} from "@/lib/utils";
 import ScheduleCalendar from "@/components/ui/schedule-calendar";
 
 export default function SchedulePage() {

@@ -1,6 +1,8 @@
-import React from "react";
-
-export default interface ButtonProps extends React.ComponentProps<"button"> {
+export default interface ButtonProps {
   children?: React.ReactNode;
+  icon?: any;
   href?: string;
+  label: string;
+  loading?: boolean;
+  onClick?: () => void;
 }

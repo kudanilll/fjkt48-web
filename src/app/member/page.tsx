@@ -16,8 +16,20 @@ function doSearch(members: any, query: string): string[] {
   return filteredData;
 }
 
-function sort(data: MemberType[]): MemberType[] {
-  const sortedData = data
+function normalize(data: any): MemberType[] {
+  console.log(data);
+  const list: MemberType[] = [];
+  for (const i in data.content) {
+    const item = data.content[i];
+    list.push(item);
+  }
+  return list;
+}
+
+// function sort(data: MemberType[]): MemberType[] {
+function sort(data: any): MemberType[] {
+  const normalized: MemberType[] = normalize(data);
+  const sortedData = normalized
     .slice()
     .sort((a, b) => a.biodata.name.localeCompare(b.biodata.name));
   const result: MemberType[] = [];
@@ -35,18 +47,11 @@ function sort(data: MemberType[]): MemberType[] {
   return result;
 }
 
-function normalize(data: any) {
-  const list: MemberType[] = [];
-  for (const i in data.content) {
-    const item = data.content[i];
-    list.push(item);
-  }
-  return list;
-}
-
 export default function MemberPage() {
-  // const [query, setQuery] = useState<string>("");
-  // const [isInput, setIsInput] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const [isInput, setIsInput] = useState<boolean>(false);
+
+  // const [memberList, successFetchMember] = useFetch<any>("/member");
 
   // const [memberList, successFetchMember] = useFetch<any>(
   //   "/member",
@@ -56,7 +61,7 @@ export default function MemberPage() {
   //       next: { tags: ["member"] },
   //     })
   //       .then((res) => res.json())
-  //       .then((data) => normalize(data))
+  //       .then((data) => normalize(data.content))
   // );
 
   // const [traineeList, successFetchTrainee] = useFetch<any>(
@@ -72,7 +77,7 @@ export default function MemberPage() {
 
   return (
     <div className="mt-8">
-      {/* <SearchBar
+      <SearchBar
         label="Sedang Mencari Oshi-mu?"
         placeholder="Cari disini"
         handleInputChange={(event) => {
@@ -95,37 +100,21 @@ export default function MemberPage() {
       />
       <div className="mb-6">
         <Heading>{!isInput ? "Member JKT48" : ""}</Heading>
-        <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
+        {/* <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
           {successFetchMember // when success fetch MemberData
             ? isInput // when user input in SearchBar
               ? doSearch(memberList, query).map((item) => (
-                  <MemberCard
-                    key={item}
-                    name={memberList[item].name}
-                    img_path={memberList[item].img_path}
-                    image={memberList[item].image}
-                    instagram={memberList[item].instagram}
-                    twitter={memberList[item].twitter}
-                    tiktok={memberList[item].tiktok}
-                  />
+                  <MemberCard key={item} data={memberList[item]} />
                 ))
               : sort(memberList).map((item, index) => (
-                  <MemberCard
-                    key={index}
-                    name={item.name}
-                    img_path={item.img_path}
-                    image={item.image}
-                    instagram={item.instagram}
-                    twitter={item.twitter}
-                    tiktok={item.tiktok}
-                  />
+                  <MemberCard key={index} data={item} />
                 ))
             : [...Array(6)].map((_, index) => (
                 <ShimmerCard key={index} style="member-card" />
               ))}
-        </div>
+        </div> */}
       </div>
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <Heading>{!isInput ? "Trainee JKT48" : ""}</Heading>
         <div className="gap-1 grid grid-cols-2 sm:grid-cols-4 content-center">
           {successFetchTrainee // when success fetch TraineeData

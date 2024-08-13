@@ -1,7 +1,7 @@
+import { register } from "@/services/auth/actions";
 import {
   deletePendingUserByEmail,
   getPendingUserByEmail,
-  register,
 } from "@/services/auth/service";
 import { NextRequest, NextResponse } from "next/server";
 

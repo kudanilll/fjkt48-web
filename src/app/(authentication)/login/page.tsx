@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button, Card, Flex, Heading, Link, Text } from "@radix-ui/themes";
-import { login } from "@/services/auth/service";
 import { LoginFormData, LoginSchema } from "@/models/schema/form";
+import { login, loginGoogle } from "@/services/auth/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -39,19 +39,30 @@ export default function LoginPage() {
       return;
     }
     try {
-      const response = await login(data, callbackUrl);
-      if (response.res) {
-        if (response.error) {
-          toast.error(response.message);
-        } else {
-          router.push(callbackUrl);
-          toast.success(response.message);
-        }
-      } else {
-        toast.error(response.message);
+      const response = await login(data, callbackUrl, router);
+      if (response?.error) {
+        toast.error("Login gagal", { description: response?.error });
+        return { error: true, message: response?.error };
       }
+      toast.success("Login berhasil");
+      router.push(callbackUrl);
     } catch (error) {
       toast.error("Login gagal", { description: `${error}` });
+    }
+  }
+
+  async function handleGoogleLogin() {
+    try {
+      const res = await loginGoogle(callbackUrl);
+      if (res.success) {
+        toast.success("Login berhasil");
+        router.push(res.callbackUrl || callbackUrl);
+      } else {
+        toast.error("Login dengan Google gagal", { description: res.error });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Terjadi kesalahan saat login dengan Google");
     }
   }
 
@@ -105,25 +116,28 @@ export default function LoginPage() {
                     type="submit">
                     Masuk
                   </Button>
-                  <Flex
-                    direction="row"
-                    justify="center"
-                    className="items-center">
-                    <div className="border-b border-inherit flex-1" />
-                    <small className="px-2">Atau masuk dengan</small>
-                    <div className="border-b border-inherit flex-1" />
-                  </Flex>
-                  <Button size="3" color="blue" variant="soft">
-                    <FcGoogle /> Masuk dengan Google
-                  </Button>
-                  <Flex justify="center">
-                    <small>
-                      Tidak punya akun?{" "}
-                      <Link href="/register">Daftar disini</Link>
-                    </small>
-                  </Flex>
                 </Flex>
               </form>
+              <Flex direction="column" gap="3" pt="2">
+                <Flex direction="row" justify="center" className="items-center">
+                  <div className="border-b border-inherit flex-1" />
+                  <small className="px-2">Atau masuk dengan</small>
+                  <div className="border-b border-inherit flex-1" />
+                </Flex>
+                <Button
+                  size="3"
+                  color="blue"
+                  variant="soft"
+                  onClick={handleGoogleLogin}>
+                  <FcGoogle /> Masuk dengan Google
+                </Button>
+                <Flex justify="center">
+                  <small>
+                    {"Tidak punya akun? "}
+                    <Link href="/register">Daftar disini</Link>
+                  </small>
+                </Flex>
+              </Flex>
             </Flex>
           </Card>
         </Box>

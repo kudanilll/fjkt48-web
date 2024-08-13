@@ -3,10 +3,11 @@ import { useSession, signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
-import { Avatar, Button, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Flex, Text } from "@radix-ui/themes";
 // import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { LuUser2 } from "react-icons/lu";
 import { Session } from "next-auth";
+import NormalButton from "@/components/ui/button/normal-button";
 import navigation from "./route";
 import Image from "next/image";
 import Link from "next/link";
@@ -101,11 +102,9 @@ function Profile({ session }: { session: Session | null }) {
         onClick={() => signIn()}>
         Masuk
       </Text>
-      <Link href="/register" aria-label="register">
-        <Button aria-label="register" variant="solid">
-          Daftar
-        </Button>
-      </Link>
+      <NormalButton label="register" href="/register">
+        Daftar
+      </NormalButton>
     </Flex>
   );
 }

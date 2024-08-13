@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { sortArrayByDate } from "@/utils/get-time";
+import { sortArrayByDate } from "@/lib/utils";
 import { NewsType } from "@/models/types/news.type";
 import NewsCard from "@/components/ui/card/news";
 import Pagination from "@/components/ui/pagination";

@@ -1,11 +1,11 @@
 "use client";
 import { useFetch } from "@/hooks/use-fetch";
-import { getCurrentMonth, sortArrayByDate } from "@/utils/get-time";
 import NewsCard from "@/components/ui/card/news";
 import ScheduleCard from "@/components/ui/card/schedule";
 import ShimmerCard from "@/components/ui/shimmer/card";
 import ReleaseSlider from "@/components/ui/slider/release-slider";
 import LongButton from "@/components/ui/button/long-button";
+import InfiniteScroll from "@/components/ui/infinite-scroll";
 import PageWrapper from "@/components/wrapper/page-wrapper";
 import NormalPageWrapper from "@/components/wrapper/normal-page-wrapper";
 import Heading from "@/components/typography/heading";
@@ -62,12 +62,14 @@ export default function HomePage() {
                   <ShimmerCard key={index} style="news-card" />
                 ))} */}
           </div>
-          <LongButton href="/news">Berita selengkapnya</LongButton>
+          <LongButton label="news" href="/news">
+            Berita selengkapnya
+          </LongButton>
         </div>
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <Heading>Acara mendatang</Heading>
           <div className="mb-4">
-            {/* {successFetchEvent
+            {successFetchEvent
               ? eventSchedule.map((item, index) => (
                   <ScheduleCard
                     key={index}
@@ -77,10 +79,10 @@ export default function HomePage() {
                 ))
               : [...Array(3)].map((_, index) => (
                   <ShimmerCard key={index} style="schedule-card" />
-                ))} */}
+                ))}
           </div>
-          <LongButton href="/schedule">Jadwal selengkapnya</LongButton>
-        </div>
+          <LongButton label="schedule" href="/schedule">Jadwal selengkapnya</LongButton>
+        </div> */}
         <div className="mb-12 row md:flex">
           <div className="grid grid-cols-2 grid-rows-1 gap-4">
             <div className="overflow-hidden rounded-lg">
@@ -91,6 +93,7 @@ export default function HomePage() {
                 alt="Theater JKT48"
                 src="/assets/theater/1.jpg"
                 className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
+                priority
               />
             </div>
             <div className="overflow-hidden rounded-lg">
@@ -101,6 +104,7 @@ export default function HomePage() {
                 alt="Theater JKT48"
                 src="/assets/theater/2.jpg"
                 className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
+                priority
               />
             </div>
             <div className="col-span-2 row-start-2">
@@ -137,10 +141,13 @@ export default function HomePage() {
                 penonton berdiri bisa melebihi jumlah itu.
               </Paragraph>
             </div>
-            <LongButton href="/theater">Lihat selengkapnya</LongButton>
+            <LongButton label="theater" href="/theater">
+              Lihat selengkapnya
+            </LongButton>
           </div>
         </div>
       </PageWrapper>
+      <InfiniteScroll />
       <ReleaseSlider />
       <NormalPageWrapper marginTop={1}>
         <div className="mb-8 select-none">

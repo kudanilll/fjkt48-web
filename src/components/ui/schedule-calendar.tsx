@@ -1,5 +1,5 @@
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
-import { monthStringArray } from "@/utils/get-time";
+import { monthStringArray } from "@/lib/utils";
 import Table from "@/components/ui/table";
 
 type ScheduleCalendarProps = {

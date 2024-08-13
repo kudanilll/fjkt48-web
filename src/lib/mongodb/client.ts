@@ -26,7 +26,7 @@ async function createTTLIndex(client: MongoClient) {
       { expireAfterSeconds: 600 } // 10 menit
     );
   } catch (error) {
-    throw new Error(`Gagal membuat TTL index: ${error}`);
+    throw new Error(`failed to create TTL index: ${error}`);
   }
 }
 
@@ -34,14 +34,14 @@ if (process.env.NODE_ENV === "development") {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
+    _mongoClient?: Promise<MongoClient>;
   };
 
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
+  if (!globalWithMongo._mongoClient) {
+    globalWithMongo._mongoClient = new MongoClient(uri, options).connect();
   }
-  clientPromise = globalWithMongo._mongoClientPromise;
+  client = globalWithMongo._mongoClient;
+  clientPromise = globalWithMongo._mongoClient;
   clientPromise.then((client: MongoClient) => createTTLIndex(client));
 } else {
   // In production mode, it's best to not use a global variable.
@@ -52,4 +52,4 @@ if (process.env.NODE_ENV === "development") {
 
 // Export a module-scoped MongoClient promise. By doing this in a
 // separate module, the client can be shared across functions.
-export default clientPromise;
+export { client, clientPromise };

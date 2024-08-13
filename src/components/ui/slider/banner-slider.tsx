@@ -37,7 +37,7 @@ export default function BannerSlider() {
   );
 
   return (
-    <div className="mt-2">
+    <div className="mt-8 md:mt-2">
       <Swiper
         effect={"coverflow"}
         slidesPerView={2}
@@ -75,13 +75,13 @@ export default function BannerSlider() {
               <SwiperSlide key={item}>
                 <Link target="_blank" href={banner[item].url}>
                   <Image
-                    className="object-cover md:h-96 rounded-lg"
+                    className="object-cover h-full md:h-96 rounded-lg"
                     style={{ width: "100", height: "auto" }}
                     width={700}
                     height={700}
                     alt={banner[item].image}
                     src={banner[item].image}
-                    loading="lazy"
+                    priority
                   />
                 </Link>
               </SwiperSlide>

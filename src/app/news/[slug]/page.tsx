@@ -1,4 +1,3 @@
-import { getNewsFromStorage } from "@/utils/get-data";
 import NormalPageWrapper from "@/components/wrapper/normal-page-wrapper";
 import md from "markdown-it";
 import matter from "gray-matter";

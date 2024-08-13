@@ -11,7 +11,7 @@ export default function Footer() {
     <footer className="bg-red-200 text-red-800">
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8 select-none">
         <p className="mx-auto mt-6 text-center leading-relaxed max-w-xs md:max-w-xl md:text-sm">
-          &copy; {new Date().getFullYear()}, All rights reserved.
+          Copyright &copy; {new Date().getFullYear()}, All rights reserved.
           <br />
           Create with 🧠 by&nbsp;
           <Link
@@ -73,7 +73,7 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              href="https://github.com/achmaddaniel24/fjkt48-web"
+              href="https://github.com/kudanilll/fjkt48-web"
               rel="noreferrer"
               target="_blank"
               className="transition hover:text-red-800/75">

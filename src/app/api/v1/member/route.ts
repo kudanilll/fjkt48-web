@@ -1,20 +1,34 @@
-import { NextResponse, NextRequest } from "next/server";
+import { clientPromise } from "@/lib/mongodb/client";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const data = null;
-  if (!data) {
-    return NextResponse.json({
-      status: 404,
-      message: "Not Found",
-      error: "Not Found",
-    });
+export async function GET() {
+  try {
+    const client = await clientPromise;
+    const data = await client
+      .db("profile")
+      .collection("member")
+      .find({})
+      .toArray();
+    if (!data || data.length === 0) {
+      return NextResponse.json(
+        {
+          message: "Not Found",
+          content: [],
+        },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(
+      {
+        message: "Success",
+        content: data,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { message: "internal server error" },
+      { status: 500 }
+    );
   }
-  const id = request.nextUrl.searchParams.get("id");
-  if (id) {
-  }
-  return NextResponse.json({
-    status: 200,
-    message: "Success",
-    content: data,
-  });
 }

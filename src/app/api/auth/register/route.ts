@@ -1,6 +1,6 @@
-import { startRegister } from "@/services/auth/service";
+import { startRegister } from "@/services/auth/actions";
 import { sendVerificationEmail } from "@/services/email/sender";
-import { generateOTP } from "@/utils/otp";
+import { generateOTP } from "@/lib/otp";
 import { NextResponse, NextRequest } from "next/server";
 import isEmail from "validator/lib/isEmail";
 
