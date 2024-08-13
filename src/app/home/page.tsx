@@ -5,7 +5,7 @@ import ScheduleCard from "@/components/ui/card/schedule";
 import ShimmerCard from "@/components/ui/shimmer/card";
 import ReleaseSlider from "@/components/ui/slider/release-slider";
 import LongButton from "@/components/ui/button/long-button";
-import InfiniteScroll from "@/components/ui/infinite-scroll";
+import InfiniteMovingCards from "@/components/ui/infinite-moving-cards";
 import PageWrapper from "@/components/wrapper/page-wrapper";
 import NormalPageWrapper from "@/components/wrapper/normal-page-wrapper";
 import Heading from "@/components/typography/heading";
@@ -147,7 +147,7 @@ export default function HomePage() {
           </div>
         </div>
       </PageWrapper>
-      <InfiniteScroll />
+      <InfiniteMovingCards />
       <ReleaseSlider />
       <NormalPageWrapper marginTop={1}>
         <div className="mb-8 select-none">
