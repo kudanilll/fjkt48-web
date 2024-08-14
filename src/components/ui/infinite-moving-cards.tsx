@@ -66,7 +66,7 @@ export default function InfiniteMovingCards({
       <div
         ref={containerRef}
         className={cn(
-          "scroller z-20 w-full h-[400px] mt-6 overflow-hidden",
+          "scroller z-20 w-full md:h-[400px] mt-6 overflow-hidden",
           className
         )}>
         <ul
