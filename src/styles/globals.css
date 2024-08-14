@@ -12,3 +12,13 @@
   --default-font-family: "Poppins", Helvetica, Arial, sans-serif;
   --heading-font-family: "Poppins", Helvetica, Arial, sans-serif;
 }
+
+.no-visible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-visible-scrollbar::-webkit-scrollbar {
+  display: none;
+}

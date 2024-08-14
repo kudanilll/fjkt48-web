@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${poppins.variable} antialiased scroll-smooth`}
+      className={`${poppins.variable} antialiased scroll-smooth no-visible-scrollbar`}
       style={{ scrollBehavior: "smooth" }}>
       <body>
         <Providers>
