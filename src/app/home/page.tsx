@@ -1,5 +1,4 @@
 "use client";
-import { useFetch } from "@/hooks/use-fetch";
 import NewsCard from "@/components/ui/card/news";
 import ScheduleCard from "@/components/ui/card/schedule";
 import ShimmerCard from "@/components/ui/shimmer/card";
@@ -10,6 +9,7 @@ import PageWrapper from "@/components/wrapper/page-wrapper";
 import NormalPageWrapper from "@/components/wrapper/normal-page-wrapper";
 import Heading from "@/components/typography/heading";
 import Paragraph from "@/components/typography/paragraph";
+import useFetch from "@/hooks/use-fetch";
 import Image from "next/image";
 import Link from "next/link";
 import specialLinks from "./special-links";

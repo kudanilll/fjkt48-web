@@ -1,7 +1,7 @@
 "use client";
 import { BannerType } from "@/models/types/banner.type";
-import { useFetch } from "@/hooks/use-fetch";
 import ShimmerImage from "@/components/ui/shimmer/image";
+import useFetch from "@/hooks/use-fetch";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,10 +15,10 @@ import "swiper/css/effect-coverflow";
 
 import "./pagination.css";
 
-function normalize(data: any) {
+function normalize(data: BannerType[]): BannerType[] {
   const banner: BannerType[] = [];
-  for (const _id in data.content) {
-    const { image, url } = data.content[_id];
+  for (const _id in data) {
+    const { image, url } = data[_id];
     banner.push({ _id, image, url });
   }
   return banner;
@@ -26,14 +26,8 @@ function normalize(data: any) {
 
 export default function BannerSlider() {
   const [banner, successFetchBanner] = useFetch<any>(
-    "/banner/home",
-    (url: string) =>
-      fetch(url, {
-        method: "GET",
-        next: { tags: ["banner-home"] },
-      })
-        .then((res) => res.json())
-        .then((data) => normalize(data))
+    "/banner/home", // api path
+    "banner-home" // tag
   );
 
   return (
@@ -71,7 +65,7 @@ export default function BannerSlider() {
         className="mySwiper">
         {successFetchBanner ? (
           <div>
-            {Object.keys(banner).map((item) => (
+            {Object.keys(normalize(banner)).map((item) => (
               <SwiperSlide key={item}>
                 <Link target="_blank" href={banner[item].url}>
                   <Image
