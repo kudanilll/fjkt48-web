@@ -7,7 +7,13 @@ import Link from "next/link";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, EffectCoverflow } from "swiper/modules";
+import {
+  Autoplay,
+  EffectCoverflow,
+  Keyboard,
+  Mousewheel,
+  Pagination,
+} from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -34,6 +40,7 @@ export default function BannerSlider() {
     <div className="mt-8 md:mt-2">
       <Swiper
         effect={"coverflow"}
+        direction="horizontal"
         slidesPerView={2}
         breakpoints={{
           0: {
@@ -50,6 +57,10 @@ export default function BannerSlider() {
           modifier: 2.5,
           slideShadows: true,
         }}
+        keyboard={{
+          enabled: true,
+        }}
+        mousewheel={true}
         spaceBetween={0}
         centeredSlides={true}
         grabCursor={true}
@@ -61,7 +72,7 @@ export default function BannerSlider() {
         pagination={{
           clickable: true,
         }}
-        modules={[EffectCoverflow, Autoplay, Pagination]}
+        modules={[Autoplay, EffectCoverflow, Keyboard, Mousewheel, Pagination]}
         className="mySwiper">
         {successFetchBanner ? (
           <div>

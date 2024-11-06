@@ -34,6 +34,75 @@ export default function VerificationPage() {
     }
   }, []);
 
+  const handleKeyDown = useCallback(
+    (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+      // Menangani backspace
+      if (e.key === "Backspace" && !otp[index]) {
+        e.preventDefault();
+        if (index > 0) {
+          setOtp((prevOtp) => {
+            const newOtp = [...prevOtp];
+            newOtp[index - 1] = "";
+            return newOtp;
+          });
+          const prevInput = document.getElementById(`otp-${index - 1}`);
+          prevInput?.focus();
+        }
+      }
+
+      // Menangani arrow keys
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        if (index > 0) {
+          const prevInput = document.getElementById(`otp-${index - 1}`);
+          prevInput?.focus();
+        }
+      }
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        if (index < 5) {
+          const nextInput = document.getElementById(`otp-${index + 1}`);
+          nextInput?.focus();
+        }
+      }
+
+      // Menangani tombol tab
+      if (e.key === "Tab") {
+        e.preventDefault();
+        if (e.shiftKey && index > 0) {
+          // Shift + Tab untuk mundur
+          const prevInput = document.getElementById(`otp-${index - 1}`);
+          prevInput?.focus();
+        } else if (!e.shiftKey && index < 5) {
+          // Tab untuk maju
+          const nextInput = document.getElementById(`otp-${index + 1}`);
+          nextInput?.focus();
+        }
+      }
+
+      // Menangani paste
+      if (e.key === "v" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        navigator.clipboard.readText().then((text) => {
+          const digits = text.match(/\d/g)?.slice(0, 6) || [];
+          const newOtp = [...otp];
+          digits.forEach((digit, idx) => {
+            if (idx < 6) newOtp[idx] = digit;
+          });
+          setOtp(newOtp);
+          if (digits.length > 0 && index + digits.length < 6) {
+            const nextInput = document.getElementById(
+              `otp-${index + digits.length}`
+            );
+            nextInput?.focus();
+          }
+        });
+      }
+    },
+    [otp]
+  );
+
   const verifyOtp = useCallback(
     async (otpString: string) => {
       setIsVerifying(true);
@@ -92,14 +161,16 @@ export default function VerificationPage() {
           id={`otp-${index}`}
           value={digit}
           onChange={(e) => handleChange(index, e.target.value)}
+          onKeyDown={(e) => handleKeyDown(index, e)}
           style={{
             width: "40px",
             textAlign: "left",
             paddingLeft: "4px",
           }}
-          maxLength={1}></TextField.Root>
+          maxLength={1}
+        />
       )),
-    [otp, handleChange]
+    [otp, handleChange, handleKeyDown]
   );
 
   if (

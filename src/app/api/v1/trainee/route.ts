@@ -8,6 +8,7 @@ export async function GET() {
       .db("profile")
       .collection("trainee")
       .find({})
+      .sort({ _id: 1 })
       .toArray();
     if (!data || data.length === 0) {
       return NextResponse.json(

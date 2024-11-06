@@ -89,7 +89,7 @@ export default function InfiniteMovingCards({
                 height={400}
                 width={400}
                 alt={name.replace("_", " ")}
-                src={`https://wbqmdidxdtqqcwidmpfb.supabase.co/storage/v1/object/public/profiles/members/${name}.jpg`}
+                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profiles/members/${name}.jpg`}
                 className="rounded-xl w-full h-full object-cover"
               />
             </li>

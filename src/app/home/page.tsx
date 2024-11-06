@@ -66,7 +66,82 @@ export default function HomePage() {
             Berita selengkapnya
           </LongButton>
         </div>
-        {/* <div className="mb-8">
+        <div className="relative mb-12 row md:flex  z-10">
+          {/* Background Text */}
+          <div className="absolute inset-0 justify-center items-center z-0 hidden md:flex">
+            <h1 className="text-red-600 text-[28rem] font-thin opacity-10 pointer-events-none select-none">
+              JKT48
+            </h1>
+          </div>
+          <div className="justify-center row md:flex">
+            {/* Grid Images */}
+            <div className="grid grid-cols-2 grid-rows-1 gap-4 relative z-10 md:w-2/5">
+              <div className="overflow-hidden rounded-lg">
+                <Image
+                  style={{ width: "100%", height: "auto" }}
+                  height={650}
+                  width={650}
+                  alt="Theater JKT48"
+                  src="/assets/theater/1.jpg"
+                  className="rounded-lg transition ease-in-out duration-300 hover:scale-105"
+                  priority
+                />
+              </div>
+              <div className="overflow-hidden rounded-lg">
+                <Image
+                  style={{ width: "100%", height: "auto" }}
+                  height={650}
+                  width={650}
+                  alt="Theater JKT48"
+                  src="/assets/theater/2.jpg"
+                  className="rounded-lg transition ease-in-out duration-300 hover:scale-105"
+                  priority
+                />
+              </div>
+              <div className="col-span-2 row-start-2 overflow-hidden rounded-lg">
+                <Image
+                  style={{ width: "100%", height: "auto" }}
+                  height={650}
+                  width={650}
+                  alt="Theater JKT48"
+                  src="/assets/theater/3.jpg"
+                  className="rounded-lg transition ease-in-out duration-300 hover:scale-105"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Text Content */}
+            <div className="relative md:p-14 md:my-auto select-none z-10 md:w-1/2">
+              <h1 className="hidden md:block text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
+                Apa itu JKT48 Theater?
+              </h1>
+              <div className="p-4 md:p-0">
+                <h1 className="md:hidden text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
+                  Apa itu JKT48 Theater?
+                </h1>
+                <Paragraph>
+                  Theater JKT48 adalah sebuah teater eksklusif untuk pertunjukan
+                  grup idola Indonesia JKT48 dan grup-grup saudarinya dari AKB48
+                  Group. Theater ini berada di lantai 4 fX Sudirman, Jakarta
+                  Pusat, Indonesia.
+                </Paragraph>
+                <Paragraph mobileHidden>
+                  Theater JKT48 berkapasitas sekitar 400 orang, 260 kursi untuk
+                  penonton duduk, dan 140 penonton berdiri, meskipun
+                  kadang-kadang penonton berdiri bisa melebihi jumlah itu.
+                </Paragraph>
+              </div>
+              <LongButton label="theater" href="/theater">
+                Lihat selengkapnya
+              </LongButton>
+            </div>
+          </div>
+        </div>
+      </PageWrapper>
+      <InfiniteMovingCards />
+      {/* <PageWrapper>
+        <div className="mb-8">
           <Heading>Acara mendatang</Heading>
           <div className="mb-4">
             {successFetchEvent
@@ -81,73 +156,11 @@ export default function HomePage() {
                   <ShimmerCard key={index} style="schedule-card" />
                 ))}
           </div>
-          <LongButton label="schedule" href="/schedule">Jadwal selengkapnya</LongButton>
-        </div> */}
-        <div className="mb-12 row md:flex">
-          <div className="grid grid-cols-2 grid-rows-1 gap-4">
-            <div className="overflow-hidden rounded-lg">
-              <Image
-                style={{ width: "100", height: "auto" }}
-                height={650}
-                width={650}
-                alt="Theater JKT48"
-                src="/assets/theater/1.jpg"
-                className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
-                priority
-              />
-            </div>
-            <div className="overflow-hidden rounded-lg">
-              <Image
-                style={{ width: "100", height: "auto" }}
-                height={650}
-                width={650}
-                alt="Theater JKT48"
-                src="/assets/theater/2.jpg"
-                className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
-                priority
-              />
-            </div>
-            <div className="col-span-2 row-start-2">
-              <div className="overflow-hidden rounded-lg">
-                <Image
-                  style={{ width: "100", height: "auto" }}
-                  height={650}
-                  width={650}
-                  alt="Theater JKT48"
-                  src="/assets/theater/3.jpg"
-                  className="rounded-lg transition ease-in-out duration-300 hover:scale-150"
-                  priority
-                />
-              </div>
-            </div>
-          </div>
-          <div className="md:p-14 select-none">
-            <h1 className="hidden md:block text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
-              Apa itu JKT48 Theater ?
-            </h1>
-            <div className="p-4 md:p-0">
-              <h1 className="md:hidden text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
-                Apa itu JKT48 Theater ?
-              </h1>
-              <Paragraph>
-                Theater JKT48 adalah sebuah teater eksklusif untuk pertunjukan
-                grup idola Indonesia JKT48 dan grup-grup saudarinya dari AKB48
-                Group. Theater ini berada di lantai 4 fX Sudirman, Jakarta
-                Pusat, Indonesia.
-              </Paragraph>
-              <Paragraph mobileHidden>
-                Theater JKT48 berkapasitas sekitar 400 orang, 260 kursi untuk
-                penonton duduk, dan 140 penonton berdiri, meskipun kadang-kadang
-                penonton berdiri bisa melebihi jumlah itu.
-              </Paragraph>
-            </div>
-            <LongButton label="theater" href="/theater">
-              Lihat selengkapnya
-            </LongButton>
-          </div>
+          <LongButton label="schedule" href="/schedule">
+            Jadwal selengkapnya
+          </LongButton>
         </div>
-      </PageWrapper>
-      <InfiniteMovingCards />
+      </PageWrapper> */}
       <ReleaseSlider />
       <NormalPageWrapper marginTop={1}>
         <div className="mb-8 select-none">

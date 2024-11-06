@@ -4,8 +4,9 @@ import { RegisterFormData, RegisterSchema } from "@/models/schema/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { equals, isEmail } from "validator";
+import { equals } from "validator";
 import { toast } from "sonner";
+import { validateEmail } from "@/lib/utils";
 import FormField from "@/components/ui/form/field";
 import FormFieldPassword from "@/components/ui/form/field-password";
 import Image from "next/image";
@@ -22,10 +23,14 @@ export default function RegisterPage() {
   const router = useRouter();
 
   async function onSubmit(data: RegisterFormData) {
-    if (!isEmail(data.email)) {
-      toast.error("Email tidak valid");
+    // Validate email
+    const validateEmailResult = validateEmail(data.email);
+    if (validateEmailResult.isValid === false) {
+      toast.error(validateEmailResult.message);
       return;
     }
+
+    // Validate password
     if (equals(data.password, data.confirmPassword!)) {
       if (!(data.password.length >= 8)) {
         toast.error("Panjang password harus lebih dari 8 karakter");

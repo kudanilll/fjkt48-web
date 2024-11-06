@@ -11,6 +11,7 @@ import NormalButton from "@/components/ui/button/normal-button";
 import navigation from "./route";
 import Image from "next/image";
 import Link from "next/link";
+import "./navbar.css";
 
 function Navbar({
   active,
@@ -71,7 +72,7 @@ function Menu({
                 <span
                   className={`block md:inline-block ${
                     pathname.includes(item.path)
-                      ? "text-red-600 font-extrabold"
+                      ? "text-red-600 font-extrabold active-item"
                       : "text-red-500 font-semibold"
                   } md:px-3 py-2 text-xl md:text-base md:pb-2 md:hover:text-red-600 duration-100`}>
                   {item.name}
@@ -118,7 +119,7 @@ export default function NavigationBar() {
   if (noNavbarRoutes.includes(pathname)) return <></>;
 
   return (
-    <nav className="sticky top-0 z-10 w-full bg-red-100 md:bg-transparent">
+    <nav className="sticky top-0 z-50 w-full bg-red-100 md:bg-transparent">
       <div className="fixed top-0 left-0 right-0 z-10 mx-auto w-full px-4 py-2 bg-red-100">
         <Flex justify="between" className="items-center">
           <Navbar active={active} setActive={setActive} />

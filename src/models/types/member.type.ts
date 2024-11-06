@@ -1,5 +1,5 @@
 export type MemberType = {
-  id: string;
+  _id: string;
   nickname: string;
   gen: number | "trainee";
   image: string;

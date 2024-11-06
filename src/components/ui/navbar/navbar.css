@@ -1,0 +1,22 @@
+.active-item::after {
+  content: "";
+  display: none;
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 4px;
+  background-color: #dc2626;
+  border-radius: 7px;
+}
+
+@media (min-width: 768px) {
+  .active-item {
+    position: relative;
+  }
+
+  .active-item::after {
+    display: block;
+  }
+}

@@ -1,7 +1,6 @@
 "use client";
 import { MemberType } from "@/models/types/member.type";
 import { useState } from "react";
-import { equals } from "validator";
 import MemberCard from "@/components/ui/card/member";
 import SearchBar from "@/components/ui/search-bar";
 import ShimmerCard from "@/components/ui/shimmer/card";
@@ -57,7 +56,7 @@ export default function MemberPage() {
           if (value.length <= 10) {
             setQuery(value);
             setIsInput(true);
-            if (equals(value, "")) setIsInput(false);
+            if (value === "") setIsInput(false);
           }
         }}
         onCloseIcon={() => {
