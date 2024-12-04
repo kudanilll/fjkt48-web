@@ -19,10 +19,10 @@ const navigation = [
     name: "Theater",
     path: "/theater",
   },
-  {
-    name: "Toko",
-    path: "/shop",
-  },
+  // {
+  //   name: "Toko",
+  //   path: "/shop",
+  // },
   {
     name: "Live",
     path: "/live",
