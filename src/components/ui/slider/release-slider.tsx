@@ -34,7 +34,7 @@ export default function ReleaseSlider() {
                 height={640}
                 width={640}
                 alt="Rapsodi Album Cover"
-                src="/assets/release/rapsodi.jpg"
+                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/rapsodi.png`}
                 className="w-full"
               />
             </Link>
@@ -42,7 +42,7 @@ export default function ReleaseSlider() {
               height={640}
               width={640}
               alt="Rapsodi Album Cover"
-              src="/assets/release/rapsodi.jpg"
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/rapsodi.png`}
               className="hidden md:block"
             />
             <div className="md:p-16">
@@ -75,7 +75,7 @@ export default function ReleaseSlider() {
                 height={640}
                 width={640}
                 alt="Rapsodi Album Cover"
-                src="/assets/release/hightension.jpg"
+                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/hightension.png`}
                 className="md:hidden w-full"
               />
             </Link>
@@ -106,7 +106,7 @@ export default function ReleaseSlider() {
               height={640}
               width={640}
               alt="Rapsodi Album Cover"
-              src="/assets/release/hightension.jpg"
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/hightension.png`}
               className="hidden md:block"
             />
           </div>

@@ -59,7 +59,7 @@ function Menu({
     <div
       className={`${
         active ? "block" : "hidden"
-      } md:block absolute top-16 left-0 w-full bg-red-100 md:relative md:top-auto md:left-auto md:w-auto md:bg-transparent`}>
+      } md:block absolute top-16 left-0 w-full md:h-auto h-[2000px] bg-red-100 md:relative md:top-auto md:left-auto md:w-auto md:bg-transparent`}>
       <div className={`md:flex md:pb-0 ${active ? "p-4 md:p-0" : ""}`}>
         <ul className="flex flex-col md:flex-row h-screen md:h-auto md:flex md:items-center">
           {navigation.map((item, index) => (
