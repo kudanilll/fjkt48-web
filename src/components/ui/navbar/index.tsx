@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
 import { Avatar, Flex, Text } from "@radix-ui/themes";
 // import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { LuUser2 } from "react-icons/lu";
+import { LuUser } from "react-icons/lu";
 import { Session } from "next-auth";
 import NormalButton from "@/components/ui/button/normal-button";
 import navigation from "./route";
@@ -91,7 +91,7 @@ function Profile({ session }: { session: Session | null }) {
     <Flex direction="row" className="gap-2">
       {/* <Avatar fallback={<MdDarkMode />} /> */}
       <Link aria-label="profile" href="/profile" className="items-center flex">
-        <Avatar src={`${session?.user?.image}`} fallback={<LuUser2 />} />
+        <Avatar src={`${session?.user?.image}`} fallback={<LuUser />} />
       </Link>
     </Flex>
   ) : (
