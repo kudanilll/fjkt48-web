@@ -30,7 +30,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@auth/mongodb-adapter": "^3.4.2",
     "@googlemaps/js-api-loader": "^1.16.8",
     "@hcaptcha/react-hcaptcha": "^1.10.3",
     "@hookform/resolvers": "^3.9.0",
@@ -52,7 +51,6 @@
     "markdown-it": "^14.0.0",
     "mongodb": "^6.8.0",
     "next": "^14.2.5",
-    "next-auth": "^5.0.0-beta.19",
     "nextjs-toploader": "^1.6.4",
     "ngrok": "^5.0.0-beta.2",
     "nodemailer": "^6.9.14",

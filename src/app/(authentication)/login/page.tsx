@@ -1,7 +1,6 @@
 "use client";
 import { Box, Button, Card, Flex, Heading, Link, Text } from "@radix-ui/themes";
 import { LoginFormData, LoginSchema } from "@/models/schema/form";
-import { login, loginGoogle } from "@/services/auth/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -38,32 +37,32 @@ export default function LoginPage() {
       toast.error("Email tidak valid");
       return;
     }
-    try {
-      const response = await login(data, callbackUrl, router);
-      if (response?.error) {
-        toast.error("Login gagal", { description: response?.error });
-        return { error: true, message: response?.error };
-      }
-      toast.success("Login berhasil");
-      router.push(callbackUrl);
-    } catch (error) {
-      toast.error("Login gagal", { description: `${error}` });
-    }
+    // try {
+    //   const response = await login(data, callbackUrl, router);
+    //   if (response?.error) {
+    //     toast.error("Login gagal", { description: response?.error });
+    //     return { error: true, message: response?.error };
+    //   }
+    //   toast.success("Login berhasil");
+    //   router.push(callbackUrl);
+    // } catch (error) {
+    //   toast.error("Login gagal", { description: `${error}` });
+    // }
   }
 
   async function handleGoogleLogin() {
-    try {
-      const res = await loginGoogle(callbackUrl);
-      if (res.success) {
-        toast.success("Login berhasil");
-        router.push(res.callbackUrl || callbackUrl);
-      } else {
-        toast.error("Login dengan Google gagal", { description: res.error });
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Terjadi kesalahan saat login dengan Google");
-    }
+    // try {
+    //   const res = await loginGoogle(callbackUrl);
+    //   if (res.success) {
+    //     toast.success("Login berhasil");
+    //     router.push(res.callbackUrl || callbackUrl);
+    //   } else {
+    //     toast.error("Login dengan Google gagal", { description: res.error });
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    //   toast.error("Terjadi kesalahan saat login dengan Google");
+    // }
   }
 
   return (

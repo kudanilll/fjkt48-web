@@ -1,5 +1,4 @@
 "use client";
-import { logout } from "@/services/auth/actions";
 import { Button } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,7 +17,7 @@ export default function ProfilePage() {
   return (
     <div>
       <h1>Halaman ini sedang dalam tahap pengembangan.</h1>
-      <Button onClick={logout}>Keluar</Button>
+      {/* <Button onClick={logout}>Keluar</Button> */}
     </div>
   );
 }
