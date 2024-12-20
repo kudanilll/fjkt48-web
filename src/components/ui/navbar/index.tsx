@@ -88,6 +88,20 @@ function Menu({
 
 // function Profile({ session }: { session: Session | null }) {
 function Profile() {
+  return (
+    <Flex direction="row" className="content-center items-center gap-4">
+      <Text
+        aria-label="login"
+        color="red"
+        className="hover:underline select-none"
+        onClick={() => {}}>
+        Masuk
+      </Text>
+      <NormalButton label="register" href="/register">
+        Daftar
+      </NormalButton>
+    </Flex>
+  );
   // return session ? (
   //   <Flex direction="row" className="gap-2">
   //     {/* <Avatar fallback={<MdDarkMode />} /> */}
@@ -126,6 +140,7 @@ export default function NavigationBar() {
           <Navbar active={active} setActive={setActive} />
           <Menu active={active} pathname={pathname} setActive={setActive} />
           {/* <Profile session={session} /> */}
+          <Profile />
         </Flex>
       </div>
     </nav>
