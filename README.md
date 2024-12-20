@@ -12,13 +12,11 @@ To get started, run:
 | ------------- | -------------- | ---------- | --------- |
 | `npm run dev` | `pnpm run dev` | `yarn dev` | `bun dev` |
 
-<<<<<<< HEAD
-
 ## Final Steps
 
 There are a few final steps that we were not able to perform automatically. We have provided a complete list for you below. You should take care of these before you can start developing your project. You can delete each item from the list as you go along.
 
-## Api Docs
+## API Docs
 
 see [API DOCS](https://github.com/achmaddaniel24/fjkt48-web/blob/production/docs/API_DOCS.md)
 
