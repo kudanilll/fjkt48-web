@@ -5,11 +5,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "firebasestorage.googleapis.com",
+        hostname: "wbqmdidxdtqqcwidmpfb.supabase.co",
         port: "",
-        pathname: "/v0/b/fjkt-48-09.appspot.com/o/**",
+        pathname: "/storage/v1/object/public/**",
       },
     ],
+  },
+  env: {
+    API_URL: process.env.API_URL,
+    API_KEY: process.env.API_KEY,
   },
 };
 

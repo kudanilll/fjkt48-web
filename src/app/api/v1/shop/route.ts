@@ -1,10 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
-import { retrieveData, retrieveDataById } from "@/lib/firebase/service";
 
 export async function GET(request: NextRequest) {
   const banner = request.nextUrl.searchParams.get("banner");
   if (banner) {
-    const data = await retrieveDataById("shop", "banner");
+    const data = null;
     if (data) {
       return NextResponse.json({
         status: 200,
@@ -21,6 +20,6 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     status: 200,
     message: "Success",
-    content: await retrieveData("shop"),
+    content: null,
   });
 }

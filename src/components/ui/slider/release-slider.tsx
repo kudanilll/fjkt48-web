@@ -1,4 +1,5 @@
 "use client";
+import { FaYoutube } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import NormalButton from "@/components/ui/button/normal-button";
@@ -33,7 +34,7 @@ export default function ReleaseSlider() {
                 height={640}
                 width={640}
                 alt="Rapsodi Album Cover"
-                src="/assets/release/rapsodi.jpg"
+                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/rapsodi.png`}
                 className="w-full"
               />
             </Link>
@@ -41,14 +42,12 @@ export default function ReleaseSlider() {
               height={640}
               width={640}
               alt="Rapsodi Album Cover"
-              src="/assets/release/rapsodi.jpg"
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/rapsodi.png`}
               className="hidden md:block"
             />
             <div className="md:p-16">
               <div className="p-10 md:p-0">
-                <h1 className="text-xl font-poppins text-red-600 mb-5 md:mb-6">
-                  Release
-                </h1>
+                <h1 className="text-xl text-red-600 mb-5 md:mb-6">Release</h1>
                 <Heading fontFamily="font-semibold">JKT48 - RAPSODI</Heading>
                 <Paragraph marginBottom="mb-6">
                   Rapsodi adalah single ke-21 dari grup idola JKT48 dan juga
@@ -59,7 +58,10 @@ export default function ReleaseSlider() {
                 </Paragraph>
               </div>
               <div className="hidden md:block">
-                <NormalButton href="https://www.youtube.com/watch?v=9GiWftsHdBs">
+                <NormalButton
+                  label="watch"
+                  href="https://www.youtube.com/watch?v=9GiWftsHdBs"
+                  icon={<FaYoutube size={18} />}>
                   Tonton sekarang
                 </NormalButton>
               </div>
@@ -73,15 +75,19 @@ export default function ReleaseSlider() {
                 height={640}
                 width={640}
                 alt="Rapsodi Album Cover"
-                src="/assets/release/hightension.jpg"
+                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/hightension.png`}
                 className="md:hidden w-full"
               />
             </Link>
             <div className="md:p-16">
               <div className="p-10 md:p-0">
+<<<<<<< HEAD
                 <h1 className="text-xl font-poppins text-red-600 mb-5 md:mb-6">
                   Release
                 </h1>
+=======
+                <h1 className="text-xl text-red-600 mb-5 md:mb-6">Release</h1>
+>>>>>>> development
                 <Heading fontFamily="font-semibold">
                   JKT48 - HIGH TENSION
                 </Heading>
@@ -94,7 +100,10 @@ export default function ReleaseSlider() {
                 </Paragraph>
               </div>
               <div className="hidden md:block">
-                <NormalButton href="https://youtu.be/GIl0Y1W4n70">
+                <NormalButton
+                  label="watch"
+                  href="https://youtu.be/GIl0Y1W4n70"
+                  icon={<FaYoutube size={18} />}>
                   Tonton sekarang
                 </NormalButton>
               </div>
@@ -103,7 +112,7 @@ export default function ReleaseSlider() {
               height={640}
               width={640}
               alt="Rapsodi Album Cover"
-              src="/assets/release/hightension.jpg"
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/release/hightension.png`}
               className="hidden md:block"
             />
           </div>

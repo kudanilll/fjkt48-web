@@ -1,18 +1,11 @@
-import { ConfigProvider } from "antd";
+"use client";
+import { GlobalTheme } from "@/context/theme";
+import { SessionProvider } from "next-auth/react";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: "#dc2626",
-          colorTextDescription: "#374151",
-        },
-        components: {
-          Card: { headerFontSize: 22 },
-        },
-      }}>
-      {children}
-    </ConfigProvider>
+    <SessionProvider>
+      <GlobalTheme>{children}</GlobalTheme>
+    </SessionProvider>
   );
 }

@@ -4,11 +4,8 @@ import "./styles.scss";
 
 function ShimmerMemberCard() {
   return (
-    <div className="rounded-2xl bg-white m-1.5" style={{ height: "300px" }}>
+    <div className="rounded-2xl m-1.5" style={{ height: "250px" }}>
       <div className="shimmer shimmer-member-card-image" />
-      <div className="py-3 px-4 h-16">
-        <ShimmerTitle width={70} />
-      </div>
     </div>
   );
 }

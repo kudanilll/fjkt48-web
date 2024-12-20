@@ -4,6 +4,26 @@ import BannerSlider from "@/components/ui/slider/banner-slider";
 export const metadata: Metadata = {
   title: "FJKT48 | Home",
   description: "Home Dashboard",
+  openGraph: {
+    title: "FJKT48 - Home",
+    description: "JKT48 Fans Web",
+    url: process.env.NEXT_PUBLIC_DOMAIN,
+    siteName: "FJKT48",
+    locale: "id_ID",
+    type: "website",
+    images: [
+      {
+        url: process.env.NEXT_PUBLIC_DOMAIN + "/opengraph-image-512.jpg",
+        width: 512,
+        height: 512,
+      },
+      {
+        url: process.env.NEXT_PUBLIC_DOMAIN + "/opengraph-image-1920-1080.jpg",
+        width: 3264,
+        height: 1836,
+      },
+    ],
+  },
 };
 
 export default function HomeLayout({

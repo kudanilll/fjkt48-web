@@ -1,35 +1,98 @@
+"use client";
+import { usePathname } from "next/navigation";
+import { FaGithub, FaDribbble, FaSquareXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 
 export default function Footer() {
+  const pathname = usePathname() || "/";
+  const noNavbarRoutes = ["/login", "/register", "/otp-verification"];
+  if (noNavbarRoutes.includes(pathname)) return <></>;
   return (
-    <div className="bg-zinc-900 mt-auto p-2 select-none">
-      <div className="w-full mx-auto max-w-screen-xl p-4 md:p-2 flex flex-col items-center justify-between">
-        <span className="text-neutral-300 text-center md:text-sm">
-          &copy;{new Date().getFullYear()} Achmad Daniel Syahputra,{" "}
+    <footer className="bg-red-200 text-red-800">
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8 select-none">
+        <p className="mx-auto mt-6 text-center leading-relaxed max-w-xs md:max-w-xl md:text-sm">
+          Copyright &copy; {new Date().getFullYear()}, All rights reserved.
+          <br />
+          Create with 🧠 by&nbsp;
+          <Link
+            href="https://portfolio-achmad-daniel.vercel.app"
+            target="_blank"
+            aria-label="author"
+            className="transition hover:text-red-800/75">
+            Achmad Daniel
+          </Link>
+          , Designed with ❤️ by&nbsp;
           <Link
             href="https://dribbble.com/ipauscream"
             target="_blank"
-            aria-label="designer">
-            Muhammad Ikhsan Fauzi
+            aria-label="designer"
+            className="transition hover:text-red-800/75">
+            Muhammad Ikhsan
           </Link>
-        </span>
-        <ul className="flex flex-row items-center mt-2 md:mt-3 text-sm md:text-xs font-medium text-neutral-300 sm:mt-0">
+          .
+        </p>
+        <p className="mx-auto mt-6 max-w-md text-center md:text-sm">
+          <Link className="transition hover:text-red-800/75" href="/about">
+            About Us
+          </Link>
+          <span>&nbsp;&middot;&nbsp;</span>
+          <Link
+            className="transition hover:text-red-800/75"
+            href="mailto:fansjkt4809@gmail.com">
+            Contact
+          </Link>
+          <span>&nbsp;&middot;&nbsp;</span>
+          <Link
+            className="transition hover:text-red-800/75"
+            href="https://www.buymeacoffee.com/kudanil">
+            Support
+          </Link>
+          <span>&nbsp;&middot;&nbsp;</span>
+          <Link
+            className="transition hover:text-red-800/75"
+            href="/terms-conditions">
+            Terms & Conditions
+          </Link>
+          <span>&nbsp;&middot;&nbsp;</span>
+          <Link
+            className="transition hover:text-red-800/75"
+            href="/privacy-policy">
+            Privacy Policy
+          </Link>
+        </p>
+        <ul className="mt-6 flex justify-center gap-6 md:gap-8">
           <li>
             <Link
-              href={`${process.env.AUTHOR_ABOUT_URL}`}
+              href=""
+              rel="noreferrer"
               target="_blank"
-              className="hover:underline px-2">
-              About
+              className="transition hover:text-red-800/75">
+              <span className="sr-only">X / Twitter</span>
+              <FaSquareXTwitter />
             </Link>
+          </li>
+          <li>
             <Link
-              href={`${process.env.AUTHOR_SUPPORT_URL}`}
+              href="https://github.com/kudanilll/fjkt48-web"
+              rel="noreferrer"
               target="_blank"
-              className="hover:underline px-2">
-              Support
+              className="transition hover:text-red-800/75">
+              <span className="sr-only">Github</span>
+              <FaGithub />
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="https://dribbble.com/ipauscream"
+              rel="noreferrer"
+              target="_blank"
+              className="transition hover:text-red-800/75">
+              <span className="sr-only">Dribble</span>
+              <FaDribbble />
             </Link>
           </li>
         </ul>
       </div>
-    </div>
+    </footer>
   );
 }

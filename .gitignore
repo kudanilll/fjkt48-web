@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+package-lock.json
 
 # testing
 /coverage
@@ -15,6 +16,7 @@
 
 # production
 /build
+/public/test
 
 # misc
 .DS_Store
@@ -42,4 +44,8 @@ next-env.d.ts
 # other
 /backup
 /.vscode
+<<<<<<< HEAD
 package-lock.json
+=======
+.npmcheckrc
+>>>>>>> development
