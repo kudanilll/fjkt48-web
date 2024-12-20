@@ -1,9 +1,5 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
-}
-
 const uri = process.env.MONGODB_URI;
 const options = {
   serverApi: {
@@ -38,14 +34,14 @@ if (process.env.NODE_ENV === "development") {
   };
 
   if (!globalWithMongo._mongoClient) {
-    globalWithMongo._mongoClient = new MongoClient(uri, options).connect();
+    globalWithMongo._mongoClient = new MongoClient(uri!, options).connect();
   }
   client = globalWithMongo._mongoClient;
   clientPromise = globalWithMongo._mongoClient;
   clientPromise.then((client: MongoClient) => createTTLIndex(client));
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
+  client = new MongoClient(uri!, options);
   clientPromise = client.connect();
   clientPromise.then((client: MongoClient) => createTTLIndex(client));
 }
