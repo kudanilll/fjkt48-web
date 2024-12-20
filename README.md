@@ -1,63 +1,81 @@
 # FJKT48
 
-FJKT48 is a website about [JKT48](https://jkt48.com/) made by fans. Created with NextJS.
+FJKT48 is a fan-made website dedicated to [JKT48](https://jkt48.com/), created with cutting-edge web technologies for a seamless and interactive experience. Powered by **Next.js**, this project is a combination of performance, scalability, and developer-centric tools.
 
-This project was generated with [Create Next Stack](https://www.create-next-stack.com/)!
+This project was scaffolded with [Create Next Stack](https://www.create-next-stack.com/).
 
-## Getting Started
+---
 
-To get started, run:
+## 🚀 Getting Started
+
+To start developing locally, run the following command:
 
 | npm           | pnpm           | yarn       | bun       |
 | ------------- | -------------- | ---------- | --------- |
 | `npm run dev` | `pnpm run dev` | `yarn dev` | `bun dev` |
 
-## Final Steps
+---
 
-There are a few final steps that we were not able to perform automatically. We have provided a complete list for you below. You should take care of these before you can start developing your project. You can delete each item from the list as you go along.
+## 📚 API Documentation
 
-## API Docs
+Explore the full API documentation for the project [here](https://github.com/achmaddaniel24/fjkt48-web/blob/production/docs/API_DOCS.md).
 
-see [API DOCS](https://github.com/achmaddaniel24/fjkt48-web/blob/production/docs/API_DOCS.md)
+---
 
-## Scripts
+## 🔧 Scripts
 
-The table below provides names and descriptions of the npm scripts available in this project.
+The table below lists all available npm scripts and their functionality:
 
-Each script is run using `npm run <script-name>`. For example: `npm run dev`.
+| Script         | Description                                                                |
+| -------------- | -------------------------------------------------------------------------- |
+| `dev`          | Starts the Next.js development server.                                     |
+| `build:dev`    | Builds the project using the development environment (`.env.dev`).         |
+| `build:prod`   | Builds the project using the production environment (`.env.prod`).         |
+| `start:dev`    | Starts the production server (built with `build`) in the development mode. |
+| `start:prod`   | Starts the production server (built with `build`) in the production mode.  |
+| `ngrok`        | Launches `ngrok` for local tunneling on port `3000`.                       |
+| `test`         | Runs all test cases.                                                       |
+| `test:cover`   | Generates test coverage reports.                                           |
+| `test:watch`   | Watches for changes and re-runs tests.                                     |
+| `format`       | Formats all source code with **Prettier**.                                 |
+| `format:check` | Checks if all source code adheres to the **Prettier** formatting rules.    |
+| `lint`         | Lints all source code with **ESLint**.                                     |
 
-| Name           | Description                                                                  |
-| -------------- | ---------------------------------------------------------------------------- |
-| `dev`          | Runs the Next.js development server.                                         |
-| `build:dev`    | Generates a production build using dev environment (.env.dev)                |
-| `build:prod`   | Generates a production build using production environment (.env.prod)        |
-| `start:dev`    | Runs the Next.js production server built using `build` script. (development) |
-| `start:prod`   | Runs the Next.js production server built using `build` script. (production)  |
-| `ngrok`        | Runs `ngrok http 3000` script.                                               |
-| `test`         | Runs tests                                                                   |
-| `test:watch`   | Watch tests                                                                  |
-| `format`       | Formats all source code in the project.                                      |
-| `format:check` | Checks the formatting of all code in the project.                            |
+---
 
-## Technologies
+## 🛠️ Technologies Used
 
-The table below gives an overview of the technologies used in this project, as well as places to learn more about them.
+This project leverages the following technologies:
 
-| Name           | Links                                                                                                                                                                                                           |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Next.js        | [Website](https://nextjs.org/) - [Docs](https://nextjs.org/docs) - [Learn Next.js](https://nextjs.org/learn) - [GitHub](https://github.com/vercel/next.js) - [Wikipedia](https://en.wikipedia.org/wiki/Next.js) |
-| React          | [Website](https://reactjs.org/) - [Docs](https://reactjs.org/docs/getting-started.html) - [GitHub](https://github.com/facebook/react) - [Wikipedia](<https://en.wikipedia.org/wiki/React_(JavaScript_library)>) |
-| TypeScript     | [Website](https://www.typescriptlang.org/) - [Docs](https://www.typescriptlang.org/docs/) - [GitHub](https://github.com/microsoft/TypeScript) - [Wikipedia](https://en.wikipedia.org/wiki/TypeScript)           |
-| Tailwind CSS   | [Website](https://tailwindcss.com/) - [Docs](https://tailwindcss.com/docs) - [GitHub](https://github.com/tailwindlabs/tailwindcss)                                                                              |
-| Framer Motion  | [Website](https://www.framer.com/motion/) - [Docs](https://www.framer.com/docs/) - [GitHub](https://github.com/framer/motion)                                                                                   |
-| ESLint         | [Website](https://eslint.org/) - [Configuration](https://eslint.org/docs/user-guide/configuring/) - [Rules](https://eslint.org/docs/rules/) - [GitHub](https://github.com/eslint/eslint)                        |
-| Prettier       | [Website](https://prettier.io/) - [Docs](https://prettier.io/docs/en/index.html) - [Options](https://prettier.io/docs/en/options.html) - [GitHub](https://github.com/prettier/prettier)                         |
-| npm            | [Website](https://www.npmjs.com/) - [Docs](https://docs.npmjs.com/) - [GitHub](https://github.com/npm/cli)                                                                                                      |
-| GitHub Actions | [Website](https://github.com/features/actions) - [Docs](https://docs.github.com/en/actions) - [Workflow syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)                |
-| Vercel         | [Website](https://vercel.com/) - [Docs](https://vercel.com/docs) - [CLI Docs](https://vercel.com/docs/cli)                                                                                                      |
-| Ngrok          | [Website](https://ngrok.com/) - [Docs](https://ngrok.com/docs) - [GitHub](https://github.com/ngrok)                                                                                                             |
-| Swiper         | [Website](https://swiperjs.com/) - [Docs](https://swiperjs.com/get-started) - [GitHub](https://github.com/nolimits4web/swiper)                                                                                  |
+| Technology        | Description & Resources                                                                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **React**         | [Website](https://reactjs.org/) - [Docs](https://reactjs.org/docs/getting-started.html) - [GitHub](https://github.com/facebook/react)                             |
+| **Next.js**       | [Website](https://nextjs.org/) - [Docs](https://nextjs.org/docs) - [GitHub](https://github.com/vercel/next.js)                                                    |
+| **TypeScript**    | [Website](https://www.typescriptlang.org/) - [Docs](https://www.typescriptlang.org/docs/) - [GitHub](https://github.com/microsoft/TypeScript)                     |
+| **Tailwind CSS**  | [Website](https://tailwindcss.com/) - [Docs](https://tailwindcss.com/docs) - [GitHub](https://github.com/tailwindlabs/tailwindcss)                                |
+| **MongoDB**       | [Website](https://www.mongodb.com/) - [Docs](https://www.mongodb.com/docs/) - [GitHub](https://github.com/mongodb/mongo)                                          |
+| **Supabase**      | [Website](https://supabase.com/) - [Docs](https://supabase.com/docs) - [GitHub](https://github.com/supabase/supabase)                                             |
+| **Axios**         | [Website](https://axios-http.com/) - [Docs](https://axios-http.com/docs/intro) - [GitHub](https://github.com/axios/axios)                                         |
+| **Sonner**        | [Website](https://sonner.dev/) - [Docs](https://sonner.dev/docs) - [GitHub](https://github.com/emilkowalski/sonner)                                               |
+| **Radix UI**      | [Website](https://www.radix-ui.com/) - [Docs](https://www.radix-ui.com/docs) - [GitHub](https://github.com/radix-ui/primitives)                                   |
+| **React Icons**   | [Website](https://react-icons.github.io/react-icons/) - [Docs](https://react-icons.github.io/react-icons/) - [GitHub](https://github.com/react-icons/react-icons) |
+| **Framer Motion** | [Website](https://www.framer.com/motion/) - [Docs](https://www.framer.com/docs/) - [GitHub](https://github.com/framer/motion)                                     |
+| **Prettier**      | [Website](https://prettier.io/) - [Docs](https://prettier.io/docs/en/index.html) - [GitHub](https://github.com/prettier/prettier)                                 |
+| **ESLint**        | [Website](https://eslint.org/) - [Docs](https://eslint.org/docs/user-guide/configuring/) - [GitHub](https://github.com/eslint/eslint)                             |
 
-## Support
+---
 
-# If you like my work, you can [buy me a coffee](https://www.buymeacoffee.com/kudanil) and share your thoughts 🎉 ☕
+## 🌟 Features
+
+- **Interactive Design**: Built with **Tailwind CSS** for rapid styling.
+- **Rich Animations**: Smooth transitions using **Framer Motion**.
+- **Real-Time Updates**: Integrated with **MongoDB** and **Supabase** for dynamic data fetching.
+- **Toast Notifications**: Powered by **Sonner** for instant feedback.
+- **Iconography**: Modern icons using **React Icons**.
+- **Robust API Integration**: Fetch and manage data with **Axios**.
+
+---
+
+## 💡 Support
+
+If you enjoy this project and would like to support further development, feel free to [buy me a coffee](https://www.buymeacoffee.com/kudanil). Your contributions are highly appreciated! ☕🎉
