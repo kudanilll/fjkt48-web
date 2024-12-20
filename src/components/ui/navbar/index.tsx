@@ -1,12 +1,12 @@
 "use client";
-import { useSession, signIn } from "next-auth/react";
+// import { useSession, signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
 import { Avatar, Flex, Text } from "@radix-ui/themes";
 // import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { LuUser } from "react-icons/lu";
-import { Session } from "next-auth";
+// import { Session } from "next-auth";
 import NormalButton from "@/components/ui/button/normal-button";
 import navigation from "./route";
 import Image from "next/image";
@@ -86,32 +86,33 @@ function Menu({
   );
 }
 
-function Profile({ session }: { session: Session | null }) {
-  return session ? (
-    <Flex direction="row" className="gap-2">
-      {/* <Avatar fallback={<MdDarkMode />} /> */}
-      <Link aria-label="profile" href="/profile" className="items-center flex">
-        <Avatar src={`${session?.user?.image}`} fallback={<LuUser />} />
-      </Link>
-    </Flex>
-  ) : (
-    <Flex direction="row" className="content-center items-center gap-4">
-      <Text
-        aria-label="login"
-        color="red"
-        className="hover:underline select-none"
-        onClick={() => signIn()}>
-        Masuk
-      </Text>
-      <NormalButton label="register" href="/register">
-        Daftar
-      </NormalButton>
-    </Flex>
-  );
+// function Profile({ session }: { session: Session | null }) {
+function Profile() {
+  // return session ? (
+  //   <Flex direction="row" className="gap-2">
+  //     {/* <Avatar fallback={<MdDarkMode />} /> */}
+  //     <Link aria-label="profile" href="/profile" className="items-center flex">
+  //       <Avatar src={`${session?.user?.image}`} fallback={<LuUser />} />
+  //     </Link>
+  //   </Flex>
+  // ) : (
+  //   <Flex direction="row" className="content-center items-center gap-4">
+  //     <Text
+  //       aria-label="login"
+  //       color="red"
+  //       className="hover:underline select-none"
+  //       onClick={() => signIn()}>
+  //       Masuk
+  //     </Text>
+  //     <NormalButton label="register" href="/register">
+  //       Daftar
+  //     </NormalButton>
+  //   </Flex>
+  // );
 }
 
 export default function NavigationBar() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const pathname = usePathname() || "/";
   const [active, setActive] = useState<boolean>(false);
 
@@ -124,7 +125,7 @@ export default function NavigationBar() {
         <Flex justify="between" className="items-center">
           <Navbar active={active} setActive={setActive} />
           <Menu active={active} pathname={pathname} setActive={setActive} />
-          <Profile session={session} />
+          {/* <Profile session={session} /> */}
         </Flex>
       </div>
     </nav>
