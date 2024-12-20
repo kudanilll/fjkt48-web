@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # FJKT48
 
 FJKT48 is a website about [JKT48](https://jkt48.com/) made by fans. Created with NextJS.
@@ -7,27 +6,6 @@ This project was generated with [Create Next Stack](https://www.create-next-stac
 
 ## Getting Started
 
-=======
-# FJKT48 - DEV
-
-Welcome to Development Branch.
-
-## Getting Started
-
-First step, clone this repo:
-
-```bash
-$ git clone -b development https://github.com/achmaddaniel24/fjkt48-web.git fjkt48
-$ cd fjkt48
-```
-
-Install all packages:
-
-| npm           | pnpm           | yarn           | bun           |
-| ------------- | -------------- | -------------- | ------------- |
-| `npm install` | `pnpm install` | `yarn install` | `bun install` |
-
->>>>>>> development
 To get started, run:
 
 | npm           | pnpm           | yarn       | bun       |
@@ -35,6 +13,7 @@ To get started, run:
 | `npm run dev` | `pnpm run dev` | `yarn dev` | `bun dev` |
 
 <<<<<<< HEAD
+
 ## Final Steps
 
 There are a few final steps that we were not able to perform automatically. We have provided a complete list for you below. You should take care of these before you can start developing your project. You can delete each item from the list as you go along.
@@ -49,19 +28,18 @@ The table below provides names and descriptions of the npm scripts available in 
 
 Each script is run using `npm run <script-name>`. For example: `npm run dev`.
 
-| Name           | Description                                                                    |
-| -------------- | ------------------------------------------------------------------------------ |
-| `dev`          | Runs the Next.js development server.                                           |
-| `build:dev`    | Generates a production build using dev environment (.env.dev)                  |
-| `build:prod`   | Generates a production build using production environment (.env.prod)          |
-| `start:dev`    | Runs the Next.js production server built using `build` script. (development)   |
-| `start:prod`   | Runs the Next.js production server built using `build` script. (production)    |
-| `lint`         | Runs [ESLint](https://eslint.org/) to catch linting errors in the source code. |
-| `ngrok`        | Runs `ngrok http 3000` script.                                                 |
-| `test`         | Runs tests                                                                     |
-| `test:watch`   | Watch tests                                                                    |
-| `format`       | Formats all source code in the project.                                        |
-| `format:check` | Checks the formatting of all code in the project.                              |
+| Name           | Description                                                                  |
+| -------------- | ---------------------------------------------------------------------------- |
+| `dev`          | Runs the Next.js development server.                                         |
+| `build:dev`    | Generates a production build using dev environment (.env.dev)                |
+| `build:prod`   | Generates a production build using production environment (.env.prod)        |
+| `start:dev`    | Runs the Next.js production server built using `build` script. (development) |
+| `start:prod`   | Runs the Next.js production server built using `build` script. (production)  |
+| `ngrok`        | Runs `ngrok http 3000` script.                                               |
+| `test`         | Runs tests                                                                   |
+| `test:watch`   | Watch tests                                                                  |
+| `format`       | Formats all source code in the project.                                      |
+| `format:check` | Checks the formatting of all code in the project.                            |
 
 ## Technologies
 
@@ -84,66 +62,4 @@ The table below gives an overview of the technologies used in this project, as w
 
 ## Support
 
-If you like my work, you can [buy me a coffee](https://www.buymeacoffee.com/kudanil) and share your thoughts 🎉 ☕
-=======
-## To-do List
-
-This is a list of several features that will be developed.
-
-**notes:**
-
-- Please mark ✅ if the feature is complete.
-
-- Please mark ⌛️ if the feature is in the development stage.
-
-- Please mark ❌ if the feature has not been created.
-
-### Authentication
-
-| task                  | status |
-| --------------------- | ------ |
-| Login Page            | ✅     |
-| Register Page         | ✅     |
-| Authentication        | ⌛️     |
-| Auth Button In Navbar | ✅     |
-
-### Pages
-
-| task                     | status |
-| ------------------------ | ------ |
-| User Profile Page        | ❌     |
-| Detail Member/Trainee    | ❌     |
-| Detail Schedule Page     | ❌     |
-| Shopping Page            | ❌     |
-| Live Page (Showroom/idn) | ❌     |
-| About Author Page        | ❌     |
-| Agreements Page          | ✅     |
-
-### Others
-
-| task                            | status |
-| ------------------------------- | ------ |
-| Member/Trainee Image Downloader | ❌     |
-| Optimize Skeleton/Shimmer       | ❌     |
-| ReCreate/ReDesign Schedule Card | ❌     |
-
-## Contribute
-
-Want to contribute? Great!
-
-To fix a bug or enhance an existing module, follow these steps:
-
-- Fork the repo
-
-- Create a new branch (`git checkout -b improve-feature`)
-
-- Make the appropriate changes in the files
-
-- Add changes to reflect the changes made
-
-- Commit your changes (`git commit -am 'Improve feature'`)
-
-- Push to the branch (`git push origin improve-feature`)
-
-- Create a Pull Request
->>>>>>> development
+# If you like my work, you can [buy me a coffee](https://www.buymeacoffee.com/kudanil) and share your thoughts 🎉 ☕

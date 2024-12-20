@@ -44,8 +44,4 @@ next-env.d.ts
 # other
 /backup
 /.vscode
-<<<<<<< HEAD
-package-lock.json
-=======
 .npmcheckrc
->>>>>>> development
