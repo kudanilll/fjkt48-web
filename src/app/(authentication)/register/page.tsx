@@ -91,7 +91,15 @@ export default function RegisterPage() {
             <Flex direction="column" px="4" py="6">
               <div className="hidden md:block">
                 <Flex direction="column" className="mb-4">
-                  <Heading>Registrasi</Heading>
+                  <Heading
+                    size={"7"}
+                    mb={"1"}
+                    className="font-instrument-sans font-semibold">
+                    Baru disini? ayo daftar
+                  </Heading>
+                  {/* <h1 className="font-instrument-sans font-semibold uppercase">
+                    Registrasi
+                  </h1> */}
                   <Text size="2">
                     Silakan isi formulir bawah untuk melanjutkan registrasi
                   </Text>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SeoMetadata } from "@/seo/seo-metadata";
-import { Poppins } from "next/font/google";
+import { Instrument_Sans, Poppins } from "next/font/google";
 import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
 import NavigationBar from "@/components/ui/navbar";
@@ -18,6 +18,11 @@ const poppins = Poppins({
   weight: ["300", "400", "600", "700"],
 });
 
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-instrument-sans",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,9 +31,10 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${poppins.variable} antialiased scroll-smooth no-visible-scrollbar`}
+      className="scroll-smooth no-scrollbar"
       style={{ scrollBehavior: "smooth" }}>
-      <body>
+      <body
+        className={`${poppins.variable} ${instrumentSans.variable} antialiased`}>
         <Providers>
           <header className="bg-red-100">
             <NextTopLoader color="#E53935" showSpinner={false} />

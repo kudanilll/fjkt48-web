@@ -1,4 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
+import axios from "axios";
+
+if (!process.env.API_URL) {
+  throw new Error('Invalid/Missing environment variable: "API_URL"');
+}
+
+if (!process.env.API_KEY) {
+  throw new Error('Invalid/Missing environment variable: "API_KEY"');
+}
+
+const apiUrl = process.env.API_URL;
+const apiKey = process.env.API_KEY;
 
 type FetchOptions<T> = {
   initialData?: T;
@@ -26,13 +38,22 @@ export default function useFetch<T>(
     setError(false);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
-        method: "GET",
-        next: { tags: [tag ?? ""] },
-      });
-      const json = await response.json();
+      options.hooks?.onFetchStart?.();
 
-      if (response.ok && String(json.message).toLowerCase() === "success") {
+      const response = await axios.get(`${apiUrl}${url}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+        },
+        params: {
+          tag: tag ?? "",
+        },
+      });
+
+      const json = response.data;
+
+      if (response.status === 200 && json.success === true) {
+        console.log(json.content);
         setData(json.content);
         options.hooks?.onFetchSuccess?.(json.content);
       } else {
@@ -47,9 +68,8 @@ export default function useFetch<T>(
   }, [url, tag, options.hooks]);
 
   useEffect(() => {
-    options.hooks?.onFetchStart?.();
     fetchData();
-  }, [fetchData, options.hooks]);
+  }, [fetchData]);
 
   return [data, !isLoading && !error, error];
 }

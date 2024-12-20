@@ -1,64 +1,47 @@
-import { useState, useEffect } from "react";
+"use client";
 import { getCurrentDate } from "@/lib/utils";
+import { Schedule } from "@/models/types/schedule.type";
 import header from "./header";
+import useFetch from "@/hooks/use-fetch";
 
-type TableProps = {
-  id: string;
-  event: string;
-  date: string;
-  time: string;
-  slug: string;
-  category: string;
-  day: string;
-};
-
-// Function for sort data from newest -> oldest
-function sort(arr: TableProps[]) {
-  for (var i = 0; i < arr.length; i++) {
-    for (var j = 0; j < arr.length - i - 1; j++) {
-      if (Number(arr[j].id) > Number(arr[j + 1].id)) {
-        var temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
-      }
-    }
-  }
-  return arr;
+function sort(arr: Schedule[]) {
+  return arr.map((item) => ({
+    ...item,
+    schedule: item.schedule.sort((a, b) => Number(a._id) - Number(b._id)),
+  }));
 }
 
-// Function for create a new line if the text of the data has a comma (,)
-function TextDivider(props: { text: string; link?: string }) {
-  const parts = props.text.split(", ");
+function TextDivider({ text, link }: { text: string; link?: string }) {
+  const parts = text.split(", ");
   return (
     <td className="whitespace-nowrap p-3 md:py-4">
       {parts.map((part, index) => (
         <h5 key={index} className="text-center text-sm">
-          <a href={props.link ? props.link : ""}>{part}</a>
+          <a href={link || ""}>{part}</a>
         </h5>
       ))}
     </td>
   );
 }
 
-export default function Table(props: { endpoint: string }) {
-  const [columnTable, setColumnTable] = useState<any[]>([]);
-
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedule${props.endpoint}`, {
-      method: "GET",
-      next: { tags: ["schedule"] },
-    })
-      .then((response) => response.json())
-      .then((data) => setColumnTable(sort(data.content)));
-  }, [props.endpoint]);
+export default function Table({
+  month,
+  year,
+}: {
+  month: string;
+  year: string;
+}) {
+  const [schedule, successFetchSchedule] = useFetch<Schedule[]>(
+    `/schedule/year/${year}/month/${month.toLowerCase()}`,
+    "schedule"
+  );
 
   return (
     <div className="flex flex-col">
       <div className="align-middle inline-block min-w-full">
         <div className="overflow-scroll md:overflow-hidden">
-          {columnTable.length > 0 ? (
+          {successFetchSchedule ? (
             <table className="table-auto overflow-scroll md:overflow-hidden w-full divide-y divide-white bg-red-200">
-              {/* Table Header */}
               <thead className="border-neutral-900">
                 <tr className="divide-x divide-white">
                   {header.map((row, index) => (
@@ -70,28 +53,34 @@ export default function Table(props: { endpoint: string }) {
                   ))}
                 </tr>
               </thead>
-              {/* Table Body */}
               <tbody className="divide-y divide-white">
-                {columnTable.map((row, index) => (
-                  <tr
-                    key={row.id}
-                    className={`select-none divide-x divide-white ${row.date === getCurrentDate() ? "text-red-700" : "text-black"}`}>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
-                      {index + 1}
-                    </td>
-                    <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">{`${row.day}, ${row.date}`}</td>
-                    <TextDivider text={row.time} />
-                    <TextDivider text={row.event} link={row.slug} />
-                  </tr>
-                ))}
+                {schedule &&
+                  sort(schedule).flatMap((row) =>
+                    row.schedule.map((scheduleItem, itemIndex) => (
+                      <tr
+                        key={`${row._id}-${scheduleItem._id}`}
+                        className={`select-none divide-x divide-white ${
+                          scheduleItem.date === getCurrentDate()
+                            ? "text-red-700"
+                            : "text-black"
+                        }`}>
+                        <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
+                          {itemIndex + 1}
+                        </td>
+                        <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
+                          {`${scheduleItem.day}, ${scheduleItem.date}`}
+                        </td>
+                        <TextDivider text={scheduleItem.time} />
+                        <TextDivider text={scheduleItem.event} />
+                      </tr>
+                    ))
+                  )}
               </tbody>
             </table>
           ) : (
-            <table className="table-auto overflow-scroll md:overflow-hidden w-full divide-y divide-white bg-red-200">
-              <h3 className="p-5 text-center text-sm text-red-600 font-semibold select-none">
-                Tidak ada jadwal di bulan ini.
-              </h3>
-            </table>
+            <div className="p-5 text-center text-red-600">
+              Tidak ada jadwal di bulan ini.
+            </div>
           )}
         </div>
       </div>

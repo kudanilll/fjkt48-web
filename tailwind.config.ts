@@ -20,6 +20,7 @@ const config: Config = {
         },
       },
       fontFamily: {
+        "instrument-sans": ["Instrument Sans", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
       },
     },
