@@ -38,12 +38,20 @@ export default function MemberPage() {
 
   const [memberList, successFetchMember] = useFetch<MemberType[]>(
     "/member",
-    "member"
+    "member",
+    {
+      cacheKey: "member",
+      cacheDuration: 300000, // 5 minutes
+    }
   );
 
   const [traineeList, successFetchTrainee] = useFetch<MemberType[]>(
     "/trainee",
-    "trainee"
+    "trainee",
+    {
+      cacheKey: "trainee",
+      cacheDuration: 300000, // 5 minutes
+    }
   );
 
   return (

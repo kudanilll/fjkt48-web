@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
 
-const imagesData = [
+type ImageData = {
+  image: string;
+  desc: string;
+};
+
+const defaultImagesData: ImageData[] = [
   {
     image: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/assets/theater/theater-1.png`,
     desc: "Gerbang Depan Theater",
@@ -20,8 +25,28 @@ const imagesData = [
   },
 ];
 
+function useCachedImagesData(cacheKey: string): ImageData[] {
+  const [imagesData, setImagesData] = useState<ImageData[]>(defaultImagesData);
+
+  useEffect(() => {
+    const cachedData = localStorage.getItem(cacheKey);
+    if (cachedData) {
+      setImagesData(JSON.parse(cachedData));
+    } else {
+      localStorage.setItem(cacheKey, JSON.stringify(defaultImagesData));
+    }
+  }, [cacheKey]);
+
+  return imagesData;
+}
+
 function TheaterSliderDesktop() {
+  const imagesData = useCachedImagesData("theaterImagesData");
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!imagesData || imagesData.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   const goToNextSlide = () =>
     setCurrentIndex((prevIndex) => (prevIndex + 1) % imagesData.length);
@@ -118,6 +143,7 @@ function TheaterSliderDesktop() {
 }
 
 function TheaterSliderMobile() {
+  const imagesData = useCachedImagesData("theaterImagesData");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleThumbnailClick = (index: number) => setCurrentIndex(index);

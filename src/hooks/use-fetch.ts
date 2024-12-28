@@ -15,6 +15,7 @@ const apiKey = process.env.API_KEY;
 type FetchOptions<T> = {
   initialData?: T;
   cacheKey?: string;
+  cacheDuration?: number; // in milliseconds
   hooks?: {
     onFetchStart?: () => void;
     onFetchSuccess?: (data: T) => void;
@@ -40,6 +41,24 @@ export default function useFetch<T>(
     try {
       options.hooks?.onFetchStart?.();
 
+      // Check cache
+      const cachedData = localStorage.getItem(cacheKey);
+      const cachedTimestamp = localStorage.getItem(`${cacheKey}_timestamp`);
+      const now = Date.now();
+
+      if (
+        cachedData &&
+        cachedTimestamp &&
+        options.cacheDuration &&
+        now - parseInt(cachedTimestamp, 10) < options.cacheDuration
+      ) {
+        const parsedData = JSON.parse(cachedData) as T;
+        setData(parsedData);
+        options.hooks?.onFetchSuccess?.(parsedData);
+        setIsLoading(false);
+        return;
+      }
+
       const response = await axios.get(`${apiUrl}${url}`, {
         headers: {
           "Content-Type": "application/json",
@@ -56,6 +75,10 @@ export default function useFetch<T>(
         console.log(json.content);
         setData(json.content);
         options.hooks?.onFetchSuccess?.(json.content);
+
+        // Save to cache
+        localStorage.setItem(cacheKey, JSON.stringify(json.content));
+        localStorage.setItem(`${cacheKey}_timestamp`, now.toString());
       } else {
         throw new Error("Fetch failed");
       }
@@ -65,7 +88,7 @@ export default function useFetch<T>(
     } finally {
       setIsLoading(false);
     }
-  }, [url, tag, options.hooks]);
+  }, [options.hooks, options.cacheDuration, cacheKey, url, tag]);
 
   useEffect(() => {
     options.hooks?.onFetchStart?.();

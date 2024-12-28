@@ -33,7 +33,11 @@ function normalize(data: BannerType[]): BannerType[] {
 export default function BannerSlider() {
   const [banner, successFetchBanner] = useFetch<any>(
     "/banner/home", // api path
-    "banner-home" // tag
+    "banner-home",
+    {
+      cacheKey: "banner_home",
+      cacheDuration: 300000, // 5 minutes
+    }
   );
 
   return (

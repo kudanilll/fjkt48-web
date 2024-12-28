@@ -1,8 +1,12 @@
 "use client";
+
+import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { getCurrentDate } from "@/lib/utils";
 import { Schedule } from "@/models/types/schedule.type";
 import header from "./header";
 import useFetch from "@/hooks/use-fetch";
+import Loader from "@/components/ui/loader";
 
 function sort(arr: Schedule[]) {
   return arr.map((item) => ({
@@ -31,59 +35,80 @@ export default function Table({
   month: string;
   year: string;
 }) {
+  const router = useRouter();
+  const [currentMonth, setCurrentMonth] = useState(month.toLowerCase());
+  const [currentYear, setCurrentYear] = useState(year);
+
   const [schedule, successFetchSchedule] = useFetch<Schedule[]>(
     `/schedule/year/${year}/month/${month.toLowerCase()}`,
-    "schedule"
+    "schedule",
+    {
+      cacheKey: `schedule_${year}_${month.toLowerCase()}`,
+      cacheDuration: 300000, // 5 minutes
+    }
   );
 
+  useEffect(() => {
+    setCurrentMonth(month.toLowerCase());
+    setCurrentYear(year);
+    router.replace(`schedule?date=${currentYear}-${currentMonth}`);
+  }, [currentMonth, currentYear, month, router, year]);
+
   return (
-    <div className="flex flex-col">
-      <div className="align-middle inline-block min-w-full">
-        <div className="overflow-scroll md:overflow-hidden">
-          {successFetchSchedule ? (
-            <table className="table-auto overflow-scroll md:overflow-hidden w-full divide-y divide-white bg-red-200">
-              <thead className="border-neutral-900">
-                <tr className="divide-x divide-white">
-                  {header.map((row, index) => (
-                    <th
-                      key={index}
-                      className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600 select-none`}>
-                      {row.title}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white">
-                {schedule &&
-                  sort(schedule).flatMap((row) =>
-                    row.schedule.map((scheduleItem, itemIndex) => (
-                      <tr
-                        key={`${row._id}-${scheduleItem._id}`}
-                        className={`select-none divide-x divide-white text-red-700 ${
-                          scheduleItem.date === getCurrentDate()
-                            ? "font-semibold"
-                            : "font-normal"
-                        }`}>
-                        <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
-                          {itemIndex + 1}
-                        </td>
-                        <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
-                          {`${scheduleItem.day}, ${scheduleItem.date}`}
-                        </td>
-                        <TextDivider text={scheduleItem.time} />
-                        <TextDivider text={scheduleItem.event} />
-                      </tr>
-                    ))
-                  )}
-              </tbody>
-            </table>
-          ) : (
-            <div className="p-5 text-center text-red-600 bg-red-200">
-              Tidak ada jadwal di bulan ini.
-            </div>
-          )}
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center">
+          <Loader />
+        </div>
+      }>
+      <div className="flex flex-col">
+        <div className="align-middle inline-block min-w-full">
+          <div className="overflow-scroll md:overflow-hidden">
+            {successFetchSchedule ? (
+              <table className="table-auto overflow-scroll md:overflow-hidden w-full divide-y divide-white bg-red-200">
+                <thead className="border-neutral-900">
+                  <tr className="divide-x divide-white">
+                    {header.map((row, index) => (
+                      <th
+                        key={index}
+                        className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600 select-none`}>
+                        {row.title}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white">
+                  {schedule &&
+                    sort(schedule).flatMap((row) =>
+                      row.schedule.map((scheduleItem, itemIndex) => (
+                        <tr
+                          key={`${row._id}-${scheduleItem._id}`}
+                          className={`select-none divide-x divide-white text-red-700 ${
+                            scheduleItem.date === getCurrentDate()
+                              ? "font-semibold"
+                              : "font-normal"
+                          }`}>
+                          <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
+                            {itemIndex + 1}
+                          </td>
+                          <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
+                            {`${scheduleItem.day}, ${scheduleItem.date}`}
+                          </td>
+                          <TextDivider text={scheduleItem.time} />
+                          <TextDivider text={scheduleItem.event} />
+                        </tr>
+                      ))
+                    )}
+                </tbody>
+              </table>
+            ) : (
+              <div className="p-5 text-center text-red-600 bg-red-200">
+                Tidak ada jadwal di bulan ini.
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
