@@ -59,10 +59,10 @@ export default function Table({
                     row.schedule.map((scheduleItem, itemIndex) => (
                       <tr
                         key={`${row._id}-${scheduleItem._id}`}
-                        className={`select-none divide-x divide-white ${
+                        className={`select-none divide-x divide-white text-red-700 ${
                           scheduleItem.date === getCurrentDate()
-                            ? "text-red-700"
-                            : "text-black"
+                            ? "font-semibold"
+                            : "font-normal"
                         }`}>
                         <td className="whitespace-nowrap p-3 md:py-4 text-sm text-center">
                           {itemIndex + 1}
@@ -78,7 +78,7 @@ export default function Table({
               </tbody>
             </table>
           ) : (
-            <div className="p-5 text-center text-red-600">
+            <div className="p-5 text-center text-red-600 bg-red-200">
               Tidak ada jadwal di bulan ini.
             </div>
           )}

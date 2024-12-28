@@ -68,8 +68,9 @@ export default function useFetch<T>(
   }, [url, tag, options.hooks]);
 
   useEffect(() => {
+    options.hooks?.onFetchStart?.();
     fetchData();
-  }, [fetchData]);
+  }, [fetchData, options.hooks]);
 
   return [data, !isLoading && !error, error];
 }
