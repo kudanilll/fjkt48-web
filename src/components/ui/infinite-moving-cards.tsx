@@ -70,7 +70,7 @@ export function InfiniteMovingImages({
 
       window.addEventListener("resize", calculateRepetitions);
       return () => window.removeEventListener("resize", calculateRepetitions);
-    }, [images]);
+    }, []);
 
     const x = useTransform(baseX, (v) => `${wrap(-100 / repetitions, 0, v)}%`);
 
