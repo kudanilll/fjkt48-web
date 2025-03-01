@@ -1,34 +1,50 @@
 "use client";
+
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getCurrentMonth, getCurrentYear, getCurrentDay } from "@/lib/utils";
 import ScheduleCalendar from "@/components/ui/schedule-calendar";
 
+const MIN_YEAR = 2024;
+const MAX_YEAR = 2025;
+
 export default function SchedulePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Mendapatkan tanggal dari URL atau menggunakan tanggal saat ini sebagai default
+  const initialDate =
+    searchParams.get("date") ||
+    `${getCurrentYear()}-${getCurrentMonth().toLowerCase()}`;
   const [date, setDate] = useState({
-    month: getCurrentMonth(),
-    year: String(getCurrentYear()),
+    month: initialDate.split("-")[1],
+    year: initialDate.split("-")[0],
   });
 
+  // Mengatur tanggal saat URL berubah
+  useEffect(() => {
+    const { month, year } = date;
+
+    // Redirect jika tahun di luar batas
+    if (Number(year) < MIN_YEAR) {
+      setDate({ month: "januari", year: "2024" });
+      router.push("/schedule?date=2024-januari");
+    } else if (Number(year) > MAX_YEAR) {
+      setDate({ month: "desember", year: "2025" });
+      router.push("/schedule?date=2025-desember");
+    }
+  }, [date, router]);
+
   function handleDateChange(newDate: { month: string; year: string }) {
-    // if (Number(newDate.year) === 2024) {
-    //   return;
-    // }
     setDate(newDate);
     const newPath = `/schedule?date=${newDate.year}-${newDate.month.toLowerCase()}`;
     router.push(newPath);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  useEffect(() => {
-    const queryPath = `/schedule?date=${date.year}-${date.month.toLowerCase()}`;
-    router.prefetch(queryPath);
-  }, [date, router]);
-
   return (
-    <div>
-      <div className="mb-4 select-none">
+    <div className="select-none">
+      <div className="mb-4">
         <h1 className="text-2xl font-semibold text-red-600">
           Jadwal Acara JKT48
         </h1>

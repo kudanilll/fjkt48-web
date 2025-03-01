@@ -63,7 +63,7 @@ export default function Footer() {
         <ul className="mt-6 flex justify-center gap-6 md:gap-8">
           <li>
             <Link
-              href=""
+              href="#"
               rel="noreferrer"
               target="_blank"
               className="transition hover:text-red-800/75">

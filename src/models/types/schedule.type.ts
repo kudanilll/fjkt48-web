@@ -5,6 +5,7 @@ export type ScheduleData = {
   date: string;
   event: string;
   time: string;
+  slug: string;
 };
 
 export type Schedule = {
