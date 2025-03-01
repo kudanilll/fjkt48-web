@@ -89,7 +89,7 @@ export default function ScheduleCalendar(props: ScheduleCalendarProps) {
           }`}>
           <MdArrowBack size={24} />
         </button>
-        <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600 select-none">
+        <h5 className="text-center text-sm font-semibold pt-3 px-1 text-red-600">
           {`${currentDate.month.toUpperCase()} - ${currentDate.year}`}
         </h5>
         <button

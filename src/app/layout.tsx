@@ -34,7 +34,7 @@ export default function RootLayout({
       className="scroll-smooth no-scrollbar"
       style={{ scrollBehavior: "smooth" }}>
       <body
-        className={`${poppins.variable} ${instrumentSans.variable} antialiased`}>
+        className={`${poppins.variable} ${instrumentSans.variable} antialiased select-none`}>
         <Providers>
           <header className="bg-red-100">
             <NextTopLoader color="#E53935" showSpinner={false} />

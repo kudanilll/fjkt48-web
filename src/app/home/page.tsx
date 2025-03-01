@@ -45,9 +45,9 @@ export default function HomePage() {
     <div>
       <PageWrapper marginTop={8}>
         <div className="my-8">
-          <Heading>Berita tentang JKT48</Heading>
+          {/* <Heading>Berita tentang JKT48</Heading>
           <div className="mb-4 gap-1 grid grid-cols-1 md:grid-cols-3 content-center">
-            {/* {successFetchNews
+          {successFetchNews
               ? news.map((item) => (
                   <NewsCard
                     key={item.id}
@@ -60,22 +60,22 @@ export default function HomePage() {
                 ))
               : [...Array(6)].map((_, index) => (
                   <ShimmerCard key={index} style="news-card" />
-                ))} */}
+                ))}
           </div>
           <LongButton label="news" href="/news">
             Berita selengkapnya
-          </LongButton>
+          </LongButton> */}
         </div>
-        <div className="relative mb-12 row md:flex  z-10">
+        <div className="relative my-10 md:my-16 row md:flex z-10">
           {/* Background Text */}
           <div className="absolute inset-0 justify-center items-center z-0 hidden md:flex">
-            <h1 className="text-red-600 text-[28rem] font-thin opacity-10 pointer-events-none select-none">
+            <h1 className="text-red-600 text-[28rem] font-thin opacity-10 pointer-events-none">
               JKT48
             </h1>
           </div>
           <div className="justify-center row md:flex">
             {/* Grid Images */}
-            <div className="grid grid-cols-2 grid-rows-1 gap-4 relative z-10 md:w-2/5">
+            <div className="grid grid-cols-2 grid-rows-1 gap-4 relative z-10">
               <div className="overflow-hidden rounded-lg">
                 <Image
                   style={{ width: "100%", height: "auto" }}
@@ -112,7 +112,7 @@ export default function HomePage() {
             </div>
 
             {/* Text Content */}
-            <div className="relative md:p-14 md:my-auto select-none z-10 md:w-1/2">
+            <div className="relative md:p-14 md:my-auto z-10 md:w-1/2">
               <h1 className="hidden md:block text-red-600 text-2xl md:text-3xl mt-4 md:mt-0 mb-6">
                 Apa itu JKT48 Theater?
               </h1>
@@ -163,7 +163,7 @@ export default function HomePage() {
       </PageWrapper> */}
       <ReleaseSlider />
       <NormalPageWrapper marginTop={1}>
-        <div className="mb-8 select-none">
+        <div className="mb-8">
           <h1 className="text-xl md:hidden text-center text-red-600 mb-2">
             Tautan Spesial
           </h1>

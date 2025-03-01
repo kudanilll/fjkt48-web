@@ -66,7 +66,7 @@ export default function ReleaseSlider() {
   }
 
   return (
-    <div className="mb-4 select-none">
+    <div className="mb-4">
       <Swiper
         pagination={{
           clickable: true,

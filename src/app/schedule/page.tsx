@@ -43,7 +43,7 @@ export default function SchedulePage() {
   }
 
   return (
-    <div className="select-none">
+    <div className="mt-8">
       <div className="mb-4">
         <h1 className="text-2xl font-semibold text-red-600">
           Jadwal Acara JKT48

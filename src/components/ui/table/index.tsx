@@ -55,7 +55,7 @@ export default function Table({
                       {header.map((row, index) => (
                         <th
                           key={index}
-                          className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600 select-none`}>
+                          className={`${index === 3 ? "px-20 py-4" : "p-4"} text-red-600`}>
                           {row.title}
                         </th>
                       ))}
@@ -68,7 +68,7 @@ export default function Table({
                           ? row.schedule.map((scheduleItem, itemIndex) => (
                               <tr
                                 key={`${row._id}-${scheduleItem._id}`}
-                                className={`select-none divide-x divide-white text-red-700 ${
+                                className={`divide-x divide-white text-red-700 ${
                                   scheduleItem.date === getCurrentDate()
                                     ? "font-semibold"
                                     : "font-normal"

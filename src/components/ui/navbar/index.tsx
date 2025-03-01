@@ -1,4 +1,5 @@
 "use client";
+
 // import { useSession, signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -93,7 +94,7 @@ function Profile() {
       <Text
         aria-label="login"
         color="red"
-        className="hover:underline select-none"
+        className="hover:underline"
         onClick={() => {}}>
         Masuk
       </Text>
@@ -114,7 +115,7 @@ function Profile() {
   //     <Text
   //       aria-label="login"
   //       color="red"
-  //       className="hover:underline select-none"
+  //       className="hover:underline"
   //       onClick={() => signIn()}>
   //       Masuk
   //     </Text>

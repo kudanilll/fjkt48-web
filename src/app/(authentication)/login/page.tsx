@@ -147,7 +147,7 @@ export default function LoginPage() {
           alt="Login Image"
           width={500}
           height={500}
-          className="object-contain h-full w-full"
+          className="object-cover h-full w-full"
           priority
         />
       </div>

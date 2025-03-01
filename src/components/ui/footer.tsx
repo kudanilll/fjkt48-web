@@ -8,9 +8,9 @@ export default function Footer() {
   const noNavbarRoutes = ["/login", "/register", "/otp-verification"];
   if (noNavbarRoutes.includes(pathname)) return <></>;
   return (
-    <footer className="bg-red-200 text-red-800">
-      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8 select-none">
-        <p className="mx-auto mt-6 text-center leading-relaxed max-w-xs md:max-w-xl md:text-sm">
+    <footer className="bg-red-200 text-red-800 text-sm">
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+        <p className="mx-auto mt-6 text-center leading-relaxed max-w-xs md:max-w-xl">
           Copyright &copy; {new Date().getFullYear()}, All rights reserved.
           <br />
           Create with 🧠 by&nbsp;

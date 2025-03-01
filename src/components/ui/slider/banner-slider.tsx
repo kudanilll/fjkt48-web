@@ -57,7 +57,7 @@ export default function BannerSlider() {
         coverflowEffect={{
           rotate: 0,
           stretch: 0,
-          depth: 150,
+          depth: 240,
           modifier: 2.5,
           slideShadows: true,
         }}
@@ -70,7 +70,7 @@ export default function BannerSlider() {
         grabCursor={true}
         loop={true}
         autoplay={{
-          delay: 3000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -84,8 +84,7 @@ export default function BannerSlider() {
               <SwiperSlide key={item}>
                 <Link target="_blank" href={banner[item].url}>
                   <Image
-                    className="object-cover h-full md:h-96 rounded-lg"
-                    style={{ width: "100", height: "auto" }}
+                    className="object-fill h-full rounded-lg"
                     width={700}
                     height={700}
                     alt={banner[item].image}

@@ -11,6 +11,10 @@ const config: Config = {
       animation: {
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+        "scroll-left":
+          "scroll-left var(--animation-duration, 40s) linear infinite",
+        "scroll-right":
+          "scroll-right var(--animation-duration, 40s) linear infinite",
       },
       keyframes: {
         scroll: {
@@ -18,9 +22,24 @@ const config: Config = {
             transform: "translate(calc(-50% - 0.5rem))",
           },
         },
+        "scroll-left": {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(-50%)",
+          },
+        },
+        "scroll-right": {
+          "0%": {
+            transform: "translateX(-50%)",
+          },
+          "100%": {
+            transform: "translateX(0)",
+          },
+        },
       },
       fontFamily: {
-        "instrument-sans": ["Instrument Sans", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
       },
     },
