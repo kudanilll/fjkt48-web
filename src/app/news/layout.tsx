@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
+import { NewsMetadata } from "@/common/seo-metadata";
 import PageWrapper from "@/components/wrapper/page-wrapper";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Berita",
-  description: "Berita Seputar JKT48",
-};
+export const metadata: Metadata = NewsMetadata;
 
 export default function NewsLayout({
   children,

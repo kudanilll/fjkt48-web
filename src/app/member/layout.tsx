@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
+import { MemberMetadata } from "@/common/seo-metadata";
 import PageWrapper from "@/components/wrapper/page-wrapper";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Member",
-  description: "Daftar Member & Trainee JKT48",
-};
+export const metadata: Metadata = MemberMetadata;
 
 export default function MemberLayout({
   children,

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
+import { LiveMetadata } from "@/common/seo-metadata";
 import PageWrapper from "@/components/wrapper/page-wrapper";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Live",
-  description: "",
-};
+export const metadata: Metadata = LiveMetadata;
 
 export default function LiveLayout({
   children,

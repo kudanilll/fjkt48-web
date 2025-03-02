@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
+import { TheaterMetadata } from "@/common/seo-metadata";
 import PageWrapper from "@/components/wrapper/page-wrapper";
 
-export const metadata: Metadata = {
-  title: "FJKT48 | Theater",
-  description: "",
-};
+export const metadata: Metadata = TheaterMetadata;
 
 export default function TheaterLayout({
   children,
