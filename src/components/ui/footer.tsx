@@ -1,16 +1,26 @@
 "use client";
+
 import { usePathname } from "next/navigation";
 import { FaGithub, FaDribbble, FaSquareXTwitter } from "react-icons/fa6";
+import { Text } from "@/components/typography";
 import Link from "next/link";
 
 export default function Footer() {
   const pathname = usePathname() || "/";
-  const noNavbarRoutes = ["/login", "/register", "/otp-verification"];
+  const noNavbarRoutes = [
+    "/login",
+    "/register",
+    "/otp-verification",
+    "/member",
+  ];
   if (noNavbarRoutes.includes(pathname)) return <></>;
+
   return (
-    <footer className="bg-red-200 text-red-800 text-sm">
+    <footer className="bg-red-200 text-sm">
       <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
-        <p className="mx-auto mt-6 text-center leading-relaxed max-w-xs md:max-w-xl">
+        <Text
+          fontColor="text-red-800"
+          className="mx-auto mt-6 text-center leading-relaxed max-w-xs md:max-w-xl">
           Copyright &copy; {new Date().getFullYear()}, All rights reserved.
           <br />
           Create with 🧠 by&nbsp;
@@ -30,8 +40,10 @@ export default function Footer() {
             Muhammad Ikhsan
           </Link>
           .
-        </p>
-        <p className="mx-auto mt-6 max-w-md text-center md:text-sm">
+        </Text>
+        <Text
+          fontColor="text-red-800"
+          className="mx-auto mt-6 max-w-md text-center md:text-sm">
           <Link className="transition hover:text-red-800/75" href="/about">
             About Us
           </Link>
@@ -59,8 +71,8 @@ export default function Footer() {
             href="/privacy-policy">
             Privacy Policy
           </Link>
-        </p>
-        <ul className="mt-6 flex justify-center gap-6 md:gap-8">
+        </Text>
+        <ul className="mt-6 flex justify-center gap-6 md:gap-8 text-red-800">
           <li>
             <Link
               href="#"

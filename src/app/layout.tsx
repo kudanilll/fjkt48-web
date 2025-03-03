@@ -5,7 +5,8 @@ import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
 import NavigationBar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
-import Providers from "./providers";
+import Providers from "@/common/providers";
+
 import "@radix-ui/themes/styles.css";
 import "@/styles/globals.css";
 
@@ -34,7 +35,7 @@ export default function RootLayout({
             <NextTopLoader color="#E53935" showSpinner={false} />
             <NavigationBar />
           </header>
-          <main className="flex flex-col min-h-screen bg-red-50 text-black">
+          <main className="flex flex-col min-h-screen bg-red-50">
             {children}
           </main>
           <Footer />

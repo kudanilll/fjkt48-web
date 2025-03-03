@@ -4,15 +4,17 @@
 import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Cross as Hamburger } from "hamburger-react";
-import { Avatar, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Flex } from "@radix-ui/themes";
 // import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { LuUser } from "react-icons/lu";
 // import { Session } from "next-auth";
+import { Text } from "@/components/typography";
 import NormalButton from "@/components/ui/button/normal-button";
-import navigation from "./route";
 import Image from "next/image";
 import Link from "next/link";
+import navigation from "./route";
 import "./navbar.css";
+import { cn } from "@/lib/utils";
 
 function Navbar({
   active,
@@ -69,15 +71,15 @@ function Menu({
                 href={item.path}
                 aria-label={item.name}
                 onClick={() => setActive(false)}
-                className="block md:inline-block md:hover:bg-red-200 md:hover:rounded-lg duration-150">
-                <span
-                  className={`block md:inline-block ${
-                    pathname.includes(item.path)
-                      ? "text-red-600 font-extrabold active-item"
-                      : "text-red-500 font-semibold"
-                  } md:px-3 py-2 text-xl md:text-base md:pb-2 md:hover:text-red-600 duration-100`}>
-                  {item.name}
-                </span>
+                className="block md:inline-block md:hover:bg-red-200/40 md:hover:rounded-full transition-all duration-300 ease-out">
+                <div className="md:px-4 py-2 md:pb-2">
+                  <Text
+                    as="span"
+                    fontColor="text-red-500"
+                    fontFamily="font-semibold">
+                    {item.name}
+                  </Text>
+                </div>
               </Link>
             </li>
           ))}
@@ -91,12 +93,15 @@ function Menu({
 function Profile() {
   return (
     <Flex direction="row" className="content-center items-center gap-4">
-      <Text
-        aria-label="login"
-        color="red"
-        className="hover:underline"
-        onClick={() => {}}>
-        Masuk
+      <Text aria-label="login" className="relative group" mobileHidden>
+        <Text as="span" fontColor="text-red-600">
+          Masuk
+        </Text>
+        <Text
+          as="span"
+          className="absolute -bottom-0 left-0 w-0 transition-all duration-300 h-0.5 bg-red-600 group-hover:w-full">
+          {" "}
+        </Text>
       </Text>
       <NormalButton label="register" href="/register">
         Daftar
@@ -136,7 +141,13 @@ export default function NavigationBar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-red-100 md:bg-transparent">
-      <div className="fixed top-0 left-0 right-0 z-10 mx-auto w-full px-4 py-2 bg-red-100">
+      <div
+        className={cn(
+          "fixed top-0 left-0 right-0 z-10 mx-auto w-full px-4 py-2",
+          "bg-red-100"
+          // TODO:
+          // pathname === "/member" ? "bg-red-100 md:bg-transparent" : "bg-red-100"
+        )}>
         <Flex justify="between" className="items-center">
           <Navbar active={active} setActive={setActive} />
           <Menu active={active} pathname={pathname} setActive={setActive} />

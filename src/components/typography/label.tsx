@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import TextProps from "./text.type";
 import Text from "./text";
 
-export default function Paragraph(props: TextProps) {
-  const fontFamily = props.fontFamily ? props.fontFamily : "font-normal";
+export default function Label(props: TextProps) {
+  const fontFamily = props.fontFamily ? props.fontFamily : "font-medium";
   return (
     <Text
-      as="p"
+      as="label"
       className={cn(
-        "text-gray-900 text-base md:text-lg leading-relaxed",
+        "text-gray-700 text-sm md:text-base tracking-wide",
         fontFamily,
         props.className
       )}>

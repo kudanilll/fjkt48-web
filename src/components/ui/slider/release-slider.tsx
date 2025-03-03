@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { FaYoutube } from "react-icons/fa";
+import { Heading, Paragraph } from "@/components/typography";
 import Image from "next/image";
 import Link from "next/link";
 import NormalButton from "@/components/ui/button/normal-button";
-import Heading from "@/components/typography/heading";
-import Paragraph from "@/components/typography/paragraph";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -90,9 +89,13 @@ export default function ReleaseSlider() {
               </Link>
               <div className="md:p-16">
                 <div className="p-10 md:p-0">
-                  <h1 className="text-xl text-red-600 mb-5 md:mb-6">Release</h1>
-                  <Heading fontFamily="font-semibold">{release.title}</Heading>
-                  <Paragraph marginBottom="mb-6">
+                  <Heading as="h5" className="uppercase">
+                    Release
+                  </Heading>
+                  <Heading as="h3" className="mb-4 uppercase">
+                    {release.title}
+                  </Heading>
+                  <Paragraph className="mb-6 opacity-85">
                     {release.description}
                   </Paragraph>
                 </div>
@@ -110,7 +113,7 @@ export default function ReleaseSlider() {
                 width={640}
                 alt={release.title}
                 src={release.imageUrl}
-                className="hidden md:block"
+                className="hidden md:block object-center object-cover"
               />
             </div>
           </SwiperSlide>
