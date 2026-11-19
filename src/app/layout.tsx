@@ -1,46 +1,36 @@
 import type { Metadata } from "next";
-import { SeoMetadata } from "@/common/seo-metadata";
-import { Poppins } from "next/font/google";
-import { Toaster } from "sonner";
-import NextTopLoader from "nextjs-toploader";
-import NavigationBar from "@/components/ui/navbar";
-import Footer from "@/components/ui/footer";
-import Providers from "@/common/providers";
+import { Geist, Geist_Mono } from "next/font/google";
+import "@/app/globals.css";
+import SmoothScroll from "@/components/smooth-scroll";
 
-import "@radix-ui/themes/styles.css";
-import "@/styles/globals.css";
-
-export const metadata: Metadata = SeoMetadata;
-
-const poppins = Poppins({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap",
-  variable: "--font-poppins",
-  weight: ["300", "400", "600", "700"],
 });
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "FJKT48",
+  description: "A website for FJKT48",
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="id"
-      className="scroll-smooth no-scrollbar"
-      style={{ scrollBehavior: "smooth" }}>
-      <body className={`${poppins.variable} antialiased select-none`}>
-        <Providers>
-          <header className="bg-red-100">
-            <NextTopLoader color="#E53935" showSpinner={false} />
-            <NavigationBar />
-          </header>
-          <main className="flex flex-col min-h-screen bg-red-50">
-            {children}
-          </main>
-          <Footer />
-          <Toaster theme="system" position="bottom-center" richColors />
-        </Providers>
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

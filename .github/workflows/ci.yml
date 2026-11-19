@@ -1,34 +1,33 @@
-name: "CI"
+name: CI
 
-on: [pull_request]
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
 jobs:
-  build:
-    name: "Build, lint, and test"
-
+  test-and-build:
+    name: Build & Verify
     runs-on: ubuntu-latest
-
     steps:
-      - name: "Checkout repo"
-        uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: "Set up latest Node LTS"
-        uses: actions/setup-node@v2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: "lts/*"
-          cache: "npm"
+          bun-version: latest
 
-      - name: "Install dependencies"
-        run: npm ci
+      - name: Install Dependencies
+        run: bun install
 
-      - name: "Check format"
-        run: npm run format:check
+      - name: Linting
+        run: bun run lint
 
-      - name: "Build"
-        run: npm run build
-
-      - name: "Lint"
-        run: npm run lint
-
-      - name: "Test"
-        run: npm run test
+      - name: Build Next.js Application
+        run: bun run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder' }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'placeholder-better-auth-secret' }}

@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+:root {
+  /* JKT48 Iconic Crimson Red */
+  --accent: oklch(0.55 0.22 25);
+  --accent-foreground: oklch(0.99 0 0);
+  --focus: var(--accent);
+}
+
+.dark {
+  --background: oklch(0.14 0.01 285);
+  --surface: oklch(0.18 0.01 285);
+  --surface-secondary: oklch(0.22 0.01 285);
+  --accent: oklch(0.6 0.24 25);
+  --accent-foreground: oklch(0.99 0 0);
+}
