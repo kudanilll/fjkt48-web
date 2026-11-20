@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "@heroui/react";
 import { Heart, Sparkle, Users } from "@phosphor-icons/react";
 
@@ -21,21 +22,25 @@ export default function Home() {
       </p>
 
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <Button
-          variant="primary"
-          className="flex items-center gap-2 font-medium"
-        >
-          <Users weight="bold" className="w-5 h-5" />
-          Lihat Member
-        </Button>
+        <Link href="/member">
+          <Button
+            variant="primary"
+            className="flex items-center gap-2 font-medium bg-rose-600 hover:bg-rose-700 text-white"
+          >
+            <Users weight="bold" className="w-5 h-5" />
+            Lihat Member
+          </Button>
+        </Link>
 
-        <Button
-          variant="secondary"
-          className="flex items-center gap-2 font-medium"
-        >
-          <Heart weight="fill" className="w-5 h-5 text-rose-600" />
-          Dukung Oshi
-        </Button>
+        <Link href="/member">
+          <Button
+            variant="secondary"
+            className="flex items-center gap-2 font-medium"
+          >
+            <Heart weight="fill" className="w-5 h-5 text-rose-600" />
+            Dukung Oshi
+          </Button>
+        </Link>
       </div>
     </main>
   );
