@@ -7,9 +7,8 @@ import {
   MagnifyingGlass,
   ChatCircle,
   Eye,
-  Flashlight,
+  Flame,
   ArrowUpRight,
-  PushPin,
 } from "@phosphor-icons/react";
 import type { ForumThread } from "@/data/forum-mock-data";
 
@@ -21,273 +20,376 @@ interface ForumThreadListProps {
   onSortChange: (sort: "latest" | "popular" | "unanswered") => void;
 }
 
-export default function ForumThreadList({
-  threads,
-  searchQuery,
-  onSearchChange,
-  activeSort,
-  onSortChange,
-}: ForumThreadListProps) {
-  // Local state for lightstick reactions
-  const [reactedThreadIds, setReactedThreadIds] = useState<
-    Record<string, boolean>
-  >({});
+// FigCraft Exact Threads for Forum / Desktop 1440
+const figcraftPinnedThread = {
+  id: "pinned-1",
+  slug: "baca-dulu-aturan-tiap-blok-spoiler-setlist",
+  repliesCount: 42,
+  category: "Obrolan Bebas",
+  title: "Baca dulu: aturan tiap blok, spoiler setlist, dan cara tag member",
+  author: "admin.fjkt48",
+  authorRole: "pengurus forum · disematkan",
+  reactions: 512,
+  views: "18,4rb",
+};
 
-  const toggleReaction = (e: React.MouseEvent, threadId: string) => {
+const figcraftForumThreads = [
+  {
+    id: "f-1",
+    slug: "spoiler-mc-birthday-show-besok",
+    repliesCount: 12,
+    category: "Theater & Setlist",
+    memberNickname: "christy",
+    memberName: "Christy",
+    tag: "Pertaruhan Cinta",
+    title: "Spoiler MC birthday show besok? Tulis tebakan kalian di sini",
+    author: "anakfx",
+    oshi: "Christy",
+    time: "2 menit lalu",
+    reactions: 31,
+    views: "402",
+  },
+  {
+    id: "f-2",
+    slug: "marsha-baru-mulai-live-di-idn",
+    repliesCount: 23,
+    category: "Live Streaming",
+    memberNickname: "marsha",
+    memberName: "Marsha",
+    title:
+      "Marsha baru mulai live di IDN, katanya mau spill lagu favorit di setlist baru",
+    author: "marshmallow48",
+    oshi: "Marsha",
+    time: "6 menit lalu",
+    reactions: 88,
+    views: "1,1rb",
+  },
+  {
+    id: "f-3",
+    slug: "kathrina-makin-jago-mc",
+    repliesCount: 37,
+    category: "Member & Oshi",
+    memberNickname: "kathrina",
+    memberName: "Kathrina",
+    title: "Kathrina makin jago MC. Momen favorit kalian dari bulan ini apa?",
+    author: "kathrinaholic",
+    oshi: "Kathrina",
+    time: "14 menit lalu",
+    reactions: 120,
+    views: "1,6rb",
+  },
+  {
+    id: "f-4",
+    slug: "pre-order-photobook-the-smile-collection",
+    repliesCount: 19,
+    category: "Merch & Koleksi",
+    memberNickname: "fiony",
+    memberName: "Fiony",
+    tag: "The Smile Collection",
+    title:
+      "Pre-order photobook The Smile Collection udah dibuka. Ada yang mau patungan ongkir?",
+    author: "lightstickpink",
+    oshi: "Fiony",
+    time: "21 menit lalu",
+    reactions: 54,
+    views: "760",
+  },
+  {
+    id: "f-5",
+    slug: "2-shot-mini-tour-sleman-tanggal-28",
+    repliesCount: 26,
+    category: "Event, MnG & VC",
+    memberNickname: "gita",
+    memberName: "Gita",
+    tag: "Mini Tour Sleman",
+    title: "2-Shot Mini Tour Sleman tanggal 28. Ada rombongan dari Jakarta?",
+    author: "jalanjalan48",
+    oshi: "Gita",
+    time: "38 menit lalu",
+    reactions: 73,
+    views: "980",
+  },
+  {
+    id: "f-6",
+    slug: "lineup-pajama-drive-trainee-kemarin",
+    repliesCount: 64,
+    category: "Theater & Setlist",
+    memberNickname: "fera",
+    memberName: "Fera",
+    tag: "Pajama Drive",
+    title:
+      "Lineup Pajama Drive trainee kemarin seger banget. Siapa yang paling bikin kaget?",
+    author: "penlightmerah",
+    oshi: "Fera",
+    time: "1 jam lalu",
+    reactions: 156,
+    views: "2,2rb",
+  },
+  {
+    id: "f-7",
+    slug: "pertama-kali-nonton-theater-minggu-depan",
+    repliesCount: 48,
+    category: "Obrolan Bebas",
+    title:
+      "Pertama kali nonton theater minggu depan. Tips buat yang belum pernah?",
+    author: "wotabaru",
+    oshi: "belum punya oshi",
+    time: "2 jam lalu",
+    reactions: 97,
+    views: "1,3rb",
+  },
+  {
+    id: "f-8",
+    slug: "jikoshokai-freya-versi-terbaru",
+    repliesCount: 31,
+    category: "Member & Oshi",
+    memberNickname: "freya",
+    memberName: "Freya",
+    title: "Jikoshokai Freya versi terbaru, ada yang udah hafal?",
+    author: "freyanation",
+    oshi: "Freya",
+    time: "3 jam lalu",
+    reactions: 140,
+    views: "1,8rb",
+  },
+];
+
+export default function ForumThreadList(props: ForumThreadListProps) {
+  const { searchQuery, onSearchChange, activeSort, onSortChange } = props;
+  const [reactedIds, setReactedIds] = useState<Record<string, boolean>>({});
+
+  const toggleReaction = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     e.stopPropagation();
-    setReactedThreadIds((prev) => ({
-      ...prev,
-      [threadId]: !prev[threadId],
-    }));
+    setReactedIds((prev) => ({ ...prev, [id]: !prev[id] }));
   };
-
-  // Pinned threads vs regular threads
-  const pinnedThreads = threads.filter((t) => t.isPinned);
-  const regularThreads = threads.filter((t) => !t.isPinned);
 
   return (
     <div className="w-full space-y-6">
-      {/* Toolbar: Search Bar + Sort Segmented Control */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-2 rounded-2xl bg-[var(--surface)] border border-[var(--border)]">
-        {/* Search Input */}
-        <div className="relative flex-1">
+      {/* Toolbar: Sort Tabs on Left, Search Input on Right (FigCraft ID: 2555) */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+        {/* Sort Tabs */}
+        <div className="flex items-center gap-2">
+          {[
+            { id: "latest", label: "Terbaru" },
+            { id: "popular", label: "Terpopuler" },
+            { id: "unanswered", label: "Belum dibalas" },
+          ].map((tab) => {
+            const isActive = activeSort === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() =>
+                  onSortChange(tab.id as "latest" | "popular" | "unanswered")
+                }
+                className={`px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all cursor-pointer ${
+                  isActive
+                    ? "bg-[#1D1A1F] text-white border border-[#3A353D]"
+                    : "bg-transparent text-[#A8A0A3] border border-[#2B272D] hover:text-white"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Search Input with shortcut hint */}
+        <div className="relative flex-1 max-w-sm">
           <MagnifyingGlass
             weight="bold"
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--muted)] pointer-events-none"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A8A0A3] pointer-events-none"
           />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Cari thread, member, atau topik..."
-            className="w-full h-10 pl-10 pr-4 rounded-xl bg-transparent text-sm text-[var(--ink)] placeholder:text-[var(--subtle)] focus:outline-none"
+            placeholder="Cari thread, member, setlist"
+            className="w-full h-10 pl-10 pr-8 rounded-full bg-[#141215] border border-[#2B272D] text-xs text-[#F4EFEA] placeholder:text-[#A8A0A3]/60 focus:outline-none focus:border-crimson-500 transition-colors"
           />
-        </div>
-
-        {/* Sort Segmented Control */}
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-[var(--bg)] shrink-0 self-end sm:self-auto">
-          <button
-            type="button"
-            onClick={() => onSortChange("latest")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              activeSort === "latest"
-                ? "bg-[var(--raised)] text-[var(--ink)] shadow-sm font-semibold"
-                : "text-[var(--muted)] hover:text-[var(--ink)]"
-            }`}
-          >
-            Terbaru
-          </button>
-          <button
-            type="button"
-            onClick={() => onSortChange("popular")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              activeSort === "popular"
-                ? "bg-[var(--raised)] text-[var(--ink)] shadow-sm font-semibold"
-                : "text-[var(--muted)] hover:text-[var(--ink)]"
-            }`}
-          >
-            Terpopuler
-          </button>
-          <button
-            type="button"
-            onClick={() => onSortChange("unanswered")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              activeSort === "unanswered"
-                ? "bg-[var(--raised)] text-[var(--ink)] shadow-sm font-semibold"
-                : "text-[var(--muted)] hover:text-[var(--ink)]"
-            }`}
-          >
-            Belum Dibalas
-          </button>
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 font-mono-data text-xs text-[#A8A0A3]/60 pointer-events-none">
+            /
+          </span>
         </div>
       </div>
 
-      {/* Pinned Thread Notice */}
-      {pinnedThreads.map((thread) => {
-        const hasReacted = reactedThreadIds[thread.id];
-        const displayReactions = thread.reactions + (hasReacted ? 1 : 0);
+      {/* DISEMATKAN (Pinned Section) */}
+      <div className="pt-2">
+        <span className="font-mono-data text-xs font-bold text-crimson-400 tracking-wider uppercase block mb-3">
+          DISEMATKAN
+        </span>
 
-        return (
-          <div
-            key={`pinned-${thread.id}`}
-            className="p-5 sm:p-6 rounded-2xl bg-crimson-950/20 border border-crimson-500/30 space-y-3"
-          >
-            <div className="flex items-center gap-2 text-xs font-mono-data text-crimson-400">
-              <PushPin weight="fill" className="w-4 h-4" />
-              <span className="font-bold uppercase tracking-wider">
-                PINNED THREAD
-              </span>
-              <span>·</span>
-              <span>{thread.categoryName}</span>
-            </div>
-
-            <Link href={`/forum/${thread.slug}`} className="block group">
-              <h2 className="font-sans font-semibold text-xl sm:text-2xl text-[var(--ink)] group-hover:text-crimson-400 transition-colors leading-snug">
-                {thread.title}
-              </h2>
-            </Link>
-
-            <div className="flex items-center justify-between text-xs text-[var(--muted)] font-mono-data pt-2">
-              <div className="flex items-center gap-2">
-                <span className="font-medium text-[var(--ink)]">
-                  {thread.author.name}
-                </span>
-                <span>·</span>
-                <span className="text-crimson-400">
-                  ❤ Oshi: {thread.author.oshi}
-                </span>
-                <span>·</span>
-                <span>{thread.createdAt}</span>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <button
-                  type="button"
-                  onClick={(e) => toggleReaction(e, thread.id)}
-                  className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
-                    hasReacted
-                      ? "text-crimson-400 font-bold"
-                      : "hover:text-crimson-400"
-                  }`}
-                >
-                  <Flashlight weight="fill" className="w-4 h-4" />
-                  <span>{displayReactions}</span>
-                </button>
-
-                <div className="flex items-center gap-1.5">
-                  <ChatCircle weight="bold" className="w-4 h-4" />
-                  <span>{thread.repliesCount}</span>
-                </div>
-              </div>
-            </div>
+        <Link
+          href={`/forum/${figcraftPinnedThread.slug}`}
+          className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60 border-b border-[var(--line)]"
+        >
+          {/* Big Reply Count */}
+          <div className="w-16 shrink-0 flex flex-col items-start justify-center">
+            <span className="font-display font-black text-4xl text-[#F4EFEA] leading-none tracking-tight">
+              {figcraftPinnedThread.repliesCount}
+            </span>
+            <span className="font-sans text-xs font-medium text-[#A8A0A3] mt-0.5">
+              balasan
+            </span>
           </div>
-        );
-      })}
 
-      {/* Regular Thread List */}
-      <div className="divide-y divide-[var(--line)]">
-        {regularThreads.length === 0 ? (
-          <div className="py-16 text-center space-y-3">
-            <p className="font-display text-3xl font-black text-[var(--muted)]">
-              TIDAK ADA THREAD YANG COCOK
-            </p>
-            <p className="text-sm text-[var(--subtle)]">
-              Coba kata kunci pencarian lain atau pilih blok kategori lainnya.
+          {/* Center Info */}
+          <div className="space-y-2 flex-1 min-w-0">
+            <span className="inline-flex items-center gap-1 font-mono-data text-xs text-crimson-400 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
+              <span>{figcraftPinnedThread.category}</span>
+            </span>
+
+            <h3 className="font-sans font-semibold text-lg text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
+              {figcraftPinnedThread.title}
+            </h3>
+
+            <p className="font-sans text-xs text-[#A8A0A3]">
+              <span className="font-semibold text-[#F4EFEA]">
+                {figcraftPinnedThread.author}
+              </span>{" "}
+              {figcraftPinnedThread.authorRole}
             </p>
           </div>
-        ) : (
-          regularThreads.map((thread) => {
-            const hasReacted = reactedThreadIds[thread.id];
-            const displayReactions = thread.reactions + (hasReacted ? 1 : 0);
+
+          {/* Right Stats */}
+          <div className="flex items-center gap-5 shrink-0 font-mono-data text-xs text-[#A8A0A3]">
+            <div className="flex items-center gap-1.5 text-crimson-400">
+              <Flame weight="fill" className="w-4 h-4 text-crimson-500" />
+              <span>{figcraftPinnedThread.reactions}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Eye weight="bold" className="w-4 h-4" />
+              <span>{figcraftPinnedThread.views}</span>
+            </div>
+            <ArrowUpRight weight="bold" className="w-4 h-4 text-[#F4EFEA]" />
+          </div>
+        </Link>
+      </div>
+
+      {/* SEMUA BLOK · TERBARU Subheader */}
+      <div className="pt-4">
+        <span className="font-mono-data text-xs font-medium text-[#A8A0A3] uppercase tracking-wider block mb-2">
+          SEMUA BLOK · TERBARU
+        </span>
+
+        {/* Regular Threads List */}
+        <div className="divide-y divide-[var(--line)]">
+          {figcraftForumThreads.map((thread) => {
+            const hasReacted = reactedIds[thread.id];
+            const reactionCount = thread.reactions + (hasReacted ? 1 : 0);
 
             return (
               <Link
                 key={thread.id}
                 href={`/forum/${thread.slug}`}
-                className="group block py-6 sm:py-7 transition-all duration-200 hover:bg-[var(--surface)]/50 -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-2xl"
+                className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60"
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  {/* Left: Tags + Title + Author info */}
-                  <div className="space-y-2.5 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap text-xs">
-                      <span className="px-2.5 py-0.5 rounded-full bg-crimson-500/15 text-crimson-400 font-semibold border border-crimson-500/30">
-                        {thread.categoryName}
-                      </span>
-                      {thread.tags.map((tag) => (
-                        <span
-                          key={tag.slug}
-                          className="px-2.5 py-0.5 rounded-full bg-[var(--surface)] text-[var(--muted)] font-medium border border-[var(--border)]"
-                        >
-                          #{tag.label}
+                {/* Big Reply Count */}
+                <div className="w-16 shrink-0 flex flex-col items-start justify-center">
+                  <span className="font-display font-black text-4xl text-[#F4EFEA] leading-none tracking-tight">
+                    {thread.repliesCount}
+                  </span>
+                  <span className="font-sans text-xs font-medium text-[#A8A0A3] mt-0.5">
+                    balasan
+                  </span>
+                </div>
+
+                {/* Center: Tags + Title + Author info */}
+                <div className="space-y-2 flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap text-xs">
+                    <span className="inline-flex items-center gap-1 font-mono-data text-xs text-crimson-400 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
+                      <span>{thread.category}</span>
+                    </span>
+
+                    {thread.memberNickname && (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] border border-[#2B272D] text-xs">
+                        <span className="relative w-3.5 h-3.5 rounded-full overflow-hidden shrink-0">
+                          <Image
+                            src={`/members/${thread.memberNickname}.jpg`}
+                            alt={thread.memberName || ""}
+                            fill
+                            className="object-cover"
+                          />
                         </span>
-                      ))}
-                    </div>
-
-                    <h3 className="font-sans font-semibold text-lg sm:text-xl text-[var(--ink)] group-hover:text-crimson-400 group-hover:translate-x-1 transition-all duration-200 leading-snug">
-                      {thread.title}
-                    </h3>
-
-                    <div className="flex items-center gap-3 text-xs text-[var(--muted)] font-mono-data flex-wrap">
-                      <div className="relative w-5 h-5 rounded-full overflow-hidden bg-neutral-800 shrink-0">
-                        <Image
-                          src={thread.author.avatar}
-                          alt={thread.author.name}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <span className="font-medium text-[var(--ink)]">
-                        {thread.author.name}
+                        <span>{thread.memberName}</span>
                       </span>
-                      <span>·</span>
-                      <span className="text-crimson-400 font-semibold">
-                        ❤ Oshi: {thread.author.oshi}
+                    )}
+
+                    {thread.tag && (
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3] border border-[#2B272D] text-xs">
+                        {thread.tag}
                       </span>
-                      <span>·</span>
-                      <span>{thread.createdAt}</span>
+                    )}
+                  </div>
+
+                  <h3 className="font-sans font-semibold text-lg text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
+                    {thread.title}
+                  </h3>
+
+                  <div className="flex items-center gap-2 text-xs text-[#A8A0A3] font-sans flex-wrap">
+                    <span className="font-medium text-[#F4EFEA]">
+                      {thread.author}
+                    </span>
+                    <span>·</span>
+                    <span className="text-[#A8A0A3]">
+                      {thread.oshi.startsWith("belum")
+                        ? thread.oshi
+                        : `oshi ${thread.oshi}`}
+                    </span>
+                    <span>·</span>
+                    <span>{thread.time}</span>
+                  </div>
+                </div>
+
+                {/* Right: Stats Counter (Reactions, Views) + Arrow */}
+                <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 font-mono-data text-xs text-[#A8A0A3]">
+                  <div className="flex items-center gap-4">
+                    <button
+                      type="button"
+                      onClick={(e) => toggleReaction(e, thread.id)}
+                      className="flex items-center gap-1.5 text-crimson-400 font-medium cursor-pointer"
+                      title="Reaksi"
+                    >
+                      <Flame
+                        weight="fill"
+                        className="w-4 h-4 text-crimson-500"
+                      />
+                      <span>{reactionCount}</span>
+                    </button>
+
+                    <div className="flex items-center gap-1.5 text-[#A8A0A3]">
+                      <ChatCircle weight="bold" className="w-4 h-4" />
+                      <span>{thread.views}</span>
                     </div>
                   </div>
 
-                  {/* Right: Stats Counter (Reactions, Replies, Views) + Arrow */}
-                  <div className="flex items-center justify-between md:justify-end gap-5 pt-2 md:pt-0 shrink-0 font-mono-data text-xs text-[var(--muted)]">
-                    <div className="flex items-center gap-4">
-                      <button
-                        type="button"
-                        onClick={(e) => toggleReaction(e, thread.id)}
-                        className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
-                          hasReacted
-                            ? "text-crimson-400 font-bold"
-                            : "hover:text-crimson-400"
-                        }`}
-                        title="Nyalakan lightstick"
-                      >
-                        <Flashlight
-                          weight="fill"
-                          className="w-4 h-4 text-crimson-400"
-                        />
-                        <span>{displayReactions}</span>
-                      </button>
-
-                      <div
-                        className="flex items-center gap-1.5 hover:text-[var(--ink)] transition-colors"
-                        title="Balasan"
-                      >
-                        <ChatCircle weight="bold" className="w-4 h-4" />
-                        <span>{thread.repliesCount}</span>
-                      </div>
-
-                      <div
-                        className="hidden sm:flex items-center gap-1.5"
-                        title="Views"
-                      >
-                        <Eye weight="bold" className="w-4 h-4 opacity-75" />
-                        <span>{thread.views}</span>
-                      </div>
-                    </div>
-
-                    <div className="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--muted)] group-hover:bg-crimson-500 group-hover:text-white group-hover:border-crimson-500 transition-all duration-200">
-                      <ArrowUpRight weight="bold" className="w-4 h-4" />
-                    </div>
-                  </div>
+                  <ArrowUpRight
+                    weight="bold"
+                    className="w-4 h-4 text-[#F4EFEA] group-hover:text-crimson-400 transition-colors"
+                  />
                 </div>
               </Link>
             );
-          })
-        )}
+          })}
+        </div>
       </div>
 
-      {/* Pagination / Load More */}
-      {regularThreads.length > 0 && (
-        <div className="pt-8 text-center">
-          <button
-            type="button"
-            className="px-6 py-2.5 rounded-full border border-[var(--border)] bg-[var(--surface)] text-xs font-mono-data uppercase font-semibold text-[var(--ink)] hover:bg-[var(--raised)] hover:border-crimson-500 transition-colors cursor-pointer"
-          >
-            Muat thread lainnya
-          </button>
-        </div>
-      )}
+      {/* Bottom Counter & Load More (FigCraft: 9 dari 7.488 thread, Muat 20 thread lagi) */}
+      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--line)]">
+        <span className="font-mono-data text-xs text-[#A8A0A3]">
+          9 dari 7.488 thread
+        </span>
+
+        <button
+          type="button"
+          className="px-6 py-2.5 rounded-full border border-[#2B272D] bg-[#141215] text-xs font-sans font-semibold text-[#F4EFEA] hover:bg-[#1D1A1F] hover:border-[#3A353D] transition-all cursor-pointer"
+        >
+          Muat 20 thread lagi
+        </button>
+      </div>
     </div>
   );
 }

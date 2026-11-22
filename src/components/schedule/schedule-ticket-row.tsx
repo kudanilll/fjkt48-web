@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowSquareOut, ChatCircle } from "@phosphor-icons/react";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import type { JKT48Schedule } from "@/types/jkt48-types";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Member } from "@/types/jkt48-types";
@@ -10,7 +10,7 @@ import type { JKT48Member } from "@/types/jkt48-types";
 interface ScheduleTicketRowProps {
   schedule: JKT48Schedule;
   isToday?: boolean;
-  isNextShow?: boolean;
+  replyCount?: number;
 }
 
 const allMembers = (officialData.members ?? []) as JKT48Member[];
@@ -18,7 +18,7 @@ const allMembers = (officialData.members ?? []) as JKT48Member[];
 export default function ScheduleTicketRow({
   schedule,
   isToday = false,
-  isNextShow = false,
+  replyCount = 64,
 }: ScheduleTicketRowProps) {
   // Parse date
   const dateObj = new Date(schedule.date);
@@ -44,151 +44,166 @@ export default function ScheduleTicketRow({
     ? schedule.date.slice(-2)
     : String(dateObj.getDate());
   const monthName = isNaN(dateObj.getTime())
-    ? "BLN"
+    ? "NOV"
     : monthNames[dateObj.getMonth()]!;
+  const yearNum = isNaN(dateObj.getTime())
+    ? "2026"
+    : String(dateObj.getFullYear());
 
   const isShow = schedule.type === "SHOW";
+  const isSpecialEvent = !isShow;
 
-  // Pick representative lineup avatars (3-5 members for shows)
-  const lineupAvatars = isShow ? allMembers.slice(0, 4) : [];
+  // Select representative lineup members for theater shows
+  const lineupAvatars = isShow ? allMembers.slice(0, 6) : [];
 
   return (
-    <div className="relative group rounded-2xl bg-[var(--color-stage-900)] overflow-hidden transition-all hover:bg-[var(--color-stage-850)] flex flex-col md:flex-row items-stretch md:items-center">
+    <div className="relative rounded-[14px] bg-[#141215] overflow-hidden flex flex-col lg:flex-row items-stretch lg:items-center min-h-[150px] transition-colors hover:bg-[#1A181C]">
       {/* 1. Date Stub */}
       <div
-        className={`w-full md:w-36 py-4 md:py-0 md:min-h-[148px] flex flex-row md:flex-col items-center justify-center gap-1.5 md:gap-0.5 relative flex-none transition-colors ${
-          isToday
-            ? "bg-[var(--color-spotlight)] text-[var(--color-stage-950)]"
-            : isNextShow
-              ? "bg-[var(--color-crimson-500)] text-white"
-              : "bg-[var(--color-stage-800)] text-[var(--color-ink)]"
+        className={`w-full lg:w-[136px] min-h-[90px] lg:min-h-[150px] flex flex-row lg:flex-col items-center justify-center gap-2 lg:gap-0.5 relative flex-none ${
+          isToday && isSpecialEvent
+            ? "bg-[#FFE7CC] text-[#0B0A0C]"
+            : isShow
+              ? "bg-[#7A0B1A] text-[#F4EFEA]"
+              : "bg-[#1D1A1F] text-[#F4EFEA]"
         }`}
       >
         <span
-          className={`text-xs font-mono font-bold tracking-widest ${
-            isToday
-              ? "text-[var(--color-stage-950)]/70"
-              : isNextShow
-                ? "text-white/80"
-                : "text-[var(--color-muted)]"
+          className={`text-[13px] font-mono font-medium tracking-[1px] uppercase ${
+            isToday && isSpecialEvent
+              ? "text-[#0B0A0C]/80"
+              : "text-[#F4EFEA]/80"
           }`}
         >
           {dayName}
         </span>
-        <span className="font-display font-black text-3xl md:text-5xl leading-none">
+        <span
+          className={`font-display font-black text-4xl lg:text-[64px] leading-none ${
+            isToday && isSpecialEvent ? "text-[#0B0A0C]" : "text-[#F4EFEA]"
+          }`}
+        >
           {dayNum}
         </span>
         <span
-          className={`text-[11px] font-mono font-semibold ${
-            isToday
-              ? "text-[var(--color-stage-950)]/70"
-              : isNextShow
-                ? "text-white/80"
-                : "text-[var(--color-muted)]"
+          className={`text-xs font-mono font-medium uppercase ${
+            isToday && isSpecialEvent
+              ? "text-[#0B0A0C]/80"
+              : "text-[#F4EFEA]/80"
           }`}
         >
-          {monthName}
+          {monthName} {yearNum}
         </span>
       </div>
 
-      {/* Perforation Notches on Desktop (hidden on mobile) */}
-      <div className="hidden md:block absolute left-[134px] -top-2.5 w-5 h-5 rounded-full bg-[var(--color-stage-950)] z-20 pointer-events-none" />
-      <div className="hidden md:block absolute left-[134px] -bottom-2.5 w-5 h-5 rounded-full bg-[var(--color-stage-950)] z-20 pointer-events-none" />
+      {/* Perforation Notches on Desktop */}
+      <div className="hidden lg:block absolute left-[126px] -top-2.5 w-5 h-5 rounded-full bg-[#0B0A0C] z-20 pointer-events-none" />
+      <div className="hidden lg:block absolute left-[126px] -bottom-2.5 w-5 h-5 rounded-full bg-[#0B0A0C] z-20 pointer-events-none" />
+      <div className="hidden lg:block absolute left-[136px] top-3 bottom-3 border-r border-dashed border-[#2B272D]/60 pointer-events-none" />
 
-      {/* 2. Main Ticket Info */}
-      <div className="flex-1 p-5 md:px-8 md:py-6 space-y-2">
-        {/* Type chip + Subtitle Tag */}
-        <div className="flex flex-wrap items-center gap-2">
+      {/* 2. Info Container */}
+      <div className="flex-1 px-6 lg:px-9 py-5 lg:py-6 flex flex-col justify-center space-y-1.5">
+        {/* Type Badges */}
+        <div className="flex items-center gap-2">
           <span
-            className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-semibold ${
+            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium ${
               isShow
-                ? "bg-[var(--color-crimson-500)]/20 text-[var(--color-crimson-400)]"
-                : "bg-[var(--color-stage-700)] text-[var(--color-muted)]"
+                ? "bg-[#E5132E]/15 text-[#FF4D5E]"
+                : "bg-[#FFE7CC]/15 text-[#FFE7CC]"
             }`}
           >
-            {isShow ? "Show Theater" : "Event Khusus"}
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                isShow ? "bg-[#FF4D5E]" : "bg-[#FFE7CC]"
+              }`}
+            />
+            {isShow ? "SHOW THEATER" : "EVENT KHUSUS"}
           </span>
 
           {schedule.jkt48_member_type && (
-            <span className="text-xs font-mono text-[var(--color-muted)]">
+            <span className="text-[11px] font-mono text-[#A8A0A3]">
               {schedule.jkt48_member_type}
             </span>
           )}
 
           {isToday && (
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--color-crimson-500)] text-white font-bold animate-pulse">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#E5132E] text-white">
               HARI INI
             </span>
           )}
         </div>
 
         {/* Title */}
-        <h3 className="font-display font-black text-2xl md:text-3xl uppercase tracking-tight text-[var(--color-ink)] group-hover:text-[var(--color-crimson-400)] transition-colors">
+        <h3 className="font-display font-extrabold text-3xl lg:text-[44px] uppercase tracking-tight text-[#F4EFEA] leading-tight">
           {schedule.title}
         </h3>
 
-        {/* Time and Venue in Mono */}
-        <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-[var(--color-muted)]">
-          <span>{schedule.start_time ?? "19:00 WIB"}</span>
-          <span>&bull;</span>
-          <span>fX Sudirman Lt. 4, Jakarta</span>
-        </div>
+        {/* Meta */}
+        <p className="text-[13px] font-mono text-[#A8A0A3] leading-snug">
+          {isShow
+            ? `${schedule.start_time ?? "19:00 WIB"} · Teater JKT48, fX Sudirman Lt. 4`
+            : schedule.start_time
+              ? `${schedule.start_time} · Info resmi di jkt48.com`
+              : "Jam tampil menyusul · info resmi di jkt48.com"}
+        </p>
       </div>
 
-      {/* 3. Lineup Avatars (Desktop only) */}
-      <div className="hidden lg:flex flex-col items-start px-6 py-4 flex-none border-l border-[var(--color-stage-800)]/60">
-        <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-muted)] mb-2">
-          {isShow ? "Sebagian Lineup" : "Informasi"}
-        </span>
+      {/* 3. Lineup Column */}
+      <div className="px-6 lg:px-8 py-3 lg:py-6 flex flex-col justify-center flex-none min-w-[240px]">
         {isShow && lineupAvatars.length > 0 ? (
-          <div className="flex items-center -space-x-2">
-            {lineupAvatars.map((m) => (
-              <div
-                key={m.code}
-                className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[var(--color-stage-900)] bg-[var(--color-stage-800)]"
-                title={m.nickname}
-              >
-                <Image
-                  src={m.photo}
-                  alt={m.nickname}
-                  fill
-                  sizes="32px"
-                  className="object-cover object-top"
-                />
+          <div className="space-y-2">
+            <span className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block">
+              LINEUP · 16 MEMBER
+            </span>
+            <div className="flex items-center -space-x-2.5">
+              {lineupAvatars.map((m) => (
+                <div
+                  key={m.code}
+                  className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#141215] bg-[#1D1A1F] flex-none"
+                  title={m.nickname}
+                >
+                  <Image
+                    src={m.photo}
+                    alt={m.nickname}
+                    fill
+                    sizes="40px"
+                    className="object-cover object-top"
+                  />
+                </div>
+              ))}
+              <div className="relative w-10 h-10 rounded-full border-2 border-[#141215] bg-[#1D1A1F] flex items-center justify-center text-[11px] font-mono text-[#A8A0A3] flex-none">
+                +10
               </div>
-            ))}
-            <div className="w-8 h-8 rounded-full bg-[var(--color-stage-800)] border-2 border-[var(--color-stage-900)] flex items-center justify-center text-[10px] font-mono font-semibold text-[var(--color-muted)]">
-              +12
             </div>
           </div>
         ) : (
-          <span className="text-xs font-mono text-[var(--color-subtle)] italic">
-            Lineup resmi via JKT48
+          <span className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#8A8286]">
+            LINEUP BELUM DIUMUMKAN
           </span>
         )}
       </div>
 
-      {/* 4. Action Buttons */}
-      <div className="flex flex-row md:flex-col items-center md:items-end justify-between p-5 md:px-6 md:py-5 flex-none gap-3 border-t md:border-t-0 md:border-l border-[var(--color-stage-800)]/60 bg-[var(--color-stage-900)]/80">
-        <a
-          href={schedule.link || "https://jkt48.com"}
+      {/* 4. Actions Column */}
+      <div className="px-6 lg:px-7 py-4 lg:py-6 flex flex-row lg:flex-col items-center lg:items-end justify-between lg:justify-center gap-3 flex-none min-w-[180px]">
+        <Link
+          href={schedule.external_url || schedule.link || "https://jkt48.com"}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold bg-[var(--color-crimson-500)] text-white hover:bg-[var(--color-crimson-600)] transition-all shadow-md shadow-[var(--color-crimson-500)]/20"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#E5132E] text-white font-sans text-[15px] font-semibold transition-transform hover:scale-[1.02] active:scale-[0.98]"
         >
-          <span>{isShow ? "Beli Tiket" : "Info Resmi"}</span>
-          <ArrowSquareOut weight="bold" className="w-3.5 h-3.5" />
-        </a>
+          <span>Info resmi</span>
+          <ArrowRight weight="bold" className="w-4 h-4" />
+        </Link>
 
         <Link
-          href={`/forum?tag=${encodeURIComponent(schedule.title.toLowerCase())}`}
-          className="inline-flex items-center gap-1.5 text-xs font-mono text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors"
+          href={`/forum?tag=${encodeURIComponent(schedule.title)}`}
+          className="inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#F4EFEA] underline decoration-current underline-offset-4 hover:text-[#FF4D5E] transition-colors"
         >
-          <ChatCircle
-            weight="bold"
-            className="w-3.5 h-3.5 text-[var(--color-crimson-400)]"
-          />
-          <span>Diskusi show</span>
+          <span>
+            {isShow
+              ? `Diskusi show (${replyCount})`
+              : `Diskusi event (${replyCount})`}
+          </span>
+          <ArrowUpRight weight="bold" className="w-4 h-4" />
         </Link>
       </div>
     </div>

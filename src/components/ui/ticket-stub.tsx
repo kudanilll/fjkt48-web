@@ -1,179 +1,150 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { TicketIcon, ChatCircleIcon } from "@phosphor-icons/react";
 import type { JKT48Schedule } from "@/types/jkt48-types";
 
+export interface TicketData {
+  id: string;
+  day: string;
+  dateNum: string;
+  monthYear: string;
+  badge?: string;
+  title: string;
+  time: string;
+  isFeatured?: boolean;
+  lineup?: string[];
+}
+
 interface TicketStubProps {
-  schedule: JKT48Schedule;
+  ticket?: TicketData;
+  schedule?: JKT48Schedule;
   isToday?: boolean;
   isNext?: boolean;
 }
 
 export default function TicketStub({
+  ticket,
   schedule,
   isToday = false,
-  isNext = false,
 }: TicketStubProps) {
-  // Parse date into Day, Date, Month
-  const dateObj = new Date(schedule.date);
-  const dayName = dateObj
-    .toLocaleDateString("id-ID", { weekday: "short" })
-    .toUpperCase();
-  const dayNum = dateObj.getDate().toString().padStart(2, "0");
-  const monthName = dateObj
-    .toLocaleDateString("id-ID", { month: "short" })
-    .toUpperCase();
+  // Normalize data whether passed as ticket or schedule
+  const isFeatured = ticket ? !!ticket.isFeatured : isToday;
+  const day = ticket
+    ? ticket.day
+    : schedule
+      ? new Date(schedule.date)
+          .toLocaleDateString("id-ID", { weekday: "short" })
+          .toUpperCase()
+      : "MIN";
+  const dateNum = ticket
+    ? ticket.dateNum
+    : schedule
+      ? new Date(schedule.date).getDate().toString().padStart(2, "0")
+      : "22";
+  const monthYear = ticket
+    ? ticket.monthYear
+    : schedule
+      ? `${new Date(schedule.date)
+          .toLocaleDateString("id-ID", { month: "short" })
+          .toUpperCase()} ${new Date(schedule.date).getFullYear()}`
+      : "NOV 2026";
+  const title = ticket ? ticket.title : schedule?.title || "PERTARUHAN CINTA";
+  const time = ticket ? ticket.time : "19:00 WIB · JKT48 Theater, fX Sudirman";
+  const badge = ticket ? ticket.badge : schedule?.type || "Show";
+  const lineup = ticket?.lineup || [
+    "christy",
+    "fiony",
+    "marsha",
+    "kathrina",
+    "indah",
+  ];
 
   return (
-    <div
-      className={`card relative flex flex-col md:flex-row overflow-hidden group transition-transform duration-200 hover:-translate-y-1 ${
-        isToday
-          ? "bg-[#FFE7CC] text-[#141215]"
-          : isNext
-            ? "bg-[#1E1215] text-(--ink)"
-            : "bg-surface text-(--ink)"
-      }`}
-    >
-      {/* Date Stub Section (Left on desktop, Top on mobile) */}
+    <div className="relative flex flex-row overflow-hidden rounded-[14px] bg-[#1D1A1F] text-[#F4EFEA] min-h-[184px] shadow-lg shadow-black/30 border-none group">
+      {/* Date Stub Section (Left) - FigCraft ID: 1098 */}
       <div
-        className={`flex flex-col items-center justify-center p-4 md:p-6 md:w-32 shrink-0 border-b md:border-b-0 md:border-r border-dashed ${
-          isToday
-            ? "border-neutral-900/20 bg-[#FFE7CC]"
-            : isNext
-              ? "border-crimson-500/30 bg-crimson-950/40 text-crimson-300"
-              : "border-border bg-(--raised) text-muted"
+        className={`relative w-28 sm:w-[116px] shrink-0 flex flex-col items-center justify-between py-5 px-3 z-0 ${
+          isFeatured
+            ? "bg-crimson-500 text-white"
+            : "bg-[#252127] text-[#F4EFEA]"
         }`}
       >
-        <span className="font-mono-data text-xs uppercase tracking-wider font-semibold opacity-75">
-          {dayName}
+        <span className="font-sans text-xs sm:text-[13px] font-semibold tracking-[0.06em] uppercase">
+          {day}
         </span>
-        <span
-          className={`font-display text-4xl font-black leading-none my-1 ${
-            isToday
-              ? "text-[#141215]"
-              : isNext
-                ? "text-crimson-400"
-                : "text-(--ink)"
-          }`}
-        >
-          {dayNum}
+        <span className="font-display font-black text-6xl sm:text-[84px] leading-none tracking-tighter my-0.5">
+          {dateNum}
         </span>
-        <span className="font-mono-data text-xs uppercase font-medium">
-          {monthName}
+        <span className="font-sans text-xs sm:text-[13px] font-semibold tracking-[0.06em] uppercase">
+          {monthYear}
         </span>
+
+        {/* Perforation dashed line along right edge */}
+        <div className="absolute top-3.5 bottom-3.5 right-0 w-0 border-r-2 border-dashed border-[#0B0A0C] z-10" />
+
+        {/* Notches along dividing line (FigCraft ID: 1102 & 1103) */}
+        <div
+          className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-[#0B0A0C] z-20 pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute -bottom-2.5 -right-2.5 w-5 h-5 rounded-full bg-[#0B0A0C] z-20 pointer-events-none"
+          aria-hidden="true"
+        />
       </div>
 
-      {/* Perforation Notches on Desktop (Top and Bottom along the dividing border) */}
-      <div
-        className="hidden md:block absolute top-0 left-32 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-(--bg) z-10"
-        aria-hidden="true"
-      />
-      <div
-        className="hidden md:block absolute bottom-0 left-32 -translate-x-1/2 translate-y-1/2 w-5 h-5 rounded-full bg-(--bg) z-10"
-        aria-hidden="true"
-      />
-
-      {/* Info Section */}
-      <div className="flex-1 p-5 md:p-6 flex flex-col justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <span
-              className={`px-2 py-0.5 rounded-full text-[11px] font-semibold tracking-wide uppercase ${
-                isToday
-                  ? "bg-neutral-900 text-white"
-                  : isNext
-                    ? "bg-crimson-500 text-white"
-                    : "bg-(--raised) text-muted border border-border"
-              }`}
-            >
-              {schedule.type}
+      {/* Info Section (Right) - FigCraft ID: 1104 */}
+      <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between gap-3 min-w-0">
+        <div className="space-y-1.5">
+          {/* Badge */}
+          {badge && (
+            <span className="inline-block px-2.5 py-0.5 rounded-full border border-[#F4EFEA]/20 text-[11px] font-sans font-medium text-[#F4EFEA]">
+              {badge}
             </span>
-            {isToday && (
-              <span className="px-2 py-0.5 rounded-full bg-crimson-600 text-white text-[10px] font-bold uppercase tracking-wider">
-                Hari ini
-              </span>
-            )}
-            {isNext && !isToday && (
-              <span className="px-2 py-0.5 rounded-full bg-crimson-500/20 text-crimson-400 border border-crimson-500/40 text-[10px] font-bold uppercase tracking-wider">
-                Show berikutnya
-              </span>
-            )}
-          </div>
+          )}
 
-          <h3
-            className={`font-display text-2xl md:text-3xl font-extrabold leading-tight ${
-              isToday ? "text-[#141215]" : "text-(--ink)"
-            }`}
-          >
-            {schedule.title}
+          {/* Show Title */}
+          <h3 className="font-display font-extrabold text-2xl sm:text-[36px] uppercase leading-tight tracking-tight text-[#F4EFEA] group-hover:text-crimson-400 transition-colors truncate">
+            {title}
           </h3>
 
-          <p
-            className={`font-mono-data text-xs mt-1.5 ${
-              isToday ? "text-neutral-700" : "text-muted"
-            }`}
-          >
-            19:00 WIB · JKT48 Theater, fX Sudirman
+          {/* Time & Subtitle */}
+          <p className="font-mono-data text-xs sm:text-[13px] text-[#A8A0A3] truncate">
+            {time}
           </p>
         </div>
 
-        {/* Member Lineup preview & Action CTAs */}
-        <div className="flex items-center justify-between gap-4 pt-3 border-t border-(--line)">
+        {/* Bottom Lineup & Action */}
+        <div className="flex items-center justify-between gap-4 pt-3 border-t border-[var(--line)]">
+          {/* Lineup Avatars */}
           <div className="flex items-center -space-x-2 overflow-hidden">
-            {["freya", "christy", "gita", "marsha"].map((nick) => (
+            {lineup.slice(0, 4).map((nick) => (
               <div
                 key={nick}
-                className="relative w-7 h-7 rounded-full overflow-hidden border-2 border-surface bg-neutral-800"
+                className="relative w-7 h-7 rounded-full overflow-hidden border-2 border-[#1D1A1F] bg-neutral-800"
               >
                 <Image
                   src={`/members/${nick}.jpg`}
                   alt={nick}
                   fill
                   className="object-cover"
-                  sizes="28px"
                 />
               </div>
             ))}
-            <span
-              className={`flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-mono-data font-bold border-2 border-surface ${
-                isToday
-                  ? "bg-neutral-800 text-white"
-                  : "bg-(--raised) text-muted"
-              }`}
-            >
+            <span className="flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-mono-data font-bold border-2 border-[#1D1A1F] bg-[#2B272D] text-[#A8A0A3]">
               +12
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Link
-              href={`/forum?tag=show-${schedule.schedule_id}`}
-              className={`p-2 rounded-full transition-colors ${
-                isToday
-                  ? "hover:bg-neutral-900/10 text-neutral-800"
-                  : "hover:bg-(--raised) text-muted hover:text-(--ink)"
-              }`}
-              title="Diskusi show ini di forum"
-            >
-              <ChatCircleIcon weight="bold" className="w-4 h-4" />
-            </Link>
-
-            <a
-              href="https://jkt48.com/theater/schedule"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
-                isToday
-                  ? "bg-neutral-900 text-white hover:bg-neutral-800"
-                  : "bg-crimson-500 text-white hover:bg-crimson-600 shadow-sm shadow-crimson-500/20"
-              }`}
-            >
-              <TicketIcon weight="fill" className="w-3.5 h-3.5" />
-              <span>Tiket</span>
-            </a>
-          </div>
+          {/* Diskusi Show Underline Link */}
+          <Link
+            href="/forum"
+            className="font-sans text-xs sm:text-[13px] font-semibold text-[#F4EFEA] underline hover:text-crimson-400 transition-colors shrink-0"
+          >
+            Diskusi show
+          </Link>
         </div>
       </div>
     </div>

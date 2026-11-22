@@ -17,10 +17,10 @@ export default function LiveSideList({
   onSelectStream,
 }: LiveSideListProps) {
   return (
-    <div className="space-y-4 w-full">
+    <div className="space-y-6 w-full">
       {/* Eyebrow Label */}
-      <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block">
-        LAGI LIVE SEKARANG &bull; {streams.length}
+      <span className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block">
+        MEMBER YANG LAGI LIVE · {streams.length}
       </span>
 
       {/* Stream list items */}
@@ -34,14 +34,14 @@ export default function LiveSideList({
               key={stream.id}
               type="button"
               onClick={() => onSelectStream(stream)}
-              className={`w-full text-left p-3.5 rounded-2xl transition-all flex items-center gap-3.5 ${
+              className={`w-full text-left p-4 rounded-[14px] transition-all flex items-center gap-4 ${
                 isActive
-                  ? "bg-[#3A0710] text-[var(--color-ink)] shadow-md"
-                  : "bg-[var(--color-stage-900)] hover:bg-[var(--color-stage-850)] text-[var(--color-ink)]"
+                  ? "bg-[#3A0710] text-[#F4EFEA] ring-1 ring-[#FF4D5E]/40"
+                  : "bg-[#141215] hover:bg-[#1D1A1F] text-[#F4EFEA]"
               }`}
             >
               {/* Member Avatar */}
-              <div className="relative w-14 h-14 rounded-full overflow-hidden flex-none bg-[var(--color-stage-800)]">
+              <div className="relative w-14 h-14 rounded-full overflow-hidden flex-none bg-[#1D1A1F]">
                 <Image
                   src={stream.memberPhoto}
                   alt={stream.memberName}
@@ -50,19 +50,19 @@ export default function LiveSideList({
                   className="object-cover object-top"
                 />
                 <div className="absolute inset-0 house-tint pointer-events-none" />
-                <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-[var(--color-crimson-500)] border-2 border-[var(--color-stage-950)]" />
+                <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-[#E5132E] border-2 border-[#0B0A0C]" />
               </div>
 
               {/* Stream Info */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-display font-black text-xl uppercase tracking-tight truncate">
+                  <span className="font-display font-extrabold text-2xl uppercase tracking-tight truncate">
                     {stream.memberNickname}
                   </span>
                   <span
-                    className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold uppercase ${
+                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${
                       isShowroom
-                        ? "bg-[#333333] text-white"
+                        ? "bg-[#2B272D] text-[#F4EFEA]"
                         : "bg-[#E5132E] text-white"
                     }`}
                   >
@@ -70,22 +70,22 @@ export default function LiveSideList({
                   </span>
                 </div>
 
-                <p className="text-xs text-[var(--color-muted)] truncate font-sans mt-0.5">
+                <p className="text-xs text-[#A8A0A3] truncate font-sans mt-0.5">
                   {stream.title}
                 </p>
 
-                <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--color-muted)] mt-1">
-                  <span className="text-[var(--color-crimson-400)] font-semibold">
-                    {stream.viewers.toLocaleString("id-ID")} penonton
+                <div className="flex items-center gap-2 text-xs font-mono text-[#8A8286] mt-1">
+                  <span className="text-[#FF4D5E] font-medium">
+                    ● {stream.viewers.toLocaleString("id-ID")} penonton
                   </span>
-                  <span>&bull;</span>
+                  <span>·</span>
                   <span>{stream.startedAt}</span>
                 </div>
               </div>
 
               {/* Active Indicator Tag */}
               {isActive && (
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--color-crimson-500)] text-white font-bold flex-none">
+                <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-[#E5132E] text-white font-bold flex-none">
                   Diputar
                 </span>
               )}
@@ -94,21 +94,24 @@ export default function LiveSideList({
         })}
       </div>
 
-      {/* Card Forum Link: Pointing to Blok C */}
-      <div className="p-5 rounded-2xl bg-[var(--color-stage-900)] space-y-3">
-        <h4 className="font-semibold text-base text-[var(--color-ink)]">
-          Mau ngobrolin live ini?
+      {/* Ruang Ngobrol Live Box */}
+      <div className="p-6 rounded-[14px] bg-[#141215] space-y-3.5">
+        <span className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#FF4D5E] block">
+          DISKUSI REAL-TIME
+        </span>
+        <h4 className="font-display font-extrabold text-2xl uppercase tracking-tight text-[#F4EFEA]">
+          RUANG NGOBROL LIVE
         </h4>
-        <p className="text-xs sm:text-sm text-[var(--color-muted)] leading-relaxed font-sans">
-          Komentarnya di platform aslinya. Rangkuman dan obrolan panjang
-          tempatnya di Blok C, Live Streaming.
+        <p className="text-[13px] text-[#A8A0A3] leading-relaxed font-sans">
+          Thread forum khusus untuk live yang lagi tayang. Ikut ngobrol bareng
+          fans lain tanpa spamming di kolom komentar streamer.
         </p>
         <Link
           href="/forum?category=live-streaming"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[var(--color-crimson-400)] hover:text-[var(--color-ink)] transition-colors pt-1"
+          className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full bg-[#E5132E] text-white text-[15px] font-semibold hover:bg-[#CC0E26] transition-colors"
         >
-          <span>Ke Blok C, Live Streaming</span>
-          <ArrowRight weight="bold" className="w-3.5 h-3.5" />
+          <span>Masuk ke ruang chat forum</span>
+          <ArrowRight weight="bold" className="w-4 h-4" />
         </Link>
       </div>
     </div>

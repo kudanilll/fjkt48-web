@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { Sparkle } from "@phosphor-icons/react";
+import Link from "next/link";
+import { ArrowRight } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Button from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +24,7 @@ export default function CurtainEncoreSection() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         textRef.current,
-        { scale: 0.9, opacity: 0.7 },
+        { scale: 0.92, opacity: 0.8 },
         {
           scale: 1,
           opacity: 1,
@@ -58,13 +58,13 @@ export default function CurtainEncoreSection() {
       />
 
       <div className="relative z-10 max-w-4xl mx-auto space-y-6">
-        {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm text-[#FFE7CC] font-mono-data text-xs font-semibold uppercase tracking-widest border border-white/10">
-          <Sparkle weight="fill" className="w-3.5 h-3.5 text-[#FFE7CC]" />
+        {/* Eyebrow (FigCraft ID: 1330) */}
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm text-[#FFE7CC] font-mono-data text-xs font-semibold uppercase tracking-widest border border-white/10">
+          <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
           <span>Lampu theater belum padam</span>
         </div>
 
-        {/* Big ENCORE! Display Heading */}
+        {/* Big ENCORE! Display Heading (FigCraft ID: 1331) */}
         <h2
           ref={textRef}
           className="font-display font-black text-7xl sm:text-9xl md:text-[180px] lg:text-[240px] tracking-tight uppercase leading-[0.8] text-[#F4EFEA] drop-shadow-[0_12px_40px_rgba(11,10,12,0.8)]"
@@ -72,20 +72,27 @@ export default function CurtainEncoreSection() {
           ENCORE!
         </h2>
 
-        {/* Lede Message */}
-        <p className="font-sans text-base sm:text-xl md:text-2xl text-[#F4EFEA] max-w-xl mx-auto leading-relaxed">
+        {/* Lede Message (FigCraft ID: 1332) */}
+        <p className="font-sans text-base sm:text-xl text-[#F4EFEA] max-w-xl mx-auto leading-relaxed">
           Belum punya akun? Daftar gratis, pilih oshi kamu, dan ikut ngobrol
           bareng ribuan fans lain setelah show selesai.
         </p>
 
-        {/* CTAs */}
+        {/* Actions (FigCraft ID: 1333) */}
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-          <Button href="/register" variant="primary" size="lg" showArrow>
-            Daftar sekarang
-          </Button>
-          <Button href="/login" variant="secondary" size="lg">
+          <Link
+            href="/register"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0B0A0C] font-sans font-bold text-sm sm:text-base hover:bg-neutral-100 transition-all duration-200 shadow-xl shadow-black/30"
+          >
+            <span>Daftar gratis</span>
+            <ArrowRight weight="bold" className="w-4 h-4" />
+          </Link>
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-black/40 border border-white/20 text-[#F4EFEA] font-sans font-bold text-sm sm:text-base hover:bg-black/60 transition-all duration-200"
+          >
             Masuk
-          </Button>
+          </Link>
         </div>
       </div>
     </section>

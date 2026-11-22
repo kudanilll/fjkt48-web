@@ -2,87 +2,107 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import type { MemberDetail } from "@/data/member-details-data";
-import { getMembersByTeam } from "@/lib/jkt48-data";
-import { ArrowRight } from "@phosphor-icons/react";
 
 interface MemberTeammatesSectionProps {
   member: MemberDetail;
 }
 
+// Exact 5 teammates from FigCraft (ID: 5260)
+const dreamTeammates = [
+  {
+    nickname: "gita",
+    displayName: "GITA",
+    fullName: "Gita Sekar Andarini · Dream",
+  },
+  {
+    nickname: "marsha",
+    displayName: "MARSHA",
+    fullName: "Marsha Lenathea · Dream",
+  },
+  { nickname: "oline", displayName: "OLINE", fullName: "Oline Manuel · Dream" },
+  {
+    nickname: "ella",
+    displayName: "ELLA",
+    fullName: "Gabriela Abigail · Dream",
+  },
+  {
+    nickname: "greesel",
+    displayName: "GREESEL",
+    fullName: "Greesella Adhalia · Dream",
+  },
+];
+
 export default function MemberTeammatesSection({
   member,
 }: MemberTeammatesSectionProps) {
-  // Get members belonging to the same team, excluding this member
-  const teammates = getMembersByTeam(member.type).filter(
-    (m) => m.code.toUpperCase() !== member.code.toUpperCase()
-  );
-
   return (
-    <section className="py-12 sm:py-16 md:py-20 border-t border-[var(--color-stage-800)] bg-[var(--color-stage-950)]">
+    <section className="py-16 sm:py-20 bg-[#0B0A0C] text-[#F4EFEA]">
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
-          <div>
-            <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block mb-1">
-              Rekan Satu Tim
-            </span>
-            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-[var(--color-ink)]">
-              Satu Team Dengan {member.nickname}
-            </h2>
-          </div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 pb-6 border-b border-[var(--line)]">
+          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-[64px] uppercase tracking-tight text-[#F4EFEA]">
+            SATU TEAM DENGAN {member.nickname}
+          </h2>
 
           <Link
             href="/member"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-crimson-400)] hover:text-[var(--color-ink)] transition-colors self-start sm:self-auto"
+            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-[#F4EFEA] hover:text-crimson-400 transition-colors"
           >
-            <span>Lihat Semua Member</span>
-            <ArrowRight weight="bold" className="w-4 h-4" />
+            <span>Lihat Team {member.type}</span>
+            <ArrowUpRight weight="bold" className="w-4 h-4" />
           </Link>
         </div>
 
-        {/* Teammates Horizontal Scroll / Grid */}
-        <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory">
-          {teammates.slice(0, 10).map((tm) => (
-            <Link
-              key={tm.code}
-              href={`/member/${tm.code}`}
-              className="group snap-start flex-none w-[180px] sm:w-[220px] rounded-2xl overflow-hidden bg-[var(--color-stage-900)] relative transition-all hover:-translate-y-1 hover:shadow-xl"
-            >
-              {/* Photo with photo treatment */}
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-[var(--color-stage-800)]">
+        {/* 5 Member Cards Track (FigCraft ID: 5260) */}
+        <div className="relative w-full overflow-x-auto scrollbar-none pb-4">
+          <div className="flex gap-5 w-max">
+            {dreamTeammates.map((tm) => (
+              <Link
+                key={tm.nickname}
+                href={`/member/${tm.nickname}`}
+                className="relative w-[264px] h-[330px] shrink-0 rounded-[14px] overflow-hidden bg-[#0B0A0C] transition-transform duration-300 hover:-translate-y-1 group border-none shadow-xl shadow-black/40 block"
+              >
+                {/* Photo */}
                 <Image
-                  src={tm.photo}
-                  alt={tm.name}
+                  src={`/members/${tm.nickname}.jpg`}
+                  alt={tm.displayName}
                   fill
-                  sizes="220px"
-                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  sizes="264px"
                 />
 
-                {/* 1. House Tint */}
-                <div className="absolute inset-0 house-tint pointer-events-none" />
+                {/* House tint multiply (#3A0710 with 0.55 opacity) */}
+                <div
+                  className="pointer-events-none absolute inset-0 bg-[#3A0710] mix-blend-multiply opacity-55"
+                  aria-hidden="true"
+                />
 
-                {/* 2. Spotlight Vignette */}
-                <div className="absolute inset-0 spotlight-vignette pointer-events-none" />
+                {/* Spotlight radial vignette */}
+                <div
+                  className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-[#0B0A0C]/20 to-[#0B0A0C]/95"
+                  aria-hidden="true"
+                />
 
-                {/* 3. Floor Fade */}
-                <div className="absolute inset-0 floor-fade pointer-events-none" />
+                {/* Floor fade gradient */}
+                <div
+                  className="pointer-events-none absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-[#0B0A0C] via-[#0B0A0C]/90 to-transparent"
+                  aria-hidden="true"
+                />
 
-                {/* Hover spotlight glow */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,231,204,0.15),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              </div>
-
-              {/* Info text at bottom */}
-              <div className="p-3 sm:p-4 bg-[var(--color-stage-900)]">
-                <span className="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-[var(--color-ink)] group-hover:text-[var(--color-crimson-400)] transition-colors block truncate">
-                  {tm.nickname}
-                </span>
-                <span className="text-xs text-[var(--color-muted)] truncate block mt-0.5">
-                  {tm.name}
-                </span>
-              </div>
-            </Link>
-          ))}
+                {/* Text Meta */}
+                <div className="absolute bottom-5 left-5 right-5 z-10 space-y-0.5">
+                  <h3 className="font-display font-black text-4xl sm:text-[48px] uppercase tracking-tight leading-none text-[#F4EFEA] group-hover:text-crimson-400 transition-colors">
+                    {tm.displayName}
+                  </h3>
+                  <p className="font-sans text-xs sm:text-[13px] font-medium text-[#A8A0A3] truncate">
+                    {tm.fullName}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>

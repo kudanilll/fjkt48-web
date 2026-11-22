@@ -2,35 +2,28 @@
 
 import React from "react";
 import Link from "next/link";
-import { Broadcast } from "@phosphor-icons/react";
 
 export default function LiveTicker() {
   return (
     <aside
       aria-label="Pengumuman live streaming"
-      className="stage w-full bg-[#7A0B1A] text-white py-2.5 px-6 sm:px-12 lg:px-16 border-b border-crimson-800/40 select-none"
+      className="stage w-full h-10 bg-[#7A0B1A] text-white px-6 sm:px-12 lg:px-16 flex items-center justify-center select-none"
     >
-      <div className="w-full flex items-center justify-between gap-3 text-xs sm:text-sm">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <span className="relative flex h-2.5 w-2.5 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
-          </span>
+      <div className="flex items-center justify-center gap-2.5 text-sm">
+        {/* Glowing White Dot (FigCraft ID: 781) */}
+        <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.7)] shrink-0" />
 
-          <span className="font-medium text-[#F4EFEA] truncate">
-            <strong className="font-semibold text-white">
-              2 member lagi live:
-            </strong>{" "}
-            Gita di Showroom, Marsha di IDN Live.
-          </span>
-        </div>
+        {/* Text (FigCraft ID: 782) */}
+        <span className="font-sans font-medium text-[#F4EFEA] text-xs sm:text-sm">
+          2 member lagi live: Gita di Showroom, Marsha di IDN Live.
+        </span>
 
+        {/* Action Link (FigCraft ID: 783) */}
         <Link
           href="/live"
-          className="shrink-0 font-semibold underline underline-offset-4 hover:text-[#FFE7CC] transition-colors flex items-center gap-1"
+          className="font-sans font-semibold text-xs sm:text-sm text-white underline underline-offset-4 hover:text-[#FFE7CC] transition-colors ml-1 shrink-0"
         >
-          <span>Tonton sekarang</span>
-          <Broadcast weight="bold" className="w-3.5 h-3.5" />
+          Tonton sekarang
         </Link>
       </div>
     </aside>

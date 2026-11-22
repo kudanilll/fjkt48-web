@@ -11,7 +11,6 @@ import {
 } from "@phosphor-icons/react";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48News, NewsCategory } from "@/types/jkt48-types";
-import Footer from "@/components/layout/footer";
 
 interface CategoryOption {
   id: "ALL" | NewsCategory;
@@ -246,8 +245,6 @@ export default function NewsPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

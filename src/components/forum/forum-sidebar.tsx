@@ -1,113 +1,94 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Plus, Flame, Tag, Ticket, ArrowRight } from "@phosphor-icons/react";
-import { topActiveFans, trendingTags } from "@/data/forum-mock-data";
-import Button from "@/components/ui/button";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 
 interface ForumSidebarProps {
   onSelectTag?: (tag: string) => void;
 }
 
+const topFans = [
+  { rank: 1, name: "penlightmerah", oshi: "Fera", replies: 86 },
+  { rank: 2, name: "kopigita", oshi: "Gita", replies: 71 },
+  { rank: 3, name: "anakfx", oshi: "Christy", replies: 58 },
+];
+
+const tags = [
+  "#PertaruhanCinta",
+  "#MiniTourSleman",
+  "#TheSmileCollection",
+  "#Audisi15",
+  "#ZAPFEST2026",
+  "#PajamaDrive",
+];
+
 export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
   return (
     <aside className="w-full space-y-6" aria-label="Sidebar komunitas">
-      {/* 1. Compose CTA Card */}
-      <div className="card p-6 sm:p-7 rounded-2xl bg-[var(--surface)] border-none shadow-sm space-y-4">
-        <div className="flex items-center gap-2 text-crimson-400 font-mono-data text-xs font-bold uppercase tracking-wider">
-          <Plus weight="bold" className="w-4 h-4" />
-          <span>MULAI DISKUSI BARU</span>
-        </div>
+      {/* 1. Compose CTA Card (FigCraft ID: 2568) */}
+      <div className="p-6 rounded-[14px] bg-gradient-to-br from-[#4A0510]/80 via-[#1D1A1F] to-[#141215] border border-crimson-900/30 space-y-4">
+        <span className="font-mono-data text-xs font-bold text-crimson-400 tracking-wider uppercase block">
+          BIKIN THREAD
+        </span>
 
-        <h2 className="font-sans font-bold text-xl text-[var(--ink)]">
-          Punya topik show, oshi, atau info tiket?
+        <h2 className="font-display font-black text-2xl uppercase text-[#F4EFEA] leading-tight">
+          PUNYA CERITA DARI THEATER?
         </h2>
 
-        <p className="text-xs text-[var(--muted)] leading-relaxed">
-          Tulis thread baru dan diskusikan langsung bareng ribuan fans JKT48
-          lainnya di blok pilihanmu.
+        <p className="font-sans text-xs text-[#A8A0A3] leading-relaxed">
+          Tag member dan show-nya biar fans lain gampang nemu obrolanmu.
         </p>
 
-        <Button
+        <Link
           href="/forum/new"
-          variant="primary"
-          size="md"
-          className="w-full mt-2"
-          showArrow
+          className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-full bg-crimson-500 hover:bg-crimson-600 text-white font-sans font-bold text-sm transition-all duration-200 shadow-lg shadow-crimson-500/30"
         >
-          Bikin thread sekarang
-        </Button>
+          <span>Bikin thread</span>
+          <ArrowRight weight="bold" className="w-4 h-4" />
+        </Link>
       </div>
 
-      {/* 2. Top Active Fans */}
-      <div className="card p-6 rounded-2xl bg-[var(--surface)] border-none shadow-sm space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-[var(--line)]">
-          <div className="flex items-center gap-2 text-[var(--ink)] font-mono-data text-xs font-bold uppercase tracking-wider">
-            <Flame weight="fill" className="w-4 h-4 text-crimson-500" />
-            <span>PALING AKTIF MINGGU INI</span>
-          </div>
-          <span className="font-mono-data text-[11px] text-[var(--muted)]">
-            Top 3
-          </span>
-        </div>
+      {/* 2. Top Active Fans (FigCraft ID: 2580) */}
+      <div className="p-6 rounded-[14px] bg-[#141215] space-y-4">
+        <h3 className="font-sans font-semibold text-sm text-[#F4EFEA]">
+          Paling aktif minggu ini
+        </h3>
 
-        <div className="space-y-3">
-          {topActiveFans.map((fan, idx) => (
+        <div className="space-y-3 pt-1">
+          {topFans.map((fan) => (
             <div
               key={fan.name}
-              className="flex items-center justify-between p-2.5 rounded-xl hover:bg-[var(--raised)] transition-colors"
+              className="flex items-center gap-4 text-xs font-sans"
             >
-              <div className="flex items-center gap-3">
-                <span className="font-mono-data text-xs font-bold text-[var(--subtle)] w-4 text-center">
-                  #{idx + 1}
-                </span>
+              <span className="font-display font-black text-lg text-[#F4EFEA] w-3 text-center">
+                {fan.rank}
+              </span>
 
-                <div className="relative w-9 h-9 rounded-full overflow-hidden bg-neutral-800 shrink-0">
-                  <Image
-                    src={fan.avatar}
-                    alt={fan.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
-                <div>
-                  <p className="font-semibold text-xs text-[var(--ink)]">
-                    {fan.name}
-                  </p>
-                  <p className="font-mono-data text-[11px] text-crimson-400">
-                    Oshi: {fan.oshi}
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-right font-mono-data text-[11px] text-[var(--muted)]">
-                <span className="block font-bold text-[var(--ink)]">
-                  {fan.lightsticksCount}
-                </span>
-                <span>lightstick</span>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-[#F4EFEA] truncate">{fan.name}</p>
+                <p className="text-[11px] text-[#A8A0A3]">
+                  oshi {fan.oshi} · {fan.replies} balasan
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* 3. Trending Tags */}
-      <div className="card p-6 rounded-2xl bg-[var(--surface)] border-none shadow-sm space-y-4">
-        <div className="flex items-center gap-2 text-[var(--ink)] font-mono-data text-xs font-bold uppercase tracking-wider pb-3 border-b border-[var(--line)]">
-          <Tag weight="fill" className="w-4 h-4 text-crimson-500" />
-          <span>TAG LAGI NAIK</span>
-        </div>
+      {/* 3. Trending Tags (FigCraft ID: 2595) */}
+      <div className="p-6 rounded-[14px] bg-[#141215] space-y-3">
+        <h3 className="font-sans font-semibold text-sm text-[#F4EFEA]">
+          Tag lagi naik
+        </h3>
 
-        <div className="flex flex-wrap gap-2">
-          {trendingTags.map((tag) => (
+        <div className="flex flex-wrap gap-2 pt-1">
+          {tags.map((tag) => (
             <button
               key={tag}
               type="button"
               onClick={() => onSelectTag?.(tag)}
-              className="px-3 py-1.5 rounded-full bg-[var(--raised)] hover:bg-crimson-500/15 hover:text-crimson-400 text-xs font-mono-data text-[var(--muted)] transition-colors border border-[var(--border)] cursor-pointer"
+              className="px-3 py-1.5 rounded-full bg-[#1D1A1F] text-xs font-mono-data text-[#A8A0A3] hover:text-[#F4EFEA] border border-[#2B272D] transition-colors cursor-pointer"
             >
               {tag}
             </button>
@@ -115,34 +96,28 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
         </div>
       </div>
 
-      {/* 4. Upcoming Show Ticket Preview */}
-      <div className="card p-6 rounded-2xl bg-[var(--surface)] border-none shadow-sm space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-crimson-400 font-mono-data text-xs font-bold uppercase tracking-wider">
-            <Ticket weight="fill" className="w-4 h-4" />
-            <span>SHOW TERDEKAT</span>
-          </div>
-          <span className="font-mono-data text-[10px] px-2 py-0.5 rounded-full bg-crimson-500 text-white font-bold uppercase">
-            Malam ini
-          </span>
-        </div>
+      {/* 4. Upcoming Show Ticket Preview (FigCraft ID: 2608) */}
+      <div className="p-6 rounded-[14px] bg-[#141215] space-y-3">
+        <span className="font-mono-data text-xs font-semibold text-crimson-400 uppercase tracking-wider block">
+          SHOW TERDEKAT
+        </span>
 
-        <h3 className="font-display text-2xl font-black uppercase text-[var(--ink)] leading-tight">
-          Aturan Anti Cinta
+        <h3 className="font-display font-black text-2xl uppercase text-[#F4EFEA] leading-tight">
+          PERTARUHAN CINTA
         </h3>
 
-        <p className="font-mono-data text-xs text-[var(--muted)]">
-          19:00 WIB · JKT48 Theater, fX Sudirman
+        <p className="font-mono-data text-xs text-[#A8A0A3]">
+          MIN, 22 NOV · 19:00 WIB · Birthday show
         </p>
 
         <Link
-          href="/schedule"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-crimson-400 hover:text-crimson-500 transition-colors pt-2 group"
+          href="/forum"
+          className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-[#F4EFEA] hover:text-crimson-400 transition-colors pt-2 group"
         >
-          <span>Beli tiket resmi</span>
-          <ArrowRight
+          <span>Diskusi show</span>
+          <ArrowUpRight
             weight="bold"
-            className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1"
+            className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           />
         </Link>
       </div>

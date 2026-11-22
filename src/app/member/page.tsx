@@ -7,7 +7,6 @@ import { MagnifyingGlass, Users } from "@phosphor-icons/react";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Member, TeamType } from "@/types/jkt48-types";
 import { TeamBadge } from "@/components/ui/badge";
-import Footer from "@/components/layout/footer";
 
 interface TeamFilterOption {
   id: "ALL" | TeamType;
@@ -218,9 +217,6 @@ export default function MemberDirectoryPage() {
           )}
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </main>
   );
 }

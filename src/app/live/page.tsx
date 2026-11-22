@@ -1,86 +1,72 @@
 "use client";
 
 import { useState } from "react";
-import { Radio } from "@phosphor-icons/react";
 import {
   activeLiveStreams,
   liveReplaysList,
   type LiveStream,
 } from "@/data/live-mock-data";
+import LiveTicker from "@/components/home/live-ticker";
 import LiveFeaturedPlayer from "@/components/live/live-featured-player";
 import LiveSideList from "@/components/live/live-side-list";
 import LiveEmptyStage from "@/components/live/live-empty-stage";
 import LiveReplayArchive from "@/components/live/live-replay-archive";
-import Footer from "@/components/layout/footer";
 
 export default function LivePage() {
   const [streams] = useState<LiveStream[]>(activeLiveStreams);
   const [selectedStream, setSelectedStream] = useState<LiveStream>(
     activeLiveStreams[0]!
   );
-  // Empty state simulation toggle (can be toggled for demo or if streams is empty)
-  const [simulateEmpty, setSimulateEmpty] = useState<boolean>(false);
 
-  const hasLive = streams.length > 0 && !simulateEmpty;
+  const hasLive = streams.length > 0;
 
   return (
-    <main className="min-h-screen bg-[var(--color-stage-950)] text-[var(--color-ink)]">
-      {/* 1. Page Header */}
-      <section className="pt-12 sm:pt-16 pb-8 border-b border-[var(--color-stage-800)] relative overflow-hidden">
-        {/* Amber glow */}
+    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA]">
+      {/* 1. Live Ticker */}
+      <LiveTicker />
+
+      {/* 2. Live Head Section */}
+      <section className="relative overflow-hidden pt-12 pb-12 border-b border-[#1D1A1F]">
+        {/* Spotlight Glow */}
         <div
-          className="pointer-events-none absolute -top-40 right-10 h-[600px] w-[600px] rounded-full opacity-30"
+          className="pointer-events-none absolute -top-40 -left-40 h-[820px] w-[1000px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(229,19,46,0.18) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(229,19,46,0.12) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
         />
 
-        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-4">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)]">
-                  Live Streaming Official
-                </span>
-                {hasLive ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-crimson-500)] text-white text-[11px] font-bold uppercase tracking-wider animate-pulse">
-                    <Radio weight="fill" className="w-3 h-3" />
-                    <span>{streams.length} Member Lagi Live</span>
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--color-stage-900)] text-[var(--color-muted)] text-[11px] font-mono">
-                    Panggung Kosong
-                  </span>
-                )}
-              </div>
-
-              <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl uppercase tracking-tight text-[var(--color-ink)]">
-                Live
+        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="flex items-center gap-6 flex-wrap">
+              <h1 className="font-display font-black text-7xl sm:text-9xl lg:text-[168px] leading-none tracking-[-0.04em] text-[#F4EFEA] uppercase">
+                LIVE
               </h1>
 
-              <p className="text-sm sm:text-base text-[var(--color-muted)] max-w-2xl mt-2 font-sans">
-                Nonton langsung di platform resmi (Showroom / IDN Live). Di sini
-                kamu bisa pantau siapa yang lagi live dan tonton arsip replay
-                pertunjukan mereka.
-              </p>
+              {hasLive && (
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E5132E] text-white text-xs font-mono font-bold uppercase tracking-wider shadow-lg shadow-[#E5132E]/30">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <span>{streams.length} LIVE SEKARANG</span>
+                </div>
+              )}
             </div>
 
-            {/* Test toggle button for testing empty state preview */}
-            <button
-              type="button"
-              onClick={() => setSimulateEmpty(!simulateEmpty)}
-              className="text-xs font-mono px-3.5 py-1.5 rounded-full bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)] self-start md:self-auto transition-colors border border-[var(--color-stage-800)]"
-            >
-              {simulateEmpty ? "Tampilkan Live Aktif" : "Uji Panggung Kosong"}
-            </button>
+            <div className="max-w-[468px] space-y-3">
+              <p className="text-[17px] font-sans text-[#A8A0A3] leading-[26px]">
+                Streaming Showroom dan IDN Live member JKT48. Tonton bareng fans
+                lain, ngobrol di chat room, atau tonton arsip replay.
+              </p>
+              <p className="text-xs font-mono font-medium text-[#8A8286]">
+                Auto-refresh tiap 30 detik · Sumber live API
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Stage Zone (Always forced dark mode) */}
-      <section className="stage py-8 sm:py-12 md:py-16 bg-[var(--color-stage-950)] text-[var(--color-ink)]">
+      {/* 3. Stage Zone */}
+      <section className="py-12 sm:py-16">
         <div className="w-full px-6 sm:px-12 lg:px-16">
           {hasLive ? (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -104,11 +90,8 @@ export default function LivePage() {
         </div>
       </section>
 
-      {/* 3. Replay Archive Section */}
+      {/* 4. Replay Archive Section */}
       <LiveReplayArchive replays={liveReplaysList} />
-
-      {/* 4. Footer */}
-      <Footer />
     </main>
   );
 }

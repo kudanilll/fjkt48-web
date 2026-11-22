@@ -52,26 +52,13 @@ function getServerSnapshot(): Theme {
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  const resolvedTheme: "dark" | "light" =
-    theme === "system"
-      ? typeof window !== "undefined" &&
-        window.matchMedia("(prefers-color-scheme: light)").matches
-        ? "light"
-        : "dark"
-      : theme;
+  const resolvedTheme: "dark" | "light" = theme === "light" ? "light" : "dark";
 
   const setTheme = useCallback((newTheme: Theme) => {
     try {
       localStorage.setItem("fjkt48-theme", newTheme);
-      let effectiveTheme: "dark" | "light" = "dark";
-      if (newTheme === "system") {
-        effectiveTheme = window.matchMedia("(prefers-color-scheme: light)")
-          .matches
-          ? "light"
-          : "dark";
-      } else {
-        effectiveTheme = newTheme;
-      }
+      const effectiveTheme: "dark" | "light" =
+        newTheme === "light" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", effectiveTheme);
       window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
     } catch {

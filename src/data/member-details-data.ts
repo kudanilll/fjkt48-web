@@ -142,8 +142,12 @@ const memberOverrides: Record<string, Partial<MemberDetail>> = {
 };
 
 export function getMemberDetail(code: string): MemberDetail | undefined {
+  const cleanCode = code.toUpperCase().replace(/-/g, "_");
   const member = membersList.find(
-    (m) => m.code.toUpperCase() === code.toUpperCase()
+    (m) =>
+      m.code.toUpperCase() === cleanCode ||
+      m.nickname.toUpperCase() === code.toUpperCase() ||
+      m.code.toUpperCase() === code.toUpperCase()
   );
   if (!member) return undefined;
 
@@ -212,5 +216,10 @@ export function getMemberDetail(code: string): MemberDetail | undefined {
 }
 
 export function getAllMemberCodes(): string[] {
-  return membersList.map((m) => m.code);
+  const codes: string[] = [];
+  for (const m of membersList) {
+    codes.push(m.code);
+    codes.push(m.nickname.toLowerCase());
+  }
+  return codes;
 }

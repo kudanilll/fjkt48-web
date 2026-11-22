@@ -2,90 +2,105 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Newspaper, ArrowUpRight } from "@phosphor-icons/react";
+import { ArrowUpRight } from "@phosphor-icons/react";
 import type { JKT48News } from "@/types/jkt48-types";
 
 interface EditorialNewsSectionProps {
-  news: JKT48News[];
+  news?: JKT48News[];
 }
 
-export default function EditorialNewsSection({
-  news,
-}: EditorialNewsSectionProps) {
-  const displayNews = news.slice(0, 3);
+export default function EditorialNewsSection(props: EditorialNewsSectionProps) {
+  void props;
+  // Exact 3 announcements from FigCraft (ID: 1308)
+  const officialNews = [
+    {
+      id: "news-1",
+      date: "12 NOV",
+      title: "Pengumuman Mengenai Audisi JKT48 Generasi ke-15 resmi dibuka",
+      category: "Lainnya",
+      link: "https://jkt48.com/news/list",
+    },
+    {
+      id: "news-2",
+      date: "11 NOV",
+      title:
+        "Pengumuman Mengenai Birthday 2-Shot Online bulan November dengan Chekicha",
+      category: "Theater",
+      link: "https://jkt48.com/news/list",
+    },
+    {
+      id: "news-3",
+      date: "06 NOV",
+      title:
+        "Pengumuman Mengenai AYO SENYUMLAH | JKT48 15th Anniversary Concert",
+      category: "Theater",
+      link: "https://jkt48.com/news/list",
+    },
+  ];
 
   return (
     <section
-      className="w-full bg-[var(--bg)] text-[var(--ink)] py-20 sm:py-28 transition-colors duration-300"
+      className="w-full bg-[#0B0A0C] text-[#F4EFEA] py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
       aria-label="Berita dan pengumuman resmi JKT48"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          {/* Left Column (Spans 4 cols on desktop) */}
+          {/* Left Column: Intro (Spans 4 cols on desktop) - FigCraft ID: 1305 */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-2 text-crimson-400 font-mono-data text-xs font-semibold uppercase tracking-wider">
-              <Newspaper weight="fill" className="w-4 h-4" />
-              <span>OFFICIAL ANNOUNCEMENTS</span>
-            </div>
-
-            <h2 className="font-display font-black text-5xl sm:text-6xl tracking-tight uppercase leading-none">
+            <h2 className="font-display font-extrabold text-5xl sm:text-[64px] tracking-tight uppercase leading-none text-[#F4EFEA]">
               BERITA RESMI
             </h2>
 
-            <p className="font-sans text-sm sm:text-base text-[var(--muted)] leading-relaxed">
-              Kabar resmi, pengumuman tiket, jadwal event khusus, dan regulasi
-              teater bersumber langsung dari jkt48.com.
+            <p className="font-sans text-base text-[#A8A0A3] leading-relaxed max-w-sm">
+              Diambil langsung dari jkt48.com. Setiap pengumuman bisa langsung
+              dibahas di forum.
             </p>
 
             <div className="pt-2">
               <Link
                 href="/news"
-                className="group inline-flex items-center gap-2 font-mono-data text-xs sm:text-sm font-semibold text-crimson-400 hover:text-crimson-500 transition-colors uppercase tracking-wider"
+                className="group inline-flex items-center gap-1.5 font-mono-data text-xs sm:text-sm font-semibold text-crimson-400 hover:text-crimson-500 transition-colors uppercase tracking-wider"
               >
-                <span>Lihat arsip berita</span>
-                <ArrowRight
+                <span>LIHAT ARSIP BERITA</span>
+                <ArrowUpRight
                   weight="bold"
-                  className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+                  className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
               </Link>
             </div>
           </div>
 
-          {/* Right Column (Spans 8 cols on desktop): List of news */}
+          {/* Right Column: List of News Rows (Spans 8 cols on desktop) - FigCraft ID: 1308 */}
           <div className="lg:col-span-8 divide-y divide-[var(--line)] border-t lg:border-t-0 border-[var(--line)]">
-            {displayNews.map((item) => (
+            {officialNews.map((item) => (
               <a
-                key={item.news_id}
-                href={item.link || "https://jkt48.com/news/list"}
+                key={item.id}
+                href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-6 transition-all duration-200 hover:bg-[var(--surface)]/50 -mx-4 px-4 rounded-xl"
+                className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60"
               >
-                <div className="space-y-2 flex-1">
-                  <div className="flex items-center gap-2 text-xs font-mono-data text-[var(--muted)]">
-                    <span className="px-2 py-0.5 rounded-full bg-[var(--surface)] text-crimson-400 font-semibold border border-[var(--border)]">
-                      {item.category || "Pengumuman"}
-                    </span>
-                    <span>·</span>
-                    <span>
-                      {new Date(item.valid_date_from).toLocaleDateString(
-                        "id-ID",
-                        {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        }
-                      )}
-                    </span>
-                  </div>
+                <div className="flex items-start sm:items-center gap-4 sm:gap-6 flex-1 min-w-0">
+                  {/* Date Stub */}
+                  <span className="font-mono-data text-xs sm:text-[13px] text-[#A8A0A3] shrink-0 font-medium">
+                    {item.date}
+                  </span>
 
-                  <h3 className="font-sans font-semibold text-base sm:text-lg text-[var(--ink)] group-hover:text-crimson-400 group-hover:translate-x-1 transition-all duration-200 leading-snug">
+                  {/* Title */}
+                  <h3 className="font-sans font-semibold text-base sm:text-lg text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
                     {item.title}
                   </h3>
                 </div>
 
-                <div className="w-8 h-8 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--muted)] group-hover:bg-crimson-500 group-hover:text-white group-hover:border-crimson-500 transition-all duration-200 shrink-0">
-                  <ArrowUpRight weight="bold" className="w-4 h-4" />
+                {/* Right Category Tag & Arrow */}
+                <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto font-mono-data text-xs text-[#A8A0A3]">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3] border border-[#2B272D] text-xs">
+                    {item.category}
+                  </span>
+                  <ArrowUpRight
+                    weight="bold"
+                    className="w-4 h-4 text-[#A8A0A3] group-hover:text-crimson-400 transition-colors"
+                  />
                 </div>
               </a>
             ))}

@@ -34,9 +34,12 @@ export default function ScheduleCalendarGrid({
     const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
     const prevDays = [];
     for (let i = startWeekday - 1; i >= 0; i--) {
+      const prevD = prevMonthLastDay - i;
+      const prevM = currentMonth === 0 ? 12 : currentMonth;
+      const prevY = currentMonth === 0 ? currentYear - 1 : currentYear;
       prevDays.push({
-        day: prevMonthLastDay - i,
-        dateString: `${currentYear}-${String(currentMonth).padStart(2, "0")}-${String(prevMonthLastDay - i).padStart(2, "0")}`,
+        day: prevD,
+        dateString: `${prevY}-${String(prevM).padStart(2, "0")}-${String(prevD).padStart(2, "0")}`,
         isCurrentMonth: false,
       });
     }
@@ -53,17 +56,18 @@ export default function ScheduleCalendarGrid({
       });
     }
 
-    // Next month trailing days to complete 5 or 6 weeks (35 or 42 slots)
+    // Next month trailing days to complete 5 rows (35 slots)
     const totalFilled = prevDays.length + currentDays.length;
     const targetSlots = totalFilled <= 35 ? 35 : 42;
     const nextDays = [];
     for (let d = 1; d <= targetSlots - totalFilled; d++) {
-      const nextMonth = currentMonth + 2;
-      const monthStr = String(nextMonth > 12 ? 1 : nextMonth).padStart(2, "0");
+      const nextM = currentMonth + 2 > 12 ? 1 : currentMonth + 2;
+      const nextY = currentMonth + 2 > 12 ? currentYear + 1 : currentYear;
+      const monthStr = String(nextM).padStart(2, "0");
       const dayStr = String(d).padStart(2, "0");
       nextDays.push({
         day: d,
-        dateString: `${nextMonth > 12 ? currentYear + 1 : currentYear}-${monthStr}-${dayStr}`,
+        dateString: `${nextY}-${monthStr}-${dayStr}`,
         isCurrentMonth: false,
       });
     }
@@ -71,11 +75,8 @@ export default function ScheduleCalendarGrid({
     return [...prevDays, ...currentDays, ...nextDays];
   }, [currentYear, currentMonth]);
 
-  // Today in YYYY-MM-DD
-  const todayString = useMemo(() => {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-  }, []);
+  // Anchor today to 2026-11-21
+  const todayString = "2026-11-21";
 
   // Map schedules by date
   const scheduleMap = useMemo(() => {
@@ -98,11 +99,11 @@ export default function ScheduleCalendarGrid({
   return (
     <div className="w-full space-y-2">
       {/* Weekdays Header */}
-      <div className="grid grid-cols-7 gap-1 sm:gap-2">
+      <div className="grid grid-cols-7 gap-2">
         {weekdays.map((w) => (
           <div
             key={w}
-            className="text-left py-1 text-[11px] font-mono font-medium tracking-wider uppercase text-[var(--color-muted)]"
+            className="text-left text-[11px] font-mono font-medium tracking-[0.04em] uppercase text-[#A8A0A3] px-1"
           >
             {w}
           </div>
@@ -110,104 +111,79 @@ export default function ScheduleCalendarGrid({
       </div>
 
       {/* Calendar Days Grid */}
-      <div className="grid grid-cols-7 gap-1 sm:gap-2">
+      <div className="grid grid-cols-7 gap-2">
         {calendarDays.map((d, idx) => {
           const events = scheduleMap[d.dateString] ?? [];
           const isToday = d.dateString === todayString;
           const isSelected = selectedDate === d.dateString;
+          const isPast = d.dateString < todayString;
 
           return (
             <button
               key={`${d.dateString}-${idx}`}
               type="button"
               onClick={() => onSelectDate(d.dateString)}
-              className={`min-h-[56px] sm:min-h-[104px] lg:min-h-[120px] p-2 sm:p-2.5 rounded-xl sm:rounded-2xl text-left transition-all relative flex flex-col justify-between ${
-                isToday
-                  ? "bg-[var(--color-crimson-500)] text-white shadow-lg shadow-[var(--color-crimson-500)]/30"
-                  : isSelected
-                    ? "bg-[var(--color-stage-800)] ring-2 ring-[var(--color-crimson-400)] text-[var(--color-ink)]"
+              className={`h-[120px] p-3 rounded-xl text-left transition-all relative flex flex-col justify-between overflow-hidden group ${
+                isSelected
+                  ? "bg-[#1F1B22] ring-2 ring-[#FF4D5E]"
+                  : isToday
+                    ? "bg-[#18141B] ring-1 ring-[#FF4D5E]/40"
                     : d.isCurrentMonth
-                      ? "bg-[var(--color-stage-900)] hover:bg-[var(--color-stage-800)] text-[var(--color-ink)]"
-                      : "bg-[var(--color-stage-900)]/40 text-[var(--color-muted)]/50 hover:bg-[var(--color-stage-900)]"
+                      ? "bg-[#141215] hover:bg-[#1C181E]"
+                      : "bg-[#141215]/50 opacity-40 hover:opacity-70"
               }`}
             >
               {/* Day Head */}
               <div className="flex items-center justify-between w-full">
                 <span
-                  className={`font-display font-black text-lg sm:text-2xl leading-none ${
+                  className={`font-display font-black text-2xl leading-none ${
                     isToday
-                      ? "text-white"
-                      : d.isCurrentMonth
-                        ? "text-[var(--color-ink)]"
-                        : "text-[var(--color-muted)]"
+                      ? "text-[#FF4D5E]"
+                      : isPast
+                        ? "text-[#8A8286]"
+                        : d.isCurrentMonth
+                          ? "text-[#F4EFEA]"
+                          : "text-[#8A8286]"
                   }`}
                 >
                   {d.day}
                 </span>
 
                 {isToday && (
-                  <span className="hidden sm:inline-block text-[9px] font-mono font-black uppercase px-1.5 py-0.5 rounded bg-white text-[var(--color-crimson-500)]">
-                    Hari Ini
+                  <span className="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded-full bg-[#E5132E]/20 text-[#FF4D5E]">
+                    Hari ini
                   </span>
                 )}
               </div>
 
-              {/* Desktop/Tablet Event Lines */}
-              <div className="hidden sm:flex flex-col gap-1 w-full mt-1">
-                {events.slice(0, 2).map((evt, eIdx) => (
-                  <div
-                    key={`${evt.schedule_id}-${eIdx}`}
-                    className="flex items-center gap-1.5 text-[11px] font-medium truncate w-full"
-                  >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full flex-none ${
-                        isToday
-                          ? "bg-white"
-                          : evt.type === "SHOW"
-                            ? "bg-[var(--color-crimson-400)]"
-                            : "bg-[var(--color-muted)]"
-                      }`}
-                    />
-                    <span
-                      className={`truncate ${
-                        isToday
-                          ? "text-white font-semibold"
-                          : "text-[var(--color-muted)]"
+              {/* Event indicators inside cell */}
+              <div className="w-full space-y-1">
+                {events.slice(0, 2).map((evt, eIdx) => {
+                  const isShow = evt.type === "SHOW";
+                  return (
+                    <div
+                      key={eIdx}
+                      className={`w-full flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-sans truncate ${
+                        isShow
+                          ? "bg-[#E5132E]/15 text-[#F4EFEA]"
+                          : "bg-[#FFE7CC]/15 text-[#FFE7CC]"
                       }`}
                     >
-                      {evt.start_time ? `${evt.start_time} ` : ""}
-                      {evt.title}
-                    </span>
-                  </div>
-                ))}
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full flex-none ${
+                          isShow ? "bg-[#FF4D5E]" : "bg-[#FFE7CC]"
+                        }`}
+                      />
+                      <span className="truncate font-medium">{evt.title}</span>
+                    </div>
+                  );
+                })}
 
                 {events.length > 2 && (
-                  <span
-                    className={`text-[10px] font-mono ${
-                      isToday
-                        ? "text-white/80"
-                        : "text-[var(--color-crimson-400)]"
-                    }`}
-                  >
-                    +{events.length - 2} lagi
+                  <span className="text-[10px] font-mono text-[#8A8286] block pl-1">
+                    +{events.length - 2} event lagi
                   </span>
                 )}
-              </div>
-
-              {/* Mobile Colored Dots */}
-              <div className="flex sm:hidden items-center gap-1 mt-1">
-                {events.slice(0, 3).map((evt, eIdx) => (
-                  <span
-                    key={`${evt.schedule_id}-${eIdx}`}
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      isToday
-                        ? "bg-white"
-                        : evt.type === "SHOW"
-                          ? "bg-[var(--color-crimson-500)]"
-                          : "bg-[var(--color-muted)]"
-                    }`}
-                  />
-                ))}
               </div>
             </button>
           );

@@ -5,7 +5,6 @@ import MemberHeroSection from "@/components/member/member-hero-section";
 import MemberScheduleSection from "@/components/member/member-schedule-section";
 import MemberDiscussionSection from "@/components/member/member-discussion-section";
 import MemberTeammatesSection from "@/components/member/member-teammates-section";
-import Footer from "@/components/layout/footer";
 
 interface MemberPageProps {
   params: Promise<{
@@ -59,9 +58,6 @@ export default async function MemberDetailPage({ params }: MemberPageProps) {
 
       {/* 4. Rekan Satu Tim */}
       <MemberTeammatesSection member={member} />
-
-      {/* 5. Footer */}
-      <Footer />
     </main>
   );
 }

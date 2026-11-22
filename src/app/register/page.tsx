@@ -1,26 +1,21 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
-  EnvelopeSimple,
-  Lock,
-  User,
+  ArrowRight,
   Eye,
   EyeSlash,
-  Check,
+  CaretDown,
 } from "@phosphor-icons/react";
 import { authClient } from "@/lib/auth-client";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Member } from "@/types/jkt48-types";
 
-const suggestedMembers = ((officialData.members ?? []) as JKT48Member[]).slice(
-  0,
-  5
-);
+const membersList = (officialData.members ?? []) as JKT48Member[];
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -29,37 +24,13 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [selectedOshi, setSelectedOshi] = useState<string>("FREYA_JAYAWARDANA");
-  const [agreeTerms, setAgreeTerms] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-
-  // Password strength calculation
-  const strength = useMemo(() => {
-    if (!password) return 0;
-    let score = 0;
-    if (password.length >= 8) score++;
-    if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
-    if (/[0-9]/.test(password)) score++;
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-    return score; // 0 to 4
-  }, [password]);
-
-  const strengthLabels = [
-    "Belum aman",
-    "Kurang aman",
-    "Cukup aman",
-    "Kuat",
-    "Sangat kuat",
-  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !password) {
       setErrorMsg("Mohon lengkapi seluruh formulir pendaftaran.");
-      return;
-    }
-    if (!agreeTerms) {
-      setErrorMsg("Kamu harus menyetujui aturan komunitas FJKT48.");
       return;
     }
 
@@ -89,10 +60,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--color-stage-950)] text-[var(--color-ink)] flex flex-col lg:flex-row">
+    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA] flex flex-col lg:flex-row">
       {/* 1. Left Column: Stage Side */}
-      <div className="stage relative lg:w-1/2 min-h-[300px] sm:min-h-[400px] lg:min-h-screen flex flex-col justify-between p-6 sm:p-10 lg:p-16 overflow-hidden bg-[var(--color-stage-950)]">
-        {/* Stage Photo Background */}
+      <div className="relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-[#0B0A0C]">
+        {/* Background Photo */}
         <div className="absolute inset-0">
           <Image
             src="https://jkt48.com/api/v1/storages/media/jkt48-member/angelina_christy.jpg"
@@ -100,7 +71,7 @@ export default function RegisterPage() {
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover object-top opacity-35"
+            className="object-cover object-top opacity-30"
           />
           {/* Overlays */}
           <div className="absolute inset-0 house-tint pointer-events-none" />
@@ -110,159 +81,188 @@ export default function RegisterPage() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(180deg, rgba(11,10,12,0.8) 0%, rgba(11,10,12,0.2) 40%, rgba(11,10,12,0.95) 100%)",
+                "linear-gradient(180deg, rgba(11,10,12,0.85) 0%, rgba(11,10,12,0.3) 40%, rgba(11,10,12,0.98) 100%)",
             }}
           />
         </div>
 
-        {/* Spotlight Beam */}
+        {/* Red Spotlight Beam */}
         <div
-          className="pointer-events-none absolute top-0 left-1/3 h-[600px] w-[320px] mix-blend-screen opacity-70"
+          className="pointer-events-none absolute top-0 left-1/4 h-[700px] w-[360px] mix-blend-screen opacity-60"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,231,204,0.16) 0%, rgba(255,231,204,0) 100%)",
+              "linear-gradient(180deg, rgba(229,19,46,0.24) 0%, rgba(229,19,46,0) 100%)",
             clipPath: "polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%)",
           }}
         />
 
-        {/* Top: FJKT48 Mark */}
+        {/* Top: FJKT48 Logo */}
         <div className="relative z-10">
-          <Link href="/" className="inline-flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-crimson-500)] flex items-center justify-center text-white font-display font-black text-sm italic shadow-md">
+          <Link href="/" className="inline-flex items-center gap-0 group">
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#F4EFEA]">
+              FJKT
+            </span>
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#E5132E]">
               48
-            </div>
-            <span className="font-display font-black text-2xl tracking-tighter uppercase text-white group-hover:text-[var(--color-crimson-400)] transition-colors">
-              FJKT<span className="text-[var(--color-crimson-500)]">48</span>
             </span>
           </Link>
         </div>
 
         {/* Bottom Copy: Poster Text */}
-        <div className="relative z-10 max-w-md pt-12 space-y-3">
-          <h2 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl leading-[0.88] uppercase tracking-tight text-white select-none">
-            Ambil
+        <div className="relative z-10 max-w-lg pt-16 space-y-4">
+          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-[#F4EFEA] select-none">
+            PANGGUNG KITA,
             <br />
-            Kursimu.
+            SUARA KITA.
           </h2>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-[var(--color-muted)] pt-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--color-crimson-500)] animate-pulse" />
-            <span>7.488 thread aktif di komunitas</span>
-          </div>
+          <p className="text-[17px] font-sans text-[#A8A0A3] leading-[26px]">
+            Komunitas fans independen JKT48. Masuk untuk ikut ngobrol di forum
+            dan dukung oshi kamu.
+          </p>
         </div>
       </div>
 
       {/* 2. Right Column: Form Side */}
-      <div className="lg:w-1/2 flex flex-col justify-between p-6 sm:p-10 lg:p-20 bg-[var(--color-stage-950)]">
+      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-[#0B0A0C]">
         {/* Back Link */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#A8A0A3] hover:text-[#F4EFEA] transition-colors"
           >
-            <ArrowLeft weight="bold" className="w-3.5 h-3.5" />
+            <ArrowLeft weight="bold" className="w-4 h-4" />
             <span>Kembali ke beranda</span>
           </Link>
         </div>
 
         {/* Main Form Container */}
-        <div className="max-w-[420px] w-full mx-auto my-8 sm:my-10 space-y-6">
-          <div>
-            <h1 className="font-display font-black text-6xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-[var(--color-ink)] leading-none">
-              Daftar
+        <div className="max-w-[440px] w-full mx-auto my-12 space-y-8">
+          <div className="space-y-2">
+            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+              BUAT AKUN BARU
             </h1>
-            <p className="text-sm sm:text-base text-[var(--color-muted)] mt-2 font-sans leading-relaxed">
-              Gratis, cukup email. Pilih oshi biar beranda kamu ngikutin jadwal
-              dan live-nya.
+            <p className="text-sm font-sans text-[#A8A0A3]">
+              Sudah punya akun?{" "}
+              <Link
+                href="/login"
+                className="text-[#FF4D5E] font-medium hover:underline inline-flex items-center gap-1"
+              >
+                <span>Masuk di sini</span>
+                <ArrowRight weight="bold" className="w-3.5 h-3.5" />
+              </Link>
             </p>
           </div>
 
           {errorMsg && (
-            <div className="p-3.5 rounded-xl bg-[var(--color-crimson-500)]/15 border border-[var(--color-crimson-500)]/30 text-xs font-medium text-[var(--color-crimson-400)] font-sans">
+            <div className="p-4 rounded-xl bg-[#E5132E]/15 border border-[#E5132E]/30 text-xs font-medium text-[#FF4D5E] font-sans">
               {errorMsg}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Field: Name */}
+          {/* Social Sign-in */}
+          <div>
+            <button
+              type="button"
+              onClick={() => router.push("/dashboard")}
+              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] font-sans text-sm font-semibold hover:bg-[#2B272D] transition-colors"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path
+                  fill="#EA4335"
+                  d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 16.4C3.7 20.4 7.5 23 12 23z"
+                />
+              </svg>
+              <span>Daftar dengan Google</span>
+            </button>
+          </div>
+
+          {/* Divider */}
+          <div className="relative flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-[#1D1A1F]" />
+            </div>
+            <span className="relative px-4 bg-[#0B0A0C] text-xs font-mono text-[#8A8286] uppercase">
+              atau daftar dengan email
+            </span>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Display Name */}
             <div className="space-y-1.5">
               <label
-                htmlFor="register-name"
-                className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
+                htmlFor="name"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
               >
-                Nama Tampilan
+                NAMA TAMPILAN
               </label>
-              <div className="relative">
-                <User
-                  weight="bold"
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted)] pointer-events-none"
-                />
-                <input
-                  id="register-name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Nama panggilan kamu"
-                  required
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] placeholder-[var(--color-subtle)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] transition-all font-sans"
-                />
-              </div>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="PenlightMerah"
+                required
+                className="w-full px-4 py-3.5 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+              />
             </div>
 
-            {/* Field: Email */}
+            {/* Email Field */}
             <div className="space-y-1.5">
               <label
-                htmlFor="register-email"
-                className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
+                htmlFor="email"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
               >
-                Email
+                EMAIL
               </label>
-              <div className="relative">
-                <EnvelopeSimple
-                  weight="bold"
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted)] pointer-events-none"
-                />
-                <input
-                  id="register-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="nama@email.com"
-                  required
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] placeholder-[var(--color-subtle)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] transition-all font-sans"
-                />
-              </div>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="nama@domain.com"
+                required
+                className="w-full px-4 py-3.5 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+              />
             </div>
 
-            {/* Field: Password */}
+            {/* Password Field */}
             <div className="space-y-1.5">
               <label
-                htmlFor="register-password"
-                className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
+                htmlFor="password"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
               >
-                Password
+                PASSWORD
               </label>
               <div className="relative">
-                <Lock
-                  weight="bold"
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted)] pointer-events-none"
-                />
                 <input
-                  id="register-password"
+                  id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Minimal 8 karakter"
                   required
-                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] placeholder-[var(--color-subtle)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] transition-all font-sans"
+                  minLength={8}
+                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  aria-label={
-                    showPassword ? "Sembunyikan password" : "Lihat password"
-                  }
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+                  aria-label="Lihat password"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8A8286] hover:text-[#F4EFEA] transition-colors"
                 >
                   {showPassword ? (
                     <EyeSlash weight="bold" className="w-4 h-4" />
@@ -271,124 +271,57 @@ export default function RegisterPage() {
                   )}
                 </button>
               </div>
-
-              {/* Password Strength Meter (4 bars) */}
-              {password && (
-                <div className="pt-1.5 space-y-1">
-                  <div className="grid grid-cols-4 gap-1.5 h-1.5">
-                    {[1, 2, 3, 4].map((step) => (
-                      <div
-                        key={step}
-                        className={`rounded-full transition-all ${
-                          strength >= step
-                            ? strength <= 1
-                              ? "bg-red-500"
-                              : strength <= 2
-                                ? "bg-amber-500"
-                                : "bg-emerald-500"
-                            : "bg-[var(--color-stage-700)]"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-[10px] font-mono text-[var(--color-muted)]">
-                    Kekuatan: {strengthLabels[strength]} (kombinasi huruf,
-                    angka, dan simbol)
-                  </span>
-                </div>
-              )}
             </div>
 
-            {/* Oshi Picker (Optional) */}
-            <div className="space-y-2 pt-1">
-              <label className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]">
-                Pilih Oshi (Opsional)
+            {/* Select Oshi (Optional) */}
+            <div className="space-y-1.5">
+              <label
+                htmlFor="oshi"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+              >
+                PILIH OSHI (OPSIONAL)
               </label>
-
-              {/* Suggested member avatars row */}
-              <div className="flex items-center gap-2.5">
-                {suggestedMembers.map((m) => {
-                  const isSelected = selectedOshi === m.code;
-                  return (
-                    <button
+              <div className="relative">
+                <select
+                  id="oshi"
+                  value={selectedOshi}
+                  onChange={(e) => setSelectedOshi(e.target.value)}
+                  className="w-full appearance-none px-4 py-3.5 pr-11 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+                >
+                  {membersList.map((m) => (
+                    <option
                       key={m.code}
-                      type="button"
-                      onClick={() => setSelectedOshi(m.code)}
-                      className={`relative w-12 h-12 rounded-full overflow-hidden transition-all ${
-                        isSelected
-                          ? "ring-2 ring-[var(--color-crimson-500)] ring-offset-2 ring-offset-[var(--color-stage-950)] scale-110"
-                          : "opacity-60 hover:opacity-100"
-                      }`}
-                      title={m.nickname}
+                      value={m.code}
+                      className="bg-[#141215]"
                     >
-                      <Image
-                        src={m.photo}
-                        alt={m.nickname}
-                        fill
-                        sizes="48px"
-                        className="object-cover object-top"
-                      />
-                    </button>
-                  );
-                })}
+                      {m.name} ({m.nickname})
+                    </option>
+                  ))}
+                </select>
+                <CaretDown
+                  weight="bold"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A8286] pointer-events-none"
+                />
               </div>
             </div>
 
-            {/* Terms Agreement Checkbox */}
-            <div className="flex items-start gap-2.5 pt-2">
-              <button
-                type="button"
-                role="checkbox"
-                aria-checked={agreeTerms}
-                onClick={() => setAgreeTerms(!agreeTerms)}
-                className={`w-5 h-5 rounded-md flex items-center justify-center transition-all flex-none mt-0.5 ${
-                  agreeTerms
-                    ? "bg-[var(--color-crimson-500)] text-white"
-                    : "bg-[var(--color-stage-900)] border border-[var(--color-stage-700)]"
-                }`}
-              >
-                {agreeTerms && <Check weight="bold" className="w-3.5 h-3.5" />}
-              </button>
-              <span
-                onClick={() => setAgreeTerms(!agreeTerms)}
-                className="text-xs text-[var(--color-muted)] cursor-pointer select-none font-sans leading-relaxed"
-              >
-                Saya setuju dengan aturan komunitas dan kebijakan privasi
-                FJKT48.
-              </span>
-            </div>
-
             {/* Submit Button */}
-            <div className="pt-2">
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3.5 rounded-full text-sm font-semibold bg-[var(--color-crimson-500)] text-white hover:bg-[var(--color-crimson-600)] transition-all shadow-md shadow-[var(--color-crimson-500)]/30 disabled:opacity-50"
-              >
-                {loading ? "Mendaftarkan akun..." : "Bikin Akun"}
-              </button>
-            </div>
-          </form>
-
-          {/* Switch to Login */}
-          <div className="pt-4 text-center border-t border-[var(--color-stage-800)]">
-            <span className="text-xs text-[var(--color-muted)] font-sans">
-              Udah punya akun?{" "}
-            </span>
-            <Link
-              href="/login"
-              className="text-xs font-semibold text-[var(--color-crimson-400)] hover:underline"
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#E5132E] text-white text-base font-semibold hover:bg-[#CC0E26] active:scale-[0.98] transition-all disabled:opacity-50"
             >
-              Masuk
-            </Link>
-          </div>
+              <span>{loading ? "Mendaftar..." : "Daftar akun baru"}</span>
+              <ArrowRight weight="bold" className="w-4 h-4" />
+            </button>
+          </form>
         </div>
 
-        {/* Bottom Legal Disclaimer */}
-        <div className="max-w-[420px] w-full mx-auto text-xs text-[var(--color-subtle)] font-sans leading-relaxed">
+        {/* Legal Text */}
+        <p className="text-xs font-mono text-[#8A8286] text-center max-w-sm mx-auto">
           Situs fans tidak resmi. Email kamu cuma dipakai buat akun forum, nggak
           dibagikan ke siapa pun.
-        </div>
+        </p>
       </div>
     </main>
   );

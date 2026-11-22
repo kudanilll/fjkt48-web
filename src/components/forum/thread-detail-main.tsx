@@ -1,37 +1,38 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
-  Flashlight,
-  ChatCircle,
   BookmarkSimple,
   ShareNetwork,
-  ArrowBendDownRight,
-  Check,
   Bell,
   CaretRight,
+  Flame,
+  Heart,
+  Flashlight,
+  ArrowRight,
 } from "@phosphor-icons/react";
 import type { ForumThread, ForumReply } from "@/data/forum-mock-data";
-import ReplyComposer from "@/components/forum/reply-composer";
 
 interface ThreadDetailMainProps {
   thread: ForumThread;
 }
 
 export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
-  const [hasReacted, setHasReacted] = useState(false);
+  const [hasLiked, setHasLiked] = useState(false);
+  const [hasHeart, setHasHeart] = useState(false);
+  const [hasPenlight, setHasPenlight] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [replies, setReplies] = useState<ForumReply[]>(thread.replies);
-  const [activeReplySort, setActiveReplySort] = useState<
-    "oldest" | "newest" | "top"
-  >("oldest");
+  const [activeSort, setActiveSort] = useState<"oldest" | "newest">("oldest");
+  const [newReplyText, setNewReplyText] = useState("");
   const composerRef = useRef<HTMLDivElement>(null);
 
-  const displayReactions = thread.reactions + (hasReacted ? 1 : 0);
+  const flameCount = 87 + (hasLiked ? 1 : 0);
+  const heartCount = 42 + (hasHeart ? 1 : 0);
+  const penlightCount = 64 + (hasPenlight ? 1 : 0);
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
@@ -41,7 +42,10 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
     }
   };
 
-  const handleAddReply = (text: string) => {
+  const handleAddReply = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReplyText.trim()) return;
+
     const newReply: ForumReply = {
       id: `r-new-${Date.now()}`,
       author: {
@@ -50,14 +54,11 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
         oshi: "Freya",
       },
       createdAt: "Baru saja",
-      content: text,
+      content: newReplyText.trim(),
       reactions: 0,
     };
-    setReplies((prev) => [newReply, ...prev]);
-  };
-
-  const scrollToComposer = () => {
-    composerRef.current?.scrollIntoView({ behavior: "smooth" });
+    setReplies((prev) => [...prev, newReply]);
+    setNewReplyText("");
   };
 
   return (
@@ -65,71 +66,64 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
       {/* 1. Breadcrumb Navigation */}
       <nav
         aria-label="Breadcrumb"
-        className="flex items-center gap-2 text-xs font-mono-data text-[var(--muted)]"
+        className="flex items-center gap-2 text-xs font-mono text-[#A8A0A3]"
       >
-        <Link
-          href="/forum"
-          className="hover:text-[var(--ink)] transition-colors"
-        >
+        <Link href="/forum" className="hover:text-[#F4EFEA] transition-colors">
           Forum
         </Link>
-        <CaretRight weight="bold" className="w-3 h-3 text-[var(--subtle)]" />
+        <CaretRight weight="bold" className="w-3.5 h-3.5 text-[#8A8286]" />
         <Link
           href={`/forum?block=${thread.categorySlug}`}
-          className="text-crimson-400 font-semibold hover:underline"
+          className="text-[#FF4D5E] font-medium hover:underline"
         >
           {thread.categoryName}
         </Link>
-        <CaretRight weight="bold" className="w-3 h-3 text-[var(--subtle)]" />
-        <span className="text-[var(--subtle)] truncate max-w-[200px] sm:max-w-none">
+        <CaretRight weight="bold" className="w-3.5 h-3.5 text-[#8A8286]" />
+        <span className="text-[#8A8286] truncate max-w-[240px] sm:max-w-none">
           Thread #{thread.id}
         </span>
       </nav>
 
-      {/* 2. Header & Title Section */}
-      <div className="space-y-4">
-        {/* Category & Topic Tags */}
+      {/* 2. Main Thread Card */}
+      <div className="rounded-[14px] bg-[#141215] p-6 sm:p-8 space-y-6">
+        {/* Category & Topic Badges */}
         <div className="flex items-center gap-2 flex-wrap text-xs">
-          <span className="px-3 py-1 rounded-full bg-crimson-500/15 text-crimson-400 font-semibold border border-crimson-500/30">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E5132E]/20 text-[#FF4D5E] font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4D5E]" />
             {thread.categoryName}
           </span>
           {thread.tags.map((tag) => (
             <span
               key={tag.slug}
-              className="px-3 py-1 rounded-full bg-[var(--surface)] text-[var(--muted)] font-medium border border-[var(--border)]"
+              className="px-3 py-1 rounded-full bg-[#1D1A1F] text-[#A8A0A3] font-mono text-xs border border-[#F4EFEA]/10"
             >
               #{tag.label}
             </span>
           ))}
         </div>
 
-        {/* Thread Title (Strict rule: user content never in display font) */}
-        <h1 className="font-sans font-bold text-3xl sm:text-4xl md:text-5xl text-[var(--ink)] leading-tight">
+        {/* Title */}
+        <h1 className="font-sans font-bold text-2xl sm:text-3xl md:text-4xl text-[#F4EFEA] leading-tight">
           {thread.title}
         </h1>
 
-        {/* Author Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 pb-6 border-b border-[var(--line)]">
-          <div className="flex items-center gap-3">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden bg-neutral-800 shrink-0 border border-[var(--border)]">
-              <Image
-                src={thread.author.avatar}
-                alt={thread.author.name}
-                fill
-                className="object-cover"
-              />
+        {/* Author Row */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 pb-6 border-b border-[#F4EFEA]/10">
+          <div className="flex items-center gap-3.5">
+            <div className="relative w-11 h-11 rounded-full overflow-hidden bg-gradient-to-br from-[#FF4D5E] to-[#7A0B1A] flex items-center justify-center text-white font-mono text-xs font-bold flex-none">
+              {thread.author.name.slice(0, 2).toUpperCase()}
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-sm text-[var(--ink)]">
+                <span className="font-bold text-sm text-[#F4EFEA]">
                   {thread.author.name}
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-[#7A0B1A] text-pink-200 text-[10px] font-semibold border border-pink-500/30">
-                  ❤ Oshi: {thread.author.oshi}
+                <span className="px-2 py-0.5 rounded-full bg-[#7A0B1A] text-[#F4EFEA] text-[10px] font-mono font-medium">
+                  Oshi: {thread.author.oshi}
                 </span>
               </div>
-              <p className="font-mono-data text-xs text-[var(--muted)] mt-0.5">
+              <p className="font-mono text-xs text-[#8A8286] mt-0.5">
                 {thread.createdAt} · {thread.views} tayangan
               </p>
             </div>
@@ -137,11 +131,11 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
 
           <button
             type="button"
-            onClick={() => setIsFollowing((prev) => !prev)}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold border transition-all cursor-pointer self-start sm:self-auto ${
+            onClick={() => setIsFollowing(!isFollowing)}
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all self-start sm:self-auto ${
               isFollowing
-                ? "bg-crimson-500 text-white border-crimson-500"
-                : "bg-[var(--surface)] border-[var(--border)] text-[var(--ink)] hover:border-crimson-500"
+                ? "bg-[#E5132E] text-white"
+                : "bg-[#1D1A1F] text-[#F4EFEA] border border-[#F4EFEA]/20 hover:border-[#F4EFEA]/40"
             }`}
           >
             <Bell
@@ -151,59 +145,63 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
             <span>{isFollowing ? "Mengikuti" : "Ikuti thread"}</span>
           </button>
         </div>
-      </div>
 
-      {/* 3. Opening Post (OP) on Reading Surface (§7.3) */}
-      <article className="card p-6 sm:p-10 rounded-3xl bg-[var(--raised)] border-none shadow-sm space-y-8">
-        {/* Post Content Body */}
-        <div className="prose prose-invert max-w-[68ch] space-y-5 text-base sm:text-lg leading-[1.8] text-[var(--ink)]">
-          {thread.content.split("\n\n").map((paragraph, idx) => (
-            <p key={idx} className="leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
+        {/* Post Content */}
+        <div className="space-y-4 text-[16px] font-sans text-[#F4EFEA] leading-[27px] whitespace-pre-line">
+          {thread.content}
         </div>
 
-        {/* Reaction & Action Toolbar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[var(--line)]">
-          {/* Lightstick Button */}
-          <button
-            type="button"
-            onClick={() => setHasReacted((prev) => !prev)}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
-              hasReacted
-                ? "bg-crimson-500 text-white shadow-lg shadow-crimson-500/30 scale-105"
-                : "bg-[var(--surface)] text-[var(--ink)] border border-[var(--border)] hover:border-crimson-500 hover:text-crimson-400"
-            }`}
-          >
-            <Flashlight
-              weight="fill"
-              className={`w-4 h-4 ${hasReacted ? "text-white" : "text-crimson-400"}`}
-            />
-            <span>Nyalakan Lightstick</span>
-            <span className="font-mono-data text-xs pl-1">
-              ({displayReactions})
-            </span>
-          </button>
-
-          {/* Action Tools */}
-          <div className="flex items-center gap-2">
+        {/* Reactions Toolbar */}
+        <div className="pt-6 border-t border-[#F4EFEA]/10 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               type="button"
-              onClick={scrollToComposer}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-[var(--surface)] text-[var(--ink)] border border-[var(--border)] hover:bg-[var(--bg)] transition-colors cursor-pointer"
+              onClick={() => setHasLiked(!hasLiked)}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
+                hasLiked
+                  ? "bg-[#E5132E] text-white shadow-md shadow-[#E5132E]/30"
+                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
+              }`}
             >
-              <ChatCircle weight="bold" className="w-4 h-4" />
-              <span>Balas</span>
+              <Flame weight="fill" className="w-4 h-4 text-[#FF4D5E]" />
+              <span>{flameCount}</span>
             </button>
 
             <button
               type="button"
-              onClick={() => setIsBookmarked((prev) => !prev)}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold border transition-colors cursor-pointer ${
+              onClick={() => setHasHeart(!hasHeart)}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
+                hasHeart
+                  ? "bg-[#E5132E] text-white shadow-md shadow-[#E5132E]/30"
+                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
+              }`}
+            >
+              <Heart weight="fill" className="w-4 h-4 text-[#FF4D5E]" />
+              <span>{heartCount}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setHasPenlight(!hasPenlight)}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
+                hasPenlight
+                  ? "bg-[#E5132E] text-white shadow-md shadow-[#E5132E]/30"
+                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
+              }`}
+            >
+              <Flashlight weight="fill" className="w-4 h-4 text-[#FFE7CC]" />
+              <span>{penlightCount}</span>
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsBookmarked(!isBookmarked)}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all ${
                 isBookmarked
-                  ? "bg-crimson-500/15 border-crimson-500 text-crimson-400 font-bold"
-                  : "bg-[var(--surface)] border-[var(--border)] text-[var(--ink)] hover:bg-[var(--bg)]"
+                  ? "bg-[#E5132E] text-white"
+                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
               }`}
             >
               <BookmarkSimple
@@ -216,155 +214,125 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-[var(--surface)] text-[var(--ink)] border border-[var(--border)] hover:bg-[var(--bg)] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA] transition-all"
             >
-              {copiedLink ? (
-                <>
-                  <Check weight="bold" className="w-4 h-4 text-emerald-400" />
-                  <span className="text-emerald-400">Tersalin!</span>
-                </>
-              ) : (
-                <>
-                  <ShareNetwork weight="bold" className="w-4 h-4" />
-                  <span>Salin link</span>
-                </>
-              )}
+              <ShareNetwork weight="bold" className="w-4 h-4" />
+              <span>{copiedLink ? "Disalin!" : "Bagikan"}</span>
             </button>
           </div>
         </div>
-      </article>
+      </div>
 
-      {/* 4. Replies Section */}
+      {/* 3. Replies Section */}
       <div className="space-y-6 pt-4">
-        {/* Replies Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-[var(--line)]">
-          <div className="flex items-baseline gap-3">
-            <h2 className="font-display font-black text-3xl sm:text-4xl uppercase text-[var(--ink)]">
-              {replies.length} BALASAN
-            </h2>
-            <span className="font-mono-data text-xs text-[var(--muted)]">
-              Diskusi komunitas
-            </span>
-          </div>
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-[#F4EFEA]">
+            {replies.length} BALASAN
+          </h2>
 
-          <div className="flex items-center gap-1 text-xs font-mono-data">
+          <div className="flex items-center gap-1 p-1 rounded-full bg-[#141215]">
             <button
               type="button"
-              onClick={() => setActiveReplySort("oldest")}
-              className={`px-2.5 py-1 rounded-md transition-colors ${
-                activeReplySort === "oldest"
-                  ? "text-crimson-400 font-bold"
-                  : "text-[var(--muted)] hover:text-[var(--ink)]"
+              onClick={() => setActiveSort("oldest")}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                activeSort === "oldest"
+                  ? "bg-[#F4EFEA] text-[#0B0A0C]"
+                  : "text-[#A8A0A3] hover:text-[#F4EFEA]"
               }`}
             >
               Terlama
             </button>
-            <span>·</span>
             <button
               type="button"
-              onClick={() => setActiveReplySort("newest")}
-              className={`px-2.5 py-1 rounded-md transition-colors ${
-                activeReplySort === "newest"
-                  ? "text-crimson-400 font-bold"
-                  : "text-[var(--muted)] hover:text-[var(--ink)]"
+              onClick={() => setActiveSort("newest")}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                activeSort === "newest"
+                  ? "bg-[#F4EFEA] text-[#0B0A0C]"
+                  : "text-[#A8A0A3] hover:text-[#F4EFEA]"
               }`}
             >
               Terbaru
             </button>
-            <span>·</span>
+          </div>
+        </div>
+
+        {/* Reply Composer Input */}
+        <div
+          ref={composerRef}
+          className="rounded-[14px] bg-[#141215] p-5 sm:p-6 space-y-4"
+        >
+          <textarea
+            rows={3}
+            value={newReplyText}
+            onChange={(e) => setNewReplyText(e.target.value)}
+            placeholder="Tulis tanggapan atau analisa kamu..."
+            className="w-full bg-[#0B0A0C] rounded-xl p-4 text-sm text-[#F4EFEA] placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all resize-none"
+          />
+
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-[#8A8286]">
+              Markdown didukung · Sopan dan hargai fans lain
+            </span>
+
             <button
               type="button"
-              onClick={() => setActiveReplySort("top")}
-              className={`px-2.5 py-1 rounded-md transition-colors ${
-                activeReplySort === "top"
-                  ? "text-crimson-400 font-bold"
-                  : "text-[var(--muted)] hover:text-[var(--ink)]"
-              }`}
+              onClick={handleAddReply}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E5132E] text-white text-sm font-semibold hover:bg-[#CC0E26] transition-colors"
             >
-              Lightstick terbanyak
+              <span>Kirim balasan</span>
+              <ArrowRight weight="bold" className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* Inline Reply Composer */}
-        <div ref={composerRef}>
-          <ReplyComposer onSubmitReply={handleAddReply} />
-        </div>
-
         {/* Replies List */}
-        <div className="space-y-6 pt-4">
+        <div className="space-y-4">
           {replies.map((reply) => (
             <div
               key={reply.id}
-              className="p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] space-y-4 shadow-sm"
+              className="p-5 sm:p-6 rounded-[14px] bg-[#141215] space-y-3 transition-colors hover:bg-[#1A181C]"
             >
-              {/* Reply Author */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="relative w-9 h-9 rounded-full overflow-hidden bg-neutral-800 shrink-0">
-                    <Image
-                      src={reply.author.avatar}
-                      alt={reply.author.name}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#10B981] to-[#064E3B] flex items-center justify-center text-white font-mono text-xs font-bold">
+                    {reply.author.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-sm text-[var(--ink)]">
+                      <span className="font-bold text-sm text-[#F4EFEA]">
                         {reply.author.name}
                       </span>
-                      <span className="px-2 py-0.5 rounded-full bg-[#7A0B1A] text-pink-200 text-[10px] font-semibold">
-                        ❤ {reply.author.oshi}
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3]">
+                        Oshi: {reply.author.oshi}
                       </span>
                     </div>
-                    <span className="font-mono-data text-xs text-[var(--muted)]">
-                      {reply.createdAt}
-                    </span>
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  className="flex items-center gap-1.5 text-xs font-mono-data text-[var(--muted)] hover:text-crimson-400 transition-colors"
-                >
-                  <Flashlight
-                    weight="fill"
-                    className="w-3.5 h-3.5 text-crimson-400"
-                  />
-                  <span>{reply.reactions}</span>
-                </button>
+                <span className="text-xs font-mono text-[#8A8286]">
+                  {reply.createdAt}
+                </span>
               </div>
 
-              {/* Reply Body */}
-              <p className="text-sm sm:text-base text-[var(--ink)] leading-relaxed">
+              <p className="text-sm font-sans text-[#F4EFEA] leading-relaxed pl-11">
                 {reply.content}
               </p>
 
-              {/* Nested Reply (Level 1 Indent) */}
-              {reply.replies && reply.replies.length > 0 && (
-                <div className="pl-4 sm:pl-6 border-l-2 border-crimson-500/40 space-y-4 pt-2 mt-4">
-                  {reply.replies.map((nested) => (
-                    <div key={nested.id} className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <ArrowBendDownRight
-                          weight="bold"
-                          className="w-3.5 h-3.5 text-crimson-400"
-                        />
-                        <span className="font-semibold text-xs text-[var(--ink)]">
-                          {nested.author.name}
-                        </span>
-                        <span className="font-mono-data text-[11px] text-[var(--muted)]">
-                          · {nested.createdAt}
-                        </span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-[var(--ink)] leading-relaxed pl-5">
-                        {nested.content}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="pl-11 pt-1 flex items-center gap-4 text-xs font-mono text-[#A8A0A3]">
+                <button
+                  type="button"
+                  className="hover:text-[#FF4D5E] transition-colors"
+                >
+                  Suka ({reply.reactions})
+                </button>
+                <button
+                  type="button"
+                  className="hover:text-[#F4EFEA] transition-colors"
+                >
+                  Balas
+                </button>
+              </div>
             </div>
           ))}
         </div>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Ticket } from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import Button from "@/components/ui/button";
 
 interface HeroMember {
@@ -179,65 +179,62 @@ export default function HeroNightTheater() {
 
       {/* Poster Headline & Foreground Content */}
       <div className="relative z-30 w-full px-6 sm:px-12 lg:px-16 pt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-          {/* Headline and Lede Text (Spans 8 cols on desktop) */}
-          <div className="lg:col-span-8 space-y-6">
-            <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[132px] tracking-tight leading-[0.88] uppercase text-[#F4EFEA]">
-              SHOW-NYA SELESAI.
-              <br />
-              <span className="text-crimson-500">OBROLANNYA BELUM.</span>
-            </h1>
+        <div className="space-y-6">
+          <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[132px] tracking-tight leading-[0.88] uppercase text-[#F4EFEA]">
+            SHOW-NYA SELESAI.
+            <br />
+            <span className="text-crimson-500">OBROLANNYA BELUM.</span>
+          </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-[#A8A0A3] max-w-xl leading-relaxed">
-              Forum fans JKT48 buat ngobrolin show, member, dan live streaming.
-              Tempat kumpul hangat setelah lampu panggung teater padam.
-            </p>
+          <p className="text-base sm:text-lg text-[#A8A0A3] max-w-xl leading-relaxed">
+            Forum fans JKT48 buat ngobrolin show, member, dan live. Tempat
+            kumpul setelah lampu theater padam.
+          </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+          {/* Action Row: CTAs on the left, Next Show Card on the right */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pt-2">
+            <div className="flex flex-wrap items-center gap-4">
               <Button href="/forum" variant="primary" size="lg" showArrow>
-                Masuk forum
+                Masuk ke forum
               </Button>
               <Button href="/schedule" variant="secondary" size="lg">
                 Lihat jadwal
               </Button>
             </div>
-          </div>
 
-          {/* Floating Next Show Card on the right (Spans 4 cols on desktop) */}
-          <div className="lg:col-span-4">
+            {/* Next Show Floating Card (FigCraft ID: 836) */}
             <Link
               href="/schedule"
-              className="card block p-5 rounded-2xl bg-[#141215]/85 backdrop-blur-md hover:bg-[#1D1A1F] transition-all duration-200 group border-none shadow-xl shadow-black/40"
+              className="inline-flex items-center gap-4 p-3.5 pr-4 rounded-[14px] bg-[#141215]/80 backdrop-blur-md hover:bg-[#1D1A1F] transition-all duration-200 group border-none shadow-xl shadow-black/40 w-full sm:w-auto sm:min-w-[384px]"
             >
-              <div className="flex items-center justify-between text-xs font-mono-data mb-3 text-[#A8A0A3]">
-                <span className="uppercase tracking-wider font-semibold text-crimson-400">
-                  SHOW BERIKUTNYA
+              {/* Crimson Date Box */}
+              <div className="w-14 h-14 rounded-[10px] bg-crimson-500 flex flex-col items-center justify-center shrink-0">
+                <span className="font-sans text-[10px] font-semibold text-white tracking-[0.05em] uppercase leading-none">
+                  MIN
                 </span>
-                <span className="flex items-center gap-1.5 font-bold text-white">
-                  <Ticket
-                    weight="fill"
-                    className="w-3.5 h-3.5 text-crimson-500"
-                  />
-                  Malam ini 19:00
+                <span className="font-display text-3xl font-black text-white leading-none mt-0.5">
+                  22
                 </span>
               </div>
 
-              <h2 className="font-display text-2xl font-black text-[#F4EFEA] group-hover:text-crimson-400 transition-colors uppercase leading-tight">
-                Aturan Anti Cinta
-              </h2>
-
-              <p className="font-mono-data text-xs text-[#A8A0A3] mt-1">
-                JKT48 Theater · fX Sudirman Lt. 4
-              </p>
-
-              <div className="flex items-center justify-between mt-4 pt-3 border-t border-[var(--line)] text-xs font-semibold text-white">
-                <span className="text-[#A8A0A3]">Lihat detail show</span>
-                <ArrowRight
-                  weight="bold"
-                  className="w-4 h-4 text-crimson-400 transition-transform duration-200 group-hover:translate-x-1"
-                />
+              {/* Show Details */}
+              <div className="flex-1 min-w-0">
+                <p className="font-mono-data text-xs text-crimson-400 font-medium">
+                  Besok di Theater, 19:00 WIB
+                </p>
+                <p className="font-sans font-semibold text-[17px] text-[#F4EFEA] group-hover:text-crimson-400 transition-colors truncate">
+                  Pertaruhan Cinta
+                </p>
+                <p className="font-sans text-xs text-[#A8A0A3] truncate">
+                  Birthday show · 64 fans lagi bahas
+                </p>
               </div>
+
+              {/* Arrow Icon */}
+              <ArrowRight
+                weight="bold"
+                className="w-5 h-5 text-[#F4EFEA] shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+              />
             </Link>
           </div>
         </div>

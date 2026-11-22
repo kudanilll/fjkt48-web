@@ -11,7 +11,6 @@ import {
   List,
   Sparkle,
   Plus,
-  User,
 } from "@phosphor-icons/react";
 import { useTheme } from "@/components/theme-provider";
 import MenuDrawer from "@/components/layout/menu-drawer";
@@ -163,10 +162,10 @@ export default function Navbar() {
             {/* Avatar / Profile Icon (Hidden on Mobile) */}
             <Link
               href="/dashboard"
-              className="hidden sm:flex items-center justify-center w-9 h-9 rounded-full bg-[var(--surface)] border border-[var(--border)] hover:border-crimson-500 text-[var(--ink)] transition-colors"
+              className="hidden sm:flex items-center justify-center w-9 h-9 rounded-full bg-[#2B272D] border border-[var(--border)] hover:border-crimson-500 font-sans font-semibold text-xs text-[#F4EFEA] transition-colors"
               aria-label="Profil Pengguna"
             >
-              <User weight="bold" className="w-4 h-4" />
+              PM
             </Link>
 
             {/* Mobile & Tablet Hamburger Drawer Trigger */}

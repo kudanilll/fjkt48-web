@@ -4,9 +4,9 @@ import { useState, useMemo } from "react";
 import { CaretLeft, CaretRight, CalendarCheck } from "@phosphor-icons/react";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Schedule } from "@/types/jkt48-types";
+import LiveTicker from "@/components/home/live-ticker";
 import ScheduleCalendarGrid from "@/components/schedule/schedule-calendar-grid";
 import ScheduleTicketRow from "@/components/schedule/schedule-ticket-row";
-import Footer from "@/components/layout/footer";
 
 const allSchedules = (officialData.schedules ?? []) as JKT48Schedule[];
 
@@ -81,10 +81,13 @@ export default function SchedulePage() {
     for (const item of filteredSchedules) {
       if (item.date === today) {
         todayItems.push(item);
-      } else if (item.date > today && item.date <= "2026-11-25") {
+      } else if (item.date > today && item.date <= "2026-11-28") {
         thisWeekItems.push(item);
-      } else {
+      } else if (item.date > "2026-11-28") {
         nextWeekItems.push(item);
+      } else {
+        // Earlier dates if selected via calendar
+        todayItems.push(item);
       }
     }
 
@@ -96,56 +99,54 @@ export default function SchedulePage() {
   }, [filteredSchedules]);
 
   return (
-    <main className="min-h-screen bg-[var(--color-stage-950)] text-[var(--color-ink)]">
-      {/* 1. Header & Source Line */}
-      <section className="pt-12 sm:pt-16 pb-8 border-b border-[var(--color-stage-800)] relative overflow-hidden">
-        {/* Glow */}
+    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA]">
+      {/* 1. Live Ticker */}
+      <LiveTicker />
+
+      {/* 2. Jadwal Head Section */}
+      <section className="relative overflow-hidden pt-12 pb-14 border-b border-[#1D1A1F]">
+        {/* Spotlight Glow */}
         <div
-          className="pointer-events-none absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full opacity-40"
+          className="pointer-events-none absolute -top-40 -left-40 h-[820px] w-[1000px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(229,19,46,0.15) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(229,19,46,0.11) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
         />
 
-        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block mb-1">
-                Kalender Kegiatan Resmi
-              </span>
-              <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl uppercase tracking-tight text-[var(--color-ink)]">
-                Jadwal
-              </h1>
-              <p className="text-sm sm:text-base text-[var(--color-muted)] max-w-xl mt-2 font-sans">
-                Agenda pertunjukan teater fX Sudirman Lt. 4, 2-shot, konser, dan
-                kegiatan resmi JKT48.
-              </p>
-            </div>
+        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-10">
+          {/* H1 & Lede Header */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <h1 className="font-display font-black text-7xl sm:text-9xl lg:text-[168px] leading-none tracking-[-0.04em] text-[#F4EFEA] uppercase">
+              JADWAL
+            </h1>
 
-            <div className="flex flex-col items-start md:items-end gap-1 text-xs font-mono text-[var(--color-muted)]">
-              <span className="text-[var(--color-ink)] font-semibold">
-                Sumber: jkt48.com
-              </span>
-              <span>Diperbarui 21 Nov 2026, 18:30 WIB</span>
+            <div className="max-w-[468px] space-y-3">
+              <p className="text-[17px] font-sans text-[#A8A0A3] leading-[26px]">
+                Show theater, 2-Shot, dan event JKT48. Tiap jadwal punya ruang
+                diskusinya sendiri, jadi obrolan soal satu show nggak tercecer.
+              </p>
+              <p className="text-xs font-mono font-medium text-[#8A8286]">
+                Sumber: jkt48.com · diperbarui 06:00 WIB
+              </p>
             </div>
           </div>
 
-          {/* Controls: Month Navigator + Type Filter Chips */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-4">
-            {/* Month Navigator */}
-            <div className="flex items-center gap-3">
+          {/* Controls: Month Nav + Filter Chips */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2">
+            {/* Month Nav */}
+            <div className="flex items-center gap-4">
               <button
                 type="button"
                 onClick={handlePrevMonth}
                 aria-label="Bulan sebelumnya"
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-stage-800)] transition-colors"
+                className="w-11 h-11 rounded-full flex items-center justify-center border border-[#2B272D] text-[#F4EFEA] hover:bg-[#1D1A1F] transition-colors"
               >
-                <CaretLeft weight="bold" className="w-4 h-4" />
+                <CaretLeft weight="bold" className="w-5 h-5" />
               </button>
 
-              <span className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)] min-w-[200px] text-center">
+              <span className="font-display font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-[#F4EFEA] min-w-[210px] text-center">
                 {monthNames[currentMonth]} {currentYear}
               </span>
 
@@ -153,9 +154,9 @@ export default function SchedulePage() {
                 type="button"
                 onClick={handleNextMonth}
                 aria-label="Bulan berikutnya"
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-stage-800)] transition-colors"
+                className="w-11 h-11 rounded-full flex items-center justify-center border border-[#2B272D] text-[#F4EFEA] hover:bg-[#1D1A1F] transition-colors"
               >
-                <CaretRight weight="bold" className="w-4 h-4" />
+                <CaretRight weight="bold" className="w-5 h-5" />
               </button>
             </div>
 
@@ -163,31 +164,31 @@ export default function SchedulePage() {
             <div className="flex items-center gap-2 flex-wrap">
               <button
                 type="button"
-                onClick={() => setTypeFilter("ALL")}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                  typeFilter === "ALL"
-                    ? "bg-[var(--color-crimson-500)] text-white shadow-md shadow-[var(--color-crimson-500)]/20"
-                    : "bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+                onClick={() => {
+                  setTypeFilter("ALL");
+                  setSelectedDate(null);
+                }}
+                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                  typeFilter === "ALL" && !selectedDate
+                    ? "bg-[#F4EFEA] text-[#0B0A0C]"
+                    : "bg-[#1D1A1F] text-[#F4EFEA] border border-[#F4EFEA]/10 hover:border-[#F4EFEA]/30"
                 }`}
               >
                 <span>Semua</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-mono">
-                  {counts.ALL}
-                </span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setTypeFilter("SHOW")}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium border transition-all ${
                   typeFilter === "SHOW"
-                    ? "bg-[var(--color-crimson-500)] text-white shadow-md shadow-[var(--color-crimson-500)]/20"
-                    : "bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+                    ? "bg-[#F4EFEA] text-[#0B0A0C] border-transparent"
+                    : "bg-[#1D1A1F] text-[#F4EFEA] border-[#F4EFEA]/10 hover:border-[#F4EFEA]/30"
                 }`}
               >
-                <span className="w-2 h-2 rounded-full bg-[var(--color-crimson-400)]" />
-                <span>Show Theater</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-mono">
+                <span className="w-2 h-2 rounded-full bg-[#FF4D5E]" />
+                <span>Show theater</span>
+                <span className="text-xs font-mono text-[#A8A0A3]">
                   {counts.SHOW}
                 </span>
               </button>
@@ -195,15 +196,15 @@ export default function SchedulePage() {
               <button
                 type="button"
                 onClick={() => setTypeFilter("EVENT")}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium border transition-all ${
                   typeFilter === "EVENT"
-                    ? "bg-[var(--color-crimson-500)] text-white shadow-md shadow-[var(--color-crimson-500)]/20"
-                    : "bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+                    ? "bg-[#F4EFEA] text-[#0B0A0C] border-transparent"
+                    : "bg-[#1D1A1F] text-[#F4EFEA] border-[#F4EFEA]/10 hover:border-[#F4EFEA]/30"
                 }`}
               >
-                <span className="w-2 h-2 rounded-full bg-[var(--color-muted)]" />
+                <span className="w-2 h-2 rounded-full bg-[#A8A0A3]" />
                 <span>Event & 2-Shot</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-mono">
+                <span className="text-xs font-mono text-[#A8A0A3]">
                   {counts.EVENT}
                 </span>
               </button>
@@ -212,15 +213,15 @@ export default function SchedulePage() {
                 <button
                   type="button"
                   onClick={() => setSelectedDate(null)}
-                  className="text-xs font-mono text-[var(--color-crimson-400)] hover:underline ml-2"
+                  className="text-xs font-mono text-[#FF4D5E] hover:underline ml-2"
                 >
-                  Reset tanggal
+                  Reset tanggal ({selectedDate})
                 </button>
               )}
             </div>
           </div>
 
-          {/* 2. Month Calendar Grid */}
+          {/* Calendar Grid */}
           <div className="pt-2">
             <ScheduleCalendarGrid
               currentYear={currentYear}
@@ -236,73 +237,93 @@ export default function SchedulePage() {
         </div>
       </section>
 
-      {/* 3. Ticket Rows List */}
-      <section className="py-12 sm:py-16 md:py-20">
-        <div className="w-full px-6 sm:px-12 lg:px-16 space-y-12">
-          {/* Group 1: Hari Ini */}
+      {/* 3. Jadwal Body Section */}
+      <section className="py-14 sm:py-20">
+        <div className="w-full px-6 sm:px-12 lg:px-16 space-y-16">
+          {/* Group 1: HARI INI */}
           {todayList.length > 0 && (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-crimson-500)] animate-pulse" />
-                <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
-                  Hari Ini · 21 November 2026
+            <div className="space-y-6">
+              <div className="flex items-baseline gap-4 pb-2">
+                <h2 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+                  HARI INI
                 </h2>
+                <span className="text-[13px] font-mono font-medium text-[#A8A0A3] uppercase">
+                  SAB, 21 NOV · {todayList.length} EVENT
+                </span>
               </div>
-              <div className="space-y-3">
-                {todayList.map((item) => (
+
+              <div className="space-y-4">
+                {todayList.map((item, idx) => (
                   <ScheduleTicketRow
-                    key={item.schedule_id}
+                    key={item.schedule_id || idx}
                     schedule={item}
                     isToday={true}
+                    replyCount={12 + idx * 6}
                   />
                 ))}
               </div>
             </div>
           )}
 
-          {/* Group 2: Minggu Ini */}
+          {/* Group 2: MINGGU INI */}
           {thisWeekList.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
-                Minggu Ini
-              </h2>
-              <div className="space-y-3">
+            <div className="space-y-6">
+              <div className="flex items-baseline gap-4 pb-2">
+                <h2 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+                  MINGGU INI
+                </h2>
+                <span className="text-[13px] font-mono font-medium text-[#A8A0A3] uppercase">
+                  22-28 NOV · {thisWeekList.length} SHOW
+                </span>
+              </div>
+
+              <div className="space-y-4">
                 {thisWeekList.map((item, idx) => (
                   <ScheduleTicketRow
-                    key={item.schedule_id}
+                    key={item.schedule_id || idx}
                     schedule={item}
-                    isNextShow={idx === 0}
+                    replyCount={38 + idx * 14}
                   />
                 ))}
               </div>
             </div>
           )}
 
-          {/* Group 3: Minggu Depan / Mendatang */}
+          {/* Group 3: MINGGU DEPAN */}
           {nextWeekList.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
-                Minggu Depan
-              </h2>
-              <div className="space-y-3">
-                {nextWeekList.map((item) => (
-                  <ScheduleTicketRow key={item.schedule_id} schedule={item} />
+            <div className="space-y-6">
+              <div className="flex items-baseline gap-4 pb-2">
+                <h2 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+                  MINGGU DEPAN
+                </h2>
+                <span className="text-[13px] font-mono font-medium text-[#A8A0A3] uppercase">
+                  29 NOV-05 DES
+                </span>
+              </div>
+
+              <div className="space-y-4">
+                {nextWeekList.map((item, idx) => (
+                  <ScheduleTicketRow
+                    key={item.schedule_id || idx}
+                    schedule={item}
+                    replyCount={20 + idx * 8}
+                  />
                 ))}
               </div>
             </div>
           )}
 
-          {/* Empty state when filtering yields no results */}
+          {/* Empty state */}
           {filteredSchedules.length === 0 && (
-            <div className="p-12 rounded-3xl bg-[var(--color-stage-900)] text-center space-y-3">
+            <div className="p-16 rounded-[14px] bg-[#141215] text-center space-y-4">
               <CalendarCheck
                 weight="duotone"
-                className="w-12 h-12 mx-auto text-[var(--color-stage-700)]"
+                className="w-12 h-12 mx-auto text-[#8A8286]"
               />
-              <h3 className="text-lg font-semibold text-[var(--color-ink)]">
+              <h3 className="text-xl font-bold text-[#F4EFEA]">
                 Tidak ada agenda pada tanggal ini
               </h3>
-              <p className="text-sm text-[var(--color-muted)]">
+              <p className="text-sm text-[#A8A0A3] max-w-md mx-auto">
                 Pilih tanggal lain di kalender atau klik tombol &ldquo;Reset
                 tanggal&rdquo; di atas.
               </p>
@@ -310,9 +331,6 @@ export default function SchedulePage() {
           )}
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </main>
   );
 }

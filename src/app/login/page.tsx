@@ -6,8 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
-  EnvelopeSimple,
-  Lock,
+  ArrowRight,
   Eye,
   EyeSlash,
   Check,
@@ -55,10 +54,10 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--color-stage-950)] text-[var(--color-ink)] flex flex-col lg:flex-row">
-      {/* 1. Left Column: Cinematic Stage Side (Always Dark) */}
-      <div className="stage relative lg:w-1/2 min-h-[300px] sm:min-h-[400px] lg:min-h-screen flex flex-col justify-between p-6 sm:p-10 lg:p-16 overflow-hidden bg-[var(--color-stage-950)]">
-        {/* Stage Photo Background */}
+    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA] flex flex-col lg:flex-row">
+      {/* 1. Left Column: Stage Side */}
+      <div className="relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-[#0B0A0C]">
+        {/* Background Photo */}
         <div className="absolute inset-0">
           <Image
             src="https://jkt48.com/api/v1/storages/media/jkt48-member/freya_jayawardana.jpg"
@@ -66,7 +65,7 @@ export default function LoginPage() {
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover object-top opacity-35"
+            className="object-cover object-top opacity-30"
           />
           {/* Overlays */}
           <div className="absolute inset-0 house-tint pointer-events-none" />
@@ -76,134 +75,177 @@ export default function LoginPage() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(180deg, rgba(11,10,12,0.8) 0%, rgba(11,10,12,0.2) 40%, rgba(11,10,12,0.95) 100%)",
+                "linear-gradient(180deg, rgba(11,10,12,0.85) 0%, rgba(11,10,12,0.3) 40%, rgba(11,10,12,0.98) 100%)",
             }}
           />
         </div>
 
-        {/* Spotlight Beam */}
+        {/* Red Spotlight Beam */}
         <div
-          className="pointer-events-none absolute top-0 left-1/4 h-[600px] w-[320px] mix-blend-screen opacity-70"
+          className="pointer-events-none absolute top-0 left-1/4 h-[700px] w-[360px] mix-blend-screen opacity-60"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,231,204,0.16) 0%, rgba(255,231,204,0) 100%)",
+              "linear-gradient(180deg, rgba(229,19,46,0.24) 0%, rgba(229,19,46,0) 100%)",
             clipPath: "polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%)",
           }}
         />
 
-        {/* Top: FJKT48 Mark */}
+        {/* Top: FJKT48 Logo */}
         <div className="relative z-10">
-          <Link href="/" className="inline-flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-crimson-500)] flex items-center justify-center text-white font-display font-black text-sm italic shadow-md">
+          <Link href="/" className="inline-flex items-center gap-0 group">
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#F4EFEA]">
+              FJKT
+            </span>
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#E5132E]">
               48
-            </div>
-            <span className="font-display font-black text-2xl tracking-tighter uppercase text-white group-hover:text-[var(--color-crimson-400)] transition-colors">
-              FJKT<span className="text-[var(--color-crimson-500)]">48</span>
             </span>
           </Link>
         </div>
 
         {/* Bottom Copy: Poster Text */}
-        <div className="relative z-10 max-w-md pt-12 space-y-3">
-          <h2 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl leading-[0.88] uppercase tracking-tight text-white select-none">
-            Lampunya
+        <div className="relative z-10 max-w-lg pt-16 space-y-4">
+          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-[#F4EFEA] select-none">
+            PANGGUNG KITA,
             <br />
-            Masih Nyala.
+            SUARA KITA.
           </h2>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-[var(--color-muted)] pt-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--color-crimson-500)] animate-pulse" />
-            <span>280 fans online malam ini</span>
-          </div>
+          <p className="text-[17px] font-sans text-[#A8A0A3] leading-[26px]">
+            Komunitas fans independen JKT48. Masuk untuk ikut ngobrol di forum
+            dan dukung oshi kamu.
+          </p>
         </div>
       </div>
 
       {/* 2. Right Column: Form Side */}
-      <div className="lg:w-1/2 flex flex-col justify-between p-6 sm:p-10 lg:p-20 bg-[var(--color-stage-950)]">
+      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-[#0B0A0C]">
         {/* Back Link */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#A8A0A3] hover:text-[#F4EFEA] transition-colors"
           >
-            <ArrowLeft weight="bold" className="w-3.5 h-3.5" />
+            <ArrowLeft weight="bold" className="w-4 h-4" />
             <span>Kembali ke beranda</span>
           </Link>
         </div>
 
         {/* Main Form Container */}
-        <div className="max-w-[420px] w-full mx-auto my-8 sm:my-12 space-y-6">
-          <div>
-            <h1 className="font-display font-black text-6xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-[var(--color-ink)] leading-none">
-              Masuk
+        <div className="max-w-[440px] w-full mx-auto my-12 space-y-8">
+          <div className="space-y-2">
+            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+              MASUK KE AKUN
             </h1>
-            <p className="text-sm sm:text-base text-[var(--color-muted)] mt-2 font-sans leading-relaxed">
-              Lanjutkan obrolan yang kamu tinggal. Thread, balasan, dan oshi
-              kamu masih di tempatnya.
+            <p className="text-sm font-sans text-[#A8A0A3]">
+              Belum punya akun?{" "}
+              <Link
+                href="/register"
+                className="text-[#FF4D5E] font-medium hover:underline inline-flex items-center gap-1"
+              >
+                <span>Daftar sekarang</span>
+                <ArrowRight weight="bold" className="w-3.5 h-3.5" />
+              </Link>
             </p>
           </div>
 
           {errorMsg && (
-            <div className="p-3.5 rounded-xl bg-[var(--color-crimson-500)]/15 border border-[var(--color-crimson-500)]/30 text-xs font-medium text-[var(--color-crimson-400)] font-sans">
+            <div className="p-4 rounded-xl bg-[#E5132E]/15 border border-[#E5132E]/30 text-xs font-medium text-[#FF4D5E] font-sans">
               {errorMsg}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Field: Email */}
+          {/* Social Sign-in */}
+          <div>
+            <button
+              type="button"
+              onClick={() => router.push("/dashboard")}
+              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] font-sans text-sm font-semibold hover:bg-[#2B272D] transition-colors"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path
+                  fill="#EA4335"
+                  d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
+                />
+                <path
+                  fill="#4285F4"
+                  d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 16.4C3.7 20.4 7.5 23 12 23z"
+                />
+              </svg>
+              <span>Masuk dengan Google</span>
+            </button>
+          </div>
+
+          {/* Divider */}
+          <div className="relative flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-[#1D1A1F]" />
+            </div>
+            <span className="relative px-4 bg-[#0B0A0C] text-xs font-mono text-[#8A8286] uppercase">
+              atau masuk dengan email
+            </span>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email Field */}
             <div className="space-y-1.5">
               <label
-                htmlFor="login-email"
-                className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
+                htmlFor="email"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
               >
-                Email
+                EMAIL
               </label>
-              <div className="relative">
-                <EnvelopeSimple
-                  weight="bold"
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted)] pointer-events-none"
-                />
-                <input
-                  id="login-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="nama@email.com"
-                  required
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] placeholder-[var(--color-subtle)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] transition-all font-sans"
-                />
-              </div>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="nama@domain.com"
+                required
+                className="w-full px-4 py-3.5 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+              />
             </div>
 
-            {/* Field: Password */}
+            {/* Password Field */}
             <div className="space-y-1.5">
-              <label
-                htmlFor="login-password"
-                className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
-              >
-                Password
-              </label>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+                >
+                  PASSWORD
+                </label>
+                <Link
+                  href="#"
+                  className="text-xs font-sans text-[#A8A0A3] hover:text-[#F4EFEA] hover:underline"
+                >
+                  Lupa password?
+                </Link>
+              </div>
+
               <div className="relative">
-                <Lock
-                  weight="bold"
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted)] pointer-events-none"
-                />
                 <input
-                  id="login-password"
+                  id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password akun kamu"
+                  placeholder="••••••••"
                   required
-                  className="w-full pl-10 pr-10 py-3 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] placeholder-[var(--color-subtle)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] transition-all font-sans"
+                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  aria-label={
-                    showPassword ? "Sembunyikan password" : "Lihat password"
-                  }
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+                  aria-label="Lihat password"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8A8286] hover:text-[#F4EFEA] transition-colors"
                 >
                   {showPassword ? (
                     <EyeSlash weight="bold" className="w-4 h-4" />
@@ -214,60 +256,44 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Remember Me Checkbox */}
-            <div className="flex items-center gap-2.5 pt-1">
+            {/* Remember Me */}
+            <div className="flex items-center gap-2 pt-1">
               <button
                 type="button"
-                role="checkbox"
-                aria-checked={rememberMe}
                 onClick={() => setRememberMe(!rememberMe)}
-                className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${
+                className={`w-4 h-4 rounded flex items-center justify-center transition-colors ${
                   rememberMe
-                    ? "bg-[var(--color-crimson-500)] text-white"
-                    : "bg-[var(--color-stage-900)] border border-[var(--color-stage-700)]"
+                    ? "bg-[#E5132E] text-white"
+                    : "bg-[#141215] border border-[#2B272D]"
                 }`}
               >
-                {rememberMe && <Check weight="bold" className="w-3.5 h-3.5" />}
+                {rememberMe && <Check weight="bold" className="w-3 h-3" />}
               </button>
               <span
                 onClick={() => setRememberMe(!rememberMe)}
-                className="text-xs text-[var(--color-muted)] cursor-pointer select-none font-sans"
+                className="text-xs font-sans text-[#A8A0A3] cursor-pointer select-none"
               >
                 Ingat saya di perangkat ini
               </span>
             </div>
 
             {/* Submit Button */}
-            <div className="pt-2">
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3.5 rounded-full text-sm font-semibold bg-[var(--color-crimson-500)] text-white hover:bg-[var(--color-crimson-600)] transition-all shadow-md shadow-[var(--color-crimson-500)]/30 disabled:opacity-50"
-              >
-                {loading ? "Memproses..." : "Masuk"}
-              </button>
-            </div>
-          </form>
-
-          {/* Switch to Register */}
-          <div className="pt-4 text-center border-t border-[var(--color-stage-800)]">
-            <span className="text-xs text-[var(--color-muted)] font-sans">
-              Belum punya akun?{" "}
-            </span>
-            <Link
-              href="/register"
-              className="text-xs font-semibold text-[var(--color-crimson-400)] hover:underline"
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#E5132E] text-white text-base font-semibold hover:bg-[#CC0E26] active:scale-[0.98] transition-all disabled:opacity-50"
             >
-              Daftar, gratis
-            </Link>
-          </div>
+              <span>{loading ? "Memproses..." : "Masuk ke akun"}</span>
+              <ArrowRight weight="bold" className="w-4 h-4" />
+            </button>
+          </form>
         </div>
 
-        {/* Bottom Legal Disclaimer */}
-        <div className="max-w-[420px] w-full mx-auto text-xs text-[var(--color-subtle)] font-sans leading-relaxed">
+        {/* Legal Text */}
+        <p className="text-xs font-mono text-[#8A8286] text-center max-w-sm mx-auto">
           Situs fans tidak resmi. Dengan masuk, kamu setuju dengan Aturan
           komunitas FJKT48.
-        </div>
+        </p>
       </div>
     </main>
   );

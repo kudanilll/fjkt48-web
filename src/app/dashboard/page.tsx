@@ -3,246 +3,353 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  SignOut,
-  PencilSimple,
-  Bell,
-  BookmarkSimple,
-  ChatCircle,
-  Eye,
-  Flashlight,
-  CheckCircle,
-  Radio,
-  ArrowRight,
-} from "@phosphor-icons/react";
-import {
-  mockCurrentUser,
-  mockNotifications,
-  mockSavedThreads,
-  type UserNotification,
-} from "@/data/user-mock-data";
-import { forumThreads } from "@/data/forum-mock-data";
-import { TeamBadge } from "@/components/ui/badge";
-import Footer from "@/components/layout/footer";
+import { ArrowUpRight, Plus } from "@phosphor-icons/react";
+import LiveTicker from "@/components/home/live-ticker";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Member } from "@/types/jkt48-types";
 
 const allMembers = (officialData.members ?? []) as JKT48Member[];
 
+interface NotificationItem {
+  id: string;
+  author: string;
+  avatarColor: string;
+  threadTitle: string;
+  snippet: string;
+  time: string;
+  unread: boolean;
+}
+
+const mockNotifications: NotificationItem[] = [
+  {
+    id: "notif-1",
+    author: "kopigita",
+    avatarColor: "from-[#F59E0B] to-[#78350F]",
+    threadTitle: "MC Show Pertaruhan Cinta hari ini pecah banget",
+    snippet:
+      "Setuju banget! Pas bagian Gita nge-roasting Oline itu bener-bener gak ketebak, seisi teater langsung ketawa.",
+    time: "5 mnt",
+    unread: true,
+  },
+  {
+    id: "notif-2",
+    author: "anakfx",
+    avatarColor: "from-[#10B981] to-[#064E3B]",
+    threadTitle: "Setlist Cara Meminum Ramune vs Pertaruhan Cinta",
+    snippet:
+      "Kalau dari koreo sih emang Ramune lebih capek, tapi emosi di Pertaruhan Cinta lebih kerasa di encore.",
+    time: "18 mnt",
+    unread: true,
+  },
+  {
+    id: "notif-3",
+    author: "penlightbiru",
+    avatarColor: "from-[#8B5CF6] to-[#4C1D95]",
+    threadTitle: "Info rundown & seat 2-Shot Festival Vol. 5",
+    snippet:
+      "Tadi sempet nanya staf tiket, katanya jalur OFC mulai dibuka jam 11 siang bro.",
+    time: "2 jam",
+    unread: false,
+  },
+];
+
+const mockUserThreads = [
+  {
+    id: "thread-1",
+    title:
+      "MC Show Pertaruhan Cinta hari ini pecah banget, interaksi Freya sama Gita dapet banget!",
+    replies: 128,
+    category: "Theater & Setlist",
+    views: "2.410",
+    time: "Kemarin, 21:40 WIB",
+  },
+  {
+    id: "thread-2",
+    title:
+      "Prediksi setlist revival theater 2027: apakah Pajama Drive bakal balik lagi?",
+    replies: 42,
+    category: "Opini & Analisis",
+    views: "1.180",
+    time: "3 hari lalu",
+  },
+  {
+    id: "thread-3",
+    title:
+      "Rangkuman Showroom Freya malam ini: cerita di balik latihan lagu baru",
+    replies: 18,
+    category: "Live Streaming",
+    views: "890",
+    time: "1 minggu lalu",
+  },
+  {
+    id: "thread-4",
+    title:
+      "Tips buat yang pertama kali nonton show theater di baris belakang (Row K & L)",
+    replies: 9,
+    category: "Theater & Setlist",
+    views: "640",
+    time: "2 minggu lalu",
+  },
+];
+
 export default function DashboardPage() {
-  const [user, setUser] = useState(mockCurrentUser);
   const [notifications, setNotifications] =
-    useState<UserNotification[]>(mockNotifications);
-  const [notifyOshiLive, setNotifyOshiLive] = useState(true);
+    useState<NotificationItem[]>(mockNotifications);
+  const [notifyLive, setNotifyLive] = useState(true);
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
 
-  // Edit profile state
-  const [editName, setEditName] = useState(user.name);
-  const [editBio, setEditBio] = useState(user.bio);
-  const [editOshiCode, setEditOshiCode] = useState(user.oshiCode);
-  const [saveSuccess, setSaveSuccess] = useState(false);
+  // User state
+  const [userName, setUserName] = useState("PenlightMerah");
+  const [userHandle] = useState("@penlightmerah");
+  const [userBio, setUserBio] = useState(
+    "Wota Pajama Drive dari 2019. Kalau dapet tiket, pasti di baris depan bawa lightstick merah."
+  );
+  const [selectedOshiCode, setSelectedOshiCode] = useState("FREYA_JAYAWARDANA");
 
-  const unreadCount = notifications.filter((n) => n.isUnread).length;
+  const oshiMember =
+    allMembers.find((m) => m.code === selectedOshiCode) || allMembers[0]!;
 
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, isUnread: false })));
+  const unreadCount = notifications.filter((n) => n.unread).length;
+
+  const markAllRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
   };
-
-  const handleSaveProfile = (e: React.FormEvent) => {
-    e.preventDefault();
-    const chosenOshi = allMembers.find((m) => m.code === editOshiCode);
-    setUser((prev) => ({
-      ...prev,
-      name: editName,
-      bio: editBio,
-      oshiCode: editOshiCode,
-      oshiName: chosenOshi ? chosenOshi.name : prev.oshiName,
-      oshiNickname: chosenOshi ? chosenOshi.nickname : prev.oshiNickname,
-    }));
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3000);
-  };
-
-  // User's own threads
-  const myThreads = forumThreads.slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-[var(--color-stage-950)] text-[var(--color-ink)]">
-      {/* 1. Dashboard Header */}
-      <section className="pt-12 sm:pt-16 pb-8 border-b border-[var(--color-stage-800)] relative overflow-hidden">
-        {/* Glow */}
+    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA]">
+      {/* 1. Live Ticker */}
+      <LiveTicker />
+
+      {/* 2. Dashboard Head Section */}
+      <section className="relative overflow-hidden pt-12 pb-12 border-b border-[#1D1A1F]">
+        {/* Spotlight Glow */}
         <div
-          className="pointer-events-none absolute -top-40 -left-20 h-[600px] w-[600px] rounded-full opacity-30"
+          className="pointer-events-none absolute -top-40 -left-40 h-[820px] w-[1000px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(229,19,46,0.18) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(229,19,46,0.12) 0%, transparent 70%)",
             filter: "blur(60px)",
           }}
         />
 
         <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-4">
-          <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block">
+          <span className="text-xs font-mono font-medium tracking-[1.5px] uppercase text-[#FF4D5E] block">
             DASHBOARD
           </span>
 
-          <h1 className="font-display font-black text-5xl sm:text-7xl md:text-8xl uppercase tracking-tight text-[var(--color-ink)] leading-none">
-            Halo, {user.username}.
+          <h1 className="font-display font-black text-6xl sm:text-8xl lg:text-[96px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+            HALO, {userName.toUpperCase()}.
           </h1>
 
-          <p className="text-sm sm:text-base text-[var(--color-muted)] max-w-2xl font-sans">
+          <p className="text-[17px] font-sans text-[#A8A0A3] max-w-2xl leading-[26px]">
             Ada {unreadCount} balasan baru di thread kamu, dan{" "}
-            {user.oshiNickname} belum masuk lineup show minggu ini.
+            {oshiMember.nickname} belum masuk lineup show minggu ini.
           </p>
         </div>
       </section>
 
-      {/* 2. Main Dashboard Body: Left & Right Columns */}
-      <section className="py-10 sm:py-16">
-        <div className="w-full px-6 sm:px-12 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column (lg:col-span-4): Profile Card + Oshi Card */}
-          <div className="lg:col-span-4 space-y-6">
-            {/* Profile Card */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-[var(--color-stage-900)] space-y-6 relative overflow-hidden">
+      {/* 3. Dashboard Body */}
+      <section className="py-12 sm:py-16">
+        <div className="w-full px-6 sm:px-12 lg:px-16 flex flex-col lg:flex-row items-start gap-10">
+          {/* LEFT COLUMN: Profile Card & Oshi Card */}
+          <div className="w-full lg:w-[420px] flex-none space-y-8">
+            {/* Card Profile */}
+            <div className="rounded-[14px] bg-[#141215] p-6 sm:p-7 space-y-6">
+              {/* Header with Avatar */}
               <div className="flex items-center gap-4">
-                {/* Avatar with spotlight ring */}
-                <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-[var(--color-spotlight)] ring-offset-2 ring-offset-[var(--color-stage-900)] flex-none">
-                  <Image
-                    src={user.avatar}
-                    alt={user.name}
-                    fill
-                    sizes="64px"
-                    className="object-cover object-top"
-                  />
+                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-[#E5132E] bg-gradient-to-br from-[#FF4D5E] to-[#7A0B1A] flex items-center justify-center text-white font-display font-black text-2xl flex-none">
+                  PM
                 </div>
 
-                <div className="min-w-0">
-                  <h2 className="font-display font-black text-2xl uppercase tracking-tight text-[var(--color-ink)] truncate">
-                    {user.name}
+                <div className="min-w-0 space-y-1">
+                  <h2 className="font-display font-black text-2xl uppercase tracking-tight text-[#F4EFEA] truncate">
+                    {userName}
                   </h2>
-                  <span className="text-xs font-mono text-[var(--color-muted)] block truncate">
-                    @{user.username}
+                  <span className="text-xs font-mono text-[#A8A0A3] block truncate">
+                    {userHandle}
                   </span>
-                  <div className="mt-1">
-                    <span className="inline-block text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--color-crimson-500)]/20 text-[var(--color-crimson-400)] font-semibold">
-                      Oshi: {user.oshiNickname}
+                  <div className="pt-0.5">
+                    <span className="inline-block text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#E5132E]/20 text-[#FF4D5E] font-medium">
+                      Oshi: {oshiMember.nickname}
                     </span>
                   </div>
                 </div>
               </div>
 
               {/* Bio */}
-              <p className="text-xs sm:text-sm text-[var(--color-muted)] font-sans leading-relaxed">
-                {user.bio}
+              <p className="text-[15px] font-sans text-[#F4EFEA] leading-[23px]">
+                {userBio}
               </p>
 
-              {/* Stats Strip */}
-              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-[var(--color-stage-800)] text-center">
-                <div className="p-2 rounded-xl bg-[var(--color-stage-800)]">
-                  <span className="font-display font-black text-2xl text-[var(--color-ink)] block">
-                    {user.stats.threadsCount}
+              {/* 3-column stats */}
+              <div className="grid grid-cols-3 gap-0 py-4 border-y border-[#F4EFEA]/10 text-center">
+                <div className="space-y-1">
+                  <span className="font-display font-black text-3xl text-[#F4EFEA] block leading-none">
+                    14
                   </span>
-                  <span className="text-[10px] font-mono uppercase text-[var(--color-muted)]">
+                  <span className="text-[11px] font-mono uppercase text-[#A8A0A3] tracking-[0.5px]">
                     Thread
                   </span>
                 </div>
-
-                <div className="p-2 rounded-xl bg-[var(--color-stage-800)]">
-                  <span className="font-display font-black text-2xl text-[var(--color-ink)] block">
-                    {user.stats.repliesCount}
+                <div className="space-y-1 border-x border-[#F4EFEA]/10">
+                  <span className="font-display font-black text-3xl text-[#F4EFEA] block leading-none">
+                    128
                   </span>
-                  <span className="text-[10px] font-mono uppercase text-[var(--color-muted)]">
+                  <span className="text-[11px] font-mono uppercase text-[#A8A0A3] tracking-[0.5px]">
                     Balasan
                   </span>
                 </div>
-
-                <div className="p-2 rounded-xl bg-[var(--color-stage-800)]">
-                  <span className="font-display font-black text-2xl text-[var(--color-crimson-400)] block">
-                    {user.stats.reactionsCount}
+                <div className="space-y-1">
+                  <span className="font-display font-black text-3xl text-[#F4EFEA] block leading-none">
+                    1.420
                   </span>
-                  <span className="text-[10px] font-mono uppercase text-[var(--color-muted)]">
-                    Lightstick
+                  <span className="text-[11px] font-mono uppercase text-[#A8A0A3] tracking-[0.5px]">
+                    Poin Oshi
                   </span>
                 </div>
               </div>
 
-              {/* Actions: Edit Profile & Sign Out */}
-              <div className="flex items-center gap-3 pt-2">
-                <a
-                  href="#edit-profile"
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 rounded-full text-xs font-semibold bg-[var(--color-stage-800)] text-[var(--color-ink)] hover:bg-[var(--color-stage-700)] transition-colors"
+              {/* Buttons */}
+              <div className="flex items-center gap-3 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setIsEditingProfile(!isEditingProfile)}
+                  className="px-5 py-2.5 rounded-full border border-[#F4EFEA]/35 text-[#F4EFEA] text-sm font-medium hover:bg-[#1D1A1F] transition-colors"
                 >
-                  <PencilSimple weight="bold" className="w-3.5 h-3.5" />
-                  <span>Edit Profil</span>
-                </a>
-
+                  Edit profil
+                </button>
                 <Link
                   href="/login"
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-semibold bg-[var(--color-stage-800)] text-[var(--color-muted)] hover:text-[var(--color-crimson-400)] hover:bg-[var(--color-stage-700)] transition-colors"
-                  title="Keluar akun"
+                  className="px-4 py-2 text-xs font-mono text-[#A8A0A3] hover:text-[#FF4D5E] transition-colors"
                 >
-                  <SignOut weight="bold" className="w-4 h-4" />
+                  Keluar
                 </Link>
               </div>
+
+              {/* Editable profile dropdown when toggled */}
+              {isEditingProfile && (
+                <div className="p-4 rounded-xl bg-[#0B0A0C] space-y-4 border border-[#2B272D] mt-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-[#A8A0A3] uppercase">
+                      Nama
+                    </label>
+                    <input
+                      type="text"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg bg-[#141215] text-sm text-[#F4EFEA] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E]"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-[#A8A0A3] uppercase">
+                      Bio
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={userBio}
+                      onChange={(e) => setUserBio(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg bg-[#141215] text-sm text-[#F4EFEA] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E]"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-mono text-[#A8A0A3] uppercase">
+                      Ganti Oshi
+                    </label>
+                    <select
+                      value={selectedOshiCode}
+                      onChange={(e) => setSelectedOshiCode(e.target.value)}
+                      className="w-full px-3 py-2 rounded-lg bg-[#141215] text-sm text-[#F4EFEA] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E]"
+                    >
+                      {allMembers.map((m) => (
+                        <option key={m.code} value={m.code}>
+                          {m.name} ({m.nickname})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsEditingProfile(false)}
+                    className="w-full py-2 rounded-full bg-[#E5132E] text-white text-xs font-bold uppercase tracking-wider"
+                  >
+                    Simpan Perubahan
+                  </button>
+                </div>
+              )}
             </div>
 
-            {/* Oshi Card */}
-            <div className="rounded-3xl bg-[var(--color-stage-900)] overflow-hidden shadow-xl">
-              {/* Oshi Photo */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-[var(--color-stage-800)]">
+            {/* Card Oshi */}
+            <div className="relative rounded-[14px] bg-[#141215] overflow-hidden min-h-[556px] p-6 sm:p-7 flex flex-col justify-between">
+              {/* Photo background */}
+              <div className="absolute inset-0">
                 <Image
-                  src="https://jkt48.com/api/v1/storages/media/jkt48-member/freya_jayawardana.jpg"
-                  alt={user.oshiName}
+                  src={oshiMember.photo}
+                  alt={oshiMember.name}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 420px"
-                  className="object-cover object-top"
+                  sizes="420px"
+                  className="object-cover object-top opacity-55"
                 />
-                <div className="absolute inset-0 house-tint pointer-events-none" />
-                <div className="absolute inset-0 spotlight-vignette pointer-events-none" />
-                <div className="absolute inset-0 floor-fade pointer-events-none" />
-
-                <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-crimson-400)] block">
-                      Oshi Kamu
-                    </span>
-                    <span className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-white">
-                      {user.oshiName}
-                    </span>
-                  </div>
-                  <TeamBadge team="LOVE" />
-                </div>
+                <div className="absolute inset-0 bg-[#3A0710]/55 mix-blend-multiply pointer-events-none" />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(11,10,12,0.7) 0%, rgba(11,10,12,0) 30%, rgba(11,10,12,0.92) 75%, rgba(11,10,12,1) 100%)",
+                  }}
+                />
               </div>
 
-              {/* Oshi Info & Live Notification Toggle */}
-              <div className="p-5 sm:p-6 space-y-4">
-                <div className="space-y-1 text-xs font-mono">
-                  <div className="flex items-center gap-2 text-[var(--color-muted)]">
-                    <Radio
-                      weight="bold"
-                      className="w-4 h-4 text-[var(--color-crimson-400)]"
-                    />
-                    <span>Terakhir live 2 hari lalu di Showroom</span>
-                  </div>
-                  <div className="text-[var(--color-subtle)] pl-6">
-                    Belum ada lineup show teater minggu ini.
-                  </div>
+              {/* Kicker top */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="text-xs font-mono font-medium tracking-[1.2px] uppercase text-[#FF4D5E]">
+                  OSHI KAMU
+                </span>
+                <Link
+                  href={`/member/${oshiMember.nickname.toLowerCase()}`}
+                  className="text-xs font-mono text-[#A8A0A3] hover:text-[#F4EFEA] flex items-center gap-1"
+                >
+                  <span>Profil</span>
+                  <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              {/* Bottom Info */}
+              <div className="relative z-10 space-y-3 pt-32">
+                <h3 className="font-display font-black text-6xl uppercase tracking-tight text-[#F4EFEA] leading-none">
+                  {oshiMember.nickname.toUpperCase()}
+                </h3>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono text-[#A8A0A3]">
+                    Team Dream · Member Tetap
+                  </span>
+                  <span>·</span>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-mono text-[#8A8286]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#8A8286]" />
+                    Lagi tidak live
+                  </span>
                 </div>
 
-                <div className="pt-3 border-t border-[var(--color-stage-800)] flex items-center justify-between">
-                  <span className="text-xs text-[var(--color-ink)] font-medium font-sans">
-                    Kabari aku kalau {user.oshiNickname} live
+                <p className="text-[15px] font-sans text-[#F4EFEA] leading-[22px]">
+                  Belum masuk lineup show minggu ini. Kami kabari begitu ada
+                  jadwal.
+                </p>
+
+                {/* Toggle notification */}
+                <div className="pt-3 border-t border-[#F4EFEA]/12 flex items-center justify-between">
+                  <span className="text-xs font-mono text-[#A8A0A3]">
+                    Kabari jika live dimulai
                   </span>
                   <button
                     type="button"
-                    onClick={() => setNotifyOshiLive(!notifyOshiLive)}
-                    className={`w-11 h-6 rounded-full transition-colors relative flex items-center p-0.5 ${
-                      notifyOshiLive
-                        ? "bg-[var(--color-crimson-500)]"
-                        : "bg-[var(--color-stage-700)]"
+                    onClick={() => setNotifyLive(!notifyLive)}
+                    className={`w-11 h-6 rounded-full p-1 transition-colors ${
+                      notifyLive ? "bg-[#E5132E]" : "bg-[#2B272D]"
                     }`}
                   >
                     <div
-                      className={`w-5 h-5 rounded-full bg-white transition-transform ${
-                        notifyOshiLive ? "translate-x-5" : "translate-x-0"
+                      className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                        notifyLive ? "translate-x-5" : "translate-x-0"
                       }`}
                     />
                   </button>
@@ -251,192 +358,138 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Right Column (lg:col-span-8): Notifications, My Threads, Saved */}
-          <div className="lg:col-span-8 space-y-10">
-            {/* Section 1: Balasan Buat Kamu (Notifications) */}
+          {/* RIGHT COLUMN: Notifications & User Threads */}
+          <div className="flex-1 min-w-0 space-y-12">
+            {/* Section 1: Balasan Terbaru */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <Bell
-                    weight="bold"
-                    className="w-5 h-5 text-[var(--color-crimson-400)]"
-                  />
-                  <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
-                    Balasan Buat Kamu
+              <div className="flex items-center justify-between pb-1">
+                <div className="flex items-center gap-3">
+                  <h2 className="font-display font-extrabold text-3xl sm:text-[44px] uppercase tracking-[-0.5px] text-[#F4EFEA]">
+                    BALASAN TERBARU · {notifications.length}
                   </h2>
-                  {unreadCount > 0 && (
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--color-crimson-500)] text-white font-bold">
-                      {unreadCount} baru
-                    </span>
-                  )}
                 </div>
 
                 {unreadCount > 0 && (
                   <button
                     type="button"
-                    onClick={markAllAsRead}
-                    className="text-xs font-mono text-[var(--color-crimson-400)] hover:underline"
+                    onClick={markAllRead}
+                    className="text-sm font-semibold text-[#F4EFEA] underline underline-offset-4 hover:text-[#FF4D5E] transition-colors"
                   >
                     Tandai sudah dibaca
                   </button>
                 )}
               </div>
 
-              {/* Notification Rows */}
-              <div className="divide-y divide-[var(--color-stage-800)] rounded-2xl bg-[var(--color-stage-900)] overflow-hidden">
-                {notifications.map((notif) => (
-                  <Link
-                    key={notif.id}
-                    href={`/forum/${notif.threadSlug}`}
-                    className={`p-4 sm:p-5 flex items-start gap-4 transition-colors hover:bg-[var(--color-stage-800)] ${
-                      notif.isUnread ? "bg-[var(--color-stage-850)]" : ""
-                    }`}
+              <div className="space-y-3">
+                {notifications.map((n) => (
+                  <div
+                    key={n.id}
+                    className="p-5 rounded-[14px] bg-[#141215] flex items-start gap-4 transition-colors hover:bg-[#1A181C]"
                   >
                     {/* Unread indicator */}
-                    <div className="pt-2 flex-none">
-                      <span
-                        className={`w-2 h-2 rounded-full block ${
-                          notif.isUnread
-                            ? "bg-[var(--color-crimson-500)]"
-                            : "bg-transparent"
-                        }`}
-                      />
+                    <div className="w-2 pt-3 flex justify-center flex-none">
+                      {n.unread ? (
+                        <span className="w-2 h-2 rounded-full bg-[#E5132E]" />
+                      ) : (
+                        <span className="w-2 h-2 rounded-full bg-transparent" />
+                      )}
                     </div>
 
-                    {/* Actor Avatar */}
-                    <div className="relative w-10 h-10 rounded-full overflow-hidden flex-none bg-[var(--color-stage-800)]">
-                      <Image
-                        src={notif.actorAvatar}
-                        alt={notif.actorName}
-                        fill
-                        sizes="40px"
-                        className="object-cover object-top"
-                      />
+                    {/* Author Avatar */}
+                    <div
+                      className={`relative w-10 h-10 rounded-full overflow-hidden flex-none bg-gradient-to-br ${n.avatarColor} flex items-center justify-center text-white font-mono text-xs font-bold`}
+                    >
+                      {n.author.slice(0, 2).toUpperCase()}
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 min-w-0 space-y-1">
-                      <p className="text-xs sm:text-sm text-[var(--color-ink)] font-sans leading-relaxed">
-                        <span className="font-semibold">{notif.actorName}</span>{" "}
-                        {notif.type === "reaction" ? (
-                          <span className="text-[var(--color-crimson-400)]">
-                            {notif.content}
-                          </span>
-                        ) : (
-                          <span>&ldquo;{notif.content}&rdquo;</span>
-                        )}
-                      </p>
-                      <div className="flex items-center gap-2 text-xs font-mono text-[var(--color-muted)]">
-                        <span className="truncate">
-                          di: {notif.threadTitle}
+                      <div className="flex items-baseline gap-1.5 flex-wrap">
+                        <span className="font-sans font-semibold text-[15px] text-[#F4EFEA]">
+                          {n.author}
                         </span>
-                        <span>&bull;</span>
-                        <span className="flex-none">{notif.timeAgo}</span>
+                        <span className="text-xs font-mono text-[#8A8286]">
+                          membalas di
+                        </span>
+                        <span className="text-xs font-sans text-[#A8A0A3] truncate">
+                          &ldquo;{n.threadTitle}&rdquo;
+                        </span>
                       </div>
+
+                      <p className="text-[13px] font-sans text-[#A8A0A3] line-clamp-2 leading-relaxed">
+                        {n.snippet}
+                      </p>
                     </div>
-                  </Link>
+
+                    {/* Time */}
+                    <span className="text-xs font-mono text-[#A8A0A3] flex-none pt-0.5">
+                      {n.time}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
 
             {/* Section 2: Thread Saya */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <ChatCircle
-                    weight="bold"
-                    className="w-5 h-5 text-[var(--color-crimson-400)]"
-                  />
-                  <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
-                    Thread Saya
-                  </h2>
-                </div>
+              <div className="flex items-center justify-between pb-1">
+                <h2 className="font-display font-extrabold text-3xl sm:text-[44px] uppercase tracking-[-0.5px] text-[#F4EFEA]">
+                  THREAD SAYA · 24
+                </h2>
 
                 <Link
-                  href="/forum"
-                  className="text-xs font-mono text-[var(--color-crimson-400)] hover:underline"
+                  href="/forum/new"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E5132E] text-white text-sm font-semibold hover:bg-[#CC0E26] transition-colors"
                 >
-                  Bikin thread baru &rarr;
+                  <Plus weight="bold" className="w-4 h-4" />
+                  <span>Bikin thread</span>
                 </Link>
               </div>
 
-              {/* Thread List */}
-              <div className="divide-y divide-[var(--color-stage-800)] rounded-2xl bg-[var(--color-stage-900)] overflow-hidden">
-                {myThreads.map((thread) => (
+              <div className="space-y-3">
+                {mockUserThreads.map((t) => (
                   <Link
-                    key={thread.id}
-                    href={`/forum/${thread.slug}`}
-                    className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--color-stage-800)] transition-colors"
+                    key={t.id}
+                    href={`/forum/${t.id}`}
+                    className="group block p-5 rounded-[14px] bg-[#141215] hover:bg-[#1A181C] transition-colors"
                   >
-                    <div className="space-y-1 flex-1 min-w-0">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--color-stage-800)] text-[var(--color-crimson-400)] font-semibold">
-                        {thread.categoryName}
-                      </span>
-                      <h3 className="text-sm sm:text-base font-semibold text-[var(--color-ink)] truncate font-sans">
-                        {thread.title}
-                      </h3>
-                    </div>
+                    <div className="flex items-center justify-between gap-4">
+                      {/* Left: Replies counter + Thread info */}
+                      <div className="flex items-center gap-5 min-w-0">
+                        {/* Giant reply count on left */}
+                        <div className="w-14 flex-none text-right">
+                          <span className="font-display font-black text-4xl text-[#F4EFEA] group-hover:text-[#FF4D5E] transition-colors block leading-none">
+                            {t.replies}
+                          </span>
+                          <span className="text-[10px] font-mono uppercase text-[#8A8286]">
+                            balasan
+                          </span>
+                        </div>
 
-                    <div className="flex items-center gap-4 text-xs font-mono text-[var(--color-muted)] self-end sm:self-center">
-                      <span className="flex items-center gap-1">
-                        <Flashlight
-                          weight="bold"
-                          className="w-3.5 h-3.5 text-[var(--color-crimson-400)]"
-                        />
-                        {thread.reactions}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <ChatCircle weight="bold" className="w-3.5 h-3.5" />
-                        {thread.repliesCount}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Eye weight="bold" className="w-3.5 h-3.5" />
-                        {thread.views}
-                      </span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
+                        {/* Title and meta */}
+                        <div className="min-w-0 space-y-1.5">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3] border border-[#F4EFEA]/10 font-medium">
+                              {t.category}
+                            </span>
+                          </div>
 
-            {/* Section 3: Disimpan (Bookmarks) */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2.5">
-                <BookmarkSimple
-                  weight="fill"
-                  className="w-5 h-5 text-[var(--color-crimson-400)]"
-                />
-                <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
-                  Disimpan
-                </h2>
-              </div>
+                          <h3 className="font-sans font-semibold text-[17px] text-[#F4EFEA] group-hover:text-[#FF4D5E] transition-colors line-clamp-1">
+                            {t.title}
+                          </h3>
 
-              <div className="divide-y divide-[var(--color-stage-800)] rounded-2xl bg-[var(--color-stage-900)] overflow-hidden">
-                {mockSavedThreads.map((saved) => (
-                  <Link
-                    key={saved.id}
-                    href={`/forum/${saved.slug}`}
-                    className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--color-stage-800)] transition-colors"
-                  >
-                    <div className="space-y-1 flex-1 min-w-0">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[var(--color-stage-800)] text-[var(--color-muted)]">
-                        {saved.categoryName}
-                      </span>
-                      <h3 className="text-sm sm:text-base font-semibold text-[var(--color-ink)] truncate font-sans">
-                        {saved.title}
-                      </h3>
-                      <span className="text-xs font-mono text-[var(--color-muted)] block">
-                        {saved.savedDate} &bull; oleh @{saved.authorName}
-                      </span>
-                    </div>
+                          <div className="flex items-center gap-3 text-xs font-mono text-[#8A8286]">
+                            <span>{t.time}</span>
+                            <span>·</span>
+                            <span>{t.views} tayangan</span>
+                          </div>
+                        </div>
+                      </div>
 
-                    <div className="flex items-center gap-2 text-xs font-mono text-[var(--color-muted)] self-end sm:self-center">
-                      <ChatCircle weight="bold" className="w-3.5 h-3.5" />
-                      <span>{saved.repliesCount} balasan</span>
-                      <ArrowRight
-                        weight="bold"
-                        className="w-3.5 h-3.5 ml-2 text-[var(--color-crimson-400)]"
-                      />
+                      {/* Right: Circular arrow */}
+                      <div className="w-10 h-10 rounded-full border border-[#2B272D] flex items-center justify-center text-[#A8A0A3] group-hover:border-[#FF4D5E] group-hover:text-[#FF4D5E] transition-colors flex-none">
+                        <ArrowUpRight weight="bold" className="w-4 h-4" />
+                      </div>
                     </div>
                   </Link>
                 ))}
@@ -445,125 +498,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </section>
-
-      {/* 3. Bottom Section: Edit Profil Panel */}
-      <section
-        id="edit-profile"
-        className="py-12 sm:py-16 border-t border-[var(--color-stage-800)] bg-[var(--color-stage-900)]/40"
-      >
-        <div className="w-full px-6 sm:px-12 lg:px-16">
-          <div className="max-w-2xl space-y-6">
-            <div>
-              <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block mb-1">
-                Pengaturan Akun
-              </span>
-              <h2 className="font-display font-black text-3xl sm:text-4xl uppercase tracking-tight text-[var(--color-ink)]">
-                Edit Profil
-              </h2>
-              <p className="text-xs sm:text-sm text-[var(--color-muted)] mt-1 font-sans">
-                Perbarui nama tampilan, bio singkat komunitas, dan member oshi
-                pilihanmu.
-              </p>
-            </div>
-
-            {saveSuccess && (
-              <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-xs font-medium text-emerald-400 flex items-center gap-2">
-                <CheckCircle weight="bold" className="w-4 h-4" />
-                <span>Perubahan profil berhasil disimpan!</span>
-              </div>
-            )}
-
-            <form onSubmit={handleSaveProfile} className="space-y-4">
-              {/* Nama Tampilan */}
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="edit-name"
-                  className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
-                >
-                  Nama Tampilan
-                </label>
-                <input
-                  id="edit-name"
-                  type="text"
-                  value={editName}
-                  onChange={(e) => setEditName(e.target.value)}
-                  required
-                  className="w-full px-4 py-2.5 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] font-sans"
-                />
-              </div>
-
-              {/* Bio dengan counter 160 karakter */}
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="edit-bio"
-                    className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
-                  >
-                    Bio Komunitas
-                  </label>
-                  <span className="text-[10px] font-mono text-[var(--color-muted)]">
-                    {editBio.length} / 160
-                  </span>
-                </div>
-                <textarea
-                  id="edit-bio"
-                  rows={3}
-                  maxLength={160}
-                  value={editBio}
-                  onChange={(e) => setEditBio(e.target.value)}
-                  className="w-full p-4 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] font-sans leading-relaxed resize-none"
-                />
-              </div>
-
-              {/* Pilih Oshi */}
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="edit-oshi"
-                  className="block text-xs font-mono uppercase tracking-wider text-[var(--color-muted)]"
-                >
-                  Oshi Utama
-                </label>
-                <select
-                  id="edit-oshi"
-                  value={editOshiCode}
-                  onChange={(e) => setEditOshiCode(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[var(--color-stage-900)] text-sm text-[var(--color-ink)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] font-sans"
-                >
-                  {allMembers.map((m) => (
-                    <option key={m.code} value={m.code}>
-                      {m.name} ({m.nickname}) &bull; Team {m.type}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Submit Buttons */}
-              <div className="flex items-center gap-3 pt-2">
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-full text-xs font-semibold bg-[var(--color-crimson-500)] text-white hover:bg-[var(--color-crimson-600)] transition-all shadow-md shadow-[var(--color-crimson-500)]/20"
-                >
-                  Simpan Perubahan
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditName(user.name);
-                    setEditBio(user.bio);
-                    setEditOshiCode(user.oshiCode);
-                  }}
-                  className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[var(--color-stage-800)] text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors"
-                >
-                  Batal
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <Footer />
     </main>
   );
 }
