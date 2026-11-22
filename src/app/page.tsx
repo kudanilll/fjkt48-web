@@ -1,47 +1,38 @@
-"use client";
-
-import Link from "next/link";
-import { Button } from "@heroui/react";
-import { Heart, Sparkle, Users } from "@phosphor-icons/react";
+import HeroSection from "@/components/home/hero-section";
+import ScheduleSection from "@/components/home/schedule-section";
+import NewsSection from "@/components/home/news-section";
+import MemberSpotlight from "@/components/home/member-spotlight";
+import {
+  getAllMembers,
+  getAllSchedules,
+  getUpcomingSchedules,
+  getLatestNews,
+  getSpotlightMembers,
+} from "@/lib/jkt48-data";
 
 export default function Home() {
+  const allMembers = getAllMembers();
+  const allSchedules = getAllSchedules();
+  const upcomingSchedules = getUpcomingSchedules(6);
+  const latestNews = getLatestNews(6);
+  const spotlightMembers = getSpotlightMembers(3);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
-      <div className="flex items-center gap-2 mb-4 text-rose-600 font-semibold text-sm tracking-wider uppercase">
-        <Sparkle weight="fill" className="w-4 h-4 text-rose-500" />
-        <span>FJKT48 Community Portal</span>
-      </div>
+    <main className="min-h-screen">
+      {/* Hero Section with GSAP motion */}
+      <HeroSection
+        totalMembers={allMembers.length}
+        totalShows={allSchedules.length}
+      />
 
-      <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 mb-4">
-        FJKT48
-      </h1>
+      {/* Member Spotlight Highlight */}
+      <MemberSpotlight members={spotlightMembers} />
 
-      <p className="max-w-xl text-neutral-600 dark:text-neutral-400 mb-8 text-base md:text-lg">
-        Portal komunitas penggemar JKT48 — informasi jadwal teater, berita
-        pengumuman, katalog member, dan ruang interaksi fans.
-      </p>
+      {/* Upcoming Schedules Section */}
+      <ScheduleSection schedules={upcomingSchedules} />
 
-      <div className="flex flex-wrap items-center justify-center gap-4">
-        <Link href="/member">
-          <Button
-            variant="primary"
-            className="flex items-center gap-2 font-medium bg-rose-600 hover:bg-rose-700 text-white"
-          >
-            <Users weight="bold" className="w-5 h-5" />
-            Lihat Member
-          </Button>
-        </Link>
-
-        <Link href="/member">
-          <Button
-            variant="secondary"
-            className="flex items-center gap-2 font-medium"
-          >
-            <Heart weight="fill" className="w-5 h-5 text-rose-600" />
-            Dukung Oshi
-          </Button>
-        </Link>
-      </div>
+      {/* News & Official Announcements Section */}
+      <NewsSection news={latestNews} />
     </main>
   );
 }

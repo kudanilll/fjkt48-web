@@ -18,6 +18,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@heroui/react": "^3.2.7",
     "@heroui/styles": "^3.2.7",
     "@phosphor-icons/react": "^2.1.10",

@@ -1,27 +1,19 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import Link from "next/link";
-import { Button, Card } from "@heroui/react";
-import {
-  MagnifyingGlass,
-  ArrowLeft,
-  Heart,
-  Sparkle,
-  Fire,
-} from "@phosphor-icons/react";
+import { useState, useMemo } from "react";
+import { MagnifyingGlass, Sparkle, Users } from "@phosphor-icons/react";
+import SectionHeading from "@/components/shared/section-heading";
+import MemberCard from "@/components/shared/member-card";
+import ScrollReveal from "@/components/animation/scroll-reveal";
 import officialData from "@/data/jkt48-official.json";
+import type { JKT48Member, TeamType } from "@/types/jkt48-types";
 
-interface MemberItem {
-  type: string;
-  code: string;
-  name: string;
-  nickname: string;
-  photo: string;
-  jkt48_member_id: number;
+interface TeamFilterOption {
+  id: "ALL" | TeamType;
+  label: string;
 }
 
-const teams = [
+const teams: TeamFilterOption[] = [
   { id: "ALL", label: "Semua Member" },
   { id: "LOVE", label: "Team Love" },
   { id: "DREAM", label: "Team Dream" },
@@ -29,15 +21,24 @@ const teams = [
   { id: "TRAINEE", label: "Trainee" },
 ];
 
-export default function MemberPage() {
-  const [selectedTeam, setSelectedTeam] = useState<string>("ALL");
-  const [search, setSearch] = useState<string>("");
-  const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+const allMembers: JKT48Member[] = (officialData.members ?? []) as JKT48Member[];
 
-  const members: MemberItem[] = officialData.members || [];
+export default function MemberPage() {
+  const [selectedTeam, setSelectedTeam] = useState<"ALL" | TeamType>("ALL");
+  const [search, setSearch] = useState<string>("");
+
+  const counts = useMemo(() => {
+    return {
+      ALL: allMembers.length,
+      LOVE: allMembers.filter((m) => m.type === "LOVE").length,
+      DREAM: allMembers.filter((m) => m.type === "DREAM").length,
+      PASSION: allMembers.filter((m) => m.type === "PASSION").length,
+      TRAINEE: allMembers.filter((m) => m.type === "TRAINEE").length,
+    };
+  }, []);
 
   const filteredMembers = useMemo(() => {
-    return members.filter((m) => {
+    return allMembers.filter((m) => {
       const matchTeam =
         selectedTeam === "ALL" || m.type.toUpperCase() === selectedTeam;
       const matchSearch =
@@ -45,178 +46,106 @@ export default function MemberPage() {
         m.nickname.toLowerCase().includes(search.toLowerCase());
       return matchTeam && matchSearch;
     });
-  }, [members, selectedTeam, search]);
-
-  const toggleFavorite = (code: string) => {
-    setFavorites((prev) => ({ ...prev, [code]: !prev[code] }));
-  };
-
-  const getTeamBadgeColor = (type: string) => {
-    switch (type.toUpperCase()) {
-      case "LOVE":
-        return "bg-pink-50 text-pink-700 border-pink-200 dark:bg-pink-950/40 dark:text-pink-300 dark:border-pink-800";
-      case "DREAM":
-        return "bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800";
-      case "PASSION":
-        return "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800";
-      case "TRAINEE":
-        return "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800";
-      default:
-        return "bg-neutral-100 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700";
-    }
-  };
+  }, [selectedTeam, search]);
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-30 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 px-4 sm:px-8 py-3.5 flex items-center justify-between">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
-        >
-          <ArrowLeft weight="bold" className="w-4 h-4" />
-          <span>Kembali ke Beranda</span>
-        </Link>
+    <main className="mx-auto max-w-7xl px-4 sm:px-8 py-10 sm:py-16 space-y-10">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+        <SectionHeading
+          eyebrow="Roster Resmi JKT48"
+          title="Katalog Member & Trainee"
+          description="Daftar lengkap seluruh idola aktif di JKT48. Temukan oshi-mu, dukung kegiatannya, dan ikuti perjalanan mereka."
+        />
 
-        <div className="flex items-center gap-2 font-bold text-base tracking-tight">
-          <span className="p-1 rounded-md bg-rose-600 text-white">
-            <Sparkle weight="fill" className="w-3.5 h-3.5" />
-          </span>
+        <div className="flex items-center gap-2 rounded-xl bg-neutral-100 dark:bg-neutral-900 px-4 py-2 text-xs font-semibold text-neutral-600 dark:text-neutral-400 self-start sm:self-auto">
+          <Users className="h-4 w-4 text-crimson-600" />
           <span>
-            FJKT48 <span className="text-rose-600 font-semibold">Members</span>
+            {filteredMembers.length} dari {allMembers.length} Member
           </span>
         </div>
-      </header>
+      </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8 space-y-8">
-        {/* Page Hero */}
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-400 border border-rose-200 dark:border-rose-900">
-            <Fire weight="fill" className="w-3.5 h-3.5" />
-            <span>Official JKT48 Rosters</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Katalog Member & Trainee
-          </h1>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Temukan profil oshi dan member favoritmu dari Team Love, Team Dream,
-            Team Passion, hingga generasi Trainee terbaru.
-          </p>
-        </div>
-
-        {/* Filter & Search Bar */}
-        <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            {/* Team Filter Pills */}
-            <div className="flex flex-wrap items-center gap-2">
-              {teams.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => setSelectedTeam(t.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                    selectedTeam === t.id
-                      ? "bg-rose-600 text-white shadow-sm shadow-rose-600/30"
-                      : "bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+      {/* Filter & Search Bar */}
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-2 rounded-2xl border border-neutral-200/80 bg-white/70 dark:border-neutral-800/80 dark:bg-neutral-900/60 backdrop-blur-md">
+        {/* Team Filter Pills */}
+        <div className="flex flex-wrap items-center gap-1.5 p-1">
+          {teams.map((t) => {
+            const isSelected = selectedTeam === t.id;
+            const count = counts[t.id];
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setSelectedTeam(t.id)}
+                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  isSelected
+                    ? "bg-crimson-600 text-white shadow-sm shadow-crimson-600/30"
+                    : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                }`}
+              >
+                <span>{t.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                    isSelected
+                      ? "bg-white/20 text-white"
+                      : "bg-neutral-200 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
                   }`}
                 >
-                  {t.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Search Input */}
-            <div className="w-full sm:w-72 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 focus-within:border-rose-600">
-              <MagnifyingGlass className="w-4 h-4 text-neutral-400 shrink-0" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Sedang mencari oshi-mu?..."
-                className="w-full bg-transparent text-xs focus:outline-none placeholder:text-neutral-400 text-neutral-900 dark:text-neutral-100"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Members Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {filteredMembers.map((m) => {
-            const isFav = !!favorites[m.code];
-            return (
-              <Card
-                key={m.code}
-                className="group relative overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:border-rose-300 dark:hover:border-rose-900/60 transition-all duration-300 hover:shadow-lg rounded-2xl flex flex-col"
-              >
-                {/* Photo Container */}
-                <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800">
-                  <img
-                    src={m.photo}
-                    alt={m.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* Team badge overlay */}
-                  <span
-                    className={`absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border backdrop-blur-md ${getTeamBadgeColor(
-                      m.type
-                    )}`}
-                  >
-                    {m.type}
-                  </span>
-
-                  {/* Favorite button */}
-                  <button
-                    type="button"
-                    onClick={() => toggleFavorite(m.code)}
-                    className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-md transition-colors"
-                    aria-label={`Favorite ${m.name}`}
-                  >
-                    <Heart
-                      weight={isFav ? "fill" : "regular"}
-                      className={`w-4 h-4 ${isFav ? "text-rose-500" : "text-white"}`}
-                    />
-                  </button>
-                </div>
-
-                {/* Details */}
-                <Card.Content className="p-3.5 flex flex-col flex-1 justify-between gap-2">
-                  <div>
-                    <h3 className="font-bold text-sm text-neutral-900 dark:text-neutral-50 truncate">
-                      {m.name}
-                    </h3>
-                    <p className="text-xs text-rose-600 dark:text-rose-400 font-medium mt-0.5">
-                      ({m.nickname})
-                    </p>
-                  </div>
-
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    className="w-full text-xs font-semibold flex items-center justify-center gap-1.5 py-1.5 rounded-lg"
-                  >
-                    <Heart
-                      weight="fill"
-                      className="w-3.5 h-3.5 text-rose-600"
-                    />
-                    <span>Dukung</span>
-                  </Button>
-                </Card.Content>
-              </Card>
+                  {count}
+                </span>
+              </button>
             );
           })}
         </div>
 
-        {filteredMembers.length === 0 && (
-          <div className="py-16 text-center text-neutral-400 space-y-2">
-            <p className="text-base font-semibold">
-              Tidak ada member ditemukan
-            </p>
-            <p className="text-xs">
-              Coba ubah kata kunci pencarian atau pilih kategori tim lain.
-            </p>
+        {/* Search Input */}
+        <div className="w-full md:w-80 flex items-center gap-2 px-3.5 py-2 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus-within:border-crimson-600">
+          <MagnifyingGlass className="h-4 w-4 text-neutral-400 shrink-0" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Cari nama atau panggilan oshi..."
+            className="w-full bg-transparent text-xs focus:outline-none placeholder:text-neutral-400 text-neutral-900 dark:text-neutral-100"
+          />
+        </div>
+      </div>
+
+      {/* Member Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        {filteredMembers.map((member, idx) => (
+          <ScrollReveal key={member.code} delay={Math.min(idx * 0.03, 0.3)}>
+            <MemberCard member={member} priority={idx < 12} />
+          </ScrollReveal>
+        ))}
+      </div>
+
+      {/* Empty State */}
+      {filteredMembers.length === 0 && (
+        <div className="py-20 text-center space-y-3 rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-800 p-8">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-crimson-50 text-crimson-600 dark:bg-crimson-950/40 dark:text-crimson-400">
+            <Sparkle weight="fill" className="h-6 w-6" />
           </div>
-        )}
-      </main>
-    </div>
+          <h3 className="text-base font-bold text-neutral-900 dark:text-neutral-100">
+            Member Tidak Ditemukan
+          </h3>
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
+            Tidak ada member yang cocok dengan kata kunci pencarian &quot;
+            {search}&quot;. Coba gunakan nama lain atau reset filter tim.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setSearch("");
+              setSelectedTeam("ALL");
+            }}
+            className="inline-flex text-xs font-semibold text-crimson-600 hover:underline pt-2"
+          >
+            Reset Semua Filter
+          </button>
+        </div>
+      )}
+    </main>
   );
 }

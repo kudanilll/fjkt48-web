@@ -1,8 +1,33 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+@theme {
+  /* JKT48 Crimson Red Scale */
+  --color-crimson-50: oklch(0.97 0.02 25);
+  --color-crimson-100: oklch(0.93 0.05 25);
+  --color-crimson-200: oklch(0.86 0.1 25);
+  --color-crimson-300: oklch(0.78 0.15 25);
+  --color-crimson-400: oklch(0.68 0.19 25);
+  --color-crimson-500: oklch(0.58 0.22 25);
+  --color-crimson-600: oklch(0.55 0.22 25);
+  --color-crimson-700: oklch(0.48 0.2 25);
+  --color-crimson-800: oklch(0.4 0.17 25);
+  --color-crimson-900: oklch(0.32 0.13 25);
+  --color-crimson-950: oklch(0.22 0.09 25);
+
+  /* Team Colors */
+  --color-team-love: #ec4899;
+  --color-team-dream: #0ea5e9;
+  --color-team-passion: #f59e0b;
+  --color-team-trainee: #10b981;
+
+  /* Typography — wire Geist into Tailwind's font-sans / font-mono */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
 :root {
-  /* JKT48 Iconic Crimson Red */
+  /* HeroUI accent overrides (JKT48 Crimson) */
   --accent: oklch(0.55 0.22 25);
   --accent-foreground: oklch(0.99 0 0);
   --focus: var(--accent);
@@ -14,4 +39,29 @@
   --surface-secondary: oklch(0.22 0.01 285);
   --accent: oklch(0.6 0.24 25);
   --accent-foreground: oklch(0.99 0 0);
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
+}
+
+/* Selection color */
+::selection {
+  background-color: oklch(0.55 0.22 25 / 0.2);
+}
+
+/* Focus ring consistency */
+:focus-visible {
+  outline: 2px solid oklch(0.55 0.22 25);
+  outline-offset: 2px;
 }
