@@ -177,6 +177,23 @@ body {
 }
 
 /* ==========================================================================
+   Hide Scrollbar Indicators Globally
+   ========================================================================== */
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+html,
+body,
+* {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* ==========================================================================
    Cards Rule: No Borders on Cards (§7.3, §179)
    Separation comes from fill contrast (surface vs bg), never a stroke.
    ========================================================================== */
