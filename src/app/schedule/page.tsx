@@ -1,177 +1,318 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Calendar, MagnifyingGlass, Sparkle } from "@phosphor-icons/react";
-import SectionHeading from "@/components/shared/section-heading";
-import ScheduleCard from "@/components/shared/schedule-card";
-import ScrollReveal from "@/components/animation/scroll-reveal";
-import { formatDateID } from "@/lib/jkt48-data";
+import { CaretLeft, CaretRight, CalendarCheck } from "@phosphor-icons/react";
 import officialData from "@/data/jkt48-official.json";
-import type { JKT48Schedule, ScheduleType } from "@/types/jkt48-types";
+import type { JKT48Schedule } from "@/types/jkt48-types";
+import ScheduleCalendarGrid from "@/components/schedule/schedule-calendar-grid";
+import ScheduleTicketRow from "@/components/schedule/schedule-ticket-row";
+import Footer from "@/components/layout/footer";
 
-interface TypeFilterOption {
-  id: "ALL" | ScheduleType;
-  label: string;
-}
+const allSchedules = (officialData.schedules ?? []) as JKT48Schedule[];
 
-const typeFilters: TypeFilterOption[] = [
-  { id: "ALL", label: "Semua Jadwal" },
-  { id: "SHOW", label: "Theater Show" },
-  { id: "EVENT", label: "Event Khusus" },
-  { id: "EXCLUSIVE", label: "Exclusive / 2-Shot" },
-  { id: "GENERAL", label: "Festival Umum" },
-];
+export default function SchedulePage() {
+  const [currentYear, setCurrentYear] = useState<number>(2026);
+  const [currentMonth, setCurrentMonth] = useState<number>(10); // 10 = November
+  const [typeFilter, setTypeFilter] = useState<"ALL" | "SHOW" | "EVENT">("ALL");
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-const allSchedules: JKT48Schedule[] = (officialData.schedules ??
-  []) as JKT48Schedule[];
+  const monthNames = [
+    "JANUARI",
+    "FEBRUARI",
+    "MARET",
+    "APRIL",
+    "MEI",
+    "JUNI",
+    "JULI",
+    "AGUSTUS",
+    "SEPTEMBER",
+    "OKTOBER",
+    "NOVEMBER",
+    "DESEMBER",
+  ];
 
-export default function JadwalPage() {
-  const [selectedType, setSelectedType] = useState<"ALL" | ScheduleType>("ALL");
-  const [search, setSearch] = useState<string>("");
+  const handlePrevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear((y) => y - 1);
+    } else {
+      setCurrentMonth((m) => m - 1);
+    }
+    setSelectedDate(null);
+  };
+
+  const handleNextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear((y) => y + 1);
+    } else {
+      setCurrentMonth((m) => m + 1);
+    }
+    setSelectedDate(null);
+  };
 
   const counts = useMemo(() => {
     return {
       ALL: allSchedules.length,
       SHOW: allSchedules.filter((s) => s.type === "SHOW").length,
-      EVENT: allSchedules.filter((s) => s.type === "EVENT").length,
-      EXCLUSIVE: allSchedules.filter((s) => s.type === "EXCLUSIVE").length,
-      GENERAL: allSchedules.filter((s) => s.type === "GENERAL").length,
+      EVENT: allSchedules.filter((s) => s.type !== "SHOW").length,
     };
   }, []);
 
+  // Filtered schedules according to active type and date
   const filteredSchedules = useMemo(() => {
     return allSchedules.filter((s) => {
       const matchType =
-        selectedType === "ALL" || s.type.toUpperCase() === selectedType;
-      const matchSearch =
-        s.title.toLowerCase().includes(search.toLowerCase()) ||
-        s.date.includes(search) ||
-        (s.jkt48_member_type?.toLowerCase().includes(search.toLowerCase()) ??
-          false);
-      return matchType && matchSearch;
+        typeFilter === "ALL" ||
+        (typeFilter === "SHOW" && s.type === "SHOW") ||
+        (typeFilter === "EVENT" && s.type !== "SHOW");
+      const matchDate = selectedDate ? s.date === selectedDate : true;
+      return matchType && matchDate;
     });
-  }, [selectedType, search]);
+  }, [typeFilter, selectedDate]);
 
-  // Group by date
-  const groupedSchedules = useMemo(() => {
-    const groups: Record<string, JKT48Schedule[]> = {};
-    for (const schedule of filteredSchedules) {
-      if (!groups[schedule.date]) {
-        groups[schedule.date] = [];
+  // Group schedules: Hari Ini, Minggu Ini, Minggu Depan
+  const { todayList, thisWeekList, nextWeekList } = useMemo(() => {
+    const today = "2026-11-21"; // Anchored around official dataset time
+    const todayItems: JKT48Schedule[] = [];
+    const thisWeekItems: JKT48Schedule[] = [];
+    const nextWeekItems: JKT48Schedule[] = [];
+
+    for (const item of filteredSchedules) {
+      if (item.date === today) {
+        todayItems.push(item);
+      } else if (item.date > today && item.date <= "2026-11-25") {
+        thisWeekItems.push(item);
+      } else {
+        nextWeekItems.push(item);
       }
-      groups[schedule.date]!.push(schedule);
     }
-    // Sort dates ascending
-    return Object.entries(groups).sort(([dateA], [dateB]) =>
-      dateA.localeCompare(dateB)
-    );
+
+    return {
+      todayList: todayItems,
+      thisWeekList: thisWeekItems,
+      nextWeekList: nextWeekItems,
+    };
   }, [filteredSchedules]);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 sm:px-8 py-10 sm:py-16 space-y-10">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-        <SectionHeading
-          eyebrow="Kalender Jadwal Resmi"
-          title="Jadwal Teater & Kegiatan JKT48"
-          description="Pantau seluruh agenda pertunjukan setlist teater fX Sudirman Lt. 4, sesi 2-shot, konser tour, hingga event perayaan ulang tahun (Seitansai)."
+    <main className="min-h-screen bg-[var(--color-stage-950)] text-[var(--color-ink)]">
+      {/* 1. Header & Source Line */}
+      <section className="pt-12 sm:pt-16 pb-8 border-b border-[var(--color-stage-800)] relative overflow-hidden">
+        {/* Glow */}
+        <div
+          className="pointer-events-none absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full opacity-40"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(229,19,46,0.15) 0%, transparent 70%)",
+            filter: "blur(60px)",
+          }}
         />
 
-        <div className="flex items-center gap-2 rounded-xl bg-neutral-100 dark:bg-neutral-900 px-4 py-2 text-xs font-semibold text-neutral-600 dark:text-neutral-400 self-start sm:self-auto">
-          <Calendar className="h-4 w-4 text-crimson-600" />
-          <span>{filteredSchedules.length} Kegiatan Terjadwal</span>
-        </div>
-      </div>
+        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 relative z-10 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block mb-1">
+                Kalender Kegiatan Resmi
+              </span>
+              <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl uppercase tracking-tight text-[var(--color-ink)]">
+                Jadwal
+              </h1>
+              <p className="text-sm sm:text-base text-[var(--color-muted)] max-w-xl mt-2 font-sans">
+                Agenda pertunjukan teater fX Sudirman Lt. 4, 2-shot, konser, dan
+                kegiatan resmi JKT48.
+              </p>
+            </div>
 
-      {/* Filter & Search Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-2 rounded-2xl border border-neutral-200/80 bg-white/70 dark:border-neutral-800/80 dark:bg-neutral-900/60 backdrop-blur-md">
-        {/* Type Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1">
-          {typeFilters.map((t) => {
-            const isSelected = selectedType === t.id;
-            const count = counts[t.id];
-            return (
+            <div className="flex flex-col items-start md:items-end gap-1 text-xs font-mono text-[var(--color-muted)]">
+              <span className="text-[var(--color-ink)] font-semibold">
+                Sumber: jkt48.com
+              </span>
+              <span>Diperbarui 21 Nov 2026, 18:30 WIB</span>
+            </div>
+          </div>
+
+          {/* Controls: Month Navigator + Type Filter Chips */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-4">
+            {/* Month Navigator */}
+            <div className="flex items-center gap-3">
               <button
-                key={t.id}
                 type="button"
-                onClick={() => setSelectedType(t.id)}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                  isSelected
-                    ? "bg-crimson-600 text-white shadow-sm shadow-crimson-600/30"
-                    : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                onClick={handlePrevMonth}
+                aria-label="Bulan sebelumnya"
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-stage-800)] transition-colors"
+              >
+                <CaretLeft weight="bold" className="w-4 h-4" />
+              </button>
+
+              <span className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)] min-w-[200px] text-center">
+                {monthNames[currentMonth]} {currentYear}
+              </span>
+
+              <button
+                type="button"
+                onClick={handleNextMonth}
+                aria-label="Bulan berikutnya"
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-stage-800)] transition-colors"
+              >
+                <CaretRight weight="bold" className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Filter Chips */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                onClick={() => setTypeFilter("ALL")}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                  typeFilter === "ALL"
+                    ? "bg-[var(--color-crimson-500)] text-white shadow-md shadow-[var(--color-crimson-500)]/20"
+                    : "bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)]"
                 }`}
               >
-                <span>{t.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                    isSelected
-                      ? "bg-white/20 text-white"
-                      : "bg-neutral-200 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400"
-                  }`}
-                >
-                  {count}
+                <span>Semua</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-mono">
+                  {counts.ALL}
                 </span>
               </button>
-            );
-          })}
-        </div>
 
-        {/* Search Input */}
-        <div className="w-full md:w-80 flex items-center gap-2 px-3.5 py-2 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 focus-within:border-crimson-600">
-          <MagnifyingGlass className="h-4 w-4 text-neutral-400 shrink-0" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Cari judul show, tim, atau tanggal..."
-            className="w-full bg-transparent text-xs focus:outline-none placeholder:text-neutral-400 text-neutral-900 dark:text-neutral-100"
-          />
-        </div>
-      </div>
+              <button
+                type="button"
+                onClick={() => setTypeFilter("SHOW")}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                  typeFilter === "SHOW"
+                    ? "bg-[var(--color-crimson-500)] text-white shadow-md shadow-[var(--color-crimson-500)]/20"
+                    : "bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-[var(--color-crimson-400)]" />
+                <span>Show Theater</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-mono">
+                  {counts.SHOW}
+                </span>
+              </button>
 
-      {/* Date-Grouped Timeline List */}
-      <div className="space-y-8">
-        {groupedSchedules.map(([date, items]) => (
-          <section key={date} className="space-y-4">
-            {/* Date Header Anchor */}
-            <div className="flex items-center gap-3">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-crimson-600" />
-              <h2 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100">
-                {formatDateID(date)}
-              </h2>
-              <span className="text-xs text-neutral-400 font-medium">
-                ({items.length} show)
-              </span>
-              <div className="h-px flex-1 bg-neutral-200/80 dark:bg-neutral-800/80" />
+              <button
+                type="button"
+                onClick={() => setTypeFilter("EVENT")}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                  typeFilter === "EVENT"
+                    ? "bg-[var(--color-crimson-500)] text-white shadow-md shadow-[var(--color-crimson-500)]/20"
+                    : "bg-[var(--color-stage-900)] text-[var(--color-muted)] hover:text-[var(--color-ink)]"
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-[var(--color-muted)]" />
+                <span>Event & 2-Shot</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-mono">
+                  {counts.EVENT}
+                </span>
+              </button>
+
+              {selectedDate && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedDate(null)}
+                  className="text-xs font-mono text-[var(--color-crimson-400)] hover:underline ml-2"
+                >
+                  Reset tanggal
+                </button>
+              )}
             </div>
-
-            {/* Grid for that date */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {items.map((schedule, idx) => (
-                <ScrollReveal key={schedule.schedule_id} delay={idx * 0.05}>
-                  <ScheduleCard schedule={schedule} />
-                </ScrollReveal>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
-
-      {/* Empty State */}
-      {filteredSchedules.length === 0 && (
-        <div className="py-20 text-center space-y-3 rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-800 p-8">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-crimson-50 text-crimson-600 dark:bg-crimson-950/40 dark:text-crimson-400">
-            <Sparkle weight="fill" className="h-6 w-6" />
           </div>
-          <h3 className="text-base font-bold text-neutral-900 dark:text-neutral-100">
-            Jadwal Tidak Ditemukan
-          </h3>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 max-w-sm mx-auto">
-            Tidak ada jadwal yang cocok dengan kata kunci &quot;{search}&quot;.
-            Coba pilih filter kategori lain.
-          </p>
+
+          {/* 2. Month Calendar Grid */}
+          <div className="pt-2">
+            <ScheduleCalendarGrid
+              currentYear={currentYear}
+              currentMonth={currentMonth}
+              schedules={allSchedules}
+              selectedDate={selectedDate}
+              onSelectDate={(date) =>
+                setSelectedDate(date === selectedDate ? null : date)
+              }
+              typeFilter={typeFilter}
+            />
+          </div>
         </div>
-      )}
+      </section>
+
+      {/* 3. Ticket Rows List */}
+      <section className="py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 space-y-12">
+          {/* Group 1: Hari Ini */}
+          {todayList.length > 0 && (
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-crimson-500)] animate-pulse" />
+                <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
+                  Hari Ini · 21 November 2026
+                </h2>
+              </div>
+              <div className="space-y-3">
+                {todayList.map((item) => (
+                  <ScheduleTicketRow
+                    key={item.schedule_id}
+                    schedule={item}
+                    isToday={true}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Group 2: Minggu Ini */}
+          {thisWeekList.length > 0 && (
+            <div className="space-y-4">
+              <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
+                Minggu Ini
+              </h2>
+              <div className="space-y-3">
+                {thisWeekList.map((item, idx) => (
+                  <ScheduleTicketRow
+                    key={item.schedule_id}
+                    schedule={item}
+                    isNextShow={idx === 0}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Group 3: Minggu Depan / Mendatang */}
+          {nextWeekList.length > 0 && (
+            <div className="space-y-4">
+              <h2 className="font-display font-black text-2xl sm:text-3xl uppercase tracking-tight text-[var(--color-ink)]">
+                Minggu Depan
+              </h2>
+              <div className="space-y-3">
+                {nextWeekList.map((item) => (
+                  <ScheduleTicketRow key={item.schedule_id} schedule={item} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Empty state when filtering yields no results */}
+          {filteredSchedules.length === 0 && (
+            <div className="p-12 rounded-3xl bg-[var(--color-stage-900)] text-center space-y-3">
+              <CalendarCheck
+                weight="duotone"
+                className="w-12 h-12 mx-auto text-[var(--color-stage-700)]"
+              />
+              <h3 className="text-lg font-semibold text-[var(--color-ink)]">
+                Tidak ada agenda pada tanggal ini
+              </h3>
+              <p className="text-sm text-[var(--color-muted)]">
+                Pilih tanggal lain di kalender atau klik tombol &ldquo;Reset
+                tanggal&rdquo; di atas.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer />
     </main>
   );
 }
