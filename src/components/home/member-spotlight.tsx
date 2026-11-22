@@ -12,7 +12,7 @@ interface MemberSpotlightProps {
 export default function MemberSpotlight({ members }: MemberSpotlightProps) {
   return (
     <section className="py-12 sm:py-16 border-t border-neutral-200/60 dark:border-neutral-800/60 bg-neutral-50/50 dark:bg-neutral-950/50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-8">
+      <div className="w-full px-6 sm:px-12 lg:px-16 space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <SectionHeading

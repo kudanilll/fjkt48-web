@@ -50,7 +50,7 @@ function ForumContent() {
   };
 
   return (
-    <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12 py-6 sm:py-10 space-y-10">
+    <div className="w-full px-6 sm:px-12 lg:px-16 py-6 sm:py-10 space-y-10">
       {/* Forum Header with Stats and Block Category Chips */}
       <ForumHeader
         activeCategory={activeCategory}

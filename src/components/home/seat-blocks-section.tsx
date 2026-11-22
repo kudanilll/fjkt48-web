@@ -76,7 +76,7 @@ export default function SeatBlocksSection() {
       className="w-full bg-[var(--bg)] text-[var(--ink)] py-20 sm:py-28 transition-colors duration-300"
       aria-label="Pilihan blok tempat duduk forum"
     >
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-12">
+      <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-crimson-500/10 text-crimson-400 font-mono-data text-xs font-semibold uppercase tracking-wider">

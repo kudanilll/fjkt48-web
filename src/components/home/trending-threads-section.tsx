@@ -101,7 +101,7 @@ export default function TrendingThreadsSection() {
       className="w-full bg-(--bg) text-(--ink) py-20 sm:py-28 transition-colors duration-300"
       aria-label="Thread forum terhangat"
     >
-      <div className="mx-auto max-w-360 px-6 sm:px-12">
+      <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-10 border-b border-(--line)">
           <div>

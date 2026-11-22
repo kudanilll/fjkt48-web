@@ -79,7 +79,7 @@ export default function DashboardPage() {
           }}
         />
 
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 relative z-10 space-y-4">
+        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-4">
           <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block">
             DASHBOARD
           </span>
@@ -97,7 +97,7 @@ export default function DashboardPage() {
 
       {/* 2. Main Dashboard Body: Left & Right Columns */}
       <section className="py-10 sm:py-16">
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="w-full px-6 sm:px-12 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column (lg:col-span-4): Profile Card + Oshi Card */}
           <div className="lg:col-span-4 space-y-6">
             {/* Profile Card */}
@@ -451,7 +451,7 @@ export default function DashboardPage() {
         id="edit-profile"
         className="py-12 sm:py-16 border-t border-[var(--color-stage-800)] bg-[var(--color-stage-900)]/40"
       >
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8">
+        <div className="w-full px-6 sm:px-12 lg:px-16">
           <div className="max-w-2xl space-y-6">
             <div>
               <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block mb-1">

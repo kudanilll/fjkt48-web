@@ -22,7 +22,7 @@ export default function MemberMarqueeSection({
       className="w-full bg-[var(--bg)] text-[var(--ink)] py-20 sm:py-28 overflow-hidden transition-colors duration-300"
       aria-label="Katalog 58 member JKT48"
     >
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-12 mb-10">
+      <div className="w-full px-6 sm:px-12 lg:px-16 mb-10">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 border-b border-[var(--line)]">
           <div>

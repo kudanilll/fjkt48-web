@@ -43,7 +43,7 @@ export default function MemberHeroSection({ member }: MemberHeroSectionProps) {
         }}
       />
 
-      <div className="mx-auto max-w-[1344px] px-4 sm:px-8 relative z-10">
+      <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10">
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"

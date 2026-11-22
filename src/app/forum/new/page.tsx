@@ -145,7 +145,7 @@ export default function NewThreadPage() {
       <main className="w-full">
         {/* Header Breadcrumb */}
         <section className="border-b border-[var(--line)] py-8">
-          <div className="mx-auto max-w-[1200px] px-6 sm:px-12 space-y-4">
+          <div className="w-full px-6 sm:px-12 lg:px-16 space-y-4">
             <div className="flex items-center gap-2 font-mono-data text-xs text-[var(--muted)]">
               <Link
                 href="/"
@@ -184,7 +184,7 @@ export default function NewThreadPage() {
 
         {/* Composer Form Section */}
         <section className="py-10 sm:py-14">
-          <div className="mx-auto max-w-[1200px] px-6 sm:px-12">
+          <div className="w-full px-6 sm:px-12 lg:px-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
               {/* Main Form (8 Cols) */}
               <div className="lg:col-span-8 space-y-8">

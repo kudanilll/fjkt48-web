@@ -51,7 +51,7 @@ export default async function NewsDetailPage({
       <main className="w-full">
         {/* Breadcrumb Bar */}
         <section className="border-b border-[var(--line)] py-6">
-          <div className="mx-auto max-w-[1000px] px-6 sm:px-12 flex items-center gap-2 font-mono-data text-xs text-[var(--muted)]">
+          <div className="w-full px-6 sm:px-12 lg:px-16 flex items-center gap-2 font-mono-data text-xs text-[var(--muted)]">
             <Link
               href="/"
               className="hover:text-[var(--ink)] transition-colors"
@@ -74,7 +74,7 @@ export default async function NewsDetailPage({
 
         {/* Article Container */}
         <article className="py-12 sm:py-16">
-          <div className="mx-auto max-w-[1000px] px-6 sm:px-12 space-y-8">
+          <div className="w-full px-6 sm:px-12 lg:px-16 space-y-8">
             {/* Header info */}
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">

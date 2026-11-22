@@ -62,7 +62,7 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-40 w-full bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] transition-colors duration-300">
         <nav
-          className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-8 h-18"
+          className="w-full flex items-center justify-between px-6 sm:px-12 lg:px-16 h-18"
           aria-label="Navigasi utama"
         >
           {/* Brand Logo */}

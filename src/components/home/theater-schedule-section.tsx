@@ -21,7 +21,7 @@ export default function TheaterScheduleSection({
       className="w-full bg-[var(--bg)] text-[var(--ink)] py-20 sm:py-28 transition-colors duration-300"
       aria-label="Jadwal pertunjukan teater terdekat"
     >
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-12">
+      <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-10 border-b border-[var(--line)]">
           <div>

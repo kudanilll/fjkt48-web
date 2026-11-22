@@ -109,7 +109,7 @@ export default function SchedulePage() {
           }}
         />
 
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 relative z-10 space-y-6">
+        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block mb-1">
@@ -238,7 +238,7 @@ export default function SchedulePage() {
 
       {/* 3. Ticket Rows List */}
       <section className="py-12 sm:py-16 md:py-20">
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 space-y-12">
+        <div className="w-full px-6 sm:px-12 lg:px-16 space-y-12">
           {/* Group 1: Hari Ini */}
           {todayList.length > 0 && (
             <div className="space-y-4">

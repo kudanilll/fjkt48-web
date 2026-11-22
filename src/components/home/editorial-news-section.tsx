@@ -19,7 +19,7 @@ export default function EditorialNewsSection({
       className="w-full bg-[var(--bg)] text-[var(--ink)] py-20 sm:py-28 transition-colors duration-300"
       aria-label="Berita dan pengumuman resmi JKT48"
     >
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-12">
+      <div className="w-full px-6 sm:px-12 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Left Column (Spans 4 cols on desktop) */}
           <div className="lg:col-span-4 space-y-4">

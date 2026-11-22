@@ -37,7 +37,7 @@ export default function LivePage() {
           }}
         />
 
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 relative z-10 space-y-4">
+        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <div className="flex items-center gap-3 mb-2">
@@ -81,7 +81,7 @@ export default function LivePage() {
 
       {/* 2. Stage Zone (Always forced dark mode) */}
       <section className="stage py-8 sm:py-12 md:py-16 bg-[var(--color-stage-950)] text-[var(--color-ink)]">
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8">
+        <div className="w-full px-6 sm:px-12 lg:px-16">
           {hasLive ? (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Featured Player Area */}

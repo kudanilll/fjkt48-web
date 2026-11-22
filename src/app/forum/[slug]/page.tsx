@@ -45,7 +45,7 @@ export default async function ThreadDetailPage({ params }: ThreadPageProps) {
 
   return (
     <main className="min-h-screen bg-[var(--bg)] text-[var(--ink)] transition-colors duration-300">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12 py-8 sm:py-12">
+      <div className="w-full px-6 sm:px-12 lg:px-16 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Main Reading Surface (Spans 8 cols on desktop) */}
           <div className="lg:col-span-8">

@@ -8,9 +8,9 @@ export default function LiveTicker() {
   return (
     <aside
       aria-label="Pengumuman live streaming"
-      className="stage w-full bg-[#7A0B1A] text-white py-2.5 px-4 sm:px-8 border-b border-crimson-800/40 select-none"
+      className="stage w-full bg-[#7A0B1A] text-white py-2.5 px-6 sm:px-12 lg:px-16 border-b border-crimson-800/40 select-none"
     >
-      <div className="mx-auto max-w-[1440px] flex items-center justify-between gap-3 text-xs sm:text-sm">
+      <div className="w-full flex items-center justify-between gap-3 text-xs sm:text-sm">
         <div className="flex items-center gap-2.5 min-w-0">
           <span className="relative flex h-2.5 w-2.5 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />

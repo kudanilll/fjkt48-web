@@ -64,7 +64,7 @@ export default function MemberDirectoryPage() {
           }}
         />
 
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8 relative z-10 space-y-8">
+        <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-8">
           {/* Header Title */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
@@ -151,7 +151,7 @@ export default function MemberDirectoryPage() {
 
       {/* Member Cards Grid */}
       <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-[1344px] px-4 sm:px-8">
+        <div className="w-full px-6 sm:px-12 lg:px-16">
           {filteredMembers.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
               {filteredMembers.map((member) => (

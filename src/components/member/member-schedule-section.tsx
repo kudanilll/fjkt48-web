@@ -27,7 +27,7 @@ export default function MemberScheduleSection({
 
   return (
     <section className="py-12 sm:py-16 md:py-20 border-t border-[var(--color-stage-800)] bg-[var(--color-stage-950)]">
-      <div className="mx-auto max-w-[1344px] px-4 sm:px-8">
+      <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12">
           <div>

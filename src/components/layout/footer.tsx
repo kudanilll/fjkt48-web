@@ -55,7 +55,7 @@ export default function Footer() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 sm:px-12">
+      <div className="relative z-10 w-full px-6 sm:px-12 lg:px-16">
         {/* Navigation Grid per Hand-off (§7.6, §229) */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 lg:gap-8 pb-16 border-b border-[var(--line)]">
           {/* Column 1: JELAJAH */}

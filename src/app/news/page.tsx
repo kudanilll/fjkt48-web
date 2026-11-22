@@ -61,7 +61,7 @@ export default function NewsPage() {
       <main className="w-full">
         {/* Header Section */}
         <section className="border-b border-[var(--line)] py-12 sm:py-16">
-          <div className="mx-auto max-w-[1344px] px-6 sm:px-12 space-y-6">
+          <div className="w-full px-6 sm:px-12 lg:px-16 space-y-6">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 font-mono-data text-xs text-[var(--muted)]">
               <Link
@@ -104,7 +104,7 @@ export default function NewsPage() {
 
         {/* Filter and Content Section */}
         <section className="py-10 sm:py-14">
-          <div className="mx-auto max-w-[1344px] px-6 sm:px-12 space-y-8">
+          <div className="w-full px-6 sm:px-12 lg:px-16 space-y-8">
             {/* Filter Bar */}
             <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
               {/* Category Segmented Chips */}

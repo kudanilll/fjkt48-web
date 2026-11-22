@@ -114,7 +114,7 @@ export default function HeroNightTheater() {
       />
 
       {/* Five Member Stage Portraits (§7.4) */}
-      <div className="relative z-0 mx-auto max-w-[1440px] w-full px-4 sm:px-8 pt-4">
+      <div className="relative z-0 w-full px-6 sm:px-12 lg:px-16 pt-4">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 justify-center">
           {heroMembers.map((member) => {
             const isLit = activeSpotlight === member.index;
@@ -178,7 +178,7 @@ export default function HeroNightTheater() {
       />
 
       {/* Poster Headline & Foreground Content */}
-      <div className="relative z-30 mx-auto max-w-[1440px] w-full px-6 sm:px-12 pt-8">
+      <div className="relative z-30 w-full px-6 sm:px-12 lg:px-16 pt-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           {/* Headline and Lede Text (Spans 8 cols on desktop) */}
           <div className="lg:col-span-8 space-y-6">
