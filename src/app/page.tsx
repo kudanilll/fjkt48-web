@@ -1,38 +1,51 @@
-import HeroSection from "@/components/home/hero-section";
-import ScheduleSection from "@/components/home/schedule-section";
-import NewsSection from "@/components/home/news-section";
-import MemberSpotlight from "@/components/home/member-spotlight";
+import LiveTicker from "@/components/home/live-ticker";
+import HeroNightTheater from "@/components/home/hero-night-theater";
+import TrendingThreadsSection from "@/components/home/trending-threads-section";
+import SeatBlocksSection from "@/components/home/seat-blocks-section";
+import TheaterScheduleSection from "@/components/home/theater-schedule-section";
+import LiveStageSection from "@/components/home/live-stage-section";
+import MemberMarqueeSection from "@/components/home/member-marquee-section";
+import EditorialNewsSection from "@/components/home/editorial-news-section";
+import CurtainEncoreSection from "@/components/home/curtain-encore-section";
 import {
   getAllMembers,
-  getAllSchedules,
   getUpcomingSchedules,
   getLatestNews,
-  getSpotlightMembers,
 } from "@/lib/jkt48-data";
 
 export default function Home() {
   const allMembers = getAllMembers();
-  const allSchedules = getAllSchedules();
   const upcomingSchedules = getUpcomingSchedules(6);
   const latestNews = getLatestNews(6);
-  const spotlightMembers = getSpotlightMembers(3);
 
   return (
     <main className="min-h-screen">
-      {/* Hero Section with GSAP motion */}
-      <HeroSection
-        totalMembers={allMembers.length}
-        totalShows={allSchedules.length}
-      />
+      {/* Live Ticker Bar at the top */}
+      <LiveTicker />
 
-      {/* Member Spotlight Highlight */}
-      <MemberSpotlight members={spotlightMembers} />
+      {/* Hero Section with Interactive Cursor Spotlight */}
+      <HeroNightTheater />
 
-      {/* Upcoming Schedules Section */}
-      <ScheduleSection schedules={upcomingSchedules} />
+      {/* Trending Forum Hot Threads */}
+      <TrendingThreadsSection />
 
-      {/* News & Official Announcements Section */}
-      <NewsSection news={latestNews} />
+      {/* Forum Categories / Seat Blocks Grid */}
+      <SeatBlocksSection />
+
+      {/* Theater Tickets Schedule */}
+      <TheaterScheduleSection schedules={upcomingSchedules} />
+
+      {/* Live Streaming Stage Zone */}
+      <LiveStageSection />
+
+      {/* 58 Members Lineup Marquee */}
+      <MemberMarqueeSection members={allMembers} />
+
+      {/* Official Editorial News Announcements */}
+      <EditorialNewsSection news={latestNews} />
+
+      {/* Curtain Call Encore Section */}
+      <CurtainEncoreSection />
     </main>
   );
 }

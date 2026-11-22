@@ -7,11 +7,11 @@
   --color-crimson-100: oklch(0.93 0.05 25);
   --color-crimson-200: oklch(0.86 0.1 25);
   --color-crimson-300: oklch(0.78 0.15 25);
-  --color-crimson-400: oklch(0.68 0.19 25);
-  --color-crimson-500: oklch(0.58 0.22 25);
-  --color-crimson-600: oklch(0.55 0.22 25);
+  --color-crimson-400: #ff4d5e;
+  --color-crimson-500: #e5132e;
+  --color-crimson-600: #c40f27;
   --color-crimson-700: oklch(0.48 0.2 25);
-  --color-crimson-800: oklch(0.4 0.17 25);
+  --color-crimson-800: #7a0b1a;
   --color-crimson-900: oklch(0.32 0.13 25);
   --color-crimson-950: oklch(0.22 0.09 25);
 
@@ -21,47 +21,222 @@
   --color-team-passion: #f59e0b;
   --color-team-trainee: #10b981;
 
-  /* Typography — wire Geist into Tailwind's font-sans / font-mono */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-}
-
-:root {
-  /* HeroUI accent overrides (JKT48 Crimson) */
-  --accent: oklch(0.55 0.22 25);
-  --accent-foreground: oklch(0.99 0 0);
-  --focus: var(--accent);
-}
-
-.dark {
-  --background: oklch(0.14 0.01 285);
-  --surface: oklch(0.18 0.01 285);
-  --surface-secondary: oklch(0.22 0.01 285);
-  --accent: oklch(0.6 0.24 25);
-  --accent-foreground: oklch(0.99 0 0);
+  /* Typography */
+  --font-display: var(--font-display), "Big Shoulders Display", sans-serif;
+  --font-sans: var(--font-sans), "Geist", system-ui, sans-serif;
+  --font-mono: var(--font-mono), "Geist Mono", monospace;
 }
 
 /* ==========================================================================
-   Base Styles
+   Design Tokens (Dark default & Light mode) — Night Theater
+   ========================================================================== */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Base Night Theater Palette */
+  --bg: #0b0a0c;
+  --surface: #141215;
+  --raised: #1d1a1f;
+  --border: #2b272d;
+  --ink: #f4efea;
+  --muted: #a8a0a3;
+  --subtle: #8a8286;
+  --accent: #ff4d5e;
+  --focus: #ffe7cc;
+
+  /* Brand Accents */
+  --crimson-500: #e5132e;
+  --crimson-600: #c40f27;
+  --crimson-400: #ff4d5e;
+  --curtain-800: #7a0b1a;
+  --spotlight: #ffe7cc;
+
+  /* Translucent Inks */
+  --line: rgba(244, 239, 234, 0.12);
+  --ink-a3: rgba(244, 239, 234, 0.03);
+  --ink-a6: rgba(244, 239, 234, 0.06);
+  --ink-a8: rgba(244, 239, 234, 0.08);
+  --ink-a10: rgba(244, 239, 234, 0.1);
+  --ink-a12: rgba(244, 239, 234, 0.12);
+  --ink-a20: rgba(244, 239, 234, 0.2);
+  --ink-a25: rgba(244, 239, 234, 0.25);
+  --ink-a35: rgba(244, 239, 234, 0.35);
+
+  /* HeroUI & system variables */
+  --background: var(--bg);
+  --foreground: var(--ink);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Light Theme (House lights up) */
+  --bg: #f2ece6;
+  --surface: #faf7f4;
+  --raised: #ffffff;
+  --border: #d6ccc4;
+  --ink: #1a1417;
+  --muted: #5c5458;
+  --subtle: #6b6367;
+  --accent: #c40f27;
+  --focus: #c40f27;
+
+  /* Brand Accents */
+  --crimson-500: #e5132e;
+  --crimson-600: #c40f27;
+  --crimson-400: #ff4d5e;
+  --curtain-800: #7a0b1a;
+  --spotlight: #ffe7cc;
+
+  /* Translucent Inks */
+  --line: rgba(26, 20, 23, 0.12);
+  --ink-a3: rgba(26, 20, 23, 0.03);
+  --ink-a6: rgba(26, 20, 23, 0.06);
+  --ink-a8: rgba(26, 20, 23, 0.08);
+  --ink-a10: rgba(26, 20, 23, 0.1);
+  --ink-a12: rgba(26, 20, 23, 0.12);
+  --ink-a20: rgba(26, 20, 23, 0.2);
+  --ink-a25: rgba(26, 20, 23, 0.25);
+  --ink-a35: rgba(26, 20, 23, 0.35);
+
+  /* HeroUI & system variables */
+  --background: var(--bg);
+  --foreground: var(--ink);
+}
+
+/* ==========================================================================
+   Stage Zones — ALWAYS FORCED DARK
+   ========================================================================== */
+
+.stage,
+[data-theme="light"] .stage,
+[data-theme="dark"] .stage {
+  color-scheme: dark;
+  --bg: #0b0a0c;
+  --surface: #141215;
+  --raised: #1d1a1f;
+  --border: #2b272d;
+  --ink: #f4efea;
+  --muted: #a8a0a3;
+  --subtle: #8a8286;
+  --accent: #ff4d5e;
+  --focus: #ffe7cc;
+  --line: rgba(244, 239, 234, 0.12);
+  --ink-a3: rgba(244, 239, 234, 0.03);
+  --ink-a6: rgba(244, 239, 234, 0.06);
+  --ink-a8: rgba(244, 239, 234, 0.08);
+  --ink-a10: rgba(244, 239, 234, 0.1);
+  --ink-a12: rgba(244, 239, 234, 0.12);
+  --ink-a20: rgba(244, 239, 234, 0.2);
+  --ink-a25: rgba(244, 239, 234, 0.25);
+  --ink-a35: rgba(244, 239, 234, 0.35);
+
+  background-color: var(--bg);
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Base Styles & Smooth Transition
    ========================================================================== */
 
 html {
-  scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--ink);
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    transition: none;
+  }
 }
 
 body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
   font-feature-settings:
     "rlig" 1,
     "calt" 1;
 }
 
-/* Selection color */
+/* Selection */
 ::selection {
-  background-color: oklch(0.55 0.22 25 / 0.2);
+  background-color: rgba(229, 19, 46, 0.3);
+  color: inherit;
 }
 
-/* Focus ring consistency */
+/* Focus Visible */
 :focus-visible {
-  outline: 2px solid oklch(0.55 0.22 25);
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Cards Rule: No Borders on Cards (§7.3, §179)
+   Separation comes from fill contrast (surface vs bg), never a stroke.
+   ========================================================================== */
+
+.card {
+  border: none !important;
+  background-color: var(--surface);
+  border-radius: 14px;
+}
+
+/* ==========================================================================
+   Photo Treatment ("Under the Spotlight", §7.4)
+   ========================================================================== */
+
+.house-tint {
+  background-color: #3a0710;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+.spotlight-vignette {
+  background: radial-gradient(
+    circle at 50% 36%,
+    transparent 0%,
+    rgba(11, 10, 12, 0.95) 100%
+  );
+}
+
+.floor-fade {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(11, 10, 12, 0.9) 55%,
+    #0b0a0c 100%
+  );
+}
+
+/* ==========================================================================
+   Typography Helpers
+   ========================================================================== */
+
+.font-display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+}
+
+.font-mono-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Perforated Ticket Stub Mask Helper
+   Notches at 20px radius
+   ========================================================================== */
+
+.ticket-notch-top {
+  clip-path: circle(10px at 50% 0%);
+}
+
+.ticket-notch-bottom {
+  clip-path: circle(10px at 50% 100%);
 }
