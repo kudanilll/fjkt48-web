@@ -31,7 +31,7 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
         </p>
 
         <Button
-          href="/forum"
+          href="/forum/new"
           variant="primary"
           size="md"
           className="w-full mt-2"

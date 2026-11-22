@@ -227,7 +227,7 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
 
           {/* CTA: Bikin Thread */}
           <Button
-            href="/forum"
+            href="/forum/new"
             onClick={onClose}
             variant="primary"
             size="lg"

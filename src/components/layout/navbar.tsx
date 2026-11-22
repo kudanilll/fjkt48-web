@@ -154,7 +154,7 @@ export default function Navbar() {
 
             {/* CTA Bikin Thread (Hidden on Mobile) */}
             <div className="hidden sm:block">
-              <Button href="/forum" variant="primary" size="sm">
+              <Button href="/forum/new" variant="primary" size="sm">
                 <Plus weight="bold" className="w-3.5 h-3.5" />
                 <span>Bikin thread</span>
               </Button>
