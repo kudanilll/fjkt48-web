@@ -104,7 +104,7 @@ export default function HeroSection({
       {/* Decorative Stage Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-gradient-to-b from-crimson-600/15 via-rose-500/5 to-transparent blur-3xl dark:from-crimson-600/20"
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-125 w-175 -translate-x-1/2 rounded-full bg-linear-to-b from-crimson-600/15 via-rose-500/5 to-transparent blur-3xl dark:from-crimson-600/20"
       />
 
       <div className="mx-auto max-w-5xl px-4 sm:px-8 text-center space-y-8">
@@ -126,7 +126,7 @@ export default function HeroSection({
           className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.08]"
         >
           Satu Panggung,{" "}
-          <span className="bg-gradient-to-r from-crimson-600 via-rose-600 to-amber-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-crimson-600 via-rose-600 to-amber-500 bg-clip-text text-transparent">
             Sejuta Energi
           </span>{" "}
           Idol JKT48.

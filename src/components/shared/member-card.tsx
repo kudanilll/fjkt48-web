@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Heart } from "@phosphor-icons/react";
+import { HeartIcon } from "@phosphor-icons/react";
 import TeamBadge from "@/components/shared/team-badge";
 import type { JKT48Member } from "@/types/jkt48-types";
 
@@ -21,7 +21,7 @@ export default function MemberCard({
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-200/80 bg-white dark:border-neutral-800/80 dark:bg-neutral-900 transition-all duration-300 hover:-translate-y-1 hover:border-crimson-300 dark:hover:border-crimson-900/60 hover:shadow-xl hover:shadow-crimson-950/5">
       {/* Photo Container */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+      <div className="relative aspect-3/4 w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800">
         {!imageError ? (
           <Image
             src={member.photo}
@@ -39,7 +39,7 @@ export default function MemberCard({
         )}
 
         {/* Gradient Scrim for contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/10 opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-black/10 opacity-60 transition-opacity duration-300 group-hover:opacity-40" />
 
         {/* Team Badge Top Left */}
         <div className="absolute top-2.5 left-2.5">
@@ -56,7 +56,7 @@ export default function MemberCard({
           aria-label={`Jadikan ${member.name} sebagai oshi`}
           className="absolute top-2.5 right-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/70 active:scale-95"
         >
-          <Heart
+          <HeartIcon
             weight={isFavorited ? "fill" : "bold"}
             className={`h-4 w-4 transition-colors ${
               isFavorited ? "text-crimson-500" : "text-white"

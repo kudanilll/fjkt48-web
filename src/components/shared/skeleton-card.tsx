@@ -1,7 +1,7 @@
 export function SkeletonMemberCard() {
   return (
     <div className="flex flex-col rounded-2xl border border-neutral-200/80 bg-white p-3 dark:border-neutral-800/80 dark:bg-neutral-900/60 animate-pulse">
-      <div className="aspect-[3/4] w-full rounded-xl bg-neutral-200 dark:bg-neutral-800" />
+      <div className="aspect-3/4 w-full rounded-xl bg-neutral-200 dark:bg-neutral-800" />
       <div className="mt-3 space-y-2">
         <div className="h-4 w-3/4 rounded bg-neutral-200 dark:bg-neutral-800" />
         <div className="h-3 w-1/2 rounded bg-neutral-200 dark:bg-neutral-800" />

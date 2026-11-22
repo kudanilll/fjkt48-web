@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import {
   ChatCircle,
@@ -99,17 +98,17 @@ const hotThreads: HotThread[] = [
 export default function TrendingThreadsSection() {
   return (
     <section
-      className="w-full bg-[var(--bg)] text-[var(--ink)] py-20 sm:py-28 transition-colors duration-300"
+      className="w-full bg-(--bg) text-(--ink) py-20 sm:py-28 transition-colors duration-300"
       aria-label="Thread forum terhangat"
     >
-      <div className="mx-auto max-w-[1440px] px-6 sm:px-12">
+      <div className="mx-auto max-w-360 px-6 sm:px-12">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-10 border-b border-[var(--line)]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-10 border-b border-(--line)">
           <div>
             <h2 className="font-display font-black text-5xl sm:text-7xl md:text-8xl tracking-tight uppercase leading-none">
               LAGI RAME
             </h2>
-            <p className="font-mono-data text-xs sm:text-sm text-[var(--muted)] mt-2">
+            <p className="font-mono-data text-xs sm:text-sm text-muted mt-2">
               Diskusi paling aktif 24 jam terakhir di seluruh blok
             </p>
           </div>
@@ -127,12 +126,12 @@ export default function TrendingThreadsSection() {
         </div>
 
         {/* Thread Rows List */}
-        <div className="divide-y divide-[var(--line)]">
+        <div className="divide-y divide-(--line)">
           {hotThreads.map((thread) => (
             <Link
               key={thread.id}
               href={`/forum/${thread.slug}`}
-              className="group block py-6 sm:py-8 transition-all duration-200 hover:bg-[var(--surface)]/50 -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-2xl"
+              className="group block py-6 sm:py-8 transition-all duration-200 hover:bg-(--surface)/50 -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-2xl"
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 {/* Left: Tag + Title + Author info */}
@@ -141,17 +140,17 @@ export default function TrendingThreadsSection() {
                     <span className="px-2.5 py-0.5 rounded-full bg-crimson-500/15 text-crimson-400 font-semibold border border-crimson-500/30">
                       {thread.block}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[var(--surface)] text-[var(--muted)] font-medium border border-[var(--border)]">
+                    <span className="px-2.5 py-0.5 rounded-full bg-surface text-muted font-medium border border-border">
                       #{thread.tag}
                     </span>
                   </div>
 
-                  <h3 className="font-sans font-semibold text-lg sm:text-xl md:text-2xl text-[var(--ink)] group-hover:text-crimson-400 group-hover:translate-x-1 transition-all duration-200 leading-snug">
+                  <h3 className="font-sans font-semibold text-lg sm:text-xl md:text-2xl text-(--ink) group-hover:text-crimson-400 group-hover:translate-x-1 transition-all duration-200 leading-snug">
                     {thread.title}
                   </h3>
 
-                  <div className="flex items-center gap-3 text-xs text-[var(--muted)] font-mono-data flex-wrap">
-                    <span className="font-medium text-[var(--ink)]">
+                  <div className="flex items-center gap-3 text-xs text-muted font-mono-data flex-wrap">
+                    <span className="font-medium text-(--ink)">
                       {thread.author}
                     </span>
                     <span>·</span>
@@ -164,7 +163,7 @@ export default function TrendingThreadsSection() {
                 </div>
 
                 {/* Right: Stats Counter (Reactions, Replies, Views) + Arrow */}
-                <div className="flex items-center justify-between md:justify-end gap-6 pt-2 md:pt-0 shrink-0 font-mono-data text-xs text-[var(--muted)]">
+                <div className="flex items-center justify-between md:justify-end gap-6 pt-2 md:pt-0 shrink-0 font-mono-data text-xs text-muted">
                   <div className="flex items-center gap-4">
                     <div
                       className="flex items-center gap-1.5 hover:text-crimson-400 transition-colors"
@@ -178,7 +177,7 @@ export default function TrendingThreadsSection() {
                     </div>
 
                     <div
-                      className="flex items-center gap-1.5 hover:text-[var(--ink)] transition-colors"
+                      className="flex items-center gap-1.5 hover:text-(--ink) transition-colors"
                       title="Balasan"
                     >
                       <ChatCircle weight="bold" className="w-4 h-4" />
@@ -194,7 +193,7 @@ export default function TrendingThreadsSection() {
                     </div>
                   </div>
 
-                  <div className="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--muted)] group-hover:bg-crimson-500 group-hover:text-white group-hover:border-crimson-500 transition-all duration-200">
+                  <div className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-muted group-hover:bg-crimson-500 group-hover:text-white group-hover:border-crimson-500 transition-all duration-200">
                     <ArrowUpRight weight="bold" className="w-4 h-4" />
                   </div>
                 </div>
