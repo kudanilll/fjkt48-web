@@ -75,8 +75,15 @@ export default function ScheduleCalendarGrid({
     return [...prevDays, ...currentDays, ...nextDays];
   }, [currentYear, currentMonth]);
 
-  // Anchor today to 2026-11-21
-  const todayString = "2026-11-21";
+  // Current date in Asia/Jakarta
+  const todayString = useMemo(() => {
+    return new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Jakarta",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date());
+  }, []);
 
   // Map schedules by date
   const scheduleMap = useMemo(() => {
@@ -99,11 +106,11 @@ export default function ScheduleCalendarGrid({
   return (
     <div className="w-full space-y-2">
       {/* Weekdays Header */}
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-1 sm:gap-1.5 lg:gap-2">
         {weekdays.map((w) => (
           <div
             key={w}
-            className="text-left text-[11px] font-mono font-medium tracking-[0.04em] uppercase text-[#A8A0A3] px-1"
+            className="text-center sm:text-left text-[10px] sm:text-[11px] font-mono font-medium tracking-[0.04em] uppercase text-muted px-1"
           >
             {w}
           </div>
@@ -111,7 +118,7 @@ export default function ScheduleCalendarGrid({
       </div>
 
       {/* Calendar Days Grid */}
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-1 sm:gap-1.5 lg:gap-2">
         {calendarDays.map((d, idx) => {
           const events = scheduleMap[d.dateString] ?? [];
           const isToday = d.dateString === todayString;
@@ -123,65 +130,93 @@ export default function ScheduleCalendarGrid({
               key={`${d.dateString}-${idx}`}
               type="button"
               onClick={() => onSelectDate(d.dateString)}
-              className={`h-[120px] p-3 rounded-xl text-left transition-all relative flex flex-col justify-between overflow-hidden group ${
+              className={`h-[56px] sm:h-[104px] lg:h-[120px] p-1.5 sm:p-2.5 lg:p-3 rounded-lg sm:rounded-xl text-left transition-all relative flex flex-col justify-between overflow-hidden group ${
                 isSelected
-                  ? "bg-[#1F1B22] ring-2 ring-[#FF4D5E]"
+                  ? "bg-raised ring-2 ring-focus"
                   : isToday
-                    ? "bg-[#18141B] ring-1 ring-[#FF4D5E]/40"
+                    ? "bg-crimson-500 text-white"
                     : d.isCurrentMonth
-                      ? "bg-[#141215] hover:bg-[#1C181E]"
-                      : "bg-[#141215]/50 opacity-40 hover:opacity-70"
+                      ? "bg-surface hover:bg-raised"
+                      : "bg-surface/50 opacity-30 hover:opacity-60"
               }`}
             >
               {/* Day Head */}
               <div className="flex items-center justify-between w-full">
                 <span
-                  className={`font-display font-black text-2xl leading-none ${
+                  className={`font-display font-black text-lg sm:text-2xl leading-none ${
                     isToday
-                      ? "text-[#FF4D5E]"
+                      ? "text-white"
                       : isPast
-                        ? "text-[#8A8286]"
+                        ? "text-subtle"
                         : d.isCurrentMonth
-                          ? "text-[#F4EFEA]"
-                          : "text-[#8A8286]"
+                          ? "text-ink"
+                          : "text-subtle"
                   }`}
                 >
                   {d.day}
                 </span>
 
                 {isToday && (
-                  <span className="text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded-full bg-[#E5132E]/20 text-[#FF4D5E]">
-                    Hari ini
+                  <span className="hidden sm:inline-block text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded-full bg-white/20 text-white">
+                    HARI INI
                   </span>
                 )}
               </div>
 
-              {/* Event indicators inside cell */}
-              <div className="w-full space-y-1">
+              {/* Mobile event indicators: round 5px dots */}
+              <div className="flex sm:hidden items-center gap-1 mt-auto">
+                {events.slice(0, 3).map((evt, eIdx) => {
+                  return (
+                    <span
+                      key={eIdx}
+                      className={`w-[5px] h-[5px] rounded-full flex-none ${
+                        isToday
+                          ? "bg-white"
+                          : evt.type === "SHOW"
+                            ? "bg-crimson-500"
+                            : "bg-spotlight"
+                      }`}
+                    />
+                  );
+                })}
+              </div>
+
+              {/* Desktop & Tablet: dot + text lines */}
+              <div className="hidden sm:flex flex-col space-y-1 w-full mt-auto">
                 {events.slice(0, 2).map((evt, eIdx) => {
                   const isShow = evt.type === "SHOW";
+                  const timeStr = evt.start_time?.slice(0, 5) ?? "19:00";
                   return (
                     <div
                       key={eIdx}
-                      className={`w-full flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-sans truncate ${
-                        isShow
-                          ? "bg-[#E5132E]/15 text-[#F4EFEA]"
-                          : "bg-[#FFE7CC]/15 text-[#FFE7CC]"
+                      className={`w-full flex items-center gap-1.5 text-xs truncate ${
+                        isToday ? "text-white" : "text-ink"
                       }`}
                     >
                       <span
                         className={`w-1.5 h-1.5 rounded-full flex-none ${
-                          isShow ? "bg-[#FF4D5E]" : "bg-[#FFE7CC]"
+                          isToday
+                            ? "bg-white"
+                            : isShow
+                              ? "bg-accent"
+                              : "bg-spotlight"
                         }`}
                       />
+                      <span className="hidden lg:inline font-mono text-[11px] shrink-0">
+                        {timeStr}
+                      </span>
                       <span className="truncate font-medium">{evt.title}</span>
                     </div>
                   );
                 })}
 
                 {events.length > 2 && (
-                  <span className="text-[10px] font-mono text-[#8A8286] block pl-1">
-                    +{events.length - 2} event lagi
+                  <span
+                    className={`text-[10px] font-mono block pl-3 ${
+                      isToday ? "text-white/80" : "text-subtle"
+                    }`}
+                  >
+                    +{events.length - 2} lagi
                   </span>
                 )}
               </div>

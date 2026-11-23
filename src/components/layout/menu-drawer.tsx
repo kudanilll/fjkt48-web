@@ -5,16 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   X,
-  Sparkle,
   Sun,
   Moon,
   Desktop,
+  Plus,
+  CaretRight,
   ArrowRight,
-  User,
 } from "@phosphor-icons/react";
 import { useTheme } from "@/components/theme-provider";
 import { useLenis } from "@/components/smooth-scroll";
-import Button from "@/components/ui/button";
 
 interface MenuDrawerProps {
   isOpen: boolean;
@@ -22,17 +21,17 @@ interface MenuDrawerProps {
 }
 
 const navItems = [
-  { href: "/", index: "01", label: "BERANDA", meta: "Halaman utama" },
-  { href: "/forum", index: "02", label: "FORUM", meta: "7.488 thread" },
-  { href: "/live", index: "03", label: "LIVE", pill: "2 lagi live" },
-  { href: "/member", index: "04", label: "MEMBER", meta: "58 member" },
+  { href: "/", index: "01", label: "BERANDA", meta: "HALAMAN UTAMA" },
+  { href: "/forum", index: "02", label: "FORUM", meta: "7.488 THREAD" },
+  { href: "/live", index: "03", label: "LIVE", pill: "2 LAGI LIVE" },
+  { href: "/member", index: "04", label: "MEMBER", meta: "58 MEMBER" },
   {
     href: "/schedule",
     index: "05",
     label: "JADWAL",
-    meta: "3 show minggu ini",
+    meta: "3 SHOW MINGGU INI",
   },
-  { href: "/news", index: "06", label: "BERITA", meta: "dari jkt48.com" },
+  { href: "/news", index: "06", label: "BERITA", meta: "DARI JKT48.COM" },
 ];
 
 export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
@@ -74,17 +73,14 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
       className="fixed inset-0 z-50 flex flex-col bg-[var(--bg)] text-[var(--ink)] overflow-y-auto animate-in fade-in duration-300"
     >
       {/* Top Header */}
-      <div className="flex items-center justify-between px-6 sm:px-10 h-20 border-b border-[var(--border)]">
+      <div className="flex items-center justify-between px-6 sm:px-10 h-20 border-b border-border">
         <Link
           href="/"
           onClick={onClose}
           className="flex items-center gap-2.5 group"
           aria-label="FJKT48 Beranda"
         >
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-crimson-600 text-white">
-            <Sparkle weight="fill" className="w-4 h-4" />
-          </span>
-          <span className="font-display text-2xl font-black tracking-tight text-[var(--ink)]">
+          <span className="font-display text-3xl font-black tracking-tight text-ink">
             FJKT<span className="text-crimson-500">48</span>
           </span>
         </Link>
@@ -93,7 +89,7 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
           ref={closeButtonRef}
           type="button"
           onClick={onClose}
-          className="flex items-center justify-center w-11 h-11 rounded-full border border-[var(--border)] text-[var(--ink)] hover:bg-[var(--surface)] transition-colors cursor-pointer"
+          className="flex items-center justify-center w-11 h-11 rounded-full border border-border text-ink hover:bg-surface transition-colors cursor-pointer"
           aria-label="Tutup menu"
         >
           <X weight="bold" className="w-5 h-5" />
@@ -114,12 +110,12 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
                 key={item.href}
                 href={item.href}
                 onClick={onClose}
-                className="group flex items-baseline justify-between py-3 border-b border-[var(--line)] transition-colors hover:text-crimson-400"
+                className="group flex items-baseline justify-between py-2.5 transition-colors hover:text-crimson-400"
               >
                 <div className="flex items-baseline gap-4">
                   <span
-                    className={`font-mono-data text-sm font-semibold ${
-                      isCurrent ? "text-crimson-500" : "text-[var(--subtle)]"
+                    className={`font-mono text-sm font-semibold ${
+                      isCurrent ? "text-crimson-500" : "text-subtle"
                     }`}
                   >
                     {item.index}
@@ -131,19 +127,19 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
 
                 <div className="flex items-center gap-2">
                   {item.pill ? (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-500 text-white text-xs font-semibold">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-500 text-white text-xs font-semibold font-mono uppercase">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                       {item.pill}
                     </span>
                   ) : (
                     <span
-                      className={`font-mono-data text-xs ${
+                      className={`font-mono text-xs uppercase tracking-wider ${
                         isCurrent
                           ? "text-crimson-500 font-semibold"
-                          : "text-[var(--muted)]"
+                          : "text-muted"
                       }`}
                     >
-                      {isCurrent ? "Kamu di sini" : item.meta}
+                      {isCurrent ? "KAMU DI SINI" : item.meta}
                     </span>
                   )}
                   <ArrowRight
@@ -158,93 +154,102 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
 
         {/* Drawer Bottom Actions */}
         <div className="pt-8 space-y-6">
-          {/* Theme Segmented Control */}
-          <div className="flex items-center justify-between gap-4 p-2 rounded-2xl bg-[var(--surface)] border border-[var(--border)]">
-            <span className="font-mono-data text-xs text-[var(--muted)] pl-3">
-              Tampilan
+          {/* Theme Segmented Control: Label above full-width 44px control */}
+          <div className="space-y-2">
+            <span className="font-mono text-xs font-medium uppercase tracking-wider text-muted block pl-1">
+              TAMPILAN
             </span>
-            <div className="flex items-center gap-1">
+            <div className="w-full p-1 rounded-full bg-surface border border-border flex items-center">
               <button
                 type="button"
                 onClick={() => setTheme("system")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                className={`flex-1 h-11 rounded-full flex items-center justify-center gap-2 text-xs font-medium transition-all ${
                   theme === "system"
-                    ? "bg-[var(--raised)] text-[var(--ink)] shadow-sm font-semibold"
-                    : "text-[var(--muted)] hover:text-[var(--ink)]"
+                    ? "bg-raised text-ink font-semibold shadow-sm"
+                    : "text-muted hover:text-ink"
                 }`}
               >
-                <Desktop weight="bold" className="w-3.5 h-3.5" />
+                <Desktop weight="bold" className="w-4 h-4" />
                 <span>Sistem</span>
               </button>
               <button
                 type="button"
                 onClick={() => setTheme("light")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                className={`flex-1 h-11 rounded-full flex items-center justify-center gap-2 text-xs font-medium transition-all ${
                   theme === "light"
-                    ? "bg-[var(--raised)] text-[var(--ink)] shadow-sm font-semibold"
-                    : "text-[var(--muted)] hover:text-[var(--ink)]"
+                    ? "bg-raised text-ink font-semibold shadow-sm"
+                    : "text-muted hover:text-ink"
                 }`}
               >
-                <Sun weight="bold" className="w-3.5 h-3.5" />
+                <Sun weight="bold" className="w-4 h-4" />
                 <span>Terang</span>
               </button>
               <button
                 type="button"
                 onClick={() => setTheme("dark")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                className={`flex-1 h-11 rounded-full flex items-center justify-center gap-2 text-xs font-medium transition-all ${
                   theme === "dark"
-                    ? "bg-[var(--raised)] text-[var(--ink)] shadow-sm font-semibold"
-                    : "text-[var(--muted)] hover:text-[var(--ink)]"
+                    ? "bg-raised text-ink font-semibold shadow-sm"
+                    : "text-muted hover:text-ink"
                 }`}
               >
-                <Moon weight="bold" className="w-3.5 h-3.5" />
+                <Moon weight="bold" className="w-4 h-4" />
                 <span>Gelap</span>
               </button>
             </div>
           </div>
 
-          {/* Account Profile Preview / Auth Button */}
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)]">
+          {/* Account Profile Row (Plain row, no bordered card, no separate Dashboard button) */}
+          <Link
+            href="/dashboard"
+            onClick={onClose}
+            className="flex items-center justify-between py-2 group hover:opacity-90 transition-opacity"
+          >
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-crimson-500/20 text-crimson-400">
-                <User weight="bold" className="w-5 h-5" />
+              <div className="flex items-center justify-center w-11 h-11 rounded-full bg-crimson-500/20 text-crimson-400 font-display font-black text-sm flex-none">
+                PM
               </div>
               <div>
-                <p className="font-semibold text-sm">Penlight Merah</p>
-                <p className="font-mono-data text-xs text-[var(--muted)]">
-                  Oshi: Freya · Buka dashboard
+                <p className="font-semibold text-sm sm:text-base text-ink">
+                  Penlight Merah
+                </p>
+                <p className="font-mono text-xs text-muted">
+                  Oshi: Fera · Buka dashboard
                 </p>
               </div>
             </div>
-            <Link
-              href="/dashboard"
-              onClick={onClose}
-              className="text-xs text-crimson-500 font-semibold hover:underline"
-            >
-              Dashboard →
-            </Link>
-          </div>
+            <CaretRight
+              weight="bold"
+              className="w-5 h-5 text-muted group-hover:text-ink transition-colors flex-none"
+            />
+          </Link>
 
           {/* CTA: Bikin Thread */}
-          <Button
+          <Link
             href="/forum/new"
             onClick={onClose}
-            variant="primary"
-            size="lg"
-            className="w-full"
-            showArrow
+            className="w-full h-[52px] rounded-full bg-crimson-500 hover:bg-crimson-600 text-white text-base font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg shadow-crimson-950/40"
           >
-            Bikin thread baru
-          </Button>
+            <Plus weight="bold" className="w-5 h-5" />
+            <span>Bikin thread</span>
+          </Link>
 
           {/* Legal / Notes */}
-          <div className="flex items-center justify-between font-mono-data text-[11px] text-[var(--subtle)] pt-2">
+          <div className="flex items-center justify-between font-mono text-xs text-subtle pt-2">
             <span>&copy; 2026 FJKT48</span>
             <div className="flex gap-4">
-              <Link href="/forum" onClick={onClose} className="hover:underline">
+              <Link
+                href="/forum"
+                onClick={onClose}
+                className="hover:underline hover:text-ink"
+              >
                 Aturan komunitas
               </Link>
-              <Link href="/forum" onClick={onClose} className="hover:underline">
+              <Link
+                href="/forum"
+                onClick={onClose}
+                className="hover:underline hover:text-ink"
+              >
                 Kebijakan privasi
               </Link>
             </div>

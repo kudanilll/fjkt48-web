@@ -8,7 +8,7 @@ import {
 
 export default function NotFound() {
   return (
-    <main className="stage min-h-screen relative overflow-hidden bg-[#0D0103] text-[#F5F2F3] flex flex-col items-center justify-center px-6 py-20 select-none">
+    <main className="stage min-h-screen relative overflow-hidden bg-bg text-ink flex flex-col items-center justify-center px-6 py-20 select-none">
       {/* Overhead Spotlight Beam */}
       <div
         className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[650px] opacity-40"
@@ -49,7 +49,7 @@ export default function NotFound() {
           <h2 className="font-display font-bold text-2xl sm:text-3xl uppercase tracking-tight text-white">
             Salah Pintu Masuk Teater
           </h2>
-          <p className="font-sans text-sm sm:text-base text-[#A89E9F] max-w-md mx-auto leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-muted max-w-md mx-auto leading-relaxed">
             Halaman yang kamu tuju tidak ditemukan atau show sudah selesai
             encore. Mungkin kamu salah belok di lorong lantai 4 FX Sudirman.
           </p>
@@ -75,7 +75,7 @@ export default function NotFound() {
 
           <Link
             href="/schedule"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-[#A89E9F] hover:text-white font-medium text-sm transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-muted hover:text-white font-medium text-sm transition-colors"
           >
             <CalendarBlank weight="bold" className="w-4 h-4" />
             <span>Jadwal Show</span>
@@ -86,7 +86,7 @@ export default function NotFound() {
         <div className="pt-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 font-mono-data text-xs text-[#706667] hover:text-crimson-400 transition-colors"
+            className="inline-flex items-center gap-1.5 font-mono-data text-xs text-subtle hover:text-crimson-400 transition-colors"
           >
             <ArrowLeft weight="bold" className="w-3 h-3" />
             <span>Menuju pintu keluar teater</span>

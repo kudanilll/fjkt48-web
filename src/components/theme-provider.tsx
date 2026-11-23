@@ -49,16 +49,31 @@ function getServerSnapshot(): Theme {
   return "dark";
 }
 
+function getSystemTheme(): "dark" | "light" {
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-color-scheme: light)").matches
+  ) {
+    return "light";
+  }
+  return "dark";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  const resolvedTheme: "dark" | "light" = theme === "light" ? "light" : "dark";
+  const resolvedTheme: "dark" | "light" =
+    theme === "system" ? getSystemTheme() : theme === "light" ? "light" : "dark";
 
   const setTheme = useCallback((newTheme: Theme) => {
     try {
       localStorage.setItem("fjkt48-theme", newTheme);
       const effectiveTheme: "dark" | "light" =
-        newTheme === "light" ? "light" : "dark";
+        newTheme === "system"
+          ? getSystemTheme()
+          : newTheme === "light"
+            ? "light"
+            : "dark";
       document.documentElement.setAttribute("data-theme", effectiveTheme);
       window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
     } catch {

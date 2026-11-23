@@ -54,9 +54,9 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA] flex flex-col lg:flex-row">
+    <main className="min-h-screen bg-bg text-ink flex flex-col lg:flex-row">
       {/* 1. Left Column: Stage Side */}
-      <div className="relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-[#0B0A0C]">
+      <div className="stage relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-bg">
         {/* Background Photo */}
         <div className="absolute inset-0">
           <Image
@@ -93,10 +93,10 @@ export default function LoginPage() {
         {/* Top: FJKT48 Logo */}
         <div className="relative z-10">
           <Link href="/" className="inline-flex items-center gap-0 group">
-            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#F4EFEA]">
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-ink">
               FJKT
             </span>
-            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#E5132E]">
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-crimson-500">
               48
             </span>
           </Link>
@@ -104,13 +104,13 @@ export default function LoginPage() {
 
         {/* Bottom Copy: Poster Text */}
         <div className="relative z-10 max-w-lg pt-16 space-y-4">
-          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-[#F4EFEA] select-none">
+          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-ink select-none">
             PANGGUNG KITA,
             <br />
             SUARA KITA.
           </h2>
 
-          <p className="text-[17px] font-sans text-[#A8A0A3] leading-[26px]">
+          <p className="text-[17px] font-sans text-muted leading-[26px]">
             Komunitas fans independen JKT48. Masuk untuk ikut ngobrol di forum
             dan dukung oshi kamu.
           </p>
@@ -118,12 +118,12 @@ export default function LoginPage() {
       </div>
 
       {/* 2. Right Column: Form Side */}
-      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-[#0B0A0C]">
+      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-bg">
         {/* Back Link */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#A8A0A3] hover:text-[#F4EFEA] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-muted hover:text-ink transition-colors"
           >
             <ArrowLeft weight="bold" className="w-4 h-4" />
             <span>Kembali ke beranda</span>
@@ -133,14 +133,14 @@ export default function LoginPage() {
         {/* Main Form Container */}
         <div className="max-w-[440px] w-full mx-auto my-12 space-y-8">
           <div className="space-y-2">
-            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-ink leading-none">
               MASUK KE AKUN
             </h1>
-            <p className="text-sm font-sans text-[#A8A0A3]">
+            <p className="text-sm font-sans text-muted">
               Belum punya akun?{" "}
               <Link
                 href="/register"
-                className="text-[#FF4D5E] font-medium hover:underline inline-flex items-center gap-1"
+                className="text-accent font-medium hover:underline inline-flex items-center gap-1"
               >
                 <span>Daftar sekarang</span>
                 <ArrowRight weight="bold" className="w-3.5 h-3.5" />
@@ -149,7 +149,7 @@ export default function LoginPage() {
           </div>
 
           {errorMsg && (
-            <div className="p-4 rounded-xl bg-[#E5132E]/15 border border-[#E5132E]/30 text-xs font-medium text-[#FF4D5E] font-sans">
+            <div className="p-4 rounded-xl bg-crimson-500/15 border border-crimson-500/30 text-xs font-medium text-accent font-sans">
               {errorMsg}
             </div>
           )}
@@ -159,7 +159,7 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => router.push("/dashboard")}
-              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] font-sans text-sm font-semibold hover:bg-[#2B272D] transition-colors"
+              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-raised text-ink font-sans text-sm font-semibold hover:bg-border transition-colors"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -186,9 +186,9 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[#1D1A1F]" />
+              <div className="w-full border-t border-raised" />
             </div>
-            <span className="relative px-4 bg-[#0B0A0C] text-xs font-mono text-[#8A8286] uppercase">
+            <span className="relative px-4 bg-bg text-xs font-mono text-subtle uppercase">
               atau masuk dengan email
             </span>
           </div>
@@ -199,7 +199,7 @@ export default function LoginPage() {
             <div className="space-y-1.5">
               <label
                 htmlFor="email"
-                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
               >
                 EMAIL
               </label>
@@ -210,7 +210,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@domain.com"
                 required
-                className="w-full px-4 py-3.5 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+                className="w-full px-4 py-3.5 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
               />
             </div>
 
@@ -219,13 +219,13 @@ export default function LoginPage() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+                  className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
                 >
                   PASSWORD
                 </label>
                 <Link
                   href="#"
-                  className="text-xs font-sans text-[#A8A0A3] hover:text-[#F4EFEA] hover:underline"
+                  className="text-xs font-sans text-muted hover:text-ink hover:underline"
                 >
                   Lupa password?
                 </Link>
@@ -239,13 +239,13 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label="Lihat password"
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8A8286] hover:text-[#F4EFEA] transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-subtle hover:text-ink transition-colors"
                 >
                   {showPassword ? (
                     <EyeSlash weight="bold" className="w-4 h-4" />
@@ -263,15 +263,15 @@ export default function LoginPage() {
                 onClick={() => setRememberMe(!rememberMe)}
                 className={`w-4 h-4 rounded flex items-center justify-center transition-colors ${
                   rememberMe
-                    ? "bg-[#E5132E] text-white"
-                    : "bg-[#141215] border border-[#2B272D]"
+                    ? "bg-crimson-500 text-white"
+                    : "bg-surface border border-border"
                 }`}
               >
                 {rememberMe && <Check weight="bold" className="w-3 h-3" />}
               </button>
               <span
                 onClick={() => setRememberMe(!rememberMe)}
-                className="text-xs font-sans text-[#A8A0A3] cursor-pointer select-none"
+                className="text-xs font-sans text-muted cursor-pointer select-none"
               >
                 Ingat saya di perangkat ini
               </span>
@@ -281,7 +281,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#E5132E] text-white text-base font-semibold hover:bg-[#CC0E26] active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-crimson-500 text-white text-base font-semibold hover:bg-crimson-600 active:scale-[0.98] transition-all disabled:opacity-50"
             >
               <span>{loading ? "Memproses..." : "Masuk ke akun"}</span>
               <ArrowRight weight="bold" className="w-4 h-4" />
@@ -290,7 +290,7 @@ export default function LoginPage() {
         </div>
 
         {/* Legal Text */}
-        <p className="text-xs font-mono text-[#8A8286] text-center max-w-sm mx-auto">
+        <p className="text-xs font-mono text-subtle text-center max-w-sm mx-auto">
           Situs fans tidak resmi. Dengan masuk, kamu setuju dengan Aturan
           komunitas FJKT48.
         </p>

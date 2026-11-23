@@ -27,16 +27,16 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
   return (
     <aside className="w-full space-y-6" aria-label="Sidebar komunitas">
       {/* 1. Compose CTA Card (FigCraft ID: 2568) */}
-      <div className="p-6 rounded-[14px] bg-gradient-to-br from-[#4A0510]/80 via-[#1D1A1F] to-[#141215] border border-crimson-900/30 space-y-4">
+      <div className="p-6 rounded-[14px] bg-gradient-to-br from-curtain-900/80 via-raised to-surface border border-crimson-900/30 space-y-4">
         <span className="font-mono-data text-xs font-bold text-crimson-400 tracking-wider uppercase block">
           BIKIN THREAD
         </span>
 
-        <h2 className="font-display font-black text-2xl uppercase text-[#F4EFEA] leading-tight">
+        <h2 className="font-display font-black text-2xl uppercase text-ink leading-tight">
           PUNYA CERITA DARI THEATER?
         </h2>
 
-        <p className="font-sans text-xs text-[#A8A0A3] leading-relaxed">
+        <p className="font-sans text-xs text-muted leading-relaxed">
           Tag member dan show-nya biar fans lain gampang nemu obrolanmu.
         </p>
 
@@ -50,8 +50,8 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
       </div>
 
       {/* 2. Top Active Fans (FigCraft ID: 2580) */}
-      <div className="p-6 rounded-[14px] bg-[#141215] space-y-4">
-        <h3 className="font-sans font-semibold text-sm text-[#F4EFEA]">
+      <div className="p-6 rounded-[14px] bg-surface space-y-4">
+        <h3 className="font-sans font-semibold text-sm text-ink">
           Paling aktif minggu ini
         </h3>
 
@@ -61,13 +61,13 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
               key={fan.name}
               className="flex items-center gap-4 text-xs font-sans"
             >
-              <span className="font-display font-black text-lg text-[#F4EFEA] w-3 text-center">
+              <span className="font-display font-black text-lg text-ink w-3 text-center">
                 {fan.rank}
               </span>
 
               <div className="flex-1 min-w-0">
-                <p className="font-bold text-[#F4EFEA] truncate">{fan.name}</p>
-                <p className="text-[11px] text-[#A8A0A3]">
+                <p className="font-bold text-ink truncate">{fan.name}</p>
+                <p className="text-[11px] text-muted">
                   oshi {fan.oshi} · {fan.replies} balasan
                 </p>
               </div>
@@ -77,8 +77,8 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
       </div>
 
       {/* 3. Trending Tags (FigCraft ID: 2595) */}
-      <div className="p-6 rounded-[14px] bg-[#141215] space-y-3">
-        <h3 className="font-sans font-semibold text-sm text-[#F4EFEA]">
+      <div className="p-6 rounded-[14px] bg-surface space-y-3">
+        <h3 className="font-sans font-semibold text-sm text-ink">
           Tag lagi naik
         </h3>
 
@@ -88,7 +88,7 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
               key={tag}
               type="button"
               onClick={() => onSelectTag?.(tag)}
-              className="px-3 py-1.5 rounded-full bg-[#1D1A1F] text-xs font-mono-data text-[#A8A0A3] hover:text-[#F4EFEA] border border-[#2B272D] transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-full bg-raised text-xs font-mono-data text-muted hover:text-ink border border-border transition-colors cursor-pointer"
             >
               {tag}
             </button>
@@ -97,22 +97,22 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
       </div>
 
       {/* 4. Upcoming Show Ticket Preview (FigCraft ID: 2608) */}
-      <div className="p-6 rounded-[14px] bg-[#141215] space-y-3">
+      <div className="p-6 rounded-[14px] bg-surface space-y-3">
         <span className="font-mono-data text-xs font-semibold text-crimson-400 uppercase tracking-wider block">
           SHOW TERDEKAT
         </span>
 
-        <h3 className="font-display font-black text-2xl uppercase text-[#F4EFEA] leading-tight">
+        <h3 className="font-display font-black text-2xl uppercase text-ink leading-tight">
           PERTARUHAN CINTA
         </h3>
 
-        <p className="font-mono-data text-xs text-[#A8A0A3]">
+        <p className="font-mono-data text-xs text-muted">
           MIN, 22 NOV · 19:00 WIB · Birthday show
         </p>
 
         <Link
           href="/forum"
-          className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-[#F4EFEA] hover:text-crimson-400 transition-colors pt-2 group"
+          className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-ink hover:text-crimson-400 transition-colors pt-2 group"
         >
           <span>Diskusi show</span>
           <ArrowUpRight

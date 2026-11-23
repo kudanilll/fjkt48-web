@@ -21,12 +21,12 @@ export default function LivePage() {
   const hasLive = streams.length > 0;
 
   return (
-    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA]">
+    <main className="min-h-screen bg-bg text-ink">
       {/* 1. Live Ticker */}
       <LiveTicker />
 
       {/* 2. Live Head Section */}
-      <section className="relative overflow-hidden pt-12 pb-12 border-b border-[#1D1A1F]">
+      <section className="relative overflow-hidden pt-12 pb-12 border-b border-raised">
         {/* Spotlight Glow */}
         <div
           className="pointer-events-none absolute -top-40 -left-40 h-[820px] w-[1000px] rounded-full"
@@ -40,12 +40,12 @@ export default function LivePage() {
         <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 space-y-6">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="flex items-center gap-6 flex-wrap">
-              <h1 className="font-display font-black text-7xl sm:text-9xl lg:text-[168px] leading-none tracking-[-0.04em] text-[#F4EFEA] uppercase">
+              <h1 className="font-display font-black text-7xl sm:text-9xl lg:text-[168px] leading-none tracking-[-0.04em] text-ink uppercase">
                 LIVE
               </h1>
 
               {hasLive && (
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E5132E] text-white text-xs font-mono font-bold uppercase tracking-wider shadow-lg shadow-[#E5132E]/30">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-crimson-500 text-white text-xs font-mono font-bold uppercase tracking-wider shadow-lg shadow-crimson-500/30">
                   <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                   <span>{streams.length} LIVE SEKARANG</span>
                 </div>
@@ -53,11 +53,11 @@ export default function LivePage() {
             </div>
 
             <div className="max-w-[468px] space-y-3">
-              <p className="text-[17px] font-sans text-[#A8A0A3] leading-[26px]">
+              <p className="text-[17px] font-sans text-muted leading-[26px]">
                 Streaming Showroom dan IDN Live member JKT48. Tonton bareng fans
                 lain, ngobrol di chat room, atau tonton arsip replay.
               </p>
-              <p className="text-xs font-mono font-medium text-[#8A8286]">
+              <p className="text-xs font-mono font-medium text-subtle">
                 Auto-refresh tiap 30 detik · Sumber live API
               </p>
             </div>
@@ -66,7 +66,7 @@ export default function LivePage() {
       </section>
 
       {/* 3. Stage Zone */}
-      <section className="py-12 sm:py-16">
+      <section className="stage w-full bg-bg text-ink pt-10 sm:pt-14 lg:pt-16 pb-12 sm:pb-16">
         <div className="w-full px-6 sm:px-12 lg:px-16">
           {hasLive ? (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

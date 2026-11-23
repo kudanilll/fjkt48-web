@@ -62,13 +62,13 @@ export default function TicketStub({
   ];
 
   return (
-    <div className="relative flex flex-row overflow-hidden rounded-[14px] bg-[#1D1A1F] text-[#F4EFEA] min-h-[184px] shadow-lg shadow-black/30 border-none group">
+    <div className="relative flex flex-row overflow-hidden rounded-[14px] bg-raised text-ink min-h-[184px] shadow-lg shadow-black/30 border-none group">
       {/* Date Stub Section (Left) - FigCraft ID: 1098 */}
       <div
         className={`relative w-28 sm:w-[116px] shrink-0 flex flex-col items-center justify-between py-5 px-3 z-0 ${
           isFeatured
             ? "bg-crimson-500 text-white"
-            : "bg-[#252127] text-[#F4EFEA]"
+            : "bg-raised text-ink"
         }`}
       >
         <span className="font-sans text-xs sm:text-[13px] font-semibold tracking-[0.06em] uppercase">
@@ -82,15 +82,15 @@ export default function TicketStub({
         </span>
 
         {/* Perforation dashed line along right edge */}
-        <div className="absolute top-3.5 bottom-3.5 right-0 w-0 border-r-2 border-dashed border-[#0B0A0C] z-10" />
+        <div className="absolute top-3.5 bottom-3.5 right-0 w-0 border-r-2 border-dashed border-bg z-10" />
 
         {/* Notches along dividing line (FigCraft ID: 1102 & 1103) */}
         <div
-          className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-[#0B0A0C] z-20 pointer-events-none"
+          className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-bg z-20 pointer-events-none"
           aria-hidden="true"
         />
         <div
-          className="absolute -bottom-2.5 -right-2.5 w-5 h-5 rounded-full bg-[#0B0A0C] z-20 pointer-events-none"
+          className="absolute -bottom-2.5 -right-2.5 w-5 h-5 rounded-full bg-bg z-20 pointer-events-none"
           aria-hidden="true"
         />
       </div>
@@ -100,18 +100,18 @@ export default function TicketStub({
         <div className="space-y-1.5">
           {/* Badge */}
           {badge && (
-            <span className="inline-block px-2.5 py-0.5 rounded-full border border-[#F4EFEA]/20 text-[11px] font-sans font-medium text-[#F4EFEA]">
+            <span className="inline-block px-2.5 py-0.5 rounded-full border border-ink-a20 text-[11px] font-sans font-medium text-ink">
               {badge}
             </span>
           )}
 
           {/* Show Title */}
-          <h3 className="font-display font-extrabold text-2xl sm:text-[36px] uppercase leading-tight tracking-tight text-[#F4EFEA] group-hover:text-crimson-400 transition-colors truncate">
+          <h3 className="font-display font-extrabold text-2xl sm:text-[36px] uppercase leading-tight tracking-tight text-ink group-hover:text-crimson-400 transition-colors truncate">
             {title}
           </h3>
 
           {/* Time & Subtitle */}
-          <p className="font-mono-data text-xs sm:text-[13px] text-[#A8A0A3] truncate">
+          <p className="font-mono-data text-xs sm:text-[13px] text-muted truncate">
             {time}
           </p>
         </div>
@@ -123,7 +123,7 @@ export default function TicketStub({
             {lineup.slice(0, 4).map((nick) => (
               <div
                 key={nick}
-                className="relative w-7 h-7 rounded-full overflow-hidden border-2 border-[#1D1A1F] bg-neutral-800"
+                className="relative w-7 h-7 rounded-full overflow-hidden border-2 border-raised bg-neutral-800"
               >
                 <Image
                   src={`/members/${nick}.jpg`}
@@ -133,7 +133,7 @@ export default function TicketStub({
                 />
               </div>
             ))}
-            <span className="flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-mono-data font-bold border-2 border-[#1D1A1F] bg-[#2B272D] text-[#A8A0A3]">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-mono-data font-bold border-2 border-raised bg-border text-muted">
               +12
             </span>
           </div>
@@ -141,7 +141,7 @@ export default function TicketStub({
           {/* Diskusi Show Underline Link */}
           <Link
             href="/forum"
-            className="font-sans text-xs sm:text-[13px] font-semibold text-[#F4EFEA] underline hover:text-crimson-400 transition-colors shrink-0"
+            className="font-sans text-xs sm:text-[13px] font-semibold text-ink underline hover:text-crimson-400 transition-colors shrink-0"
           >
             Diskusi show
           </Link>

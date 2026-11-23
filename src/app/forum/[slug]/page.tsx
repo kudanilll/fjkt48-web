@@ -52,7 +52,7 @@ export default async function ThreadDetailPage({ params }: ThreadPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA]">
+    <main className="min-h-screen bg-bg text-ink">
       {/* 1. Live Ticker */}
       <LiveTicker />
 

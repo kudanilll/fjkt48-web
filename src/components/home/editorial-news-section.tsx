@@ -40,18 +40,18 @@ export default function EditorialNewsSection(props: EditorialNewsSectionProps) {
 
   return (
     <section
-      className="w-full bg-[#0B0A0C] text-[#F4EFEA] py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
       aria-label="Berita dan pengumuman resmi JKT48"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Left Column: Intro (Spans 4 cols on desktop) - FigCraft ID: 1305 */}
           <div className="lg:col-span-4 space-y-4">
-            <h2 className="font-display font-extrabold text-5xl sm:text-[64px] tracking-tight uppercase leading-none text-[#F4EFEA]">
+            <h2 className="font-display font-extrabold text-5xl sm:text-[64px] tracking-tight uppercase leading-none text-ink">
               BERITA RESMI
             </h2>
 
-            <p className="font-sans text-base text-[#A8A0A3] leading-relaxed max-w-sm">
+            <p className="font-sans text-base text-muted leading-relaxed max-w-sm">
               Diambil langsung dari jkt48.com. Setiap pengumuman bisa langsung
               dibahas di forum.
             </p>
@@ -78,28 +78,28 @@ export default function EditorialNewsSection(props: EditorialNewsSectionProps) {
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60"
+                className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-surface/60"
               >
                 <div className="flex items-start sm:items-center gap-4 sm:gap-6 flex-1 min-w-0">
                   {/* Date Stub */}
-                  <span className="font-mono-data text-xs sm:text-[13px] text-[#A8A0A3] shrink-0 font-medium">
+                  <span className="font-mono-data text-xs sm:text-[13px] text-muted shrink-0 font-medium">
                     {item.date}
                   </span>
 
                   {/* Title */}
-                  <h3 className="font-sans font-semibold text-base sm:text-lg text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
+                  <h3 className="font-sans font-semibold text-base sm:text-lg text-ink group-hover:text-crimson-400 transition-colors leading-snug">
                     {item.title}
                   </h3>
                 </div>
 
                 {/* Right Category Tag & Arrow */}
-                <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto font-mono-data text-xs text-[#A8A0A3]">
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3] border border-[#2B272D] text-xs">
+                <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto font-mono-data text-xs text-muted">
+                  <span className="px-2.5 py-0.5 rounded-full bg-raised text-muted border border-border text-xs">
                     {item.category}
                   </span>
                   <ArrowUpRight
                     weight="bold"
-                    className="w-4 h-4 text-[#A8A0A3] group-hover:text-crimson-400 transition-colors"
+                    className="w-4 h-4 text-muted group-hover:text-crimson-400 transition-colors"
                   />
                 </div>
               </a>

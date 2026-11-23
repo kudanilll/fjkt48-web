@@ -54,7 +54,10 @@ export default function RootLayout({
             __html: `(function() {
   try {
     var stored = localStorage.getItem('fjkt48-theme');
-    var theme = stored === 'light' ? 'light' : 'dark';
+    var isSystem = !stored || stored === 'system';
+    var theme = isSystem
+      ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+      : (stored === 'light' ? 'light' : 'dark');
     document.documentElement.setAttribute('data-theme', theme);
   } catch (e) {}
 })()`,

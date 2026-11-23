@@ -185,8 +185,8 @@ export default function ForumThreadList(props: ForumThreadListProps) {
                 }
                 className={`px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? "bg-[#1D1A1F] text-white border border-[#3A353D]"
-                    : "bg-transparent text-[#A8A0A3] border border-[#2B272D] hover:text-white"
+                    ? "bg-raised text-white border border-border"
+                    : "bg-transparent text-muted border border-border hover:text-white"
                 }`}
               >
                 {tab.label}
@@ -199,16 +199,16 @@ export default function ForumThreadList(props: ForumThreadListProps) {
         <div className="relative flex-1 max-w-sm">
           <MagnifyingGlass
             weight="bold"
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A8A0A3] pointer-events-none"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted pointer-events-none"
           />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Cari thread, member, setlist"
-            className="w-full h-10 pl-10 pr-8 rounded-full bg-[#141215] border border-[#2B272D] text-xs text-[#F4EFEA] placeholder:text-[#A8A0A3]/60 focus:outline-none focus:border-crimson-500 transition-colors"
+            className="w-full h-10 pl-10 pr-8 rounded-full bg-surface border border-border text-xs text-ink placeholder:text-subtle focus:outline-none focus:border-crimson-500 transition-colors"
           />
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 font-mono-data text-xs text-[#A8A0A3]/60 pointer-events-none">
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 font-mono-data text-xs text-muted/60 pointer-events-none">
             /
           </span>
         </div>
@@ -222,14 +222,14 @@ export default function ForumThreadList(props: ForumThreadListProps) {
 
         <Link
           href={`/forum/${figcraftPinnedThread.slug}`}
-          className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60 border-b border-[var(--line)]"
+          className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-surface/60 border-b border-[var(--line)]"
         >
           {/* Big Reply Count */}
           <div className="w-16 shrink-0 flex flex-col items-start justify-center">
-            <span className="font-display font-black text-4xl text-[#F4EFEA] leading-none tracking-tight">
+            <span className="font-display font-black text-4xl text-ink leading-none tracking-tight">
               {figcraftPinnedThread.repliesCount}
             </span>
-            <span className="font-sans text-xs font-medium text-[#A8A0A3] mt-0.5">
+            <span className="font-sans text-xs font-medium text-muted mt-0.5">
               balasan
             </span>
           </div>
@@ -241,12 +241,12 @@ export default function ForumThreadList(props: ForumThreadListProps) {
               <span>{figcraftPinnedThread.category}</span>
             </span>
 
-            <h3 className="font-sans font-semibold text-lg text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
+            <h3 className="font-sans font-semibold text-lg text-ink group-hover:text-crimson-400 transition-colors leading-snug">
               {figcraftPinnedThread.title}
             </h3>
 
-            <p className="font-sans text-xs text-[#A8A0A3]">
-              <span className="font-semibold text-[#F4EFEA]">
+            <p className="font-sans text-xs text-muted">
+              <span className="font-semibold text-ink">
                 {figcraftPinnedThread.author}
               </span>{" "}
               {figcraftPinnedThread.authorRole}
@@ -254,7 +254,7 @@ export default function ForumThreadList(props: ForumThreadListProps) {
           </div>
 
           {/* Right Stats */}
-          <div className="flex items-center gap-5 shrink-0 font-mono-data text-xs text-[#A8A0A3]">
+          <div className="flex items-center gap-5 shrink-0 font-mono-data text-xs text-muted">
             <div className="flex items-center gap-1.5 text-crimson-400">
               <Flame weight="fill" className="w-4 h-4 text-crimson-500" />
               <span>{figcraftPinnedThread.reactions}</span>
@@ -263,14 +263,14 @@ export default function ForumThreadList(props: ForumThreadListProps) {
               <Eye weight="bold" className="w-4 h-4" />
               <span>{figcraftPinnedThread.views}</span>
             </div>
-            <ArrowUpRight weight="bold" className="w-4 h-4 text-[#F4EFEA]" />
+            <ArrowUpRight weight="bold" className="w-4 h-4 text-ink" />
           </div>
         </Link>
       </div>
 
       {/* SEMUA BLOK · TERBARU Subheader */}
       <div className="pt-4">
-        <span className="font-mono-data text-xs font-medium text-[#A8A0A3] uppercase tracking-wider block mb-2">
+        <span className="font-mono-data text-xs font-medium text-muted uppercase tracking-wider block mb-2">
           SEMUA BLOK · TERBARU
         </span>
 
@@ -284,14 +284,14 @@ export default function ForumThreadList(props: ForumThreadListProps) {
               <Link
                 key={thread.id}
                 href={`/forum/${thread.slug}`}
-                className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60"
+                className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-surface/60"
               >
                 {/* Big Reply Count */}
                 <div className="w-16 shrink-0 flex flex-col items-start justify-center">
-                  <span className="font-display font-black text-4xl text-[#F4EFEA] leading-none tracking-tight">
+                  <span className="font-display font-black text-4xl text-ink leading-none tracking-tight">
                     {thread.repliesCount}
                   </span>
-                  <span className="font-sans text-xs font-medium text-[#A8A0A3] mt-0.5">
+                  <span className="font-sans text-xs font-medium text-muted mt-0.5">
                     balasan
                   </span>
                 </div>
@@ -305,7 +305,7 @@ export default function ForumThreadList(props: ForumThreadListProps) {
                     </span>
 
                     {thread.memberNickname && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] border border-[#2B272D] text-xs">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-raised text-ink border border-border text-xs">
                         <span className="relative w-3.5 h-3.5 rounded-full overflow-hidden shrink-0">
                           <Image
                             src={`/members/${thread.memberNickname}.jpg`}
@@ -319,22 +319,22 @@ export default function ForumThreadList(props: ForumThreadListProps) {
                     )}
 
                     {thread.tag && (
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3] border border-[#2B272D] text-xs">
+                      <span className="px-2.5 py-0.5 rounded-full bg-raised text-muted border border-border text-xs">
                         {thread.tag}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="font-sans font-semibold text-lg text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
+                  <h3 className="font-sans font-semibold text-lg text-ink group-hover:text-crimson-400 transition-colors leading-snug">
                     {thread.title}
                   </h3>
 
-                  <div className="flex items-center gap-2 text-xs text-[#A8A0A3] font-sans flex-wrap">
-                    <span className="font-medium text-[#F4EFEA]">
+                  <div className="flex items-center gap-2 text-xs text-muted font-sans flex-wrap">
+                    <span className="font-medium text-ink">
                       {thread.author}
                     </span>
                     <span>·</span>
-                    <span className="text-[#A8A0A3]">
+                    <span className="text-muted">
                       {thread.oshi.startsWith("belum")
                         ? thread.oshi
                         : `oshi ${thread.oshi}`}
@@ -345,7 +345,7 @@ export default function ForumThreadList(props: ForumThreadListProps) {
                 </div>
 
                 {/* Right: Stats Counter (Reactions, Views) + Arrow */}
-                <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 font-mono-data text-xs text-[#A8A0A3]">
+                <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 font-mono-data text-xs text-muted">
                   <div className="flex items-center gap-4">
                     <button
                       type="button"
@@ -360,7 +360,7 @@ export default function ForumThreadList(props: ForumThreadListProps) {
                       <span>{reactionCount}</span>
                     </button>
 
-                    <div className="flex items-center gap-1.5 text-[#A8A0A3]">
+                    <div className="flex items-center gap-1.5 text-muted">
                       <ChatCircle weight="bold" className="w-4 h-4" />
                       <span>{thread.views}</span>
                     </div>
@@ -368,7 +368,7 @@ export default function ForumThreadList(props: ForumThreadListProps) {
 
                   <ArrowUpRight
                     weight="bold"
-                    className="w-4 h-4 text-[#F4EFEA] group-hover:text-crimson-400 transition-colors"
+                    className="w-4 h-4 text-ink group-hover:text-crimson-400 transition-colors"
                   />
                 </div>
               </Link>
@@ -379,13 +379,13 @@ export default function ForumThreadList(props: ForumThreadListProps) {
 
       {/* Bottom Counter & Load More (FigCraft: 9 dari 7.488 thread, Muat 20 thread lagi) */}
       <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[var(--line)]">
-        <span className="font-mono-data text-xs text-[#A8A0A3]">
+        <span className="font-mono-data text-xs text-muted">
           9 dari 7.488 thread
         </span>
 
         <button
           type="button"
-          className="px-6 py-2.5 rounded-full border border-[#2B272D] bg-[#141215] text-xs font-sans font-semibold text-[#F4EFEA] hover:bg-[#1D1A1F] hover:border-[#3A353D] transition-all cursor-pointer"
+          className="px-6 py-2.5 rounded-full border border-border bg-surface text-xs font-sans font-semibold text-ink hover:bg-raised hover:border-border transition-all cursor-pointer"
         >
           Muat 20 thread lagi
         </button>

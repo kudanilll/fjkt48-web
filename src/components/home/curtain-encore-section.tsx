@@ -53,13 +53,13 @@ export default function CurtainEncoreSection() {
     >
       {/* Dark theater lighting scrim */}
       <div
-        className="pointer-events-none absolute inset-0 bg-radial-[ellipse_at_center] from-transparent via-[#0B0A0C]/20 to-[#0B0A0C]/60"
+        className="pointer-events-none absolute inset-0 bg-radial-[ellipse_at_center] from-transparent via-bg/20 to-bg/60"
         aria-hidden="true"
       />
 
       <div className="relative z-10 max-w-4xl mx-auto space-y-6">
         {/* Eyebrow (FigCraft ID: 1330) */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm text-[#FFE7CC] font-mono-data text-xs font-semibold uppercase tracking-widest border border-white/10">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm text-spotlight font-mono-data text-xs font-semibold uppercase tracking-widest border border-white/10">
           <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
           <span>Lampu theater belum padam</span>
         </div>
@@ -67,13 +67,13 @@ export default function CurtainEncoreSection() {
         {/* Big ENCORE! Display Heading (FigCraft ID: 1331) */}
         <h2
           ref={textRef}
-          className="font-display font-black text-7xl sm:text-9xl md:text-[180px] lg:text-[240px] tracking-tight uppercase leading-[0.8] text-[#F4EFEA] drop-shadow-[0_12px_40px_rgba(11,10,12,0.8)]"
+          className="font-display font-black text-7xl sm:text-9xl md:text-[180px] lg:text-[240px] tracking-tight uppercase leading-[0.8] text-ink drop-shadow-[0_12px_40px_rgba(11,10,12,0.8)]"
         >
           ENCORE!
         </h2>
 
         {/* Lede Message (FigCraft ID: 1332) */}
-        <p className="font-sans text-base sm:text-xl text-[#F4EFEA] max-w-xl mx-auto leading-relaxed">
+        <p className="font-sans text-base sm:text-xl text-ink max-w-xl mx-auto leading-relaxed">
           Belum punya akun? Daftar gratis, pilih oshi kamu, dan ikut ngobrol
           bareng ribuan fans lain setelah show selesai.
         </p>
@@ -82,14 +82,14 @@ export default function CurtainEncoreSection() {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
           <Link
             href="/register"
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#0B0A0C] font-sans font-bold text-sm sm:text-base hover:bg-neutral-100 transition-all duration-200 shadow-xl shadow-black/30"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-bg font-sans font-bold text-sm sm:text-base hover:bg-neutral-100 transition-all duration-200 shadow-xl shadow-black/30"
           >
             <span>Daftar gratis</span>
             <ArrowRight weight="bold" className="w-4 h-4" />
           </Link>
           <Link
             href="/login"
-            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-black/40 border border-white/20 text-[#F4EFEA] font-sans font-bold text-sm sm:text-base hover:bg-black/60 transition-all duration-200"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-black/40 border border-white/20 text-ink font-sans font-bold text-sm sm:text-base hover:bg-black/60 transition-all duration-200"
           >
             Masuk
           </Link>

@@ -56,17 +56,17 @@ export default function MemberDiscussionSection({
   member,
 }: MemberDiscussionSectionProps) {
   return (
-    <section className="py-16 sm:py-20 border-b border-[var(--line)] bg-[#0B0A0C] text-[#F4EFEA]">
+    <section className="py-16 sm:py-20 border-b border-[var(--line)] bg-bg text-ink">
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 pb-6 border-b border-[var(--line)]">
-          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-[64px] uppercase tracking-tight text-[#F4EFEA]">
+          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-[64px] uppercase tracking-tight text-ink">
             DISKUSI TENTANG {member.nickname}
           </h2>
 
           <Link
             href="/forum"
-            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-[#F4EFEA] hover:text-crimson-400 transition-colors"
+            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink hover:text-crimson-400 transition-colors"
           >
             <span>Semua 412 thread</span>
             <ArrowUpRight weight="bold" className="w-4 h-4" />
@@ -79,14 +79,14 @@ export default function MemberDiscussionSection({
             <Link
               key={thread.id}
               href={`/forum/${thread.slug}`}
-              className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60"
+              className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-6 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-surface/60"
             >
               {/* Left Column: Big Reply Count */}
               <div className="w-16 shrink-0 flex flex-col items-start justify-center">
-                <span className="font-display font-black text-4xl text-[#F4EFEA] leading-none tracking-tight">
+                <span className="font-display font-black text-4xl text-ink leading-none tracking-tight">
                   {thread.repliesCount}
                 </span>
-                <span className="font-sans text-xs font-medium text-[#A8A0A3] mt-0.5">
+                <span className="font-sans text-xs font-medium text-muted mt-0.5">
                   balasan
                 </span>
               </div>
@@ -99,7 +99,7 @@ export default function MemberDiscussionSection({
                     <span>{thread.category}</span>
                   </span>
 
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] border border-[#2B272D] text-xs">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-raised text-ink border border-border text-xs">
                     <span className="relative w-3.5 h-3.5 rounded-full overflow-hidden shrink-0">
                       <Image
                         src="/members/freya.jpg"
@@ -112,18 +112,18 @@ export default function MemberDiscussionSection({
                   </span>
 
                   {thread.tag && (
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3] border border-[#2B272D] text-xs">
+                    <span className="px-2.5 py-0.5 rounded-full bg-raised text-muted border border-border text-xs">
                       {thread.tag}
                     </span>
                   )}
                 </div>
 
-                <h3 className="font-sans font-semibold text-lg text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
+                <h3 className="font-sans font-semibold text-lg text-ink group-hover:text-crimson-400 transition-colors leading-snug">
                   {thread.title}
                 </h3>
 
-                <div className="flex items-center gap-2 text-xs text-[#A8A0A3] font-sans flex-wrap">
-                  <span className="font-medium text-[#F4EFEA]">
+                <div className="flex items-center gap-2 text-xs text-muted font-sans flex-wrap">
+                  <span className="font-medium text-ink">
                     {thread.author}
                   </span>
                   <span>·</span>
@@ -134,14 +134,14 @@ export default function MemberDiscussionSection({
               </div>
 
               {/* Right Column: Stats & Arrow */}
-              <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 font-mono-data text-xs text-[#A8A0A3]">
+              <div className="flex items-center justify-between md:justify-end gap-5 shrink-0 font-mono-data text-xs text-muted">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1.5 text-crimson-400 font-medium">
                     <Flame weight="fill" className="w-4 h-4 text-crimson-500" />
                     <span>{thread.reactions}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-[#A8A0A3]">
+                  <div className="flex items-center gap-1.5 text-muted">
                     <Eye weight="bold" className="w-4 h-4" />
                     <span>{thread.views}</span>
                   </div>
@@ -149,7 +149,7 @@ export default function MemberDiscussionSection({
 
                 <ArrowUpRight
                   weight="bold"
-                  className="w-4 h-4 text-[#F4EFEA] group-hover:text-crimson-400 transition-colors"
+                  className="w-4 h-4 text-ink group-hover:text-crimson-400 transition-colors"
                 />
               </div>
             </Link>

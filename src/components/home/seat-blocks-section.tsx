@@ -78,7 +78,7 @@ const seatBlocks: SeatBlock[] = [
 export default function SeatBlocksSection() {
   return (
     <section
-      className="w-full bg-[#0B0A0C] text-[#F4EFEA] py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
       aria-label="Pilihan blok tempat duduk forum"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
@@ -97,15 +97,15 @@ export default function SeatBlocksSection() {
             </h2>
           </div>
 
-          <p className="font-sans text-base sm:text-[17px] text-[#A8A0A3] max-w-md leading-relaxed">
+          <p className="font-sans text-base sm:text-[17px] text-muted max-w-md leading-relaxed">
             Enam kategori forum, disusun seperti kursi theater. Titik merah
             adalah fans yang lagi online di blok itu.
           </p>
         </div>
 
         {/* Panggung Bar (FigCraft ID: 1046) */}
-        <div className="w-full h-16 rounded-t-2xl rounded-b-[120px] bg-gradient-to-r from-[#4A0510] via-[#8E0D20] to-[#4A0510] flex items-center justify-center mb-10 shadow-lg shadow-crimson-900/30">
-          <span className="font-display font-extrabold text-xl sm:text-[22px] tracking-[0.2em] text-[#F4EFEA] uppercase">
+        <div className="w-full h-16 rounded-t-2xl rounded-b-[120px] bg-gradient-to-r from-curtain-900 via-curtain-700 to-curtain-900 flex items-center justify-center mb-10 shadow-lg shadow-crimson-900/30">
+          <span className="font-display font-extrabold text-xl sm:text-[22px] tracking-[0.2em] text-ink uppercase">
             PANGGUNG
           </span>
         </div>
@@ -116,7 +116,7 @@ export default function SeatBlocksSection() {
             <Link
               key={block.code}
               href={`/forum?block=${block.slug}`}
-              className="card group flex flex-col justify-between p-7 rounded-[14px] bg-[#141215] hover:bg-[#1D1A1F] transition-all duration-200 border-none min-h-[248px]"
+              className="card group flex flex-col justify-between p-7 rounded-[14px] bg-surface hover:bg-raised transition-all duration-200 border-none min-h-[248px]"
             >
               <div className="space-y-2.5">
                 {/* Block Code + Thread count */}
@@ -125,12 +125,12 @@ export default function SeatBlocksSection() {
                 </p>
 
                 {/* Title */}
-                <h3 className="font-display font-extrabold text-3xl sm:text-[40px] text-[#F4EFEA] group-hover:text-crimson-400 transition-colors uppercase leading-tight tracking-tight">
+                <h3 className="font-display font-extrabold text-3xl sm:text-[40px] text-ink group-hover:text-crimson-400 transition-colors uppercase leading-tight tracking-tight">
                   {block.name}
                 </h3>
 
                 {/* Description */}
-                <p className="font-sans text-sm text-[#A8A0A3] leading-relaxed pt-1">
+                <p className="font-sans text-sm text-muted leading-relaxed pt-1">
                   {block.description}
                 </p>
               </div>
@@ -144,13 +144,13 @@ export default function SeatBlocksSection() {
                       className={`w-2 h-2 rounded-full ${
                         i < block.activeDots
                           ? "bg-crimson-500 shadow-[0_0_6px_rgba(229,19,46,0.8)]"
-                          : "bg-[#2B272D]"
+                          : "bg-border"
                       }`}
                     />
                   ))}
                 </div>
 
-                <span className="font-mono-data text-xs text-[#A8A0A3] shrink-0">
+                <span className="font-mono-data text-xs text-muted shrink-0">
                   {block.onlineCount} online
                 </span>
               </div>

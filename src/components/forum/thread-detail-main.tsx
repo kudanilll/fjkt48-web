@@ -66,36 +66,36 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
       {/* 1. Breadcrumb Navigation */}
       <nav
         aria-label="Breadcrumb"
-        className="flex items-center gap-2 text-xs font-mono text-[#A8A0A3]"
+        className="flex items-center gap-2 text-xs font-mono text-muted"
       >
-        <Link href="/forum" className="hover:text-[#F4EFEA] transition-colors">
+        <Link href="/forum" className="hover:text-ink transition-colors">
           Forum
         </Link>
-        <CaretRight weight="bold" className="w-3.5 h-3.5 text-[#8A8286]" />
+        <CaretRight weight="bold" className="w-3.5 h-3.5 text-subtle" />
         <Link
           href={`/forum?block=${thread.categorySlug}`}
-          className="text-[#FF4D5E] font-medium hover:underline"
+          className="text-accent font-medium hover:underline"
         >
           {thread.categoryName}
         </Link>
-        <CaretRight weight="bold" className="w-3.5 h-3.5 text-[#8A8286]" />
-        <span className="text-[#8A8286] truncate max-w-[240px] sm:max-w-none">
+        <CaretRight weight="bold" className="w-3.5 h-3.5 text-subtle" />
+        <span className="text-subtle truncate max-w-[240px] sm:max-w-none">
           Thread #{thread.id}
         </span>
       </nav>
 
       {/* 2. Main Thread Card */}
-      <div className="rounded-[14px] bg-[#141215] p-6 sm:p-8 space-y-6">
+      <div className="rounded-[14px] bg-surface p-6 sm:p-8 space-y-6">
         {/* Category & Topic Badges */}
         <div className="flex items-center gap-2 flex-wrap text-xs">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E5132E]/20 text-[#FF4D5E] font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4D5E]" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-500/20 text-accent font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
             {thread.categoryName}
           </span>
           {thread.tags.map((tag) => (
             <span
               key={tag.slug}
-              className="px-3 py-1 rounded-full bg-[#1D1A1F] text-[#A8A0A3] font-mono text-xs border border-[#F4EFEA]/10"
+              className="px-3 py-1 rounded-full bg-raised text-muted font-mono text-xs border border-ink-a10"
             >
               #{tag.label}
             </span>
@@ -103,27 +103,27 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
         </div>
 
         {/* Title */}
-        <h1 className="font-sans font-bold text-2xl sm:text-3xl md:text-4xl text-[#F4EFEA] leading-tight">
+        <h1 className="font-sans font-bold text-2xl sm:text-3xl md:text-4xl text-ink leading-tight">
           {thread.title}
         </h1>
 
         {/* Author Row */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 pb-6 border-b border-[#F4EFEA]/10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 pb-6 border-b border-ink-a10">
           <div className="flex items-center gap-3.5">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden bg-gradient-to-br from-[#FF4D5E] to-[#7A0B1A] flex items-center justify-center text-white font-mono text-xs font-bold flex-none">
+            <div className="relative w-11 h-11 rounded-full overflow-hidden bg-gradient-to-br from-accent to-curtain-800 flex items-center justify-center text-white font-mono text-xs font-bold flex-none">
               {thread.author.name.slice(0, 2).toUpperCase()}
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-sm text-[#F4EFEA]">
+                <span className="font-bold text-sm text-ink">
                   {thread.author.name}
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-[#7A0B1A] text-[#F4EFEA] text-[10px] font-mono font-medium">
+                <span className="px-2 py-0.5 rounded-full bg-curtain-800 text-ink text-[10px] font-mono font-medium">
                   Oshi: {thread.author.oshi}
                 </span>
               </div>
-              <p className="font-mono text-xs text-[#8A8286] mt-0.5">
+              <p className="font-mono text-xs text-subtle mt-0.5">
                 {thread.createdAt} · {thread.views} tayangan
               </p>
             </div>
@@ -134,8 +134,8 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
             onClick={() => setIsFollowing(!isFollowing)}
             className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all self-start sm:self-auto ${
               isFollowing
-                ? "bg-[#E5132E] text-white"
-                : "bg-[#1D1A1F] text-[#F4EFEA] border border-[#F4EFEA]/20 hover:border-[#F4EFEA]/40"
+                ? "bg-crimson-500 text-white"
+                : "bg-raised text-ink border border-ink-a20 hover:border-ink-a35"
             }`}
           >
             <Bell
@@ -147,23 +147,23 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
         </div>
 
         {/* Post Content */}
-        <div className="space-y-4 text-[16px] font-sans text-[#F4EFEA] leading-[27px] whitespace-pre-line">
+        <div className="space-y-4 text-[16px] font-sans text-ink leading-[27px] whitespace-pre-line">
           {thread.content}
         </div>
 
         {/* Reactions Toolbar */}
-        <div className="pt-6 border-t border-[#F4EFEA]/10 flex flex-wrap items-center justify-between gap-4">
+        <div className="pt-6 border-t border-ink-a10 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2 flex-wrap">
             <button
               type="button"
               onClick={() => setHasLiked(!hasLiked)}
               className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
                 hasLiked
-                  ? "bg-[#E5132E] text-white shadow-md shadow-[#E5132E]/30"
-                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
+                  ? "bg-crimson-500 text-white shadow-md shadow-crimson-500/30"
+                  : "bg-raised text-muted hover:text-ink"
               }`}
             >
-              <Flame weight="fill" className="w-4 h-4 text-[#FF4D5E]" />
+              <Flame weight="fill" className="w-4 h-4 text-accent" />
               <span>{flameCount}</span>
             </button>
 
@@ -172,11 +172,11 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
               onClick={() => setHasHeart(!hasHeart)}
               className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
                 hasHeart
-                  ? "bg-[#E5132E] text-white shadow-md shadow-[#E5132E]/30"
-                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
+                  ? "bg-crimson-500 text-white shadow-md shadow-crimson-500/30"
+                  : "bg-raised text-muted hover:text-ink"
               }`}
             >
-              <Heart weight="fill" className="w-4 h-4 text-[#FF4D5E]" />
+              <Heart weight="fill" className="w-4 h-4 text-accent" />
               <span>{heartCount}</span>
             </button>
 
@@ -185,11 +185,11 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
               onClick={() => setHasPenlight(!hasPenlight)}
               className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
                 hasPenlight
-                  ? "bg-[#E5132E] text-white shadow-md shadow-[#E5132E]/30"
-                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
+                  ? "bg-crimson-500 text-white shadow-md shadow-crimson-500/30"
+                  : "bg-raised text-muted hover:text-ink"
               }`}
             >
-              <Flashlight weight="fill" className="w-4 h-4 text-[#FFE7CC]" />
+              <Flashlight weight="fill" className="w-4 h-4 text-spotlight" />
               <span>{penlightCount}</span>
             </button>
           </div>
@@ -200,8 +200,8 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
               onClick={() => setIsBookmarked(!isBookmarked)}
               className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all ${
                 isBookmarked
-                  ? "bg-[#E5132E] text-white"
-                  : "bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA]"
+                  ? "bg-crimson-500 text-white"
+                  : "bg-raised text-muted hover:text-ink"
               }`}
             >
               <BookmarkSimple
@@ -214,7 +214,7 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium bg-[#1D1A1F] text-[#A8A0A3] hover:text-[#F4EFEA] transition-all"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium bg-raised text-muted hover:text-ink transition-all"
             >
               <ShareNetwork weight="bold" className="w-4 h-4" />
               <span>{copiedLink ? "Disalin!" : "Bagikan"}</span>
@@ -227,18 +227,18 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
       <div className="space-y-6 pt-4">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-[#F4EFEA]">
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-ink">
             {replies.length} BALASAN
           </h2>
 
-          <div className="flex items-center gap-1 p-1 rounded-full bg-[#141215]">
+          <div className="flex items-center gap-1 p-1 rounded-full bg-surface">
             <button
               type="button"
               onClick={() => setActiveSort("oldest")}
               className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                 activeSort === "oldest"
-                  ? "bg-[#F4EFEA] text-[#0B0A0C]"
-                  : "text-[#A8A0A3] hover:text-[#F4EFEA]"
+                  ? "bg-ink text-bg"
+                  : "text-muted hover:text-ink"
               }`}
             >
               Terlama
@@ -248,8 +248,8 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
               onClick={() => setActiveSort("newest")}
               className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                 activeSort === "newest"
-                  ? "bg-[#F4EFEA] text-[#0B0A0C]"
-                  : "text-[#A8A0A3] hover:text-[#F4EFEA]"
+                  ? "bg-ink text-bg"
+                  : "text-muted hover:text-ink"
               }`}
             >
               Terbaru
@@ -260,25 +260,25 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
         {/* Reply Composer Input */}
         <div
           ref={composerRef}
-          className="rounded-[14px] bg-[#141215] p-5 sm:p-6 space-y-4"
+          className="rounded-[14px] bg-surface p-5 sm:p-6 space-y-4"
         >
           <textarea
             rows={3}
             value={newReplyText}
             onChange={(e) => setNewReplyText(e.target.value)}
             placeholder="Tulis tanggapan atau analisa kamu..."
-            className="w-full bg-[#0B0A0C] rounded-xl p-4 text-sm text-[#F4EFEA] placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all resize-none"
+            className="w-full bg-bg rounded-xl p-4 text-sm text-ink placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all resize-none"
           />
 
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-[#8A8286]">
+            <span className="text-xs font-mono text-subtle">
               Markdown didukung · Sopan dan hargai fans lain
             </span>
 
             <button
               type="button"
               onClick={handleAddReply}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E5132E] text-white text-sm font-semibold hover:bg-[#CC0E26] transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-crimson-500 text-white text-sm font-semibold hover:bg-crimson-600 transition-colors"
             >
               <span>Kirim balasan</span>
               <ArrowRight weight="bold" className="w-4 h-4" />
@@ -291,44 +291,44 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
           {replies.map((reply) => (
             <div
               key={reply.id}
-              className="p-5 sm:p-6 rounded-[14px] bg-[#141215] space-y-3 transition-colors hover:bg-[#1A181C]"
+              className="p-5 sm:p-6 rounded-[14px] bg-surface space-y-3 transition-colors hover:bg-raised"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#10B981] to-[#064E3B] flex items-center justify-center text-white font-mono text-xs font-bold">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-950 flex items-center justify-center text-white font-mono text-xs font-bold">
                     {reply.author.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-sm text-[#F4EFEA]">
+                      <span className="font-bold text-sm text-ink">
                         {reply.author.name}
                       </span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3]">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-raised text-muted">
                         Oshi: {reply.author.oshi}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <span className="text-xs font-mono text-[#8A8286]">
+                <span className="text-xs font-mono text-subtle">
                   {reply.createdAt}
                 </span>
               </div>
 
-              <p className="text-sm font-sans text-[#F4EFEA] leading-relaxed pl-11">
+              <p className="text-sm font-sans text-ink leading-relaxed pl-11">
                 {reply.content}
               </p>
 
-              <div className="pl-11 pt-1 flex items-center gap-4 text-xs font-mono text-[#A8A0A3]">
+              <div className="pl-11 pt-1 flex items-center gap-4 text-xs font-mono text-muted">
                 <button
                   type="button"
-                  className="hover:text-[#FF4D5E] transition-colors"
+                  className="hover:text-accent transition-colors"
                 >
                   Suka ({reply.reactions})
                 </button>
                 <button
                   type="button"
-                  className="hover:text-[#F4EFEA] transition-colors"
+                  className="hover:text-ink transition-colors"
                 >
                   Balas
                 </button>

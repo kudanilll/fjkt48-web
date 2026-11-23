@@ -74,7 +74,7 @@ export default function LiveStageSection() {
 
   return (
     <section
-      className="stage w-full bg-[#0B0A0C] text-[#F4EFEA] py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="stage w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
       aria-label="Siaran langsung member JKT48 saat ini"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
@@ -88,14 +88,14 @@ export default function LiveStageSection() {
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between lg:justify-end gap-4 lg:gap-8 flex-1 max-w-2xl">
-            <p className="font-sans text-sm sm:text-base text-[#A8A0A3] leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
               Showroom dan IDN Live dalam satu layar. Tanpa kolom komentar,
               tinggal nonton.
             </p>
 
             <Link
               href="/live"
-              className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-[#F4EFEA] hover:text-crimson-400 transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink hover:text-crimson-400 transition-colors shrink-0"
             >
               <span>Semua live & replay</span>
               <ArrowUpRight weight="bold" className="w-4 h-4" />
@@ -107,7 +107,7 @@ export default function LiveStageSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-10 items-start">
           {/* Main Featured Player (Spans 8 cols on desktop) - FigCraft ID: 1201 */}
           <div className="lg:col-span-8 space-y-6">
-            <div className="relative aspect-[16/10] sm:aspect-[16/10] w-full rounded-[14px] overflow-hidden bg-[#141215] shadow-2xl shadow-black/60 group">
+            <div className="relative aspect-[16/10] sm:aspect-[16/10] w-full rounded-[14px] overflow-hidden bg-surface shadow-2xl shadow-black/60 group">
               {/* Member Photo */}
               <Image
                 src={`/members/${currentStream.memberNickname}.jpg`}
@@ -118,17 +118,17 @@ export default function LiveStageSection() {
 
               {/* House tint multiply (#3A0710 at 50% opacity) */}
               <div
-                className="pointer-events-none absolute inset-0 bg-[#3A0710] mix-blend-multiply opacity-50"
+                className="pointer-events-none absolute inset-0 bg-house-tint mix-blend-multiply opacity-50"
                 aria-hidden="true"
               />
 
               {/* Spotlight radial vignette and floor fade */}
               <div
-                className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_40%] from-transparent via-[#0B0A0C]/40 to-[#0B0A0C]/90"
+                className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_40%] from-transparent via-bg/40 to-bg/90"
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0B0A0C] via-[#0B0A0C]/80 to-transparent"
+                className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg via-bg/80 to-transparent"
                 aria-hidden="true"
               />
 
@@ -139,12 +139,12 @@ export default function LiveStageSection() {
                     <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     <span>LIVE</span>
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-[#141215]/80 backdrop-blur-md text-[#A8A0A3] font-sans text-xs font-semibold border border-white/10">
+                  <span className="px-3 py-1 rounded-full bg-surface/80 backdrop-blur-md text-muted font-sans text-xs font-semibold border border-white/10">
                     {currentStream.platform}
                   </span>
                 </div>
 
-                <span className="font-mono-data text-xs bg-[#141215]/80 backdrop-blur-md px-3 py-1 rounded-full text-white font-medium border border-white/10">
+                <span className="font-mono-data text-xs bg-surface/80 backdrop-blur-md px-3 py-1 rounded-full text-white font-medium border border-white/10">
                   👥 {currentStream.viewers} penonton
                 </span>
               </div>
@@ -167,7 +167,7 @@ export default function LiveStageSection() {
                 <p className="font-sans text-base sm:text-lg font-semibold text-white drop-shadow-md">
                   {currentStream.title}
                 </p>
-                <p className="font-mono-data text-xs text-[#A8A0A3] mt-1">
+                <p className="font-mono-data text-xs text-muted mt-1">
                   {currentStream.startedAt}
                 </p>
               </div>
@@ -176,10 +176,10 @@ export default function LiveStageSection() {
             {/* Bottom Info Bar below Player */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
               <div>
-                <h3 className="font-display font-extrabold text-3xl sm:text-4xl text-[#F4EFEA] uppercase tracking-tight">
+                <h3 className="font-display font-extrabold text-3xl sm:text-4xl text-ink uppercase tracking-tight">
                   {currentStream.memberName}
                 </h3>
-                <p className="font-mono-data text-xs text-[#A8A0A3] mt-0.5">
+                <p className="font-mono-data text-xs text-muted mt-0.5">
                   Team {currentStream.team} · mulai 19:42, sudah 38 menit
                 </p>
               </div>
@@ -207,7 +207,7 @@ export default function LiveStageSection() {
             </div>
 
             {/* Disclaimer */}
-            <p className="font-mono-data text-xs text-[#8A8286] pt-3 border-t border-[var(--line)]">
+            <p className="font-mono-data text-xs text-subtle pt-3 border-t border-[var(--line)]">
               * Siaran streaming disiarkan langsung melalui platform resmi
               penyedia. Untuk berdiskusi dengan fans lain, silakan masuk ke Blok
               C Forum.
@@ -216,7 +216,7 @@ export default function LiveStageSection() {
 
           {/* Right Column: Other Streams & Replay (Spans 4 cols on desktop) - FigCraft ID: 1222 */}
           <div className="lg:col-span-4 space-y-6">
-            <h4 className="font-mono-data text-xs font-semibold uppercase tracking-wider text-[#A8A0A3]">
+            <h4 className="font-mono-data text-xs font-semibold uppercase tracking-wider text-muted">
               PILIH SIARAN LAINNYA
             </h4>
 
@@ -230,8 +230,8 @@ export default function LiveStageSection() {
                     onClick={() => setSelectedStreamId(stream.id)}
                     className={`card cursor-pointer p-4 rounded-[14px] transition-all duration-200 flex items-center gap-4 ${
                       isSelected
-                        ? "bg-[#1D1A1F] border border-[#3A353D]"
-                        : "bg-[#141215] hover:bg-[#1D1A1F] border-none"
+                        ? "bg-raised border border-border"
+                        : "bg-surface hover:bg-raised border-none"
                     }`}
                   >
                     <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border border-crimson-500/40">
@@ -250,10 +250,10 @@ export default function LiveStageSection() {
                           {stream.platform}
                         </span>
                       </div>
-                      <p className="font-sans font-bold text-sm text-[#F4EFEA] truncate">
+                      <p className="font-sans font-bold text-sm text-ink truncate">
                         {stream.memberName}
                       </p>
-                      <p className="font-mono-data text-xs text-[#A8A0A3]">
+                      <p className="font-mono-data text-xs text-muted">
                         {stream.viewers} penonton
                       </p>
                     </div>
@@ -263,17 +263,17 @@ export default function LiveStageSection() {
             </div>
 
             {/* Ruang Ngobrol Live CTA */}
-            <div className="p-6 rounded-[14px] bg-[#141215] space-y-3">
+            <div className="p-6 rounded-[14px] bg-surface space-y-3">
               <div className="flex items-center gap-1.5 text-crimson-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
                 <span className="font-mono-data text-xs font-bold uppercase tracking-wider">
                   RUANG NGOBROL LIVE
                 </span>
               </div>
-              <h5 className="font-sans font-bold text-base text-[#F4EFEA]">
+              <h5 className="font-sans font-bold text-base text-ink">
                 Mau ngobrolin live ini bareng fans lain?
               </h5>
-              <p className="text-xs text-[#A8A0A3] leading-relaxed">
+              <p className="text-xs text-muted leading-relaxed">
                 Gabung ke Blok C untuk saling berbagi live menarik, momen lucu,
                 dan jadwal live terkini.
               </p>
@@ -290,7 +290,7 @@ export default function LiveStageSection() {
 
             {/* Replay Terbaru Section (FigCraft ID: 1223) */}
             <div className="space-y-3 pt-2">
-              <h5 className="font-sans font-semibold text-sm text-[#F4EFEA]">
+              <h5 className="font-sans font-semibold text-sm text-ink">
                 Replay terbaru
               </h5>
 
@@ -299,7 +299,7 @@ export default function LiveStageSection() {
                   <Link
                     key={rep.id}
                     href="/live"
-                    className="flex items-center gap-3 p-2.5 rounded-xl bg-[#141215] hover:bg-[#1D1A1F] transition-all duration-200 group"
+                    className="flex items-center gap-3 p-2.5 rounded-xl bg-surface hover:bg-raised transition-all duration-200 group"
                   >
                     <div className="relative w-16 h-12 rounded-lg overflow-hidden shrink-0 bg-neutral-900">
                       <Image
@@ -314,10 +314,10 @@ export default function LiveStageSection() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <p className="font-sans font-semibold text-xs text-[#F4EFEA] group-hover:text-crimson-400 transition-colors truncate">
+                      <p className="font-sans font-semibold text-xs text-ink group-hover:text-crimson-400 transition-colors truncate">
                         {rep.title}
                       </p>
-                      <p className="font-mono-data text-[11px] text-[#A8A0A3] truncate">
+                      <p className="font-mono-data text-[11px] text-muted truncate">
                         {rep.time}
                       </p>
                     </div>

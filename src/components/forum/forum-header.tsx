@@ -26,11 +26,11 @@ export default function ForumHeader({
       {/* Eyebrow & Title Row (FigCraft ID: 2533) */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[var(--line)]">
         <div className="space-y-3">
-          <h1 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[148px] tracking-tight uppercase leading-[0.85] text-[#F4EFEA]">
+          <h1 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[148px] tracking-tight uppercase leading-[0.85] text-ink">
             FORUM
           </h1>
 
-          <p className="font-sans text-base sm:text-lg text-[#A8A0A3] max-w-xl leading-relaxed">
+          <p className="font-sans text-base sm:text-lg text-muted max-w-xl leading-relaxed">
             Tempat ngobrol setelah lampu theater padam. Pilih blok tempat
             dudukmu, pantau topik terhangat, atau mulai obrolan baru.
           </p>
@@ -39,18 +39,18 @@ export default function ForumHeader({
         {/* Stats Counters (FigCraft: 7.488 thread di 6 blok, 318 fans lagi online) */}
         <div className="flex items-center gap-8 sm:gap-12 shrink-0 font-mono-data">
           <div>
-            <span className="block font-display font-black text-4xl sm:text-5xl text-[#F4EFEA]">
+            <span className="block font-display font-black text-4xl sm:text-5xl text-ink">
               7.488
             </span>
-            <span className="text-xs text-[#A8A0A3]">thread di 6 blok</span>
+            <span className="text-xs text-muted">thread di 6 blok</span>
           </div>
 
           <div className="border-l border-[var(--border)] pl-8 sm:pl-12">
-            <span className="flex items-center gap-2 font-display font-black text-4xl sm:text-5xl text-[#F4EFEA]">
+            <span className="flex items-center gap-2 font-display font-black text-4xl sm:text-5xl text-ink">
               <span className="w-2.5 h-2.5 rounded-full bg-crimson-500 shadow-[0_0_8px_rgba(229,19,46,0.9)]" />
               318
             </span>
-            <span className="text-xs text-[#A8A0A3]">fans lagi online</span>
+            <span className="text-xs text-muted">fans lagi online</span>
           </div>
         </div>
       </div>
@@ -67,8 +67,8 @@ export default function ForumHeader({
                 onClick={() => onSelectCategory(cat.slug)}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-sans transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? "bg-white text-[#0B0A0C] font-bold shadow-md shadow-white/10"
-                    : "bg-[#141215] border border-[#2B272D] text-[#A8A0A3] hover:text-white hover:border-[#3A353D]"
+                    ? "bg-white text-bg font-bold shadow-md shadow-white/10"
+                    : "bg-surface border border-border text-muted hover:text-white hover:border-border"
                 }`}
               >
                 {!isActive && cat.slug !== "all" && (

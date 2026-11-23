@@ -65,7 +65,7 @@ export function TeamBadge({ team }: { team: string }) {
 
 export function OshiBadge({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#7A0B1A] text-pink-200 text-xs font-semibold border border-pink-500/30">
+    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-curtain-800 text-pink-200 text-xs font-semibold border border-pink-500/30">
       <span>❤</span>
       <span>Oshi: {name}</span>
     </span>

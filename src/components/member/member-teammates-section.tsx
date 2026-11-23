@@ -38,17 +38,17 @@ export default function MemberTeammatesSection({
   member,
 }: MemberTeammatesSectionProps) {
   return (
-    <section className="py-16 sm:py-20 bg-[#0B0A0C] text-[#F4EFEA]">
+    <section className="py-16 sm:py-20 bg-bg text-ink">
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 pb-6 border-b border-[var(--line)]">
-          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-[64px] uppercase tracking-tight text-[#F4EFEA]">
+          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-[64px] uppercase tracking-tight text-ink">
             SATU TEAM DENGAN {member.nickname}
           </h2>
 
           <Link
             href="/member"
-            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-[#F4EFEA] hover:text-crimson-400 transition-colors"
+            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink hover:text-crimson-400 transition-colors"
           >
             <span>Lihat Team {member.type}</span>
             <ArrowUpRight weight="bold" className="w-4 h-4" />
@@ -62,7 +62,7 @@ export default function MemberTeammatesSection({
               <Link
                 key={tm.nickname}
                 href={`/member/${tm.nickname}`}
-                className="relative w-[264px] h-[330px] shrink-0 rounded-[14px] overflow-hidden bg-[#0B0A0C] transition-transform duration-300 hover:-translate-y-1 group border-none shadow-xl shadow-black/40 block"
+                className="relative w-[264px] h-[330px] shrink-0 rounded-[14px] overflow-hidden bg-bg transition-transform duration-300 hover:-translate-y-1 group border-none shadow-xl shadow-black/40 block"
               >
                 {/* Photo */}
                 <Image
@@ -75,28 +75,28 @@ export default function MemberTeammatesSection({
 
                 {/* House tint multiply (#3A0710 with 0.55 opacity) */}
                 <div
-                  className="pointer-events-none absolute inset-0 bg-[#3A0710] mix-blend-multiply opacity-55"
+                  className="pointer-events-none absolute inset-0 bg-house-tint mix-blend-multiply opacity-55"
                   aria-hidden="true"
                 />
 
                 {/* Spotlight radial vignette */}
                 <div
-                  className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-[#0B0A0C]/20 to-[#0B0A0C]/95"
+                  className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-bg/20 to-bg/95"
                   aria-hidden="true"
                 />
 
                 {/* Floor fade gradient */}
                 <div
-                  className="pointer-events-none absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-[#0B0A0C] via-[#0B0A0C]/90 to-transparent"
+                  className="pointer-events-none absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-bg via-bg/90 to-transparent"
                   aria-hidden="true"
                 />
 
                 {/* Text Meta */}
                 <div className="absolute bottom-5 left-5 right-5 z-10 space-y-0.5">
-                  <h3 className="font-display font-black text-4xl sm:text-[48px] uppercase tracking-tight leading-none text-[#F4EFEA] group-hover:text-crimson-400 transition-colors">
+                  <h3 className="font-display font-black text-4xl sm:text-[48px] uppercase tracking-tight leading-none text-ink group-hover:text-crimson-400 transition-colors">
                     {tm.displayName}
                   </h3>
-                  <p className="font-sans text-xs sm:text-[13px] font-medium text-[#A8A0A3] truncate">
+                  <p className="font-sans text-xs sm:text-[13px] font-medium text-muted truncate">
                     {tm.fullName}
                   </p>
                 </div>

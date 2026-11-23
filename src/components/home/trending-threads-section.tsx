@@ -111,7 +111,7 @@ export default function TrendingThreadsSection() {
 
   return (
     <section
-      className="w-full bg-[#0B0A0C] text-[#F4EFEA] py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
       aria-label="Thread forum terhangat"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
@@ -121,7 +121,7 @@ export default function TrendingThreadsSection() {
             <h2 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[96px] tracking-tight uppercase leading-none">
               LAGI RAME
             </h2>
-            <p className="font-sans text-base text-[#A8A0A3] mt-2">
+            <p className="font-sans text-base text-muted mt-2">
               Thread yang paling banyak dibalas 24 jam terakhir.
             </p>
           </div>
@@ -137,8 +137,8 @@ export default function TrendingThreadsSection() {
                   onClick={() => setActiveFilter(filter)}
                   className={`px-4 py-2 rounded-full font-sans text-sm font-semibold transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? "bg-[#1D1A1F] text-white border border-[#3A353D]"
-                      : "bg-transparent text-[#A8A0A3] border border-[#2B272D] hover:text-white hover:border-[#3A353D]"
+                      ? "bg-raised text-white border border-border"
+                      : "bg-transparent text-muted border border-border hover:text-white hover:border-border"
                   }`}
                 >
                   {filter}
@@ -148,7 +148,7 @@ export default function TrendingThreadsSection() {
 
             <Link
               href="/forum"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-sans text-sm font-semibold text-[#F4EFEA] hover:text-crimson-400 transition-colors ml-2"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-sans text-sm font-semibold text-ink hover:text-crimson-400 transition-colors ml-2"
             >
               <span>Semua thread</span>
               <ArrowUpRight weight="bold" className="w-4 h-4" />
@@ -162,14 +162,14 @@ export default function TrendingThreadsSection() {
             <Link
               key={thread.id}
               href={`/forum/${thread.slug}`}
-              className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-7 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-[#141215]/60"
+              className="group flex flex-col md:flex-row md:items-center justify-between gap-6 py-7 px-4 -mx-4 rounded-xl transition-all duration-200 hover:bg-surface/60"
             >
               {/* Left Column: Big Reply Count (FigCraft ID: 527) */}
               <div className="w-20 shrink-0 flex flex-col items-start justify-center">
-                <span className="font-display font-black text-4xl sm:text-5xl text-[#F4EFEA] leading-none tracking-tight">
+                <span className="font-display font-black text-4xl sm:text-5xl text-ink leading-none tracking-tight">
                   {thread.repliesCount}
                 </span>
-                <span className="font-sans text-xs font-medium text-[#A8A0A3] mt-0.5">
+                <span className="font-sans text-xs font-medium text-muted mt-0.5">
                   balasan
                 </span>
               </div>
@@ -186,7 +186,7 @@ export default function TrendingThreadsSection() {
 
                   {/* Member Tag (if applicable) */}
                   {thread.memberNickname && (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] border border-[#2B272D] text-xs">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-raised text-ink border border-border text-xs">
                       <span className="relative w-3.5 h-3.5 rounded-full overflow-hidden shrink-0">
                         <Image
                           src={`/members/${thread.memberNickname}.jpg`}
@@ -201,24 +201,24 @@ export default function TrendingThreadsSection() {
 
                   {/* Topic tag (if applicable) */}
                   {thread.tag && (
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#1D1A1F] text-[#A8A0A3] border border-[#2B272D] text-xs">
+                    <span className="px-2.5 py-0.5 rounded-full bg-raised text-muted border border-border text-xs">
                       {thread.tag}
                     </span>
                   )}
                 </div>
 
                 {/* Title */}
-                <h3 className="font-sans font-semibold text-lg sm:text-[21px] text-[#F4EFEA] group-hover:text-crimson-400 transition-colors leading-snug">
+                <h3 className="font-sans font-semibold text-lg sm:text-[21px] text-ink group-hover:text-crimson-400 transition-colors leading-snug">
                   {thread.title}
                 </h3>
 
                 {/* Author & Meta */}
-                <div className="flex items-center gap-2 text-xs text-[#A8A0A3] font-sans flex-wrap">
-                  <span className="font-medium text-[#F4EFEA]">
+                <div className="flex items-center gap-2 text-xs text-muted font-sans flex-wrap">
+                  <span className="font-medium text-ink">
                     {thread.author}
                   </span>
                   <span>·</span>
-                  <span className="text-[#A8A0A3]">
+                  <span className="text-muted">
                     {thread.oshi.startsWith("belum")
                       ? thread.oshi
                       : `oshi ${thread.oshi}`}
@@ -229,7 +229,7 @@ export default function TrendingThreadsSection() {
               </div>
 
               {/* Right Column: Stats (Flame reactions, Views) + Circle Go Button (FigCraft ID: 549) */}
-              <div className="flex items-center justify-between md:justify-end gap-6 shrink-0 font-mono-data text-xs text-[#A8A0A3]">
+              <div className="flex items-center justify-between md:justify-end gap-6 shrink-0 font-mono-data text-xs text-muted">
                 <div className="flex items-center gap-5">
                   <div
                     className="flex items-center gap-1.5 text-crimson-400 font-medium"
@@ -240,7 +240,7 @@ export default function TrendingThreadsSection() {
                   </div>
 
                   <div
-                    className="flex items-center gap-1.5 text-[#A8A0A3]"
+                    className="flex items-center gap-1.5 text-muted"
                     title="Views"
                   >
                     <ChatCircle weight="bold" className="w-4 h-4" />
@@ -249,7 +249,7 @@ export default function TrendingThreadsSection() {
                 </div>
 
                 {/* Circular Arrow Button (44x44, radius 999) */}
-                <div className="w-11 h-11 rounded-full border border-[#2B272D] flex items-center justify-center text-[#F4EFEA] group-hover:bg-crimson-500 group-hover:text-white group-hover:border-crimson-500 transition-all duration-200">
+                <div className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-ink group-hover:bg-crimson-500 group-hover:text-white group-hover:border-crimson-500 transition-all duration-200">
                   <ArrowUpRight weight="bold" className="w-4 h-4" />
                 </div>
               </div>

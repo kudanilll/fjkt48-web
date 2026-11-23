@@ -78,12 +78,12 @@ export default function HeroNightTheater() {
       ref={heroRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      className="stage relative min-h-[820px] md:min-h-[920px] w-full overflow-hidden bg-[#0B0A0C] text-[#F4EFEA] pt-12 pb-20 flex flex-col justify-between select-none"
+      className="stage relative min-h-[820px] md:min-h-[920px] w-full overflow-hidden bg-bg text-ink pt-12 pb-20 flex flex-col justify-between select-none"
       aria-label="Panggung Hero Night Theater"
     >
       {/* House Tint Multiply Layer (§7.4) */}
       <div
-        className="pointer-events-none absolute inset-0 bg-[#3A0710] mix-blend-multiply opacity-60 z-10"
+        className="pointer-events-none absolute inset-0 bg-house-tint mix-blend-multiply opacity-60 z-10"
         aria-hidden="true"
       />
 
@@ -147,7 +147,7 @@ export default function HeroNightTheater() {
 
                 {/* Spotlight Vignette */}
                 <div
-                  className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-[#0B0A0C]/50 to-[#0B0A0C]/90"
+                  className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-bg/50 to-bg/90"
                   aria-hidden="true"
                 />
 
@@ -173,20 +173,20 @@ export default function HeroNightTheater() {
 
       {/* Floor Fade Linear Gradient to Dark Ground (§7.4) */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-[480px] bg-gradient-to-t from-[#0B0A0C] via-[#0B0A0C]/90 to-transparent z-20"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-[480px] bg-gradient-to-t from-bg via-bg/90 to-transparent z-20"
         aria-hidden="true"
       />
 
       {/* Poster Headline & Foreground Content */}
       <div className="relative z-30 w-full px-6 sm:px-12 lg:px-16 pt-8">
         <div className="space-y-6">
-          <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[132px] tracking-tight leading-[0.88] uppercase text-[#F4EFEA]">
+          <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[132px] tracking-tight leading-[0.88] uppercase text-ink">
             SHOW-NYA SELESAI.
             <br />
             <span className="text-crimson-500">OBROLANNYA BELUM.</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-[#A8A0A3] max-w-xl leading-relaxed">
+          <p className="text-base sm:text-lg text-muted max-w-xl leading-relaxed">
             Forum fans JKT48 buat ngobrolin show, member, dan live. Tempat
             kumpul setelah lampu theater padam.
           </p>
@@ -205,7 +205,7 @@ export default function HeroNightTheater() {
             {/* Next Show Floating Card (FigCraft ID: 836) */}
             <Link
               href="/schedule"
-              className="inline-flex items-center gap-4 p-3.5 pr-4 rounded-[14px] bg-[#141215]/80 backdrop-blur-md hover:bg-[#1D1A1F] transition-all duration-200 group border-none shadow-xl shadow-black/40 w-full sm:w-auto sm:min-w-[384px]"
+              className="inline-flex items-center gap-4 p-3.5 pr-4 rounded-[14px] bg-surface/80 backdrop-blur-md hover:bg-raised transition-all duration-200 group border-none shadow-xl shadow-black/40 w-full sm:w-auto sm:min-w-[384px]"
             >
               {/* Crimson Date Box */}
               <div className="w-14 h-14 rounded-[10px] bg-crimson-500 flex flex-col items-center justify-center shrink-0">
@@ -222,10 +222,10 @@ export default function HeroNightTheater() {
                 <p className="font-mono-data text-xs text-crimson-400 font-medium">
                   Besok di Theater, 19:00 WIB
                 </p>
-                <p className="font-sans font-semibold text-[17px] text-[#F4EFEA] group-hover:text-crimson-400 transition-colors truncate">
+                <p className="font-sans font-semibold text-[17px] text-ink group-hover:text-crimson-400 transition-colors truncate">
                   Pertaruhan Cinta
                 </p>
-                <p className="font-sans text-xs text-[#A8A0A3] truncate">
+                <p className="font-sans text-xs text-muted truncate">
                   Birthday show · 64 fans lagi bahas
                 </p>
               </div>
@@ -233,7 +233,7 @@ export default function HeroNightTheater() {
               {/* Arrow Icon */}
               <ArrowRight
                 weight="bold"
-                className="w-5 h-5 text-[#F4EFEA] shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                className="w-5 h-5 text-ink shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
               />
             </Link>
           </div>

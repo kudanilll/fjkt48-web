@@ -49,17 +49,17 @@ export default function MemberScheduleSection({
   ];
 
   return (
-    <section className="py-16 sm:py-20 border-b border-[var(--line)] bg-[#0B0A0C] text-[#F4EFEA]">
+    <section className="py-16 sm:py-20 border-b border-[var(--line)] bg-bg text-ink">
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
-          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-[64px] uppercase tracking-tight text-[#F4EFEA]">
+          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-[64px] uppercase tracking-tight text-ink">
             JADWAL {member.nickname}
           </h2>
 
           <Link
             href="/schedule"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-[#2B272D] text-sm font-sans font-semibold text-[#F4EFEA] hover:bg-[#1D1A1F] hover:border-[#3A353D] transition-all self-start sm:self-auto"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-border text-sm font-sans font-semibold text-ink hover:bg-raised hover:border-border transition-all self-start sm:self-auto"
           >
             Semua jadwal
           </Link>

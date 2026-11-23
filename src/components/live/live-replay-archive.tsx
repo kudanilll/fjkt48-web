@@ -35,16 +35,16 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
   return (
     <section
       id="replay-archive"
-      className="py-16 sm:py-24 border-t border-[#1D1A1F]"
+      className="py-16 sm:py-24 border-t border-raised"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16 space-y-10">
         {/* Header & Filter Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
-            <h2 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+            <h2 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-ink leading-none">
               REPLAY TERBARU
             </h2>
-            <p className="text-base text-[#A8A0A3] font-sans">
+            <p className="text-base text-muted font-sans">
               Tonton siaran yang sudah lewat dalam 30 hari terakhir.
             </p>
           </div>
@@ -56,8 +56,8 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
               onClick={() => setPlatformFilter("ALL")}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 platformFilter === "ALL"
-                  ? "bg-[#F4EFEA] text-[#0B0A0C]"
-                  : "bg-[#1D1A1F] text-[#F4EFEA] border border-[#F4EFEA]/10 hover:border-[#F4EFEA]/30"
+                  ? "bg-ink text-bg"
+                  : "bg-raised text-ink border border-ink-a10 hover:border-ink-a35"
               }`}
             >
               Semua ({counts.ALL})
@@ -67,8 +67,8 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
               onClick={() => setPlatformFilter("showroom")}
               className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
                 platformFilter === "showroom"
-                  ? "bg-[#F4EFEA] text-[#0B0A0C] border-transparent"
-                  : "bg-[#1D1A1F] text-[#F4EFEA] border-[#F4EFEA]/10 hover:border-[#F4EFEA]/30"
+                  ? "bg-ink text-bg border-transparent"
+                  : "bg-raised text-ink border-ink-a10 hover:border-ink-a35"
               }`}
             >
               Showroom ({counts.showroom})
@@ -78,8 +78,8 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
               onClick={() => setPlatformFilter("idn")}
               className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${
                 platformFilter === "idn"
-                  ? "bg-[#F4EFEA] text-[#0B0A0C] border-transparent"
-                  : "bg-[#1D1A1F] text-[#F4EFEA] border-[#F4EFEA]/10 hover:border-[#F4EFEA]/30"
+                  ? "bg-ink text-bg border-transparent"
+                  : "bg-raised text-ink border-ink-a10 hover:border-ink-a35"
               }`}
             >
               IDN Live ({counts.idn})
@@ -98,10 +98,10 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
                 href={replay.replayUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-[14px] overflow-hidden bg-[#141215] hover:bg-[#1C181E] transition-all flex flex-col"
+                className="group rounded-[14px] overflow-hidden bg-surface hover:bg-raised transition-all flex flex-col"
               >
                 {/* Thumbnail with duration */}
-                <div className="relative aspect-video w-full overflow-hidden bg-[#1D1A1F]">
+                <div className="relative aspect-video w-full overflow-hidden bg-raised">
                   <Image
                     src={replay.thumbnail}
                     alt={replay.title}
@@ -119,8 +119,8 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
                     <span
                       className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full ${
                         isShowroom
-                          ? "bg-[#0B0A0C]/80 text-[#F4EFEA]"
-                          : "bg-[#E5132E] text-white"
+                          ? "bg-bg/80 text-ink"
+                          : "bg-crimson-500 text-white"
                       }`}
                     >
                       {isShowroom ? "Showroom" : "IDN Live"}
@@ -128,13 +128,13 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
                   </div>
 
                   {/* Duration Badge Bottom-Right */}
-                  <div className="absolute bottom-2.5 right-2.5 z-10 px-2 py-0.5 rounded bg-black/80 text-[11px] font-mono text-[#F4EFEA]">
+                  <div className="absolute bottom-2.5 right-2.5 z-10 px-2 py-0.5 rounded bg-black/80 text-[11px] font-mono text-ink">
                     {replay.duration}
                   </div>
 
                   {/* Hover Play icon */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
-                    <div className="w-12 h-12 rounded-full bg-[#E5132E] text-white flex items-center justify-center shadow-lg">
+                    <div className="w-12 h-12 rounded-full bg-crimson-500 text-white flex items-center justify-center shadow-lg">
                       <Play weight="fill" className="w-5 h-5 ml-0.5" />
                     </div>
                   </div>
@@ -143,15 +143,15 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
                 {/* Card Info */}
                 <div className="p-4 space-y-1.5 flex-1 flex flex-col justify-between">
                   <div className="space-y-1">
-                    <span className="font-sans font-semibold text-[15px] text-[#F4EFEA] block group-hover:text-[#FF4D5E] transition-colors">
+                    <span className="font-sans font-semibold text-[15px] text-ink block group-hover:text-accent transition-colors">
                       {replay.memberNickname}
                     </span>
-                    <p className="text-[13px] text-[#A8A0A3] line-clamp-2 leading-snug">
+                    <p className="text-[13px] text-muted line-clamp-2 leading-snug">
                       {replay.title}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs font-mono text-[#8A8286] pt-2 border-t border-[#1D1A1F]">
+                  <div className="flex items-center gap-2 text-xs font-mono text-subtle pt-2 border-t border-raised">
                     <span>{replay.recordedDate}</span>
                     <span>·</span>
                     <span>{replay.views.toLocaleString("id-ID")} ditonton</span>
@@ -168,7 +168,7 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
             <button
               type="button"
               onClick={() => setVisibleCount((prev) => prev + 8)}
-              className="px-7 py-3 rounded-full bg-[#1D1A1F] text-[#F4EFEA] font-sans text-sm font-semibold hover:bg-[#2B272D] transition-colors"
+              className="px-7 py-3 rounded-full bg-raised text-ink font-sans text-sm font-semibold hover:bg-border transition-colors"
             >
               Muat 12 replay lagi
             </button>

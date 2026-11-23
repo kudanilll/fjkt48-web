@@ -89,14 +89,14 @@ export default function MemberMarqueeSection(props: MemberMarqueeSectionProps) {
 
   return (
     <section
-      className="w-full bg-[#0B0A0C] text-[#F4EFEA] py-20 sm:py-28 overflow-hidden transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 overflow-hidden transition-colors duration-300 border-t border-[var(--line)]"
       aria-label="Katalog 58 member JKT48"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16 mb-12">
         {/* Section Header (FigCraft ID: 1255) */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8">
           <div>
-            <h2 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[120px] tracking-tight uppercase leading-[0.88] text-[#F4EFEA]">
+            <h2 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[120px] tracking-tight uppercase leading-[0.88] text-ink">
               58 MEMBER,
               <br />
               SATU PANGGUNG.
@@ -104,14 +104,14 @@ export default function MemberMarqueeSection(props: MemberMarqueeSectionProps) {
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between lg:justify-end gap-6 flex-1 max-w-xl">
-            <p className="font-sans text-base sm:text-[17px] text-[#A8A0A3] leading-relaxed">
+            <p className="font-sans text-base sm:text-[17px] text-muted leading-relaxed">
               Team Love, Dream, Passion, dan Trainee. Setiap profil punya ruang
               diskusinya sendiri.
             </p>
 
             <Link
               href="/member"
-              className="inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-[#2B272D] text-sm font-sans font-semibold text-[#F4EFEA] hover:bg-[#1D1A1F] hover:border-[#3A353D] transition-all duration-200 shrink-0 self-start sm:self-auto"
+              className="inline-flex items-center justify-center px-6 py-2.5 rounded-full border border-border text-sm font-sans font-semibold text-ink hover:bg-raised hover:border-border transition-all duration-200 shrink-0 self-start sm:self-auto"
             >
               Semua member
             </Link>
@@ -126,7 +126,7 @@ export default function MemberMarqueeSection(props: MemberMarqueeSectionProps) {
             <Link
               key={m.nickname}
               href={`/member/${m.nickname}`}
-              className="relative w-[264px] h-[330px] shrink-0 rounded-[14px] overflow-hidden bg-[#0B0A0C] transition-transform duration-300 hover:-translate-y-1 group border-none shadow-xl shadow-black/40 block"
+              className="relative w-[264px] h-[330px] shrink-0 rounded-[14px] overflow-hidden bg-bg transition-transform duration-300 hover:-translate-y-1 group border-none shadow-xl shadow-black/40 block"
             >
               {/* Member Photo (FigCraft ID: 1263) */}
               <Image
@@ -139,28 +139,28 @@ export default function MemberMarqueeSection(props: MemberMarqueeSectionProps) {
 
               {/* House tint multiply (#3A0710 with 0.55 opacity) - FigCraft ID: 1264 */}
               <div
-                className="pointer-events-none absolute inset-0 bg-[#3A0710] mix-blend-multiply opacity-55"
+                className="pointer-events-none absolute inset-0 bg-house-tint mix-blend-multiply opacity-55"
                 aria-hidden="true"
               />
 
               {/* Spotlight radial vignette - FigCraft ID: 1265 */}
               <div
-                className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-[#0B0A0C]/20 to-[#0B0A0C]/95"
+                className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-bg/20 to-bg/95"
                 aria-hidden="true"
               />
 
               {/* Floor fade gradient - FigCraft ID: 1266 */}
               <div
-                className="pointer-events-none absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-[#0B0A0C] via-[#0B0A0C]/90 to-transparent"
+                className="pointer-events-none absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-bg via-bg/90 to-transparent"
                 aria-hidden="true"
               />
 
               {/* Text Meta (FigCraft ID: 1267 & 1268) */}
               <div className="absolute bottom-5 left-5 right-5 z-10 space-y-0.5">
-                <h3 className="font-display font-black text-4xl sm:text-[48px] uppercase tracking-tight leading-none text-[#F4EFEA] group-hover:text-crimson-400 transition-colors">
+                <h3 className="font-display font-black text-4xl sm:text-[48px] uppercase tracking-tight leading-none text-ink group-hover:text-crimson-400 transition-colors">
                   {m.displayName}
                 </h3>
-                <p className="font-sans text-xs sm:text-[13px] font-medium text-[#A8A0A3] truncate">
+                <p className="font-sans text-xs sm:text-[13px] font-medium text-muted truncate">
                   {m.fullName} · {m.team}
                 </p>
               </div>

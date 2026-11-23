@@ -60,9 +60,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0B0A0C] text-[#F4EFEA] flex flex-col lg:flex-row">
+    <main className="min-h-screen bg-bg text-ink flex flex-col lg:flex-row">
       {/* 1. Left Column: Stage Side */}
-      <div className="relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-[#0B0A0C]">
+      <div className="stage relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-bg">
         {/* Background Photo */}
         <div className="absolute inset-0">
           <Image
@@ -99,10 +99,10 @@ export default function RegisterPage() {
         {/* Top: FJKT48 Logo */}
         <div className="relative z-10">
           <Link href="/" className="inline-flex items-center gap-0 group">
-            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#F4EFEA]">
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-ink">
               FJKT
             </span>
-            <span className="font-display font-black text-3xl tracking-[-0.3px] text-[#E5132E]">
+            <span className="font-display font-black text-3xl tracking-[-0.3px] text-crimson-500">
               48
             </span>
           </Link>
@@ -110,13 +110,13 @@ export default function RegisterPage() {
 
         {/* Bottom Copy: Poster Text */}
         <div className="relative z-10 max-w-lg pt-16 space-y-4">
-          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-[#F4EFEA] select-none">
+          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-ink select-none">
             PANGGUNG KITA,
             <br />
             SUARA KITA.
           </h2>
 
-          <p className="text-[17px] font-sans text-[#A8A0A3] leading-[26px]">
+          <p className="text-[17px] font-sans text-muted leading-[26px]">
             Komunitas fans independen JKT48. Masuk untuk ikut ngobrol di forum
             dan dukung oshi kamu.
           </p>
@@ -124,12 +124,12 @@ export default function RegisterPage() {
       </div>
 
       {/* 2. Right Column: Form Side */}
-      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-[#0B0A0C]">
+      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-bg">
         {/* Back Link */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#A8A0A3] hover:text-[#F4EFEA] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-muted hover:text-ink transition-colors"
           >
             <ArrowLeft weight="bold" className="w-4 h-4" />
             <span>Kembali ke beranda</span>
@@ -139,14 +139,14 @@ export default function RegisterPage() {
         {/* Main Form Container */}
         <div className="max-w-[440px] w-full mx-auto my-12 space-y-8">
           <div className="space-y-2">
-            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-[#F4EFEA] leading-none">
+            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-ink leading-none">
               BUAT AKUN BARU
             </h1>
-            <p className="text-sm font-sans text-[#A8A0A3]">
+            <p className="text-sm font-sans text-muted">
               Sudah punya akun?{" "}
               <Link
                 href="/login"
-                className="text-[#FF4D5E] font-medium hover:underline inline-flex items-center gap-1"
+                className="text-accent font-medium hover:underline inline-flex items-center gap-1"
               >
                 <span>Masuk di sini</span>
                 <ArrowRight weight="bold" className="w-3.5 h-3.5" />
@@ -155,7 +155,7 @@ export default function RegisterPage() {
           </div>
 
           {errorMsg && (
-            <div className="p-4 rounded-xl bg-[#E5132E]/15 border border-[#E5132E]/30 text-xs font-medium text-[#FF4D5E] font-sans">
+            <div className="p-4 rounded-xl bg-crimson-500/15 border border-crimson-500/30 text-xs font-medium text-accent font-sans">
               {errorMsg}
             </div>
           )}
@@ -165,7 +165,7 @@ export default function RegisterPage() {
             <button
               type="button"
               onClick={() => router.push("/dashboard")}
-              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-[#1D1A1F] text-[#F4EFEA] font-sans text-sm font-semibold hover:bg-[#2B272D] transition-colors"
+              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-raised text-ink font-sans text-sm font-semibold hover:bg-border transition-colors"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -192,9 +192,9 @@ export default function RegisterPage() {
           {/* Divider */}
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[#1D1A1F]" />
+              <div className="w-full border-t border-raised" />
             </div>
-            <span className="relative px-4 bg-[#0B0A0C] text-xs font-mono text-[#8A8286] uppercase">
+            <span className="relative px-4 bg-bg text-xs font-mono text-subtle uppercase">
               atau daftar dengan email
             </span>
           </div>
@@ -205,7 +205,7 @@ export default function RegisterPage() {
             <div className="space-y-1.5">
               <label
                 htmlFor="name"
-                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
               >
                 NAMA TAMPILAN
               </label>
@@ -216,7 +216,7 @@ export default function RegisterPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="PenlightMerah"
                 required
-                className="w-full px-4 py-3.5 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+                className="w-full px-4 py-3.5 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
               />
             </div>
 
@@ -224,7 +224,7 @@ export default function RegisterPage() {
             <div className="space-y-1.5">
               <label
                 htmlFor="email"
-                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
               >
                 EMAIL
               </label>
@@ -235,7 +235,7 @@ export default function RegisterPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@domain.com"
                 required
-                className="w-full px-4 py-3.5 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+                className="w-full px-4 py-3.5 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
               />
             </div>
 
@@ -243,7 +243,7 @@ export default function RegisterPage() {
             <div className="space-y-1.5">
               <label
                 htmlFor="password"
-                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
               >
                 PASSWORD
               </label>
@@ -256,13 +256,13 @@ export default function RegisterPage() {
                   placeholder="Minimal 8 karakter"
                   required
                   minLength={8}
-                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm placeholder-[#8A8286] focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label="Lihat password"
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8A8286] hover:text-[#F4EFEA] transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-subtle hover:text-ink transition-colors"
                 >
                   {showPassword ? (
                     <EyeSlash weight="bold" className="w-4 h-4" />
@@ -277,7 +277,7 @@ export default function RegisterPage() {
             <div className="space-y-1.5">
               <label
                 htmlFor="oshi"
-                className="text-xs font-mono font-medium tracking-[1px] uppercase text-[#A8A0A3] block"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
               >
                 PILIH OSHI (OPSIONAL)
               </label>
@@ -286,13 +286,13 @@ export default function RegisterPage() {
                   id="oshi"
                   value={selectedOshi}
                   onChange={(e) => setSelectedOshi(e.target.value)}
-                  className="w-full appearance-none px-4 py-3.5 pr-11 rounded-xl bg-[#141215] text-[#F4EFEA] text-sm focus:outline-none focus:ring-1 focus:ring-[#FF4D5E] transition-all"
+                  className="w-full appearance-none px-4 py-3.5 pr-11 rounded-xl bg-surface text-ink text-sm focus:outline-none focus:ring-1 focus:ring-focus transition-all"
                 >
                   {membersList.map((m) => (
                     <option
                       key={m.code}
                       value={m.code}
-                      className="bg-[#141215]"
+                      className="bg-surface"
                     >
                       {m.name} ({m.nickname})
                     </option>
@@ -300,7 +300,7 @@ export default function RegisterPage() {
                 </select>
                 <CaretDown
                   weight="bold"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A8286] pointer-events-none"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-subtle pointer-events-none"
                 />
               </div>
             </div>
@@ -309,7 +309,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#E5132E] text-white text-base font-semibold hover:bg-[#CC0E26] active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-crimson-500 text-white text-base font-semibold hover:bg-crimson-600 active:scale-[0.98] transition-all disabled:opacity-50"
             >
               <span>{loading ? "Mendaftar..." : "Daftar akun baru"}</span>
               <ArrowRight weight="bold" className="w-4 h-4" />
@@ -318,7 +318,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Legal Text */}
-        <p className="text-xs font-mono text-[#8A8286] text-center max-w-sm mx-auto">
+        <p className="text-xs font-mono text-subtle text-center max-w-sm mx-auto">
           Situs fans tidak resmi. Email kamu cuma dipakai buat akun forum, nggak
           dibagikan ke siapa pun.
         </p>

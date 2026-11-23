@@ -52,19 +52,19 @@ export default function TheaterScheduleSection(
 
   return (
     <section
-      className="w-full bg-[#0B0A0C] text-[#F4EFEA] py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
       aria-label="Jadwal pertunjukan teater terdekat"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header (FigCraft ID: 1092) */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-10 border-b border-[var(--line)]">
-          <h2 className="font-display font-extrabold text-5xl sm:text-6xl md:text-[64px] tracking-tight uppercase leading-none text-[#F4EFEA]">
+          <h2 className="font-display font-extrabold text-5xl sm:text-6xl md:text-[64px] tracking-tight uppercase leading-none text-ink">
             MINGGU INI DI THEATER
           </h2>
 
           <Link
             href="/schedule"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-[#2B272D] text-sm font-sans font-semibold text-[#F4EFEA] hover:bg-[#1D1A1F] hover:border-[#3A353D] transition-all duration-200 self-start sm:self-auto"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-border text-sm font-sans font-semibold text-ink hover:bg-raised hover:border-border transition-all duration-200 self-start sm:self-auto"
           >
             Semua jadwal
           </Link>

@@ -1,6 +1,37 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-border: var(--border);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-focus: var(--focus);
+
+  --color-crimson-400: var(--crimson-400);
+  --color-crimson-500: var(--crimson-500);
+  --color-crimson-600: var(--crimson-600);
+  --color-curtain-800: var(--curtain-800);
+  --color-curtain-900: #4a0510;
+  --color-curtain-700: #8e0d20;
+  --color-house-tint: #3a0710;
+  --color-spotlight: var(--spotlight);
+
+  --color-ink-a3: var(--ink-a3);
+  --color-ink-a6: var(--ink-a6);
+  --color-ink-a8: var(--ink-a8);
+  --color-ink-a10: var(--ink-a10);
+  --color-ink-a12: var(--ink-a12);
+  --color-ink-a20: var(--ink-a20);
+  --color-ink-a25: var(--ink-a25);
+  --color-ink-a35: var(--ink-a35);
+}
+
 @theme {
   /* JKT48 Crimson Red Scale */
   --color-crimson-50: oklch(0.97 0.02 25);
