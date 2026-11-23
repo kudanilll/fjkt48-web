@@ -66,9 +66,7 @@ export default function TicketStub({
       {/* Date Stub Section (Left) - FigCraft ID: 1098 */}
       <div
         className={`relative w-28 sm:w-[116px] shrink-0 flex flex-col items-center justify-between py-5 px-3 z-0 ${
-          isFeatured
-            ? "bg-crimson-500 text-white"
-            : "bg-raised text-ink"
+          isFeatured ? "bg-crimson-500 text-white" : "bg-raised text-ink"
         }`}
       >
         <span className="font-sans text-xs sm:text-[13px] font-semibold tracking-[0.06em] uppercase">

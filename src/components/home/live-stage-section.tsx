@@ -74,12 +74,12 @@ export default function LiveStageSection() {
 
   return (
     <section
-      className="stage w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="stage w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300"
       aria-label="Siaran langsung member JKT48 saat ini"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header (FigCraft ID: 1190) */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 border-b border-[var(--line)]">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10">
           <div className="space-y-3">
             <h2 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[96px] tracking-tight uppercase leading-none flex items-center gap-4">
               <span className="w-4 h-4 rounded-full bg-crimson-500 shadow-[0_0_12px_rgba(229,19,46,0.9)]" />
@@ -228,13 +228,13 @@ export default function LiveStageSection() {
                   <div
                     key={stream.id}
                     onClick={() => setSelectedStreamId(stream.id)}
-                    className={`card cursor-pointer p-4 rounded-[14px] transition-all duration-200 flex items-center gap-4 ${
+                    className={`cursor-pointer p-4 rounded-[14px] transition-all duration-200 flex items-center gap-4 border-none ${
                       isSelected
-                        ? "bg-raised border border-border"
-                        : "bg-surface hover:bg-raised border-none"
+                        ? "bg-house-tint text-ink"
+                        : "bg-surface hover:bg-raised text-ink"
                     }`}
                   >
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border border-crimson-500/40">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
                       <Image
                         src={`/members/${stream.memberNickname}.jpg`}
                         alt={stream.memberName}
@@ -262,30 +262,22 @@ export default function LiveStageSection() {
               })}
             </div>
 
-            {/* Ruang Ngobrol Live CTA */}
-            <div className="p-6 rounded-[14px] bg-surface space-y-3">
-              <div className="flex items-center gap-1.5 text-crimson-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
-                <span className="font-mono-data text-xs font-bold uppercase tracking-wider">
-                  RUANG NGOBROL LIVE
-                </span>
-              </div>
-              <h5 className="font-sans font-bold text-base text-ink">
-                Mau ngobrolin live ini bareng fans lain?
+            {/* Mau ngobrolin live ini? (card-forum-link) */}
+            <div className="p-6 rounded-[14px] bg-surface space-y-3 border-none">
+              <h5 className="font-display font-extrabold text-2xl uppercase tracking-tight text-ink">
+                Mau ngobrolin live ini?
               </h5>
               <p className="text-xs text-muted leading-relaxed">
-                Gabung ke Blok C untuk saling berbagi live menarik, momen lucu,
-                dan jadwal live terkini.
+                Komentarnya di platform aslinya. Rangkuman dan obrolan panjang
+                tempatnya di Blok C, Live Streaming.
               </p>
-              <Button
-                href="/forum?block=live-streaming"
-                variant="secondary"
-                size="sm"
-                className="w-full mt-2"
-                showArrow
+              <Link
+                href="/forum?category=live-streaming"
+                className="inline-flex items-center justify-center gap-2 w-full px-5 py-2.5 rounded-full border border-border text-ink text-sm font-semibold hover:bg-raised transition-colors mt-2"
               >
-                Buka Blok C Forum
-              </Button>
+                <span>Buka Blok C</span>
+                <ArrowUpRight weight="bold" className="w-4 h-4" />
+              </Link>
             </div>
 
             {/* Replay Terbaru Section (FigCraft ID: 1223) */}

@@ -63,7 +63,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const resolvedTheme: "dark" | "light" =
-    theme === "system" ? getSystemTheme() : theme === "light" ? "light" : "dark";
+    theme === "system"
+      ? getSystemTheme()
+      : theme === "light"
+        ? "light"
+        : "dark";
 
   const setTheme = useCallback((newTheme: Theme) => {
     try {

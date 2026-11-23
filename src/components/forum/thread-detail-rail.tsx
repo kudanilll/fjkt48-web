@@ -23,8 +23,12 @@ export default function ThreadDetailRail({
 
   return (
     <aside className="w-full space-y-6" aria-label="Informasi terkait thread">
-      {/* 1. Tagged Show Ticket Stub */}
-      <div className="p-6 rounded-[14px] bg-surface space-y-4">
+      {/* 1. Tagged Show Ticket Stub (Ticket styling with notch cutouts) */}
+      <div className="relative p-6 rounded-[14px] bg-surface space-y-4 overflow-hidden border-none">
+        {/* Notch cutouts */}
+        <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-bg" />
+        <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-bg" />
+
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-accent font-mono text-xs font-bold uppercase tracking-wider">
             <Ticket weight="fill" className="w-4 h-4" />
@@ -47,7 +51,7 @@ export default function ThreadDetailRail({
         <div className="pt-2">
           <Link
             href="/schedule"
-            className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full bg-crimson-500 text-white text-sm font-semibold hover:bg-crimson-600 transition-colors"
+            className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 rounded-full bg-crimson-500 text-white text-sm font-semibold hover:bg-crimson-600 transition-colors shadow-md shadow-crimson-500/20"
           >
             <span>Lihat jadwal show</span>
             <ArrowRight weight="bold" className="w-4 h-4" />
@@ -55,15 +59,15 @@ export default function ThreadDetailRail({
         </div>
       </div>
 
-      {/* 2. Tagged Member Card */}
-      <div className="p-6 rounded-[14px] bg-surface space-y-4">
-        <div className="flex items-center gap-2 text-ink font-mono text-xs font-bold uppercase tracking-wider pb-3 border-b border-ink-a10">
+      {/* 2. Tagged Member Photo Card */}
+      <div className="p-6 rounded-[14px] bg-surface space-y-4 border-none">
+        <div className="flex items-center gap-2 text-ink font-mono text-xs font-bold uppercase tracking-wider pb-3 border-b border-raised">
           <User weight="fill" className="w-4 h-4 text-accent" />
           <span>MEMBER YANG DIBAHAS</span>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="relative w-16 h-16 rounded-full overflow-hidden bg-raised shrink-0 border border-ink-a10">
+          <div className="relative w-16 h-16 rounded-full overflow-hidden bg-raised shrink-0 border border-border">
             <Image
               src={`https://jkt48.com/api/v1/storages/media/jkt48-member/${memberNickname}_jayawardana.jpg`}
               alt={memberNickname}
@@ -99,14 +103,14 @@ export default function ThreadDetailRail({
         </Link>
       </div>
 
-      {/* 3. Related Threads */}
-      <div className="p-6 rounded-[14px] bg-surface space-y-4">
-        <div className="flex items-center gap-2 text-ink font-mono text-xs font-bold uppercase tracking-wider pb-3 border-b border-ink-a10">
+      {/* 3. Related Threads (Plain section without card container) */}
+      <div className="space-y-4 pt-2">
+        <div className="flex items-center gap-2 text-ink font-mono text-xs font-bold uppercase tracking-wider pb-2 border-b border-raised">
           <ChatsCircle weight="fill" className="w-4 h-4 text-accent" />
           <span>DISKUSI TERKAIT</span>
         </div>
 
-        <div className="divide-y divide-ink-a10">
+        <div className="divide-y divide-raised">
           {relatedThreads.map((related) => (
             <Link
               key={related.id}

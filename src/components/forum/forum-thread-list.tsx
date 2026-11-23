@@ -7,7 +7,7 @@ import {
   MagnifyingGlass,
   ChatCircle,
   Eye,
-  Flame,
+  Flashlight,
   ArrowUpRight,
 } from "@phosphor-icons/react";
 import type { ForumThread } from "@/data/forum-mock-data";
@@ -245,18 +245,21 @@ export default function ForumThreadList(props: ForumThreadListProps) {
               {figcraftPinnedThread.title}
             </h3>
 
-            <p className="font-sans text-xs text-muted">
+            <div className="flex items-center gap-2 font-sans text-xs text-muted">
+              <div className="w-5 h-5 rounded-full bg-crimson-500 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
+                A
+              </div>
               <span className="font-semibold text-ink">
                 {figcraftPinnedThread.author}
-              </span>{" "}
-              {figcraftPinnedThread.authorRole}
-            </p>
+              </span>
+              <span>{figcraftPinnedThread.authorRole}</span>
+            </div>
           </div>
 
           {/* Right Stats */}
           <div className="flex items-center gap-5 shrink-0 font-mono-data text-xs text-muted">
             <div className="flex items-center gap-1.5 text-crimson-400">
-              <Flame weight="fill" className="w-4 h-4 text-crimson-500" />
+              <Flashlight weight="fill" className="w-4 h-4 text-crimson-500" />
               <span>{figcraftPinnedThread.reactions}</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -275,7 +278,7 @@ export default function ForumThreadList(props: ForumThreadListProps) {
         </span>
 
         {/* Regular Threads List */}
-        <div className="divide-y divide-[var(--line)]">
+        <div className="divide-y divide-raised">
           {figcraftForumThreads.map((thread) => {
             const hasReacted = reactedIds[thread.id];
             const reactionCount = thread.reactions + (hasReacted ? 1 : 0);
@@ -330,6 +333,9 @@ export default function ForumThreadList(props: ForumThreadListProps) {
                   </h3>
 
                   <div className="flex items-center gap-2 text-xs text-muted font-sans flex-wrap">
+                    <div className="w-4 h-4 rounded-full bg-raised border border-border flex items-center justify-center text-[9px] font-bold text-ink shrink-0">
+                      {thread.author.slice(0, 1).toUpperCase()}
+                    </div>
                     <span className="font-medium text-ink">
                       {thread.author}
                     </span>
@@ -351,9 +357,9 @@ export default function ForumThreadList(props: ForumThreadListProps) {
                       type="button"
                       onClick={(e) => toggleReaction(e, thread.id)}
                       className="flex items-center gap-1.5 text-crimson-400 font-medium cursor-pointer"
-                      title="Reaksi"
+                      title="Lightstick"
                     >
-                      <Flame
+                      <Flashlight
                         weight="fill"
                         className="w-4 h-4 text-crimson-500"
                       />

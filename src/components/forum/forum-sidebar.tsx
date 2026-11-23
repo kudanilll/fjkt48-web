@@ -55,15 +55,19 @@ export default function ForumSidebar({ onSelectTag }: ForumSidebarProps) {
           Paling aktif minggu ini
         </h3>
 
-        <div className="space-y-3 pt-1">
+        <div className="space-y-3.5 pt-1">
           {topFans.map((fan) => (
             <div
               key={fan.name}
-              className="flex items-center gap-4 text-xs font-sans"
+              className="flex items-center gap-3 text-xs font-sans"
             >
-              <span className="font-display font-black text-lg text-ink w-3 text-center">
+              <span className="font-display font-black text-lg text-muted w-3 text-center">
                 {fan.rank}
               </span>
+
+              <div className="w-8 h-8 rounded-full bg-raised border border-border flex items-center justify-center font-mono text-xs font-bold text-ink shrink-0">
+                {fan.name.slice(0, 2).toUpperCase()}
+              </div>
 
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-ink truncate">{fan.name}</p>

@@ -123,9 +123,7 @@ export default function MemberDiscussionSection({
                 </h3>
 
                 <div className="flex items-center gap-2 text-xs text-muted font-sans flex-wrap">
-                  <span className="font-medium text-ink">
-                    {thread.author}
-                  </span>
+                  <span className="font-medium text-ink">{thread.author}</span>
                   <span>·</span>
                   <span>oshi {thread.oshi}</span>
                   <span>·</span>

@@ -8,7 +8,7 @@ interface ForumHeaderProps {
 }
 
 const categories = [
-  { slug: "all", name: "Semua", count: "7.488" },
+  { slug: "all", name: "Semua", count: "" },
   { slug: "theater-setlist", name: "Theater & Setlist", count: "1.204" },
   { slug: "member-oshi", name: "Member & Oshi", count: "2.381" },
   { slug: "live-streaming", name: "Live Streaming", count: "876" },
@@ -24,7 +24,7 @@ export default function ForumHeader({
   return (
     <div className="w-full space-y-8 pt-8 pb-4">
       {/* Eyebrow & Title Row (FigCraft ID: 2533) */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[var(--line)]">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-raised">
         <div className="space-y-3">
           <h1 className="font-display font-black text-6xl sm:text-8xl md:text-9xl lg:text-[148px] tracking-tight uppercase leading-[0.85] text-ink">
             FORUM
@@ -45,7 +45,7 @@ export default function ForumHeader({
             <span className="text-xs text-muted">thread di 6 blok</span>
           </div>
 
-          <div className="border-l border-[var(--border)] pl-8 sm:pl-12">
+          <div className="border-l border-raised pl-8 sm:pl-12">
             <span className="flex items-center gap-2 font-display font-black text-4xl sm:text-5xl text-ink">
               <span className="w-2.5 h-2.5 rounded-full bg-crimson-500 shadow-[0_0_8px_rgba(229,19,46,0.9)]" />
               318
@@ -75,9 +75,11 @@ export default function ForumHeader({
                   <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
                 )}
                 <span>{cat.name}</span>
-                <span className="font-mono-data text-[11px] opacity-75">
-                  {cat.count}
-                </span>
+                {cat.count && (
+                  <span className="font-mono-data text-[11px] opacity-75">
+                    {cat.count}
+                  </span>
+                )}
               </button>
             );
           })}

@@ -47,23 +47,11 @@ export default function CurtainEncoreSection() {
       className="stage relative w-full overflow-hidden text-center py-24 sm:py-36 px-6 select-none"
       style={{
         background:
-          "linear-gradient(to right, #4A0510 0%, #8E0D20 12%, #5A0713 25%, #9A1024 38%, #5A0713 50%, #9A1024 62%, #5A0713 75%, #8E0D20 88%, #4A0510 100%)",
+          "linear-gradient(to right, #4A0510 0%, #8E0D20 8%, #5A0713 16%, #8E0D20 25%, #5A0713 34%, #9A1024 42%, #9A1024 58%, #5A0713 66%, #8E0D20 75%, #5A0713 84%, #8E0D20 92%, #4A0510 100%)",
       }}
       aria-label="Ajakan bergabung Encore komunitas FJKT48"
     >
-      {/* Dark theater lighting scrim */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-radial-[ellipse_at_center] from-transparent via-bg/20 to-bg/60"
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-4xl mx-auto space-y-6">
-        {/* Eyebrow (FigCraft ID: 1330) */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm text-spotlight font-mono-data text-xs font-semibold uppercase tracking-widest border border-white/10">
-          <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
-          <span>Lampu theater belum padam</span>
-        </div>
-
         {/* Big ENCORE! Display Heading (FigCraft ID: 1331) */}
         <h2
           ref={textRef}
@@ -89,7 +77,7 @@ export default function CurtainEncoreSection() {
           </Link>
           <Link
             href="/login"
-            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-black/40 border border-white/20 text-ink font-sans font-bold text-sm sm:text-base hover:bg-black/60 transition-all duration-200"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-transparent border border-white/40 text-white font-sans font-bold text-sm sm:text-base hover:bg-white/10 transition-all duration-200"
           >
             Masuk
           </Link>

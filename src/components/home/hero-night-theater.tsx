@@ -114,8 +114,8 @@ export default function HeroNightTheater() {
       />
 
       {/* Five Member Stage Portraits (§7.4) */}
-      <div className="relative z-0 w-full px-6 sm:px-12 lg:px-16 pt-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 justify-center">
+      <div className="relative z-0 w-full px-4 sm:px-12 lg:px-16 pt-4 overflow-hidden">
+        <div className="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 justify-center items-center">
           {heroMembers.map((member) => {
             const isLit = activeSpotlight === member.index;
 
@@ -127,11 +127,11 @@ export default function HeroNightTheater() {
                   member.index === 0 || member.index === 4
                     ? "hidden lg:block"
                     : member.index === 1 || member.index === 3
-                      ? "hidden md:block"
-                      : "block"
+                      ? "w-16 sm:w-24 md:w-auto shrink-0 opacity-40 grayscale contrast-125 z-0"
+                      : "w-[240px] sm:w-[300px] md:w-auto shrink-0"
                 } ${
                   isLit
-                    ? "scale-[1.02] shadow-2xl shadow-crimson-500/20 z-10"
+                    ? "scale-[1.02] shadow-2xl shadow-crimson-500/20 z-10 opacity-100"
                     : "opacity-40 grayscale contrast-125 z-0"
                 }`}
               >
@@ -150,21 +150,6 @@ export default function HeroNightTheater() {
                   className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-bg/50 to-bg/90"
                   aria-hidden="true"
                 />
-
-                {/* Member Name Tag Badge on Active Portrait */}
-                {isLit && (
-                  <div className="absolute bottom-6 left-4 right-4 z-20 flex items-center justify-between">
-                    <div>
-                      <p className="font-display text-xl font-black uppercase text-white tracking-wide drop-shadow-md">
-                        {member.name}
-                      </p>
-                      <p className="font-mono-data text-xs text-crimson-400 font-semibold tracking-wider uppercase">
-                        Team {member.team}
-                      </p>
-                    </div>
-                    <span className="w-2.5 h-2.5 rounded-full bg-crimson-500 animate-ping" />
-                  </div>
-                )}
               </div>
             );
           })}
@@ -183,59 +168,63 @@ export default function HeroNightTheater() {
           <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[132px] tracking-tight leading-[0.88] uppercase text-ink">
             SHOW-NYA SELESAI.
             <br />
-            <span className="text-crimson-500">OBROLANNYA BELUM.</span>
+            OBROLANNYA BELUM.
           </h1>
 
-          <p className="text-base sm:text-lg text-muted max-w-xl leading-relaxed">
-            Forum fans JKT48 buat ngobrolin show, member, dan live. Tempat
-            kumpul setelah lampu theater padam.
-          </p>
+          {/* Row layout on desktop: lede & CTAs on left, Next Show on right */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-2">
+            <div className="space-y-6 max-w-xl">
+              <p className="text-base sm:text-lg text-muted leading-relaxed">
+                Forum fans JKT48 buat ngobrolin show, member, dan live. Tempat
+                kumpul setelah lampu theater padam.
+              </p>
 
-          {/* Action Row: CTAs on the left, Next Show Card on the right */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pt-2">
-            <div className="flex flex-wrap items-center gap-4">
-              <Button href="/forum" variant="primary" size="lg" showArrow>
-                Masuk ke forum
-              </Button>
-              <Button href="/schedule" variant="secondary" size="lg">
-                Lihat jadwal
-              </Button>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button href="/forum" variant="primary" size="lg" showArrow>
+                  Masuk ke forum
+                </Button>
+                <Button href="/schedule" variant="secondary" size="lg">
+                  Lihat jadwal
+                </Button>
+              </div>
             </div>
 
             {/* Next Show Floating Card (FigCraft ID: 836) */}
-            <Link
-              href="/schedule"
-              className="inline-flex items-center gap-4 p-3.5 pr-4 rounded-[14px] bg-surface/80 backdrop-blur-md hover:bg-raised transition-all duration-200 group border-none shadow-xl shadow-black/40 w-full sm:w-auto sm:min-w-[384px]"
-            >
-              {/* Crimson Date Box */}
-              <div className="w-14 h-14 rounded-[10px] bg-crimson-500 flex flex-col items-center justify-center shrink-0">
-                <span className="font-sans text-[10px] font-semibold text-white tracking-[0.05em] uppercase leading-none">
-                  MIN
-                </span>
-                <span className="font-display text-3xl font-black text-white leading-none mt-0.5">
-                  22
-                </span>
-              </div>
+            <div className="shrink-0 w-full lg:w-auto">
+              <Link
+                href="/schedule"
+                className="inline-flex items-center gap-4 p-3.5 pr-4 rounded-[14px] bg-surface/80 backdrop-blur-md hover:bg-raised transition-all duration-200 group border-none shadow-xl shadow-black/40 w-full sm:w-auto sm:min-w-[384px]"
+              >
+                {/* Crimson Date Box */}
+                <div className="w-14 h-14 rounded-[10px] bg-crimson-500 flex flex-col items-center justify-center shrink-0">
+                  <span className="font-sans text-[10px] font-semibold text-white tracking-[0.05em] uppercase leading-none">
+                    MIN
+                  </span>
+                  <span className="font-display text-3xl font-black text-white leading-none mt-0.5">
+                    22
+                  </span>
+                </div>
 
-              {/* Show Details */}
-              <div className="flex-1 min-w-0">
-                <p className="font-mono-data text-xs text-crimson-400 font-medium">
-                  Besok di Theater, 19:00 WIB
-                </p>
-                <p className="font-sans font-semibold text-[17px] text-ink group-hover:text-crimson-400 transition-colors truncate">
-                  Pertaruhan Cinta
-                </p>
-                <p className="font-sans text-xs text-muted truncate">
-                  Birthday show · 64 fans lagi bahas
-                </p>
-              </div>
+                {/* Show Details */}
+                <div className="flex-1 min-w-0">
+                  <p className="font-mono-data text-xs text-crimson-400 font-medium">
+                    Besok di Theater, 19:00 WIB
+                  </p>
+                  <p className="font-sans font-semibold text-[17px] text-ink group-hover:text-crimson-400 transition-colors truncate">
+                    Pertaruhan Cinta
+                  </p>
+                  <p className="font-sans text-xs text-muted truncate">
+                    Birthday show · 64 fans lagi bahas
+                  </p>
+                </div>
 
-              {/* Arrow Icon */}
-              <ArrowRight
-                weight="bold"
-                className="w-5 h-5 text-ink shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
-              />
-            </Link>
+                {/* Arrow Icon */}
+                <ArrowRight
+                  weight="bold"
+                  className="w-5 h-5 text-ink shrink-0 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

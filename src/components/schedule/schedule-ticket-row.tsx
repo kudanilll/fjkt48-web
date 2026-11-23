@@ -75,11 +75,7 @@ export default function ScheduleTicketRow({
       >
         <span
           className={`text-[13px] font-mono font-medium tracking-[1px] uppercase ${
-            isToday
-              ? "text-bg/80"
-              : isNext
-                ? "text-white/80"
-                : "text-muted"
+            isToday ? "text-bg/80" : isNext ? "text-white/80" : "text-muted"
           }`}
         >
           {dayName}
@@ -93,11 +89,7 @@ export default function ScheduleTicketRow({
         </span>
         <span
           className={`text-xs font-mono font-medium uppercase ${
-            isToday
-              ? "text-bg/80"
-              : isNext
-                ? "text-white/80"
-                : "text-muted"
+            isToday ? "text-bg/80" : isNext ? "text-white/80" : "text-muted"
           }`}
         >
           {monthName} {yearNum}

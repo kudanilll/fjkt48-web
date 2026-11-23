@@ -6,7 +6,6 @@ import {
   liveReplaysList,
   type LiveStream,
 } from "@/data/live-mock-data";
-import LiveTicker from "@/components/home/live-ticker";
 import LiveFeaturedPlayer from "@/components/live/live-featured-player";
 import LiveSideList from "@/components/live/live-side-list";
 import LiveEmptyStage from "@/components/live/live-empty-stage";
@@ -22,11 +21,8 @@ export default function LivePage() {
 
   return (
     <main className="min-h-screen bg-bg text-ink">
-      {/* 1. Live Ticker */}
-      <LiveTicker />
-
-      {/* 2. Live Head Section */}
-      <section className="relative overflow-hidden pt-12 pb-12 border-b border-raised">
+      {/* 1. Live Head Section */}
+      <section className="relative overflow-hidden pt-12 pb-12">
         {/* Spotlight Glow */}
         <div
           className="pointer-events-none absolute -top-40 -left-40 h-[820px] w-[1000px] rounded-full"
@@ -55,7 +51,7 @@ export default function LivePage() {
             <div className="max-w-[468px] space-y-3">
               <p className="text-[17px] font-sans text-muted leading-[26px]">
                 Streaming Showroom dan IDN Live member JKT48. Tonton bareng fans
-                lain, ngobrol di chat room, atau tonton arsip replay.
+                lain atau tonton arsip replay.
               </p>
               <p className="text-xs font-mono font-medium text-subtle">
                 Auto-refresh tiap 30 detik · Sumber live API

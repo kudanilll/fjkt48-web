@@ -9,11 +9,11 @@ import {
   Sun,
   Moon,
   List,
-  Sparkle,
   Plus,
 } from "@phosphor-icons/react";
 import { useTheme } from "@/components/theme-provider";
 import MenuDrawer from "@/components/layout/menu-drawer";
+import LiveTicker from "@/components/home/live-ticker";
 import Button from "@/components/ui/button";
 
 const navLinks = [
@@ -30,26 +30,9 @@ export default function Navbar() {
   const { resolvedTheme, toggleTheme } = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Hide nav on login & register pages per handoff
+  // Hide nav on login & register pages per handoff (§7.9)
   if (pathname === "/login" || pathname === "/register") {
-    return (
-      <header className="w-full px-6 py-4 flex items-center justify-between border-b border-[var(--border)]">
-        <Link href="/" className="flex items-center gap-2 group">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-crimson-600 text-white">
-            <Sparkle weight="fill" className="w-4 h-4" />
-          </span>
-          <span className="font-display text-2xl font-black tracking-tight text-[var(--ink)]">
-            FJKT<span className="text-crimson-500">48</span>
-          </span>
-        </Link>
-        <Link
-          href="/"
-          className="text-xs font-mono-data text-[var(--muted)] hover:text-[var(--ink)] hover:underline"
-        >
-          ← Kembali ke beranda
-        </Link>
-      </header>
-    );
+    return null;
   }
 
   const isActive = (href: string) => {
@@ -59,22 +42,25 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Live Ticker Crimson Strip above Navigation */}
+      <LiveTicker />
+
       <header className="sticky top-0 z-40 w-full bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)] transition-colors duration-300">
         <nav
           className="w-full flex items-center justify-between px-6 sm:px-12 lg:px-16 h-18"
           aria-label="Navigasi utama"
         >
-          {/* Brand Logo */}
+          {/* Brand Logo - Wordmark Only (§7.6, §237) */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 group"
+            className="inline-flex items-center gap-0 group"
             aria-label="FJKT48 Beranda"
           >
-            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-crimson-600 text-white shadow-sm shadow-crimson-600/30 transition-transform duration-200 group-hover:scale-105">
-              <Sparkle weight="fill" className="w-4 h-4" />
+            <span className="font-display text-2xl font-black tracking-tight text-ink">
+              FJKT
             </span>
-            <span className="font-display text-2xl font-black tracking-tight text-[var(--ink)]">
-              FJKT<span className="text-crimson-500">48</span>
+            <span className="font-display text-2xl font-black tracking-tight text-crimson-500">
+              48
             </span>
           </Link>
 

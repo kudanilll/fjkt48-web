@@ -13,7 +13,14 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
   const [platformFilter, setPlatformFilter] = useState<
     "ALL" | "showroom" | "idn"
   >("ALL");
+  const [memberFilter, setMemberFilter] = useState<string>("ALL");
   const [visibleCount, setVisibleCount] = useState<number>(8);
+
+  const memberList = useMemo(() => {
+    const map = new Map<string, string>();
+    replays.forEach((r) => map.set(r.memberCode, r.memberNickname));
+    return Array.from(map.entries());
+  }, [replays]);
 
   const counts = useMemo(() => {
     return {
@@ -25,32 +32,32 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
 
   const filteredReplays = useMemo(() => {
     return replays.filter((r) => {
-      if (platformFilter === "ALL") return true;
-      return r.platform === platformFilter;
+      const matchPlatform =
+        platformFilter === "ALL" || r.platform === platformFilter;
+      const matchMember =
+        memberFilter === "ALL" || r.memberCode === memberFilter;
+      return matchPlatform && matchMember;
     });
-  }, [replays, platformFilter]);
+  }, [replays, platformFilter, memberFilter]);
 
   const displayReplays = filteredReplays.slice(0, visibleCount);
 
   return (
-    <section
-      id="replay-archive"
-      className="py-16 sm:py-24 border-t border-raised"
-    >
+    <section id="replay-archive" className="py-16 sm:py-24">
       <div className="w-full px-6 sm:px-12 lg:px-16 space-y-10">
         {/* Header & Filter Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
             <h2 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-ink leading-none">
-              REPLAY TERBARU
+              REPLAY
             </h2>
             <p className="text-base text-muted font-sans">
               Tonton siaran yang sudah lewat dalam 30 hari terakhir.
             </p>
           </div>
 
-          {/* Filter Chips */}
-          <div className="flex items-center gap-2 flex-wrap">
+          {/* Filter Chips & Member Select */}
+          <div className="flex items-center gap-3 flex-wrap">
             <button
               type="button"
               onClick={() => setPlatformFilter("ALL")}
@@ -84,6 +91,26 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
             >
               IDN Live ({counts.idn})
             </button>
+
+            {/* Member Select Dropdown */}
+            <div className="relative">
+              <select
+                value={memberFilter}
+                onChange={(e) => setMemberFilter(e.target.value)}
+                aria-label="Filter berdasarkan member"
+                className="appearance-none px-4 py-2 pr-8 rounded-full bg-raised text-ink border border-ink-a10 hover:border-ink-a35 text-sm font-medium focus:outline-none cursor-pointer"
+              >
+                <option value="ALL">Semua Member</option>
+                {memberList.map(([code, nickname]) => (
+                  <option key={code} value={code}>
+                    {nickname}
+                  </option>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted">
+                ▼
+              </div>
+            </div>
           </div>
         </div>
 
@@ -140,21 +167,14 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
                   </div>
                 </div>
 
-                {/* Card Info */}
-                <div className="p-4 space-y-1.5 flex-1 flex flex-col justify-between">
-                  <div className="space-y-1">
-                    <span className="font-sans font-semibold text-[15px] text-ink block group-hover:text-accent transition-colors">
-                      {replay.memberNickname}
-                    </span>
-                    <p className="text-[13px] text-muted line-clamp-2 leading-snug">
-                      {replay.title}
-                    </p>
-                  </div>
+                {/* Card Info: Member nickname & recordedDate only (no title description, no view count) */}
+                <div className="p-4 space-y-1 flex-1 flex flex-col justify-between">
+                  <span className="font-sans font-semibold text-[15px] text-ink block group-hover:text-accent transition-colors">
+                    {replay.memberNickname}
+                  </span>
 
-                  <div className="flex items-center gap-2 text-xs font-mono text-subtle pt-2 border-t border-raised">
+                  <div className="flex items-center gap-2 text-xs font-mono text-subtle pt-2">
                     <span>{replay.recordedDate}</span>
-                    <span>·</span>
-                    <span>{replay.views.toLocaleString("id-ID")} ditonton</span>
                   </div>
                 </div>
               </a>
@@ -168,9 +188,9 @@ export default function LiveReplayArchive({ replays }: LiveReplayArchiveProps) {
             <button
               type="button"
               onClick={() => setVisibleCount((prev) => prev + 8)}
-              className="px-7 py-3 rounded-full bg-raised text-ink font-sans text-sm font-semibold hover:bg-border transition-colors"
+              className="px-7 py-3 rounded-full bg-raised text-ink font-sans text-sm font-semibold hover:bg-border transition-colors cursor-pointer"
             >
-              Muat 12 replay lagi
+              Muat replay lainnya
             </button>
           </div>
         )}

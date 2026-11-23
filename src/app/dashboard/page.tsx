@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Plus } from "@phosphor-icons/react";
-import LiveTicker from "@/components/home/live-ticker";
+import { ArrowUpRight, BookmarkSimple, Plus } from "@phosphor-icons/react";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Member } from "@/types/jkt48-types";
 
@@ -13,9 +12,9 @@ const allMembers = (officialData.members ?? []) as JKT48Member[];
 interface NotificationItem {
   id: string;
   author: string;
-  avatarColor: string;
+  action: string;
   threadTitle: string;
-  snippet: string;
+  quote: string;
   time: string;
   unread: boolean;
 }
@@ -24,30 +23,38 @@ const mockNotifications: NotificationItem[] = [
   {
     id: "notif-1",
     author: "kopigita",
-    avatarColor: "from-amber-500 to-amber-950",
-    threadTitle: "MC Show Pertaruhan Cinta hari ini pecah banget",
-    snippet:
-      "Setuju banget! Pas bagian Gita nge-roasting Oline itu bener-bener gak ketebak, seisi teater langsung ketawa.",
+    action: "membalas threadmu",
+    threadTitle: "Encore Pajama Drive semalam pecah banget",
+    quote: "“Lagu ke-7 sih. Aku sampai nangis pas encore.”",
     time: "5 mnt",
     unread: true,
   },
   {
     id: "notif-2",
-    author: "anakfx",
-    avatarColor: "from-emerald-500 to-emerald-950",
-    threadTitle: "Setlist Cara Meminum Ramune vs Pertaruhan Cinta",
-    snippet:
-      "Kalau dari koreo sih emang Ramune lebih capek, tapi emosi di Pertaruhan Cinta lebih kerasa di encore.",
+    author: "wotabaru",
+    action: "membalas threadmu",
+    threadTitle: "Encore Pajama Drive semalam pecah banget",
+    quote:
+      "“Baru pertama nonton trainee, ternyata seru banget. Next pasti balik lagi.”",
     time: "18 mnt",
     unread: true,
   },
   {
     id: "notif-3",
-    author: "penlightbiru",
-    avatarColor: "from-purple-500 to-purple-950",
-    threadTitle: "Info rundown & seat 2-Shot Festival Vol. 5",
-    snippet:
-      "Tadi sempet nanya staf tiket, katanya jalur OFC mulai dibuka jam 11 siang bro.",
+    author: "lightstickpink",
+    action: "kasih 12 lightstick ke balasanmu",
+    threadTitle: "Lineup Pajama Drive trainee kemarin seger banget",
+    quote: "“Fera di unit song kemarin keren parah, ekspresinya dapet.”",
+    time: "1 jam",
+    unread: true,
+  },
+  {
+    id: "notif-4",
+    author: "anakfx",
+    action: "menyebut kamu",
+    threadTitle: "Besok birthday show Pertaruhan Cinta",
+    quote:
+      "“@penlightmerah bawa lightstick cadangan lagi kan? Aku colek di antrean.”",
     time: "2 jam",
     unread: false,
   },
@@ -92,14 +99,35 @@ const mockUserThreads = [
   },
 ];
 
+const mockSavedThreads = [
+  {
+    id: "saved-1",
+    title: "Panduan nonton theater pertama kali: antre, tiket, sampai pulang",
+    meta: "Obrolan Bebas · 212 balasan · disimpan 3 hari lalu",
+    slug: "panduan-nonton-theater-pertama-kali",
+  },
+  {
+    id: "saved-2",
+    title:
+      "Encore Pajama Drive semalam pecah banget. Lagu apa yang bikin kalian merinding?",
+    meta: "Teater & Setlist · 128 balasan · disimpan 5 hari lalu",
+    slug: "encore-pajama-drive-semalam-pecah-banget",
+  },
+  {
+    id: "saved-3",
+    title: "Rekap unit song Pajama Drive dari generasi ke generasi",
+    meta: "Teater & Setlist · 94 balasan · disimpan 1 minggu lalu",
+    slug: "rekap-unit-song-pajama-drive",
+  },
+];
+
 export default function DashboardPage() {
   const [notifications, setNotifications] =
     useState<NotificationItem[]>(mockNotifications);
   const [notifyLive, setNotifyLive] = useState(true);
-  const [isEditingProfile, setIsEditingProfile] = useState(false);
 
   // User state
-  const [userName, setUserName] = useState("PenlightMerah");
+  const [userName, setUserName] = useState("penlightmerah");
   const [userHandle] = useState("@penlightmerah");
   const [userBio, setUserBio] = useState(
     "Wota Pajama Drive dari 2019. Kalau dapet tiket, pasti di baris depan bawa lightstick merah."
@@ -107,7 +135,9 @@ export default function DashboardPage() {
   const [selectedOshiCode, setSelectedOshiCode] = useState("AFERA_THALIA");
 
   const oshiMember =
-    allMembers.find((m) => m.code === selectedOshiCode) || allMembers[0]!;
+    allMembers.find((m) => m.code === selectedOshiCode) ||
+    allMembers.find((m) => m.nickname.toLowerCase() === "fera") ||
+    allMembers[0]!;
 
   const unreadCount = notifications.filter((n) => n.unread).length;
 
@@ -115,13 +145,17 @@ export default function DashboardPage() {
     setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })));
   };
 
+  const scrollToEditProfile = () => {
+    const el = document.getElementById("edit-profile-panel");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <main className="min-h-screen bg-bg text-ink max-w-full overflow-x-hidden">
-      {/* 1. Live Ticker */}
-      <LiveTicker />
-
-      {/* 2. Dashboard Head Section */}
-      <section className="relative overflow-hidden pt-12 pb-12 border-b border-raised max-w-full">
+      {/* 1. Dashboard Head Section */}
+      <section className="relative overflow-hidden pt-12 pb-12 max-w-full">
         {/* Spotlight Glow */}
         <div
           className="pointer-events-none absolute -top-40 -left-40 h-[820px] w-[1000px] rounded-full"
@@ -148,12 +182,12 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      {/* 3. Dashboard Body */}
+      {/* 2. Dashboard Body */}
       <section className="py-12 sm:py-16 max-w-full">
         <div className="w-full px-4 sm:px-8 lg:px-16 flex flex-col lg:flex-row items-start gap-10 max-w-full">
-          {/* LEFT COLUMN: Profile Card & Oshi Card */}
+          {/* LEFT COLUMN: Profile & Oshi */}
           <div className="w-full lg:w-[420px] max-w-full flex-none space-y-8">
-            {/* Card Profile */}
+            {/* Profile Section (Plain section, no card border) */}
             <div className="rounded-[14px] bg-surface p-6 sm:p-7 space-y-6">
               {/* Header with Avatar */}
               <div className="flex items-center gap-4">
@@ -182,7 +216,7 @@ export default function DashboardPage() {
               </p>
 
               {/* 3-column stats */}
-              <div className="grid grid-cols-3 gap-0 py-4 border-y border-ink-a10 text-center">
+              <div className="grid grid-cols-3 gap-0 py-4 border-y border-raised text-center">
                 <div className="space-y-1">
                   <span className="font-display font-black text-3xl text-ink block leading-none">
                     14
@@ -191,7 +225,7 @@ export default function DashboardPage() {
                     Thread
                   </span>
                 </div>
-                <div className="space-y-1 border-x border-ink-a10">
+                <div className="space-y-1 border-x border-raised">
                   <span className="font-display font-black text-3xl text-ink block leading-none">
                     128
                   </span>
@@ -213,8 +247,8 @@ export default function DashboardPage() {
               <div className="flex items-center gap-3 pt-1">
                 <button
                   type="button"
-                  onClick={() => setIsEditingProfile(!isEditingProfile)}
-                  className="px-5 py-2.5 rounded-full border border-ink-a35 text-ink text-sm font-medium hover:bg-raised transition-colors"
+                  onClick={scrollToEditProfile}
+                  className="px-5 py-2.5 rounded-full border border-border text-ink text-sm font-medium hover:bg-raised transition-colors cursor-pointer"
                 >
                   Edit profil
                 </button>
@@ -225,60 +259,9 @@ export default function DashboardPage() {
                   Keluar
                 </Link>
               </div>
-
-              {/* Editable profile dropdown when toggled */}
-              {isEditingProfile && (
-                <div className="p-4 rounded-xl bg-bg space-y-4 border border-border mt-4">
-                  <div className="space-y-1">
-                    <label className="text-xs font-mono text-muted uppercase">
-                      Nama
-                    </label>
-                    <input
-                      type="text"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-surface text-sm text-ink focus:outline-none focus:ring-1 focus:ring-focus"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-mono text-muted uppercase">
-                      Bio
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={userBio}
-                      onChange={(e) => setUserBio(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-surface text-sm text-ink focus:outline-none focus:ring-1 focus:ring-focus"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-mono text-muted uppercase">
-                      Ganti Oshi
-                    </label>
-                    <select
-                      value={selectedOshiCode}
-                      onChange={(e) => setSelectedOshiCode(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg bg-surface text-sm text-ink focus:outline-none focus:ring-1 focus:ring-focus"
-                    >
-                      {allMembers.map((m) => (
-                        <option key={m.code} value={m.code}>
-                          {m.name} ({m.nickname})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsEditingProfile(false)}
-                    className="w-full py-2 rounded-full bg-crimson-500 text-white text-xs font-bold uppercase tracking-wider"
-                  >
-                    Simpan Perubahan
-                  </button>
-                </div>
-              )}
             </div>
 
-            {/* Card Oshi */}
+            {/* Oshi Card */}
             <div className="relative rounded-[14px] bg-surface overflow-hidden min-h-[556px] p-6 sm:p-7 flex flex-col justify-between">
               {/* Photo background */}
               <div className="absolute inset-0">
@@ -321,7 +304,7 @@ export default function DashboardPage() {
 
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono text-muted">
-                    Team Dream · Member Tetap
+                    Team Trainee · Member Trainee
                   </span>
                   <span>·</span>
                   <span className="inline-flex items-center gap-1 text-[11px] font-mono text-subtle">
@@ -336,14 +319,15 @@ export default function DashboardPage() {
                 </p>
 
                 {/* Toggle notification */}
-                <div className="pt-3 border-t border-line flex items-center justify-between">
+                <div className="pt-3 border-t border-raised flex items-center justify-between">
                   <span className="text-xs font-mono text-muted">
                     Kabari jika live dimulai
                   </span>
                   <button
                     type="button"
                     onClick={() => setNotifyLive(!notifyLive)}
-                    className={`w-11 h-6 rounded-full p-1 transition-colors ${
+                    aria-label="Toggle notifikasi live"
+                    className={`w-11 h-6 rounded-full p-1 transition-colors cursor-pointer ${
                       notifyLive ? "bg-crimson-500" : "bg-border"
                     }`}
                   >
@@ -358,7 +342,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Notifications & User Threads */}
+          {/* RIGHT COLUMN: Notifications, My Threads, Bookmarks */}
           <div className="w-full flex-1 min-w-0 max-w-full space-y-12">
             {/* Section 1: Balasan Buat Kamu */}
             <div className="space-y-4">
@@ -376,7 +360,7 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     onClick={markAllRead}
-                    className="text-sm font-semibold text-ink underline underline-offset-4 hover:text-accent transition-colors self-start sm:self-auto"
+                    className="text-sm font-semibold text-ink underline underline-offset-4 hover:text-accent transition-colors self-start sm:self-auto cursor-pointer"
                   >
                     Tandai sudah dibaca
                   </button>
@@ -387,9 +371,13 @@ export default function DashboardPage() {
                 {notifications.map((n) => (
                   <div
                     key={n.id}
-                    className="p-5 rounded-[14px] bg-surface flex items-start gap-4 transition-colors hover:bg-raised"
+                    className={`p-5 rounded-[14px] flex items-start gap-4 transition-colors ${
+                      n.unread
+                        ? "bg-surface"
+                        : "bg-transparent hover:bg-surface/50"
+                    }`}
                   >
-                    {/* Unread indicator */}
+                    {/* Unread dot */}
                     <div className="w-2 pt-3 flex justify-center flex-none">
                       {n.unread ? (
                         <span className="w-2 h-2 rounded-full bg-crimson-500" />
@@ -399,9 +387,7 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Author Avatar */}
-                    <div
-                      className={`relative w-10 h-10 rounded-full overflow-hidden flex-none bg-gradient-to-br ${n.avatarColor} flex items-center justify-center text-white font-mono text-xs font-bold`}
-                    >
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden flex-none bg-gradient-to-br from-crimson-800 to-curtain-900 flex items-center justify-center text-white font-mono text-xs font-bold">
                       {n.author.slice(0, 2).toUpperCase()}
                     </div>
 
@@ -411,16 +397,16 @@ export default function DashboardPage() {
                         <span className="font-sans font-semibold text-[15px] text-ink">
                           {n.author}
                         </span>
-                        <span className="text-xs font-mono text-subtle">
-                          membalas di
+                        <span className="text-xs font-sans text-muted">
+                          {n.action}
                         </span>
                         <span className="text-xs font-sans text-muted truncate">
-                          &ldquo;{n.threadTitle}&rdquo;
+                          di “{n.threadTitle}”
                         </span>
                       </div>
 
                       <p className="text-[13px] font-sans text-muted line-clamp-2 leading-relaxed">
-                        {n.snippet}
+                        {n.quote}
                       </p>
                     </div>
 
@@ -472,7 +458,7 @@ export default function DashboardPage() {
                         {/* Title and meta */}
                         <div className="min-w-0 space-y-1.5">
                           <div className="flex items-center gap-2">
-                            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-raised text-muted border border-ink-a10 font-medium">
+                            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-raised text-muted border border-border font-medium">
                               {t.category}
                             </span>
                           </div>
@@ -496,6 +482,179 @@ export default function DashboardPage() {
                     </div>
                   </Link>
                 ))}
+              </div>
+            </div>
+
+            {/* Section 3: Disimpan (Bookmarks) - FigCraft ID: 9953 */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
+                <h2 className="font-display font-extrabold text-3xl sm:text-[44px] uppercase tracking-[-0.5px] text-ink">
+                  DISIMPAN · 15
+                </h2>
+
+                <Link
+                  href="/dashboard/saved"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink hover:text-accent transition-colors self-start sm:self-auto"
+                >
+                  <span>Semua yang disimpan</span>
+                  <ArrowUpRight weight="bold" className="w-4 h-4" />
+                </Link>
+              </div>
+
+              <div className="space-y-3">
+                {mockSavedThreads.map((st) => (
+                  <Link
+                    key={st.id}
+                    href={`/forum/${st.slug}`}
+                    className="group flex items-center justify-between gap-4 p-5 rounded-[14px] bg-surface hover:bg-raised transition-colors"
+                  >
+                    <div className="flex items-center gap-4 min-w-0">
+                      <BookmarkSimple
+                        weight="fill"
+                        className="w-5 h-5 text-crimson-500 shrink-0"
+                      />
+                      <div className="min-w-0 space-y-1">
+                        <h3 className="font-sans font-semibold text-[15px] sm:text-[17px] text-ink group-hover:text-accent transition-colors truncate">
+                          {st.title}
+                        </h3>
+                        <p className="font-mono text-xs text-muted truncate">
+                          {st.meta}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted group-hover:border-accent group-hover:text-accent transition-colors flex-none">
+                      <ArrowUpRight weight="bold" className="w-4 h-4" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Bottom Edit Profil Panel (FigCraft node: 10013) */}
+      <section
+        id="edit-profile-panel"
+        className="w-full bg-bg py-16 sm:py-24 border-t border-raised"
+      >
+        <div className="w-full px-4 sm:px-8 lg:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Left: Intro & Avatar Upload (FigCraft node: 10015) */}
+            <div className="lg:col-span-4 space-y-6">
+              <h2 className="font-display font-black text-4xl sm:text-5xl uppercase tracking-tight text-ink">
+                EDIT PROFIL
+              </h2>
+
+              <p className="font-sans text-sm sm:text-base text-muted leading-relaxed">
+                Yang kelihatan ke fans lain cuma foto, nama, bio, dan oshi.
+                Email nggak pernah ditampilkan.
+              </p>
+
+              {/* Avatar Upload */}
+              <div className="flex items-center gap-4 pt-2">
+                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-crimson-500 bg-gradient-to-br from-accent to-curtain-800 flex items-center justify-center text-white font-display font-black text-2xl flex-none">
+                  PM
+                </div>
+
+                <div className="space-y-1.5">
+                  <button
+                    type="button"
+                    className="px-4 py-2 rounded-full border border-border text-ink text-sm font-semibold hover:bg-raised transition-colors cursor-pointer"
+                  >
+                    Ganti foto
+                  </button>
+                  <p className="font-mono text-xs text-subtle">
+                    JPG atau PNG, maks 2 MB
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Form Fields (FigCraft node: 10024) */}
+            <div className="lg:col-span-8 space-y-6 max-w-2xl">
+              {/* Nama Tampilan */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="edit-name"
+                  className="block font-mono text-xs font-bold uppercase tracking-wider text-muted"
+                >
+                  NAMA TAMPILAN
+                </label>
+                <input
+                  id="edit-name"
+                  type="text"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-ink font-sans text-base focus:outline-none focus:ring-2 focus:ring-focus transition-all"
+                />
+              </div>
+
+              {/* Bio with 160-char counter */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="edit-bio"
+                    className="block font-mono text-xs font-bold uppercase tracking-wider text-muted"
+                  >
+                    BIO
+                  </label>
+                  <span className="font-mono text-xs text-subtle">
+                    {userBio.length} / 160
+                  </span>
+                </div>
+                <textarea
+                  id="edit-bio"
+                  rows={3}
+                  maxLength={160}
+                  value={userBio}
+                  onChange={(e) => setUserBio(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-ink font-sans text-base focus:outline-none focus:ring-2 focus:ring-focus transition-all resize-none"
+                />
+              </div>
+
+              {/* Oshi Select */}
+              <div className="space-y-2">
+                <label
+                  htmlFor="edit-oshi"
+                  className="block font-mono text-xs font-bold uppercase tracking-wider text-muted"
+                >
+                  OSHI
+                </label>
+                <div className="relative">
+                  <select
+                    id="edit-oshi"
+                    value={selectedOshiCode}
+                    onChange={(e) => setSelectedOshiCode(e.target.value)}
+                    className="w-full appearance-none px-4 py-3 rounded-xl bg-surface border border-border text-ink font-sans text-base focus:outline-none focus:ring-2 focus:ring-focus transition-all cursor-pointer"
+                  >
+                    {allMembers.map((m) => (
+                      <option key={m.code} value={m.code}>
+                        {m.name} ({m.nickname})
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-xs text-muted">
+                    ▼
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-4 pt-4">
+                <button
+                  type="button"
+                  className="px-7 py-3 rounded-full bg-crimson-500 text-white font-sans text-sm font-semibold hover:bg-crimson-600 transition-colors shadow-lg shadow-crimson-500/30 cursor-pointer"
+                >
+                  Simpan perubahan
+                </button>
+                <button
+                  type="button"
+                  className="px-6 py-3 rounded-full text-muted hover:text-ink font-sans text-sm font-semibold transition-colors cursor-pointer"
+                >
+                  Batal
+                </button>
               </div>
             </div>
           </div>

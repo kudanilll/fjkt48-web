@@ -78,18 +78,13 @@ const seatBlocks: SeatBlock[] = [
 export default function SeatBlocksSection() {
   return (
     <section
-      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300"
       aria-label="Pilihan blok tempat duduk forum"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header (FigCraft ID: 1043) */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-12">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-crimson-500/10 text-crimson-400 font-mono-data text-xs font-semibold uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
-              <span>RUANG DISKUSI TEATER</span>
-            </div>
-
             <h2 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[96px] tracking-tight uppercase leading-[0.88]">
               PILIH BLOK
               <br />

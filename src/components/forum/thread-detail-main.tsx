@@ -7,10 +7,9 @@ import {
   ShareNetwork,
   Bell,
   CaretRight,
-  Flame,
-  Heart,
   Flashlight,
   ArrowRight,
+  ChatCircle,
 } from "@phosphor-icons/react";
 import type { ForumThread, ForumReply } from "@/data/forum-mock-data";
 
@@ -19,9 +18,7 @@ interface ThreadDetailMainProps {
 }
 
 export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
-  const [hasLiked, setHasLiked] = useState(false);
-  const [hasHeart, setHasHeart] = useState(false);
-  const [hasPenlight, setHasPenlight] = useState(false);
+  const [hasLightstick, setHasLightstick] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
@@ -30,9 +27,7 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
   const [newReplyText, setNewReplyText] = useState("");
   const composerRef = useRef<HTMLDivElement>(null);
 
-  const flameCount = 87 + (hasLiked ? 1 : 0);
-  const heartCount = 42 + (hasHeart ? 1 : 0);
-  const penlightCount = 64 + (hasPenlight ? 1 : 0);
+  const lightstickCount = 128 + (hasLightstick ? 1 : 0);
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
@@ -50,8 +45,8 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
       id: `r-new-${Date.now()}`,
       author: {
         name: "PenlightMerah",
-        avatar: "/members/freya.jpg",
-        oshi: "Freya",
+        avatar: "/members/fera.jpg",
+        oshi: "Fera",
       },
       createdAt: "Baru saja",
       content: newReplyText.trim(),
@@ -59,6 +54,14 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
     };
     setReplies((prev) => [...prev, newReply]);
     setNewReplyText("");
+  };
+
+  const focusComposer = () => {
+    if (composerRef.current) {
+      composerRef.current.scrollIntoView({ behavior: "smooth" });
+      const textarea = composerRef.current.querySelector("textarea");
+      if (textarea) textarea.focus();
+    }
   };
 
   return (
@@ -95,9 +98,9 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
           {thread.tags.map((tag) => (
             <span
               key={tag.slug}
-              className="px-3 py-1 rounded-full bg-raised text-muted font-mono text-xs border border-ink-a10"
+              className="px-3 py-1 rounded-full bg-raised text-muted font-mono text-xs border border-border"
             >
-              #{tag.label}
+              {tag.label}
             </span>
           ))}
         </div>
@@ -108,9 +111,9 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
         </h1>
 
         {/* Author Row */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 pb-6 border-b border-ink-a10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 pb-6 border-b border-raised">
           <div className="flex items-center gap-3.5">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden bg-gradient-to-br from-accent to-curtain-800 flex items-center justify-center text-white font-mono text-xs font-bold flex-none">
+            <div className="relative w-11 h-11 rounded-full overflow-hidden bg-gradient-to-br from-crimson-600 to-curtain-800 flex items-center justify-center text-white font-mono text-xs font-bold flex-none">
               {thread.author.name.slice(0, 2).toUpperCase()}
             </div>
 
@@ -132,10 +135,10 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
           <button
             type="button"
             onClick={() => setIsFollowing(!isFollowing)}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all self-start sm:self-auto ${
+            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all self-start sm:self-auto cursor-pointer ${
               isFollowing
                 ? "bg-crimson-500 text-white"
-                : "bg-raised text-ink border border-ink-a20 hover:border-ink-a35"
+                : "bg-raised text-ink border border-border hover:border-focus"
             }`}
           >
             <Bell
@@ -151,54 +154,40 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
           {thread.content}
         </div>
 
-        {/* Reactions Toolbar */}
-        <div className="pt-6 border-t border-ink-a10 flex flex-wrap items-center justify-between gap-4">
+        {/* Reactions Toolbar: Lightstick, Balas, Simpan, Salin link */}
+        <div className="pt-6 border-t border-raised flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2 flex-wrap">
+            {/* Lightstick */}
             <button
               type="button"
-              onClick={() => setHasLiked(!hasLiked)}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
-                hasLiked
-                  ? "bg-crimson-500 text-white shadow-md shadow-crimson-500/30"
-                  : "bg-raised text-muted hover:text-ink"
+              onClick={() => setHasLightstick(!hasLightstick)}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
+                hasLightstick
+                  ? "bg-crimson-500/20 text-accent border border-crimson-500/50"
+                  : "bg-raised text-muted hover:text-ink border border-transparent"
               }`}
             >
-              <Flame weight="fill" className="w-4 h-4 text-accent" />
-              <span>{flameCount}</span>
+              <Flashlight weight="fill" className="w-4 h-4 text-crimson-500" />
+              <span>{lightstickCount}</span>
             </button>
 
+            {/* Balas */}
             <button
               type="button"
-              onClick={() => setHasHeart(!hasHeart)}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
-                hasHeart
-                  ? "bg-crimson-500 text-white shadow-md shadow-crimson-500/30"
-                  : "bg-raised text-muted hover:text-ink"
-              }`}
+              onClick={focusComposer}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-sans font-medium bg-raised text-muted hover:text-ink transition-all cursor-pointer"
             >
-              <Heart weight="fill" className="w-4 h-4 text-accent" />
-              <span>{heartCount}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setHasPenlight(!hasPenlight)}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-mono font-medium transition-all ${
-                hasPenlight
-                  ? "bg-crimson-500 text-white shadow-md shadow-crimson-500/30"
-                  : "bg-raised text-muted hover:text-ink"
-              }`}
-            >
-              <Flashlight weight="fill" className="w-4 h-4 text-spotlight" />
-              <span>{penlightCount}</span>
+              <ChatCircle weight="bold" className="w-4 h-4" />
+              <span>Balas</span>
             </button>
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Simpan */}
             <button
               type="button"
               onClick={() => setIsBookmarked(!isBookmarked)}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all ${
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 isBookmarked
                   ? "bg-crimson-500 text-white"
                   : "bg-raised text-muted hover:text-ink"
@@ -211,19 +200,20 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
               <span>{isBookmarked ? "Tersimpan" : "Simpan"}</span>
             </button>
 
+            {/* Salin link */}
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium bg-raised text-muted hover:text-ink transition-all"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium bg-raised text-muted hover:text-ink transition-all cursor-pointer"
             >
               <ShareNetwork weight="bold" className="w-4 h-4" />
-              <span>{copiedLink ? "Disalin!" : "Bagikan"}</span>
+              <span>{copiedLink ? "Disalin!" : "Salin link"}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* 3. Replies Section */}
+      {/* 3. Replies Section (Plain list, one nesting level, left rule, 32px avatars) */}
       <div className="space-y-6 pt-4">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -235,9 +225,9 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
             <button
               type="button"
               onClick={() => setActiveSort("oldest")}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 activeSort === "oldest"
-                  ? "bg-ink text-bg"
+                  ? "bg-ink text-bg font-bold"
                   : "text-muted hover:text-ink"
               }`}
             >
@@ -246,9 +236,9 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
             <button
               type="button"
               onClick={() => setActiveSort("newest")}
-              className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer ${
                 activeSort === "newest"
-                  ? "bg-ink text-bg"
+                  ? "bg-ink text-bg font-bold"
                   : "text-muted hover:text-ink"
               }`}
             >
@@ -257,7 +247,7 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
           </div>
         </div>
 
-        {/* Reply Composer Input */}
+        {/* Reply Composer (DS composer, no "Markdown didukung" note) */}
         <div
           ref={composerRef}
           className="rounded-[14px] bg-surface p-5 sm:p-6 space-y-4"
@@ -272,13 +262,13 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
 
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono text-subtle">
-              Markdown didukung · Sopan dan hargai fans lain
+              Sopan dan hargai fans lain
             </span>
 
             <button
               type="button"
               onClick={handleAddReply}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-crimson-500 text-white text-sm font-semibold hover:bg-crimson-600 transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-crimson-500 text-white text-sm font-semibold hover:bg-crimson-600 transition-colors cursor-pointer shadow-md shadow-crimson-500/20"
             >
               <span>Kirim balasan</span>
               <ArrowRight weight="bold" className="w-4 h-4" />
@@ -286,19 +276,17 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
           </div>
         </div>
 
-        {/* Replies List */}
-        <div className="space-y-4">
+        {/* Replies List (Plain list with one nesting level, left rule, 32px avatars) */}
+        <div className="space-y-6 pt-2">
           {replies.map((reply) => (
-            <div
-              key={reply.id}
-              className="p-5 sm:p-6 rounded-[14px] bg-surface space-y-3 transition-colors hover:bg-raised"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-950 flex items-center justify-center text-white font-mono text-xs font-bold">
-                    {reply.author.name.slice(0, 2).toUpperCase()}
-                  </div>
-                  <div>
+            <div key={reply.id} className="space-y-4">
+              <div className="flex items-start gap-3.5">
+                <div className="w-8 h-8 rounded-full bg-raised border border-border flex items-center justify-center text-ink font-mono text-xs font-bold shrink-0">
+                  {reply.author.name.slice(0, 2).toUpperCase()}
+                </div>
+
+                <div className="flex-1 min-w-0 space-y-1.5">
+                  <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-sm text-ink">
                         {reply.author.name}
@@ -307,34 +295,75 @@ export default function ThreadDetailMain({ thread }: ThreadDetailMainProps) {
                         Oshi: {reply.author.oshi}
                       </span>
                     </div>
+
+                    <span className="text-xs font-mono text-subtle">
+                      {reply.createdAt}
+                    </span>
+                  </div>
+
+                  <p className="text-sm font-sans text-ink leading-relaxed">
+                    {reply.content}
+                  </p>
+
+                  <div className="flex items-center gap-4 text-xs font-mono text-muted pt-1">
+                    <button
+                      type="button"
+                      className="hover:text-accent transition-colors cursor-pointer"
+                    >
+                      Lightstick ({reply.reactions})
+                    </button>
+                    <button
+                      type="button"
+                      onClick={focusComposer}
+                      className="hover:text-ink transition-colors cursor-pointer"
+                    >
+                      Balas
+                    </button>
                   </div>
                 </div>
-
-                <span className="text-xs font-mono text-subtle">
-                  {reply.createdAt}
-                </span>
               </div>
 
-              <p className="text-sm font-sans text-ink leading-relaxed pl-11">
-                {reply.content}
-              </p>
-
-              <div className="pl-11 pt-1 flex items-center gap-4 text-xs font-mono text-muted">
-                <button
-                  type="button"
-                  className="hover:text-accent transition-colors"
-                >
-                  Suka ({reply.reactions})
-                </button>
-                <button
-                  type="button"
-                  className="hover:text-ink transition-colors"
-                >
-                  Balas
-                </button>
-              </div>
+              {/* Nested Reply Example with Left Rule */}
+              {reply.id === "r-1" && (
+                <div className="pl-6 ml-4 border-l-2 border-raised space-y-3 pt-2">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-raised border border-border flex items-center justify-center text-ink font-mono text-xs font-bold shrink-0">
+                      GF
+                    </div>
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-sm text-ink">
+                            gitafans
+                          </span>
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-raised text-muted">
+                            Oshi: Gita
+                          </span>
+                        </div>
+                        <span className="text-xs font-mono text-subtle">
+                          10 mnt lalu
+                        </span>
+                      </div>
+                      <p className="text-sm font-sans text-ink leading-relaxed">
+                        Bener banget, apalagi waktu unit song kedua,
+                        sinkronisasinya rapi parah.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
+
+          {/* Load more replies button */}
+          <div className="pt-4 text-center">
+            <button
+              type="button"
+              className="px-6 py-2.5 rounded-full bg-raised text-ink text-sm font-medium hover:bg-border transition-colors cursor-pointer"
+            >
+              Muat 12 balasan lagi
+            </button>
+          </div>
         </div>
       </div>
     </div>

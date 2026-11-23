@@ -1,4 +1,3 @@
-import LiveTicker from "@/components/home/live-ticker";
 import HeroNightTheater from "@/components/home/hero-night-theater";
 import TrendingThreadsSection from "@/components/home/trending-threads-section";
 import SeatBlocksSection from "@/components/home/seat-blocks-section";
@@ -20,9 +19,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      {/* Live Ticker Bar at the top */}
-      <LiveTicker />
-
       {/* Hero Section with Interactive Cursor Spotlight */}
       <HeroNightTheater />
 

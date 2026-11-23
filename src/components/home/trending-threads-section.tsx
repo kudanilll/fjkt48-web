@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Flame, ChatCircle } from "@phosphor-icons/react";
+import { ArrowUpRight, Flashlight, Eye } from "@phosphor-icons/react";
 
 interface HotThread {
   id: string;
@@ -111,12 +111,12 @@ export default function TrendingThreadsSection() {
 
   return (
     <section
-      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300"
       aria-label="Thread forum terhangat"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
         {/* Section Header (FigCraft ID: 856) */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-[var(--line)]">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8">
           <div>
             <h2 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[96px] tracking-tight uppercase leading-none">
               LAGI RAME
@@ -157,7 +157,7 @@ export default function TrendingThreadsSection() {
         </div>
 
         {/* Thread Rows List (FigCraft ID: 871) */}
-        <div className="divide-y divide-[var(--line)]">
+        <div className="divide-y divide-raised">
           {hotThreads.map((thread) => (
             <Link
               key={thread.id}
@@ -214,9 +214,7 @@ export default function TrendingThreadsSection() {
 
                 {/* Author & Meta */}
                 <div className="flex items-center gap-2 text-xs text-muted font-sans flex-wrap">
-                  <span className="font-medium text-ink">
-                    {thread.author}
-                  </span>
+                  <span className="font-medium text-ink">{thread.author}</span>
                   <span>·</span>
                   <span className="text-muted">
                     {thread.oshi.startsWith("belum")
@@ -228,22 +226,25 @@ export default function TrendingThreadsSection() {
                 </div>
               </div>
 
-              {/* Right Column: Stats (Flame reactions, Views) + Circle Go Button (FigCraft ID: 549) */}
+              {/* Right Column: Stats (Lightstick, Views) + Circle Go Button (FigCraft ID: 549) */}
               <div className="flex items-center justify-between md:justify-end gap-6 shrink-0 font-mono-data text-xs text-muted">
                 <div className="flex items-center gap-5">
                   <div
                     className="flex items-center gap-1.5 text-crimson-400 font-medium"
-                    title="Reaksi"
+                    title="Lightstick"
                   >
-                    <Flame weight="fill" className="w-4 h-4 text-crimson-500" />
+                    <Flashlight
+                      weight="fill"
+                      className="w-4 h-4 text-crimson-500"
+                    />
                     <span>{thread.reactions}</span>
                   </div>
 
                   <div
                     className="flex items-center gap-1.5 text-muted"
-                    title="Views"
+                    title="Tayangan"
                   >
-                    <ChatCircle weight="bold" className="w-4 h-4" />
+                    <Eye weight="bold" className="w-4 h-4" />
                     <span>{thread.views}</span>
                   </div>
                 </div>

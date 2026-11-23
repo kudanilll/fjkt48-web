@@ -94,23 +94,20 @@ export default function LiveSideList({
         })}
       </div>
 
-      {/* Ruang Ngobrol Live Box */}
+      {/* Mau ngobrolin live ini? (card-forum-link) */}
       <div className="p-6 rounded-[14px] bg-surface space-y-3.5">
-        <span className="text-xs font-mono font-medium tracking-[1px] uppercase text-accent block">
-          DISKUSI REAL-TIME
-        </span>
         <h4 className="font-display font-extrabold text-2xl uppercase tracking-tight text-ink">
-          RUANG NGOBROL LIVE
+          Mau ngobrolin live ini?
         </h4>
         <p className="text-[13px] text-muted leading-relaxed font-sans">
-          Thread forum khusus untuk live yang lagi tayang. Ikut ngobrol bareng
-          fans lain tanpa spamming di kolom komentar streamer.
+          Komentarnya di platform aslinya. Rangkuman dan obrolan panjang
+          tempatnya di Blok C, Live Streaming.
         </p>
         <Link
           href="/forum?category=live-streaming"
-          className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full bg-crimson-500 text-white text-[15px] font-semibold hover:bg-crimson-600 transition-colors"
+          className="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full border border-border text-ink text-[15px] font-semibold hover:bg-raised transition-colors"
         >
-          <span>Masuk ke ruang chat forum</span>
+          <span>Buka Blok C</span>
           <ArrowRight weight="bold" className="w-4 h-4" />
         </Link>
       </div>

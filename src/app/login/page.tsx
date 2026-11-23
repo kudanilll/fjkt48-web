@@ -46,7 +46,7 @@ export default function LoginPage() {
         router.push("/dashboard");
       }
     } catch {
-      // Offline fallback or demo sign in
+      // Offline fallback / demo sign in
       router.push("/dashboard");
     } finally {
       setLoading(false);
@@ -55,8 +55,8 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen bg-bg text-ink flex flex-col lg:flex-row">
-      {/* 1. Left Column: Stage Side */}
-      <div className="stage relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-bg">
+      {/* 1. Left Column: Stage Side (§7.9, FigCraft Masuk Frame) */}
+      <div className="stage relative w-full lg:w-1/2 min-h-[300px] sm:min-h-[400px] lg:min-h-screen flex flex-col justify-between p-6 sm:p-10 lg:p-12 overflow-hidden bg-bg">
         {/* Background Photo */}
         <div className="absolute inset-0">
           <Image
@@ -65,32 +65,38 @@ export default function LoginPage() {
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover object-top opacity-30"
+            className="object-cover object-top opacity-60"
           />
-          {/* Overlays */}
-          <div className="absolute inset-0 house-tint pointer-events-none" />
-          <div className="absolute inset-0 spotlight-vignette pointer-events-none" />
-          <div className="absolute inset-0 floor-fade pointer-events-none" />
+          {/* Overlays per §7.4 & FigCraft node 9323 */}
+          <div className="absolute inset-0 house-tint opacity-60 mix-blend-multiply pointer-events-none" />
+          <div className="absolute inset-0 bg-bg opacity-25 pointer-events-none" />
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(180deg, rgba(11,10,12,0.85) 0%, rgba(11,10,12,0.3) 40%, rgba(11,10,12,0.98) 100%)",
+                "linear-gradient(180deg, rgba(11,10,12,0) 0%, rgba(11,10,12,0.9) 55%, rgba(11,10,12,1) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(11,10,12,0.7) 0%, rgba(11,10,12,0) 100%)",
             }}
           />
         </div>
 
         {/* Red Spotlight Beam */}
         <div
-          className="pointer-events-none absolute top-0 left-1/4 h-[700px] w-[360px] mix-blend-screen opacity-60"
+          className="pointer-events-none absolute top-0 left-1/4 h-[640px] w-[320px] mix-blend-screen opacity-75"
           style={{
             background:
-              "linear-gradient(180deg, rgba(229,19,46,0.24) 0%, rgba(229,19,46,0) 100%)",
+              "linear-gradient(180deg, rgba(255,231,204,0.16) 0%, rgba(255,231,204,0) 100%)",
             clipPath: "polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%)",
           }}
         />
 
-        {/* Top: FJKT48 Logo */}
+        {/* Top: FJKT48 Wordmark Logo */}
         <div className="relative z-10">
           <Link href="/" className="inline-flex items-center gap-0 group">
             <span className="font-display font-black text-3xl tracking-[-0.3px] text-ink">
@@ -102,23 +108,25 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        {/* Bottom Copy: Poster Text */}
-        <div className="relative z-10 max-w-lg pt-16 space-y-4">
-          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-ink select-none">
-            PANGGUNG KITA,
+        {/* Bottom Copy: Poster Text from Frame (FigCraft ID: 9333) */}
+        <div className="relative z-10 max-w-lg pt-12 lg:pt-16 space-y-4">
+          <h2 className="font-display font-black text-6xl sm:text-7xl lg:text-[104px] leading-[0.88] uppercase tracking-[-2.5px] text-ink select-none">
+            LAMPUNYA
             <br />
-            SUARA KITA.
+            MASIH NYALA.
           </h2>
 
-          <p className="text-[17px] font-sans text-muted leading-[26px]">
-            Komunitas fans independen JKT48. Masuk untuk ikut ngobrol di forum
-            dan dukung oshi kamu.
-          </p>
+          <div className="flex items-center gap-2 pt-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-crimson-500 shadow-[0_0_6px_rgba(229,19,46,0.9)]" />
+            <span className="text-sm font-sans font-medium text-muted">
+              318 fans lagi ngobrolin show tadi malam
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* 2. Right Column: Form Side */}
-      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-bg">
+      {/* 2. Right Column: Form Side (§7.9, FigCraft Masuk Frame) */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-between p-6 sm:p-10 lg:p-16 bg-bg">
         {/* Back Link */}
         <div>
           <Link
@@ -130,21 +138,15 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        {/* Main Form Container */}
-        <div className="max-w-[440px] w-full mx-auto my-12 space-y-8">
-          <div className="space-y-2">
-            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-ink leading-none">
-              MASUK KE AKUN
+        {/* Main Form Container (420px on desktop, full width on tablet/mobile) */}
+        <div className="w-full max-w-[420px] mx-auto my-10 lg:my-12 space-y-6">
+          <div className="space-y-3">
+            <h1 className="font-display font-black text-7xl sm:text-8xl lg:text-[104px] uppercase tracking-[-2.5px] text-ink leading-[0.88]">
+              MASUK
             </h1>
-            <p className="text-sm font-sans text-muted">
-              Belum punya akun?{" "}
-              <Link
-                href="/register"
-                className="text-accent font-medium hover:underline inline-flex items-center gap-1"
-              >
-                <span>Daftar sekarang</span>
-                <ArrowRight weight="bold" className="w-3.5 h-3.5" />
-              </Link>
+            <p className="text-[17px] font-sans text-muted leading-[26px]">
+              Lanjutkan obrolan yang kamu tinggal. Thread, balasan, dan oshi
+              kamu masih di tempatnya.
             </p>
           </div>
 
@@ -154,49 +156,10 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* Social Sign-in */}
-          <div>
-            <button
-              type="button"
-              onClick={() => router.push("/dashboard")}
-              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-raised text-ink font-sans text-sm font-semibold hover:bg-border transition-colors"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <path
-                  fill="#EA4335"
-                  d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
-                />
-                <path
-                  fill="#4285F4"
-                  d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 16.4C3.7 20.4 7.5 23 12 23z"
-                />
-              </svg>
-              <span>Masuk dengan Google</span>
-            </button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-raised" />
-            </div>
-            <span className="relative px-4 bg-bg text-xs font-mono text-subtle uppercase">
-              atau masuk dengan email
-            </span>
-          </div>
-
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5 pt-2">
             {/* Email Field */}
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <label
                 htmlFor="email"
                 className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
@@ -210,26 +173,18 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@domain.com"
                 required
-                className="w-full px-4 py-3.5 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
+                className="w-full px-4 py-3.5 rounded-xl bg-surface border border-border text-ink text-sm placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-focus transition-all"
               />
             </div>
 
             {/* Password Field */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
-                >
-                  PASSWORD
-                </label>
-                <Link
-                  href="#"
-                  className="text-xs font-sans text-muted hover:text-ink hover:underline"
-                >
-                  Lupa password?
-                </Link>
-              </div>
+            <div className="space-y-2">
+              <label
+                htmlFor="password"
+                className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
+              >
+                PASSWORD
+              </label>
 
               <div className="relative">
                 <input
@@ -239,13 +194,13 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
+                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-surface border border-border text-ink text-sm placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-focus transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label="Lihat password"
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-subtle hover:text-ink transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-subtle hover:text-ink transition-colors cursor-pointer"
                 >
                   {showPassword ? (
                     <EyeSlash weight="bold" className="w-4 h-4" />
@@ -257,11 +212,11 @@ export default function LoginPage() {
             </div>
 
             {/* Remember Me */}
-            <div className="flex items-center gap-2 pt-1">
+            <div className="flex items-center gap-2.5 pt-1">
               <button
                 type="button"
                 onClick={() => setRememberMe(!rememberMe)}
-                className={`w-4 h-4 rounded flex items-center justify-center transition-colors ${
+                className={`w-4 h-4 rounded flex items-center justify-center transition-colors cursor-pointer ${
                   rememberMe
                     ? "bg-crimson-500 text-white"
                     : "bg-surface border border-border"
@@ -281,16 +236,27 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-crimson-500 text-white text-base font-semibold hover:bg-crimson-600 active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full h-12 flex items-center justify-center gap-2 px-6 rounded-full bg-crimson-500 text-white text-sm font-semibold hover:bg-crimson-600 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-crimson-500/25"
             >
-              <span>{loading ? "Memproses..." : "Masuk ke akun"}</span>
+              <span>{loading ? "Memproses..." : "Masuk"}</span>
               <ArrowRight weight="bold" className="w-4 h-4" />
             </button>
+
+            {/* Switch to Register */}
+            <div className="pt-6 border-t border-ink-a10 flex items-center gap-1.5 text-sm font-sans">
+              <span className="text-muted">Belum punya akun?</span>
+              <Link
+                href="/register"
+                className="text-accent font-semibold underline underline-offset-2 hover:text-crimson-400"
+              >
+                Daftar, gratis
+              </Link>
+            </div>
           </form>
         </div>
 
         {/* Legal Text */}
-        <p className="text-xs font-mono text-subtle text-center max-w-sm mx-auto">
+        <p className="text-[13px] font-sans text-subtle text-left max-w-[420px] mx-auto leading-relaxed">
           Situs fans tidak resmi. Dengan masuk, kamu setuju dengan Aturan
           komunitas FJKT48.
         </p>

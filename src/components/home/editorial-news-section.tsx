@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import type { JKT48News } from "@/types/jkt48-types";
 
@@ -40,7 +39,7 @@ export default function EditorialNewsSection(props: EditorialNewsSectionProps) {
 
   return (
     <section
-      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300 border-t border-[var(--line)]"
+      className="w-full bg-bg text-ink py-20 sm:py-28 transition-colors duration-300"
       aria-label="Berita dan pengumuman resmi JKT48"
     >
       <div className="w-full px-6 sm:px-12 lg:px-16">
@@ -55,23 +54,10 @@ export default function EditorialNewsSection(props: EditorialNewsSectionProps) {
               Diambil langsung dari jkt48.com. Setiap pengumuman bisa langsung
               dibahas di forum.
             </p>
-
-            <div className="pt-2">
-              <Link
-                href="/news"
-                className="group inline-flex items-center gap-1.5 font-mono-data text-xs sm:text-sm font-semibold text-crimson-400 hover:text-crimson-500 transition-colors uppercase tracking-wider"
-              >
-                <span>LIHAT ARSIP BERITA</span>
-                <ArrowUpRight
-                  weight="bold"
-                  className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </Link>
-            </div>
           </div>
 
           {/* Right Column: List of News Rows (Spans 8 cols on desktop) - FigCraft ID: 1308 */}
-          <div className="lg:col-span-8 divide-y divide-[var(--line)] border-t lg:border-t-0 border-[var(--line)]">
+          <div className="lg:col-span-8 divide-y divide-raised">
             {officialNews.map((item) => (
               <a
                 key={item.id}
@@ -86,15 +72,15 @@ export default function EditorialNewsSection(props: EditorialNewsSectionProps) {
                     {item.date}
                   </span>
 
-                  {/* Title */}
-                  <h3 className="font-sans font-semibold text-base sm:text-lg text-ink group-hover:text-crimson-400 transition-colors leading-snug">
+                  {/* Title with line clamp */}
+                  <h3 className="font-sans font-semibold text-base sm:text-lg text-ink group-hover:text-crimson-400 transition-colors leading-snug line-clamp-1 sm:line-clamp-2">
                     {item.title}
                   </h3>
                 </div>
 
                 {/* Right Category Tag & Arrow */}
                 <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto font-mono-data text-xs text-muted">
-                  <span className="px-2.5 py-0.5 rounded-full bg-raised text-muted border border-border text-xs">
+                  <span className="text-muted text-xs font-mono-data">
                     {item.category}
                   </span>
                   <ArrowUpRight

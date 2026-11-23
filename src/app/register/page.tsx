@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -9,13 +9,27 @@ import {
   ArrowRight,
   Eye,
   EyeSlash,
-  CaretDown,
+  Check,
+  MagnifyingGlass,
+  X,
 } from "@phosphor-icons/react";
 import { authClient } from "@/lib/auth-client";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Member } from "@/types/jkt48-types";
 
-const membersList = (officialData.members ?? []) as JKT48Member[];
+const allMembers = (officialData.members ?? []) as JKT48Member[];
+
+// Suggested members for quick pick (5 for mobile/desktop, 8 for tablet)
+const suggestedNicknames = [
+  "freya",
+  "christy",
+  "gita",
+  "marsha",
+  "muthe",
+  "fiony",
+  "kathrina",
+  "lulu",
+];
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -23,14 +37,62 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [selectedOshi, setSelectedOshi] = useState<string>("FREYA_JAYAWARDANA");
+  const [selectedOshi, setSelectedOshi] = useState<string>("freya");
+  const [agreedTerms, setAgreedTerms] = useState(true);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [searchMemberQuery, setSearchMemberQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // Filter members for modal
+  const filteredModalMembers = useMemo(() => {
+    if (!searchMemberQuery.trim()) return allMembers;
+    const q = searchMemberQuery.toLowerCase();
+    return allMembers.filter(
+      (m) =>
+        m.name.toLowerCase().includes(q) ||
+        m.nickname.toLowerCase().includes(q) ||
+        m.type.toLowerCase().includes(q)
+    );
+  }, [searchMemberQuery]);
+
+  // Password strength calculation (0 to 4)
+  const passwordStrength = useMemo(() => {
+    if (!password) return 0;
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+    return score;
+  }, [password]);
+
+  const passwordHint = useMemo(() => {
+    switch (passwordStrength) {
+      case 0:
+        return "Minimal 8 karakter.";
+      case 1:
+        return "Agak lemah. Tambah huruf besar atau angka.";
+      case 2:
+        return "Lumayan kuat. Tambah satu angka biar makin aman.";
+      case 3:
+        return "Kuat. Tambah simbol untuk proteksi maksimal.";
+      case 4:
+        return "Sangat kuat! Password kamu siap digunakan.";
+      default:
+        return "";
+    }
+  }, [passwordStrength]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !password) {
       setErrorMsg("Mohon lengkapi seluruh formulir pendaftaran.");
+      return;
+    }
+
+    if (!agreedTerms) {
+      setErrorMsg("Kamu harus menyetujui Aturan komunitas FJKT48.");
       return;
     }
 
@@ -52,7 +114,7 @@ export default function RegisterPage() {
         router.push("/dashboard");
       }
     } catch {
-      // Offline fallback or demo sign up
+      // Offline fallback / demo sign up
       router.push("/dashboard");
     } finally {
       setLoading(false);
@@ -61,8 +123,8 @@ export default function RegisterPage() {
 
   return (
     <main className="min-h-screen bg-bg text-ink flex flex-col lg:flex-row">
-      {/* 1. Left Column: Stage Side */}
-      <div className="stage relative lg:w-1/2 min-h-[380px] lg:min-h-screen flex flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-bg">
+      {/* 1. Left Column: Stage Side (§7.9, FigCraft Daftar Frame) */}
+      <div className="stage relative w-full lg:w-1/2 min-h-[300px] sm:min-h-[400px] lg:min-h-screen flex flex-col justify-between p-6 sm:p-10 lg:p-12 overflow-hidden bg-bg">
         {/* Background Photo */}
         <div className="absolute inset-0">
           <Image
@@ -71,32 +133,38 @@ export default function RegisterPage() {
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover object-top opacity-30"
+            className="object-cover object-top opacity-60"
           />
-          {/* Overlays */}
-          <div className="absolute inset-0 house-tint pointer-events-none" />
-          <div className="absolute inset-0 spotlight-vignette pointer-events-none" />
-          <div className="absolute inset-0 floor-fade pointer-events-none" />
+          {/* Overlays per §7.4 & FigCraft node 9373 */}
+          <div className="absolute inset-0 house-tint opacity-60 mix-blend-multiply pointer-events-none" />
+          <div className="absolute inset-0 bg-bg opacity-25 pointer-events-none" />
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(180deg, rgba(11,10,12,0.85) 0%, rgba(11,10,12,0.3) 40%, rgba(11,10,12,0.98) 100%)",
+                "linear-gradient(180deg, rgba(11,10,12,0) 0%, rgba(11,10,12,0.9) 55%, rgba(11,10,12,1) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(11,10,12,0.7) 0%, rgba(11,10,12,0) 100%)",
             }}
           />
         </div>
 
         {/* Red Spotlight Beam */}
         <div
-          className="pointer-events-none absolute top-0 left-1/4 h-[700px] w-[360px] mix-blend-screen opacity-60"
+          className="pointer-events-none absolute top-0 left-1/4 h-[640px] w-[320px] mix-blend-screen opacity-75"
           style={{
             background:
-              "linear-gradient(180deg, rgba(229,19,46,0.24) 0%, rgba(229,19,46,0) 100%)",
+              "linear-gradient(180deg, rgba(255,231,204,0.16) 0%, rgba(255,231,204,0) 100%)",
             clipPath: "polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%)",
           }}
         />
 
-        {/* Top: FJKT48 Logo */}
+        {/* Top: FJKT48 Wordmark Logo */}
         <div className="relative z-10">
           <Link href="/" className="inline-flex items-center gap-0 group">
             <span className="font-display font-black text-3xl tracking-[-0.3px] text-ink">
@@ -108,23 +176,25 @@ export default function RegisterPage() {
           </Link>
         </div>
 
-        {/* Bottom Copy: Poster Text */}
-        <div className="relative z-10 max-w-lg pt-16 space-y-4">
-          <h2 className="font-display font-black text-5xl sm:text-6xl lg:text-[72px] leading-[0.92] uppercase tracking-[-1px] text-ink select-none">
-            PANGGUNG KITA,
+        {/* Bottom Copy: Poster Text from Frame (FigCraft ID: 9383) */}
+        <div className="relative z-10 max-w-lg pt-12 lg:pt-16 space-y-4">
+          <h2 className="font-display font-black text-6xl sm:text-7xl lg:text-[104px] leading-[0.88] uppercase tracking-[-2.5px] text-ink select-none">
+            AMBIL
             <br />
-            SUARA KITA.
+            KURSIMU.
           </h2>
 
-          <p className="text-[17px] font-sans text-muted leading-[26px]">
-            Komunitas fans independen JKT48. Masuk untuk ikut ngobrol di forum
-            dan dukung oshi kamu.
-          </p>
+          <div className="flex items-center gap-2 pt-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-crimson-500 shadow-[0_0_6px_rgba(229,19,46,0.9)]" />
+            <span className="text-sm font-sans font-medium text-muted">
+              7.488 thread aktif di forum saat ini
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* 2. Right Column: Form Side */}
-      <div className="lg:w-1/2 flex flex-col justify-between p-8 sm:p-12 lg:p-16 bg-bg">
+      {/* 2. Right Column: Form Side (§7.9, FigCraft Daftar Frame) */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-between p-6 sm:p-10 lg:p-16 bg-bg">
         {/* Back Link */}
         <div>
           <Link
@@ -136,21 +206,15 @@ export default function RegisterPage() {
           </Link>
         </div>
 
-        {/* Main Form Container */}
-        <div className="max-w-[440px] w-full mx-auto my-12 space-y-8">
-          <div className="space-y-2">
-            <h1 className="font-display font-extrabold text-4xl sm:text-[56px] uppercase tracking-[-1px] text-ink leading-none">
-              BUAT AKUN BARU
+        {/* Main Form Container (420px on desktop, full width on tablet/mobile) */}
+        <div className="w-full max-w-[420px] mx-auto my-10 lg:my-12 space-y-6">
+          <div className="space-y-3">
+            <h1 className="font-display font-black text-7xl sm:text-8xl lg:text-[104px] uppercase tracking-[-2.5px] text-ink leading-[0.88]">
+              DAFTAR
             </h1>
-            <p className="text-sm font-sans text-muted">
-              Sudah punya akun?{" "}
-              <Link
-                href="/login"
-                className="text-accent font-medium hover:underline inline-flex items-center gap-1"
-              >
-                <span>Masuk di sini</span>
-                <ArrowRight weight="bold" className="w-3.5 h-3.5" />
-              </Link>
+            <p className="text-[17px] font-sans text-muted leading-[26px]">
+              Gratis, cukup email. Pilih oshi biar beranda kamu ngikutin jadwal
+              dan live-nya.
             </p>
           </div>
 
@@ -160,49 +224,10 @@ export default function RegisterPage() {
             </div>
           )}
 
-          {/* Social Sign-in */}
-          <div>
-            <button
-              type="button"
-              onClick={() => router.push("/dashboard")}
-              className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-full bg-raised text-ink font-sans text-sm font-semibold hover:bg-border transition-colors"
-            >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <path
-                  fill="#EA4335"
-                  d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"
-                />
-                <path
-                  fill="#4285F4"
-                  d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 16.4C3.7 20.4 7.5 23 12 23z"
-                />
-              </svg>
-              <span>Daftar dengan Google</span>
-            </button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-raised" />
-            </div>
-            <span className="relative px-4 bg-bg text-xs font-mono text-subtle uppercase">
-              atau daftar dengan email
-            </span>
-          </div>
-
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Display Name */}
-            <div className="space-y-1.5">
+          <form onSubmit={handleSubmit} className="space-y-5 pt-2">
+            {/* Display Name Field */}
+            <div className="space-y-2">
               <label
                 htmlFor="name"
                 className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
@@ -214,14 +239,14 @@ export default function RegisterPage() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="PenlightMerah"
+                placeholder="Penlight Merah"
                 required
-                className="w-full px-4 py-3.5 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
+                className="w-full px-4 py-3.5 rounded-xl bg-surface border border-border text-ink text-sm placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-focus transition-all"
               />
             </div>
 
             {/* Email Field */}
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <label
                 htmlFor="email"
                 className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
@@ -235,34 +260,34 @@ export default function RegisterPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@domain.com"
                 required
-                className="w-full px-4 py-3.5 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
+                className="w-full px-4 py-3.5 rounded-xl bg-surface border border-border text-ink text-sm placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-focus transition-all"
               />
             </div>
 
-            {/* Password Field */}
-            <div className="space-y-1.5">
+            {/* Password Field + 4-segment Strength Meter */}
+            <div className="space-y-2">
               <label
                 htmlFor="password"
                 className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
               >
                 PASSWORD
               </label>
+
               <div className="relative">
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Minimal 8 karakter"
+                  placeholder="••••••••"
                   required
-                  minLength={8}
-                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-surface text-ink text-sm placeholder-subtle focus:outline-none focus:ring-1 focus:ring-focus transition-all"
+                  className="w-full px-4 py-3.5 pr-11 rounded-xl bg-surface border border-border text-ink text-sm placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-focus transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label="Lihat password"
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-subtle hover:text-ink transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-subtle hover:text-ink transition-colors cursor-pointer"
                 >
                   {showPassword ? (
                     <EyeSlash weight="bold" className="w-4 h-4" />
@@ -271,58 +296,233 @@ export default function RegisterPage() {
                   )}
                 </button>
               </div>
+
+              {/* 4-segment password meter (FigCraft ID: 9424) */}
+              <div className="space-y-1.5 pt-1">
+                <div className="grid grid-cols-4 gap-1.5 h-1 w-full">
+                  {[1, 2, 3, 4].map((step) => {
+                    const isFilled = passwordStrength >= step;
+                    return (
+                      <div
+                        key={step}
+                        className={`h-full rounded-full transition-colors duration-200 ${
+                          isFilled
+                            ? passwordStrength <= 1
+                              ? "bg-curtain-800"
+                              : passwordStrength === 2
+                                ? "bg-amber-500"
+                                : passwordStrength === 3
+                                  ? "bg-emerald-500"
+                                  : "bg-crimson-500"
+                            : "bg-raised"
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
+                <p className="text-[13px] font-sans text-muted leading-[18px]">
+                  {passwordHint}
+                </p>
+              </div>
             </div>
 
-            {/* Select Oshi (Optional) */}
-            <div className="space-y-1.5">
-              <label
-                htmlFor="oshi"
-                className="text-xs font-mono font-medium tracking-[1px] uppercase text-muted block"
-              >
-                PILIH OSHI (OPSIONAL)
-              </label>
-              <div className="relative">
-                <select
-                  id="oshi"
-                  value={selectedOshi}
-                  onChange={(e) => setSelectedOshi(e.target.value)}
-                  className="w-full appearance-none px-4 py-3.5 pr-11 rounded-xl bg-surface text-ink text-sm focus:outline-none focus:ring-1 focus:ring-focus transition-all"
-                >
-                  {membersList.map((m) => (
-                    <option
-                      key={m.code}
-                      value={m.code}
-                      className="bg-surface"
-                    >
-                      {m.name} ({m.nickname})
-                    </option>
-                  ))}
-                </select>
-                <CaretDown
-                  weight="bold"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-subtle pointer-events-none"
-                />
+            {/* Oshi Picker (FigCraft ID: 9431) */}
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center justify-between">
+                <label className="text-[15px] font-sans font-medium text-ink block">
+                  Oshi kamu
+                </label>
+                <span className="text-[13px] font-sans text-muted">
+                  opsional, bisa diganti nanti
+                </span>
               </div>
+
+              {/* Suggested Options Row */}
+              <div className="flex items-center justify-between gap-2 overflow-x-auto scrollbar-none py-1">
+                {suggestedNicknames.slice(0, 5).map((nickname) => {
+                  const isSelected = selectedOshi.toLowerCase() === nickname;
+                  const memberObj = allMembers.find(
+                    (m) => m.nickname.toLowerCase() === nickname
+                  );
+                  const displayName = memberObj ? memberObj.nickname : nickname;
+
+                  return (
+                    <button
+                      key={nickname}
+                      type="button"
+                      onClick={() => setSelectedOshi(nickname)}
+                      className="flex flex-col items-center gap-1.5 group cursor-pointer shrink-0"
+                    >
+                      <div
+                        className={`relative w-14 h-14 rounded-full overflow-hidden transition-all bg-raised ${
+                          isSelected
+                            ? "ring-[3px] ring-crimson-500 ring-offset-2 ring-offset-bg scale-105"
+                            : "border border-border opacity-70 group-hover:opacity-100 group-hover:border-ink-a35"
+                        }`}
+                      >
+                        <Image
+                          src={`/members/${nickname}.jpg`}
+                          alt={displayName}
+                          fill
+                          className="object-cover object-top"
+                        />
+                      </div>
+                      <span
+                        className={`text-xs font-sans capitalize transition-colors ${
+                          isSelected
+                            ? "text-accent font-semibold"
+                            : "text-muted group-hover:text-ink"
+                        }`}
+                      >
+                        {displayName}
+                      </span>
+                    </button>
+                  );
+                })}
+
+                {/* Cari Button (FigCraft ID: 9456) */}
+                <button
+                  type="button"
+                  onClick={() => setSearchModalOpen(true)}
+                  className="flex flex-col items-center gap-1.5 group cursor-pointer shrink-0"
+                >
+                  <div className="w-14 h-14 rounded-full border border-dashed border-border flex items-center justify-center text-muted group-hover:text-ink group-hover:border-ink transition-colors bg-raised/40">
+                    <MagnifyingGlass weight="bold" className="w-5 h-5" />
+                  </div>
+                  <span className="text-xs font-sans text-muted group-hover:text-ink font-medium">
+                    Cari
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Terms and Conditions Checkbox */}
+            <div className="flex items-center gap-2.5 pt-2">
+              <button
+                type="button"
+                onClick={() => setAgreedTerms(!agreedTerms)}
+                className={`w-4 h-4 rounded flex items-center justify-center transition-colors cursor-pointer shrink-0 ${
+                  agreedTerms
+                    ? "bg-crimson-500 text-white"
+                    : "bg-surface border border-border"
+                }`}
+              >
+                {agreedTerms && <Check weight="bold" className="w-3 h-3" />}
+              </button>
+              <span
+                onClick={() => setAgreedTerms(!agreedTerms)}
+                className="text-xs font-sans text-muted cursor-pointer select-none"
+              >
+                Setuju dengan Aturan komunitas FJKT48
+              </span>
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-crimson-500 text-white text-base font-semibold hover:bg-crimson-600 active:scale-[0.98] transition-all disabled:opacity-50"
+              className="w-full h-12 flex items-center justify-center gap-2 px-6 rounded-full bg-crimson-500 text-white text-sm font-semibold hover:bg-crimson-600 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-crimson-500/25"
             >
-              <span>{loading ? "Mendaftar..." : "Daftar akun baru"}</span>
+              <span>{loading ? "Mendaftar..." : "Bikin akun"}</span>
               <ArrowRight weight="bold" className="w-4 h-4" />
             </button>
+
+            {/* Switch to Login */}
+            <div className="pt-6 border-t border-ink-a10 flex items-center gap-1.5 text-sm font-sans">
+              <span className="text-muted">Udah punya akun?</span>
+              <Link
+                href="/login"
+                className="text-accent font-semibold underline underline-offset-2 hover:text-crimson-400"
+              >
+                Masuk
+              </Link>
+            </div>
           </form>
         </div>
 
         {/* Legal Text */}
-        <p className="text-xs font-mono text-subtle text-center max-w-sm mx-auto">
+        <p className="text-[13px] font-sans text-subtle text-left max-w-[420px] mx-auto leading-relaxed">
           Situs fans tidak resmi. Email kamu cuma dipakai buat akun forum, nggak
           dibagikan ke siapa pun.
         </p>
       </div>
+
+      {/* Search Oshi Modal */}
+      {searchModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="relative w-full max-w-lg bg-surface rounded-2xl p-6 space-y-4 shadow-2xl border border-border max-h-[85vh] flex flex-col">
+            <div className="flex items-center justify-between">
+              <h3 className="font-display font-extrabold text-2xl uppercase tracking-tight text-ink">
+                PILIH OSHI
+              </h3>
+              <button
+                type="button"
+                onClick={() => setSearchModalOpen(false)}
+                className="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted hover:text-ink cursor-pointer"
+              >
+                <X weight="bold" className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Search Input */}
+            <div className="relative">
+              <MagnifyingGlass
+                weight="bold"
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted pointer-events-none"
+              />
+              <input
+                type="text"
+                value={searchMemberQuery}
+                onChange={(e) => setSearchMemberQuery(e.target.value)}
+                placeholder="Cari nama atau tim member..."
+                className="w-full h-11 pl-10 pr-4 rounded-xl bg-bg border border-border text-sm text-ink placeholder:text-subtle focus:outline-none focus:ring-1 focus:ring-focus"
+                autoFocus
+              />
+            </div>
+
+            {/* Member List Grid */}
+            <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 gap-3 pr-1">
+              {filteredModalMembers.map((member) => {
+                const isSelected =
+                  selectedOshi.toLowerCase() === member.nickname.toLowerCase();
+
+                return (
+                  <button
+                    key={member.code}
+                    type="button"
+                    onClick={() => {
+                      setSelectedOshi(member.nickname.toLowerCase());
+                      setSearchModalOpen(false);
+                    }}
+                    className={`flex items-center gap-3 p-2 rounded-xl transition-all text-left cursor-pointer ${
+                      isSelected
+                        ? "bg-curtain-800 text-white"
+                        : "bg-raised hover:bg-border text-ink"
+                    }`}
+                  >
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 bg-bg">
+                      <Image
+                        src={`/members/${member.nickname.toLowerCase()}.jpg`}
+                        alt={member.name}
+                        fill
+                        className="object-cover object-top"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-sans font-semibold text-xs truncate">
+                        {member.nickname}
+                      </p>
+                      <p className="text-[10px] font-mono text-muted truncate">
+                        Team {member.type}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
