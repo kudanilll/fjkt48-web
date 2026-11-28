@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import { CaretLeft, CaretRight, CalendarCheck } from "@phosphor-icons/react";
 import officialData from "@/data/jkt48-official.json";
 import type { JKT48Schedule } from "@/types/jkt48-types";
-import LiveTicker from "@/components/home/live-ticker";
 import ScheduleCalendarGrid from "@/components/schedule/schedule-calendar-grid";
 import ScheduleTicketRow from "@/components/schedule/schedule-ticket-row";
 
@@ -158,9 +157,6 @@ export default function SchedulePage() {
 
   return (
     <main className="min-h-screen bg-bg text-ink">
-      {/* 1. Live Ticker */}
-      <LiveTicker />
-
       {/* 2. Jadwal Head Section */}
       <section className="relative overflow-hidden pt-12 pb-14 border-b border-raised">
         {/* Spotlight Glow */}

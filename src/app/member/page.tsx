@@ -50,12 +50,12 @@ export default function MemberDirectoryPage() {
   }, [selectedTeam, search]);
 
   return (
-    <main className="min-h-screen bg-[var(--color-stage-950)] text-[var(--color-ink)]">
+    <main className="min-h-screen bg-(--color-stage-950) text-(--color-ink)">
       {/* Header & Filter Section */}
-      <section className="py-12 sm:py-16 md:py-20 border-b border-[var(--color-stage-800)] relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
         {/* Ambient spotlight behind header */}
         <div
-          className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full opacity-30"
+          className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-100 w-150 rounded-full opacity-30"
           style={{
             background:
               "radial-gradient(circle, rgba(229,19,46,0.18) 0%, transparent 70%)",
@@ -67,24 +67,18 @@ export default function MemberDirectoryPage() {
           {/* Header Title */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <span className="text-xs font-mono font-medium tracking-widest uppercase text-[var(--color-crimson-400)] block mb-1">
-                Katalog Resmi Anggota
-              </span>
-              <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl uppercase tracking-tight text-[var(--color-ink)]">
+              <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl uppercase tracking-tight text-(--color-ink)">
                 {counts[selectedTeam]} Member
               </h1>
-              <p className="text-sm sm:text-base text-[var(--color-muted)] max-w-xl mt-2 font-sans">
+              <p className="text-sm sm:text-base text-(--color-muted) max-w-xl mt-2 font-sans">
                 Daftar lengkap seluruh idola aktif di JKT48. Temukan oshi
                 pilihanmu, ikuti jadwal pertunjukan panggung mereka, dan
                 diskusikan di forum.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-stage-900)] text-xs font-mono text-[var(--color-muted)] self-start md:self-auto border border-[var(--color-stage-800)]">
-              <Users
-                weight="bold"
-                className="w-4 h-4 text-[var(--color-crimson-400)]"
-              />
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-(--color-stage-900) text-xs font-mono text-(--color-muted) self-start md:self-auto">
+              <Users weight="bold" className="w-4 h-4 text-crimson-400" />
               <span>
                 {filteredMembers.length} dari {allMembers.length} Aktif
               </span>
@@ -92,7 +86,7 @@ export default function MemberDirectoryPage() {
           </div>
 
           {/* Filter & Search Bar */}
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-3 rounded-2xl bg-[var(--color-stage-900)]">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-3 rounded-2xl bg-(--color-stage-900)">
             {/* Team Filter Segmented Chips */}
             <div className="flex flex-wrap items-center gap-1.5">
               {teams.map((t) => {
@@ -105,8 +99,8 @@ export default function MemberDirectoryPage() {
                     onClick={() => setSelectedTeam(t.id)}
                     className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                       isSelected
-                        ? "bg-[var(--color-crimson-500)] text-white shadow-md shadow-[var(--color-crimson-500)]/20"
-                        : "text-[var(--color-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-stage-800)]"
+                        ? "bg-crimson-500 text-white shadow-md shadow-(--color-crimson-500)/20"
+                        : "text-(--color-muted) hover:text-(--color-ink) hover:bg-(--color-stage-800)"
                     }`}
                   >
                     {t.dotColor && (
@@ -120,7 +114,7 @@ export default function MemberDirectoryPage() {
                       className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
                         isSelected
                           ? "bg-white/20 text-white"
-                          : "bg-[var(--color-stage-800)] text-[var(--color-muted)]"
+                          : "bg-(--color-stage-800) text-(--color-muted)"
                       }`}
                     >
                       {count}
@@ -131,17 +125,17 @@ export default function MemberDirectoryPage() {
             </div>
 
             {/* Search Input */}
-            <div className="relative min-w-[260px] max-w-md">
+            <div className="relative min-w-65 max-w-md">
               <MagnifyingGlass
                 weight="bold"
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted)] pointer-events-none"
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-(--color-muted) pointer-events-none"
               />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Cari nama atau nickname..."
-                className="w-full pl-10 pr-4 py-2 rounded-full bg-[var(--color-stage-800)] text-xs text-[var(--color-ink)] placeholder-[var(--color-subtle)] border border-[var(--color-stage-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-spotlight)] transition-all font-sans"
+                className="w-full pl-10 pr-4 py-2 rounded-full bg-(--color-stage-800) text-xs text-(--color-ink) placeholder-(--color-subtle) border border-(--color-stage-700) focus:outline-none focus:ring-2 focus:ring-(--color-spotlight) transition-all font-sans"
               />
             </div>
           </div>
@@ -157,10 +151,10 @@ export default function MemberDirectoryPage() {
                 <Link
                   key={member.code}
                   href={`/member/${member.code}`}
-                  className="group relative rounded-2xl overflow-hidden bg-[var(--color-stage-900)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col"
+                  className="group relative rounded-2xl overflow-hidden bg-(--color-stage-900) transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col"
                 >
                   {/* Portrait with the three mandatory overlays */}
-                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-stage-800)]">
+                  <div className="relative aspect-4/5 w-full overflow-hidden bg-(--color-stage-800)">
                     <Image
                       src={member.photo}
                       alt={member.name}
@@ -188,12 +182,12 @@ export default function MemberDirectoryPage() {
                   </div>
 
                   {/* Member Name and Nickname */}
-                  <div className="p-3.5 bg-[var(--color-stage-900)] flex flex-col justify-between flex-1">
+                  <div className="p-3.5 bg-(--color-stage-900) flex flex-col justify-between flex-1">
                     <div>
-                      <span className="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-[var(--color-ink)] group-hover:text-[var(--color-crimson-400)] transition-colors block truncate">
+                      <span className="font-display font-black text-xl sm:text-2xl uppercase tracking-tight text-(--color-ink) group-hover:text-crimson-400 transition-colors block truncate">
                         {member.nickname}
                       </span>
-                      <span className="text-xs text-[var(--color-muted)] truncate block mt-0.5">
+                      <span className="text-xs text-(--color-muted) truncate block mt-0.5">
                         {member.name}
                       </span>
                     </div>
@@ -205,12 +199,12 @@ export default function MemberDirectoryPage() {
             <div className="py-24 text-center space-y-3">
               <Users
                 weight="duotone"
-                className="w-12 h-12 mx-auto text-[var(--color-stage-700)]"
+                className="w-12 h-12 mx-auto text-(--color-stage-700)"
               />
-              <h3 className="text-lg font-semibold text-[var(--color-ink)]">
+              <h3 className="text-lg font-semibold text-(--color-ink)">
                 Tidak ada member yang cocok
               </h3>
-              <p className="text-sm text-[var(--color-muted)]">
+              <p className="text-sm text-(--color-muted)">
                 Coba ubah kata kunci pencarian atau pilih kategori tim lainnya.
               </p>
             </div>

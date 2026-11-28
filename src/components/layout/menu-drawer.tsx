@@ -70,7 +70,7 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
       role="dialog"
       aria-modal="true"
       aria-label="Menu navigasi"
-      className="fixed inset-0 z-50 flex flex-col bg-[var(--bg)] text-[var(--ink)] overflow-y-auto animate-in fade-in duration-300"
+      className="fixed inset-0 z-50 flex flex-col bg-bg text-ink overflow-y-auto animate-in fade-in duration-300"
     >
       {/* Top Header */}
       <div className="flex items-center justify-between px-6 sm:px-10 h-20 border-b border-border">
@@ -89,7 +89,7 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
           ref={closeButtonRef}
           type="button"
           onClick={onClose}
-          className="flex items-center justify-center w-11 h-11 rounded-full border border-border text-ink hover:bg-surface transition-colors cursor-pointer"
+          className="flex items-center justify-center w-11 h-11 rounded-full bg-raised text-ink hover:brightness-125 transition-colors cursor-pointer"
           aria-label="Tutup menu"
         >
           <X weight="bold" className="w-5 h-5" />
@@ -228,7 +228,7 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
           <Link
             href="/forum/new"
             onClick={onClose}
-            className="w-full h-[52px] rounded-full bg-crimson-500 hover:bg-crimson-600 text-white text-base font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg shadow-crimson-950/40"
+            className="w-full h-13 rounded-full bg-crimson-500 hover:bg-crimson-600 text-white text-base font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg shadow-crimson-950/40"
           >
             <Plus weight="bold" className="w-5 h-5" />
             <span>Bikin thread</span>

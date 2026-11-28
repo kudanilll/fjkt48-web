@@ -1,7 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import LiveTicker from "@/components/home/live-ticker";
 import ThreadDetailMain from "@/components/forum/thread-detail-main";
 import ThreadDetailRail from "@/components/forum/thread-detail-rail";
 import { forumThreads } from "@/data/forum-mock-data";
@@ -53,9 +52,6 @@ export default async function ThreadDetailPage({ params }: ThreadPageProps) {
 
   return (
     <main className="min-h-screen bg-bg text-ink">
-      {/* 1. Live Ticker */}
-      <LiveTicker />
-
       {/* 2. Main Thread Surface */}
       <div className="w-full px-6 sm:px-12 lg:px-16 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">

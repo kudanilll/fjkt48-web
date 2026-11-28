@@ -21,56 +21,94 @@ const heroMembers: HeroMember[] = [
   { nickname: "oline", name: "Oline Manuel", team: "Trainee", index: 4 },
 ];
 
+const memberCenters = [10, 30, 50, 70, 90];
+
 export default function HeroNightTheater() {
   const [activeSpotlight, setActiveSpotlight] = useState<number>(2); // Center member (Freya) default
-  const [isPointerInside, setIsPointerInside] = useState<boolean>(false);
+  const targetPosRef = useRef({ x: 50, y: 32 });
+  const currentPosRef = useRef({ x: 50, y: 32 });
+  const animFrameRef = useRef<number | null>(null);
+  const isPointerInsideRef = useRef<boolean>(false);
+  const lastInteractionTimeRef = useRef<number>(0);
   const heroRef = useRef<HTMLElement>(null);
-  const driftTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-drift idle animation (drifts between members every 3.5s when idle)
+  // Spotlight animation with lerp 0.12 and idle drift (FigCraft §738)
   useEffect(() => {
-    if (isPointerInside) return;
+    lastInteractionTimeRef.current = Date.now();
+    const startTime = Date.now();
 
-    const interval = setInterval(() => {
-      setActiveSpotlight((prev) => (prev + 1) % heroMembers.length);
-    }, 4000);
+    const loop = () => {
+      const now = Date.now();
+      const elapsed = (now - startTime) / 1000;
+      const timeSinceInteraction = now - lastInteractionTimeRef.current;
 
-    return () => clearInterval(interval);
-  }, [isPointerInside]);
+      // Idle drifting: smoothly wave across members when idle > 1.5s
+      if (!isPointerInsideRef.current && timeSinceInteraction > 1500) {
+        const idleWave = Math.sin((elapsed * 2 * Math.PI) / 12);
+        targetPosRef.current = {
+          x: 50 + idleWave * 32,
+          y: 32 + Math.cos((elapsed * 2 * Math.PI) / 6) * 4,
+        };
+      }
+
+      // Lerp 0.12 following target
+      const dx = targetPosRef.current.x - currentPosRef.current.x;
+      const dy = targetPosRef.current.y - currentPosRef.current.y;
+      currentPosRef.current.x += dx * 0.12;
+      currentPosRef.current.y += dy * 0.12;
+
+      // Direct DOM update via CSS variables for smooth 60fps rendering without React re-renders
+      if (heroRef.current) {
+        heroRef.current.style.setProperty(
+          "--spotlight-x",
+          `${currentPosRef.current.x.toFixed(2)}%`
+        );
+        heroRef.current.style.setProperty(
+          "--spotlight-y",
+          `${currentPosRef.current.y.toFixed(2)}%`
+        );
+      }
+
+      // Update lit card state only when crossing member boundaries
+      const colIndex = Math.min(
+        4,
+        Math.max(0, Math.floor((currentPosRef.current.x / 100) * 5))
+      );
+      setActiveSpotlight((prev) => (prev !== colIndex ? colIndex : prev));
+
+      animFrameRef.current = requestAnimationFrame(loop);
+    };
+
+    animFrameRef.current = requestAnimationFrame(loop);
+
+    return () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+    };
+  }, []);
 
   const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
     if (!heroRef.current) return;
-    setIsPointerInside(true);
-
-    if (driftTimerRef.current) {
-      clearTimeout(driftTimerRef.current);
-    }
-
-    driftTimerRef.current = setTimeout(() => {
-      setIsPointerInside(false);
-    }, 3000);
+    isPointerInsideRef.current = true;
+    lastInteractionTimeRef.current = Date.now();
 
     const rect = heroRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const width = rect.width;
-
-    // Determine which column is closest (0 to 4)
-    const colWidth = width / 5;
-    const colIndex = Math.min(
-      Math.max(0, Math.floor(x / colWidth)),
-      heroMembers.length - 1
+    const xPct = Math.max(
+      8,
+      Math.min(92, ((e.clientX - rect.left) / rect.width) * 100)
+    );
+    const yPct = Math.max(
+      22,
+      Math.min(50, ((e.clientY - rect.top) / rect.height) * 100)
     );
 
-    if (colIndex !== activeSpotlight) {
-      setActiveSpotlight(colIndex);
-    }
+    targetPosRef.current = { x: xPct, y: yPct };
   };
 
   const handlePointerLeave = () => {
-    driftTimerRef.current = setTimeout(() => {
-      setIsPointerInside(false);
-      setActiveSpotlight(2); // return to center
-    }, 1500);
+    isPointerInsideRef.current = false;
+    lastInteractionTimeRef.current = Date.now();
   };
 
   return (
@@ -78,61 +116,70 @@ export default function HeroNightTheater() {
       ref={heroRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      className="stage relative min-h-[820px] md:min-h-[920px] w-full overflow-hidden bg-bg text-ink pt-12 pb-20 flex flex-col justify-between select-none"
+      className="stage relative z-10 w-full overflow-x-clip bg-bg text-ink pt-4 sm:pt-6 pb-16 sm:pb-20 select-none"
       aria-label="Panggung Hero Night Theater"
     >
-      {/* House Tint Multiply Layer (§7.4) */}
+      {/* Overhead Spotlight Beam Cone (FigCraft ID: 853 - starts from ceiling above floating navbar) */}
       <div
-        className="pointer-events-none absolute inset-0 bg-house-tint mix-blend-multiply opacity-60 z-10"
-        aria-hidden="true"
-      />
-
-      {/* Dynamic Overhead Spotlight Beam */}
-      <div
-        className="pointer-events-none absolute top-0 w-80 md:w-96 h-[600px] transition-all duration-700 ease-out z-20"
+        className="pointer-events-none absolute -top-20 sm:-top-24 w-72 sm:w-88 md:w-95 h-170 md:h-190 -translate-x-1/2 mix-blend-screen z-10 transition-opacity duration-300"
         style={{
-          left: `${(activeSpotlight / (heroMembers.length - 1)) * 80 + 10}%`,
-          transform: "translateX(-50%)",
+          left: "var(--spotlight-x, 50%)",
           background:
-            "conic-gradient(from 180deg at 50% 0%, transparent 65deg, rgba(255, 231, 204, 0.16) 90deg, transparent 115deg)",
-          filter: "blur(20px)",
+            "linear-gradient(to bottom, rgba(255, 231, 204, 0.18) 0%, rgba(255, 231, 204, 0.05) 55%, transparent 100%)",
+          clipPath: "polygon(28% 0%, 72% 0%, 100% 100%, 0% 100%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Dynamic Floor Light Pool */}
+      {/* Dynamic Warm Ambient Spotlight Glow (FigCraft ID: 738, radius 280px) */}
       <div
-        className="pointer-events-none absolute top-[480px] md:top-[560px] w-96 h-28 rounded-full transition-all duration-700 ease-out z-20"
+        className="pointer-events-none absolute w-110 sm:w-130 md:w-140 h-110 sm:h-130 md:h-140 -translate-x-1/2 -translate-y-1/2 rounded-full mix-blend-screen z-10 filter blur-xl transition-opacity duration-300"
         style={{
-          left: `${(activeSpotlight / (heroMembers.length - 1)) * 80 + 10}%`,
-          transform: "translateX(-50%)",
+          left: "var(--spotlight-x, 50%)",
+          top: "var(--spotlight-y, 35%)",
           background:
-            "radial-gradient(ellipse at center, rgba(255, 231, 204, 0.25) 0%, rgba(255, 231, 204, 0) 70%)",
-          filter: "blur(12px)",
+            "radial-gradient(circle at center, rgba(255, 231, 204, 0.22) 0%, rgba(255, 231, 204, 0.06) 45%, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Dynamic Floor Light Pool (FigCraft ID: 854) */}
+      <div
+        className="pointer-events-none absolute top-[400px] sm:top-[480px] md:top-[540px] w-80 sm:w-96 md:w-105 h-20 -translate-x-1/2 rounded-[100%] mix-blend-screen z-10 filter blur-xs transition-opacity duration-300"
+        style={{
+          left: "var(--spotlight-x, 50%)",
+          background:
+            "radial-gradient(ellipse at center, rgba(255, 231, 204, 0.24) 0%, rgba(255, 231, 204, 0.06) 50%, transparent 70%)",
         }}
         aria-hidden="true"
       />
 
       {/* Five Member Stage Portraits (§7.4) */}
-      <div className="relative z-0 w-full px-4 sm:px-12 lg:px-16 pt-4 overflow-hidden">
-        <div className="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 justify-center items-center">
+      <div className="relative z-10 w-full px-4 sm:px-12 lg:px-16 mt-2 overflow-hidden">
+        <div className="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-2 justify-center items-center">
           {heroMembers.map((member) => {
             const isLit = activeSpotlight === member.index;
-
             return (
               <div
                 key={member.nickname}
-                onMouseEnter={() => setActiveSpotlight(member.index)}
-                className={`relative h-[380px] sm:h-[460px] md:h-[520px] rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ease-out ${
+                onMouseEnter={() => {
+                  isPointerInsideRef.current = true;
+                  lastInteractionTimeRef.current = Date.now();
+                  targetPosRef.current = {
+                    x: memberCenters[member.index],
+                    y: 32,
+                  };
+                }}
+                className={`relative h-95 sm:h-115 md:h-130 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ease-out ${
                   member.index === 0 || member.index === 4
                     ? "hidden lg:block"
                     : member.index === 1 || member.index === 3
-                      ? "w-16 sm:w-24 md:w-auto shrink-0 opacity-40 grayscale contrast-125 z-0"
-                      : "w-[240px] sm:w-[300px] md:w-auto shrink-0"
+                      ? "w-16 sm:w-24 md:w-auto shrink-0"
+                      : "w-60 sm:w-75 md:w-auto shrink-0"
                 } ${
                   isLit
-                    ? "scale-[1.02] shadow-2xl shadow-crimson-500/20 z-10 opacity-100"
-                    : "opacity-40 grayscale contrast-125 z-0"
+                    ? "shadow-2xl shadow-crimson-500/20 z-10 opacity-100 scale-[1.01]"
+                    : "opacity-35 grayscale contrast-125 z-0"
                 }`}
               >
                 {/* Member Photograph */}
@@ -141,13 +188,20 @@ export default function HeroNightTheater() {
                   alt={member.name}
                   fill
                   priority={member.index === 2}
-                  className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                  className="object-cover object-top transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 20vw"
                 />
 
-                {/* Spotlight Vignette */}
+                {/* Spotlight Vignette matching FigCraft Node 852 */}
                 <div
-                  className="pointer-events-none absolute inset-0 bg-radial-[circle_at_50%_36%] from-transparent via-bg/50 to-bg/90"
+                  className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${
+                    isLit ? "opacity-100" : "opacity-80"
+                  }`}
+                  style={{
+                    background: isLit
+                      ? "radial-gradient(circle at 50% 36%, transparent 0%, rgba(11, 10, 12, 0.15) 50%, rgba(11, 10, 12, 0.85) 100%)"
+                      : "rgba(11, 10, 12, 0.55)",
+                  }}
                   aria-hidden="true"
                 />
               </div>
@@ -156,16 +210,16 @@ export default function HeroNightTheater() {
         </div>
       </div>
 
-      {/* Floor Fade Linear Gradient to Dark Ground (§7.4) */}
+      {/* Floor Fade Linear Gradient to Dark Ground (FigCraft ID: 798) */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-[480px] bg-gradient-to-t from-bg via-bg/90 to-transparent z-20"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 sm:h-80 md:h-96 bg-linear-to-t from-bg via-bg/70 to-transparent z-20"
         aria-hidden="true"
       />
 
       {/* Poster Headline & Foreground Content */}
-      <div className="relative z-30 w-full px-6 sm:px-12 lg:px-16 pt-8">
+      <div className="relative z-30 w-full px-6 sm:px-12 lg:px-16 -mt-20 sm:-mt-28 md:-mt-36 lg:-mt-44 xl:-mt-44">
         <div className="space-y-6">
-          <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[132px] tracking-tight leading-[0.88] uppercase text-ink">
+          <h1 className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[124px] xl:text-[140px] tracking-tight leading-[0.88] uppercase text-ink">
             SHOW-NYA SELESAI.
             <br />
             OBROLANNYA BELUM.
@@ -197,7 +251,7 @@ export default function HeroNightTheater() {
               >
                 {/* Crimson Date Box */}
                 <div className="w-14 h-14 rounded-[10px] bg-crimson-500 flex flex-col items-center justify-center shrink-0">
-                  <span className="font-sans text-[10px] font-semibold text-white tracking-[0.05em] uppercase leading-none">
+                  <span className="font-sans text-[10px] font-semibold text-white tracking-wider uppercase leading-none">
                     MIN
                   </span>
                   <span className="font-display text-3xl font-black text-white leading-none mt-0.5">
