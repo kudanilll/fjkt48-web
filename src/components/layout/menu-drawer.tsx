@@ -49,6 +49,10 @@ export default function MenuDrawer({ isOpen, onClose }: MenuDrawerProps) {
     } else {
       start();
     }
+
+    return () => {
+      start();
+    };
   }, [isOpen, stop, start]);
 
   // Handle Escape key

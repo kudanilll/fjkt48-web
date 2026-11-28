@@ -7,6 +7,7 @@ import React, {
   useRef,
   useCallback,
 } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -38,6 +39,7 @@ export default function SmoothScroll({
   children: React.ReactNode;
 }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Check prefers-reduced-motion
@@ -50,12 +52,13 @@ export default function SmoothScroll({
     }
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      touchMultiplier: 2,
+      syncTouch: false,
+      autoResize: true,
     });
 
     lenisRef.current = lenis;
@@ -63,18 +66,46 @@ export default function SmoothScroll({
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Single unified clock: GSAP ticker drives Lenis raf
-    const updateTicker = (time: number) => {
-      lenis.raf(time * 1000);
+    // Native requestAnimationFrame loop with browser timestamp
+    let rafId: number;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
     };
-
-    gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
-      gsap.ticker.remove(updateTicker);
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
+    };
+  }, []);
+
+  // Recalculate dimensions and ensure scroll is running on route changes
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.start();
+      lenisRef.current.resize();
+      ScrollTrigger.refresh();
+    }
+  }, [pathname]);
+
+  // Ensure scroll is running and refreshed on tab focus / visibility changes
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && lenisRef.current) {
+        lenisRef.current.start();
+        lenisRef.current.resize();
+        ScrollTrigger.refresh();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("focus", handleVisibilityChange);
     };
   }, []);
 
